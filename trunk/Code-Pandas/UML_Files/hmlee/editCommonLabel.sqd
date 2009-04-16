@@ -9,7 +9,7 @@
           <x>114</x>
           <y>20</y>
           <width>5</width>
-          <height>673</height>
+          <height>611</height>
         </constraint>
         <sourceConnections/>
         <targetConnections/>
@@ -21,7 +21,7 @@
               <x>109</x>
               <y>104</y>
               <width>10</width>
-              <height>559</height>
+              <height>497</height>
             </constraint>
             <sourceConnections>
               <net.java.amateras.uml.sequencediagram.model.SyncMessageModel>
@@ -74,7 +74,7 @@
                       <x>282</x>
                       <y>20</y>
                       <width>5</width>
-                      <height>673</height>
+                      <height>611</height>
                     </constraint>
                     <sourceConnections/>
                     <targetConnections/>
@@ -87,7 +87,7 @@
                           <x>277</x>
                           <y>336</y>
                           <width>10</width>
-                          <height>317</height>
+                          <height>255</height>
                         </constraint>
                         <sourceConnections>
                           <net.java.amateras.uml.sequencediagram.model.ReturnMessageModel>
@@ -149,7 +149,7 @@
                                   <x>473</x>
                                   <y>20</y>
                                   <width>5</width>
-                                  <height>673</height>
+                                  <height>611</height>
                                 </constraint>
                                 <sourceConnections/>
                                 <targetConnections/>
@@ -239,7 +239,7 @@
                               <movable>true</movable>
                               <constraint>
                                 <x>468</x>
-                                <y>388</y>
+                                <y>356</y>
                                 <width>10</width>
                                 <height>146</height>
                               </constraint>
@@ -303,7 +303,7 @@
                                         <x>647</x>
                                         <y>20</y>
                                         <width>5</width>
-                                        <height>673</height>
+                                        <height>611</height>
                                       </constraint>
                                       <sourceConnections/>
                                       <targetConnections/>
@@ -328,7 +328,7 @@
                                     <movable>true</movable>
                                     <constraint>
                                       <x>642</x>
-                                      <y>400</y>
+                                      <y>368</y>
                                       <width>10</width>
                                       <height>44</height>
                                     </constraint>
@@ -392,7 +392,7 @@
                                               <x>807</x>
                                               <y>20</y>
                                               <width>5</width>
-                                              <height>673</height>
+                                              <height>611</height>
                                             </constraint>
                                             <sourceConnections/>
                                             <targetConnections/>
@@ -417,7 +417,7 @@
                                           <movable>true</movable>
                                           <constraint>
                                             <x>802</x>
-                                            <y>404</y>
+                                            <y>372</y>
                                             <width>10</width>
                                             <height>30</height>
                                           </constraint>
@@ -516,7 +516,7 @@
                                     <movable>true</movable>
                                     <constraint>
                                       <x>473</x>
-                                      <y>494</y>
+                                      <y>462</y>
                                       <width>10</width>
                                       <height>30</height>
                                     </constraint>
@@ -601,7 +601,7 @@
                               <movable>true</movable>
                               <constraint>
                                 <x>282</x>
-                                <y>613</y>
+                                <y>551</y>
                                 <width>10</width>
                                 <height>30</height>
                               </constraint>
@@ -644,7 +644,7 @@
                           <net.java.amateras.uml.sequencediagram.model.SyncMessageModel>
                             <order>6</order>
                             <oldOrder>6</oldOrder>
-                            <name>修改一个普通标签</name>
+                            <name>修改选中的普通标签</name>
                             <direction>true</direction>
                             <source class="net.java.amateras.uml.sequencediagram.model.ActivationModel" reference="../../../../../../../../.."/>
                             <target class="net.java.amateras.uml.sequencediagram.model.ActivationModel" reference="../../.."/>
@@ -745,7 +745,7 @@
                           <net.java.amateras.uml.sequencediagram.model.SyncMessageModel>
                             <order>4</order>
                             <oldOrder>4</oldOrder>
-                            <name>选择修改普通标签</name>
+                            <name>选择某个普通标签</name>
                             <direction>true</direction>
                             <source class="net.java.amateras.uml.sequencediagram.model.ActivationModel" reference="../../../../../../../../.."/>
                             <target class="net.java.amateras.uml.sequencediagram.model.ActivationModel" reference="../../.."/>

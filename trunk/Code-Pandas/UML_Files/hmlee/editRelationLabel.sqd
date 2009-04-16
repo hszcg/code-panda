@@ -9,7 +9,7 @@
           <x>127</x>
           <y>20</y>
           <width>5</width>
-          <height>622</height>
+          <height>613</height>
         </constraint>
         <sourceConnections/>
         <targetConnections/>
@@ -21,7 +21,7 @@
               <x>122</x>
               <y>96</y>
               <width>10</width>
-              <height>516</height>
+              <height>507</height>
             </constraint>
             <sourceConnections>
               <net.java.amateras.uml.sequencediagram.model.SyncMessageModel>
@@ -74,7 +74,7 @@
                       <x>306</x>
                       <y>20</y>
                       <width>5</width>
-                      <height>622</height>
+                      <height>613</height>
                     </constraint>
                     <sourceConnections/>
                     <targetConnections/>
@@ -85,7 +85,7 @@
                         <movable>true</movable>
                         <constraint>
                           <x>301</x>
-                          <y>255</y>
+                          <y>248</y>
                           <width>10</width>
                           <height>78</height>
                         </constraint>
@@ -102,7 +102,7 @@
                               <movable>true</movable>
                               <constraint>
                                 <x>306</x>
-                                <y>293</y>
+                                <y>286</y>
                                 <width>10</width>
                                 <height>30</height>
                               </constraint>
@@ -145,7 +145,7 @@
                           <net.java.amateras.uml.sequencediagram.model.SyncMessageModel>
                             <order>4</order>
                             <oldOrder>4</oldOrder>
-                            <name>修改关系标签的内容</name>
+                            <name>选择待修改的关系标签</name>
                             <direction>true</direction>
                             <source class="net.java.amateras.uml.sequencediagram.model.ActivationModel" reference="../../../../../../../../.."/>
                             <target class="net.java.amateras.uml.sequencediagram.model.ActivationModel" reference="../../.."/>
@@ -185,7 +185,7 @@
                         <movable>true</movable>
                         <constraint>
                           <x>301</x>
-                          <y>368</y>
+                          <y>359</y>
                           <width>10</width>
                           <height>234</height>
                         </constraint>
@@ -249,7 +249,7 @@
                                   <x>523</x>
                                   <y>20</y>
                                   <width>5</width>
-                                  <height>622</height>
+                                  <height>613</height>
                                 </constraint>
                                 <sourceConnections/>
                                 <targetConnections/>
@@ -339,7 +339,7 @@
                               <movable>true</movable>
                               <constraint>
                                 <x>518</x>
-                                <y>368</y>
+                                <y>359</y>
                                 <width>10</width>
                                 <height>141</height>
                               </constraint>
@@ -403,7 +403,7 @@
                                         <x>706</x>
                                         <y>20</y>
                                         <width>5</width>
-                                        <height>622</height>
+                                        <height>613</height>
                                       </constraint>
                                       <sourceConnections/>
                                       <targetConnections/>
@@ -428,7 +428,7 @@
                                     <movable>true</movable>
                                     <constraint>
                                       <x>701</x>
-                                      <y>385</y>
+                                      <y>376</y>
                                       <width>10</width>
                                       <height>40</height>
                                     </constraint>
@@ -492,7 +492,7 @@
                                               <x>874</x>
                                               <y>20</y>
                                               <width>5</width>
-                                              <height>622</height>
+                                              <height>613</height>
                                             </constraint>
                                             <sourceConnections/>
                                             <targetConnections/>
@@ -517,7 +517,7 @@
                                           <movable>true</movable>
                                           <constraint>
                                             <x>869</x>
-                                            <y>385</y>
+                                            <y>376</y>
                                             <width>10</width>
                                             <height>30</height>
                                           </constraint>
@@ -616,7 +616,7 @@
                                     <movable>true</movable>
                                     <constraint>
                                       <x>523</x>
-                                      <y>469</y>
+                                      <y>460</y>
                                       <width>10</width>
                                       <height>30</height>
                                     </constraint>
@@ -701,7 +701,7 @@
                               <movable>true</movable>
                               <constraint>
                                 <x>306</x>
-                                <y>562</y>
+                                <y>553</y>
                                 <width>10</width>
                                 <height>30</height>
                               </constraint>
@@ -744,7 +744,7 @@
                           <net.java.amateras.uml.sequencediagram.model.SyncMessageModel>
                             <order>6</order>
                             <oldOrder>6</oldOrder>
-                            <name>选择关系标签对应联系人</name>
+                            <name>修改选定的关系标签</name>
                             <direction>true</direction>
                             <source class="net.java.amateras.uml.sequencediagram.model.ActivationModel" reference="../../../../../../../../.."/>
                             <target class="net.java.amateras.uml.sequencediagram.model.ActivationModel" reference="../../.."/>

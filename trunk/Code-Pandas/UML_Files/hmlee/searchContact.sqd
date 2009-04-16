@@ -6,10 +6,10 @@
       <lifeLine>
         <owner reference="../.."/>
         <constraint>
-          <x>494</x>
+          <x>444</x>
           <y>20</y>
           <width>5</width>
-          <height>419</height>
+          <height>376</height>
         </constraint>
         <sourceConnections/>
         <targetConnections/>
@@ -18,8 +18,8 @@
             <ownerLine reference="../../.."/>
             <movable>true</movable>
             <constraint>
-              <x>489</x>
-              <y>255</y>
+              <x>439</x>
+              <y>238</y>
               <width>10</width>
               <height>30</height>
             </constraint>
@@ -35,7 +35,7 @@
                       <lifeLine reference="../.."/>
                       <root reference="../../../../../../../../../../.."/>
                       <constraint>
-                        <x>251</x>
+                        <x>208</x>
                         <y>20</y>
                         <width>100</width>
                         <height>-1</height>
@@ -69,10 +69,10 @@
                       </listeners>
                     </owner>
                     <constraint>
-                      <x>301</x>
+                      <x>258</x>
                       <y>20</y>
                       <width>5</width>
-                      <height>419</height>
+                      <height>376</height>
                     </constraint>
                     <sourceConnections/>
                     <targetConnections/>
@@ -81,7 +81,7 @@
                         <ownerLine reference="../../.."/>
                         <movable>true</movable>
                         <constraint>
-                          <x>296</x>
+                          <x>253</x>
                           <y>130</y>
                           <width>10</width>
                           <height>69</height>
@@ -98,7 +98,7 @@
                               <ownerLine reference="../../../../../.."/>
                               <movable>true</movable>
                               <constraint>
-                                <x>301</x>
+                                <x>258</x>
                                 <y>159</y>
                                 <width>10</width>
                                 <height>30</height>
@@ -151,7 +151,7 @@
                                   <lifeLine reference="../.."/>
                                   <root reference="../../../../../../../../../../../../../../../../.."/>
                                   <constraint>
-                                    <x>70</x>
+                                    <x>48</x>
                                     <y>20</y>
                                     <width>100</width>
                                     <height>-1</height>
@@ -177,10 +177,10 @@
                                   </listeners>
                                 </owner>
                                 <constraint>
-                                  <x>120</x>
+                                  <x>98</x>
                                   <y>20</y>
                                   <width>5</width>
-                                  <height>419</height>
+                                  <height>376</height>
                                 </constraint>
                                 <sourceConnections/>
                                 <targetConnections/>
@@ -204,10 +204,10 @@
                               </ownerLine>
                               <movable>true</movable>
                               <constraint>
-                                <x>115</x>
+                                <x>93</x>
                                 <y>117</y>
                                 <width>10</width>
-                                <height>292</height>
+                                <height>249</height>
                               </constraint>
                               <sourceConnections>
                                 <net.java.amateras.uml.sequencediagram.model.SyncMessageModel reference="../../.."/>
@@ -317,10 +317,10 @@
                   </ownerLine>
                   <movable>true</movable>
                   <constraint>
-                    <x>296</x>
-                    <y>251</y>
+                    <x>253</x>
+                    <y>234</y>
                     <width>10</width>
-                    <height>148</height>
+                    <height>122</height>
                   </constraint>
                   <sourceConnections>
                     <net.java.amateras.uml.sequencediagram.model.ReturnMessageModel reference="../../ownerLine/children/net.java.amateras.uml.sequencediagram.model.ActivationModel/targetConnections/net.java.amateras.uml.sequencediagram.model.SyncMessageModel/source/targetConnections/net.java.amateras.uml.sequencediagram.model.ReturnMessageModel"/>
@@ -344,9 +344,9 @@
                       </listeners>
                     </net.java.amateras.uml.sequencediagram.model.SyncMessageModel>
                     <net.java.amateras.uml.sequencediagram.model.SyncMessageModel>
-                      <order>7</order>
-                      <oldOrder>7</oldOrder>
-                      <name>searchResultDialog()</name>
+                      <order>5</order>
+                      <oldOrder>5</oldOrder>
+                      <name>createSearchResultDialog()</name>
                       <direction>true</direction>
                       <source class="net.java.amateras.uml.sequencediagram.model.ActivationModel" reference="../../.."/>
                       <target class="net.java.amateras.uml.sequencediagram.model.ActivationModel">
@@ -354,8 +354,8 @@
                         <ownerLine reference="../../../../ownerLine"/>
                         <movable>true</movable>
                         <constraint>
-                          <x>301</x>
-                          <y>359</y>
+                          <x>258</x>
+                          <y>316</y>
                           <width>10</width>
                           <height>30</height>
                         </constraint>
@@ -466,7 +466,7 @@
       </lifeLine>
       <root reference="../../.."/>
       <constraint>
-        <x>444</x>
+        <x>394</x>
         <y>20</y>
         <width>100</width>
         <height>-1</height>
@@ -496,10 +496,10 @@
       <lifeLine>
         <owner reference="../.."/>
         <constraint>
-          <x>657</x>
+          <x>619</x>
           <y>20</y>
           <width>5</width>
-          <height>419</height>
+          <height>376</height>
         </constraint>
         <sourceConnections/>
         <targetConnections/>
@@ -521,7 +521,7 @@
       </lifeLine>
       <root reference="../../.."/>
       <constraint>
-        <x>607</x>
+        <x>569</x>
         <y>20</y>
         <width>100</width>
         <height>-1</height>
@@ -554,7 +554,7 @@
           <x>803</x>
           <y>20</y>
           <width>5</width>
-          <height>419</height>
+          <height>376</height>
         </constraint>
         <sourceConnections/>
         <targetConnections/>
