@@ -9,7 +9,7 @@
           <x>92</x>
           <y>20</y>
           <width>5</width>
-          <height>489</height>
+          <height>565</height>
         </constraint>
         <sourceConnections/>
         <targetConnections/>
@@ -21,7 +21,7 @@
               <x>87</x>
               <y>114</y>
               <width>10</width>
-              <height>365</height>
+              <height>441</height>
             </constraint>
             <sourceConnections>
               <net.java.amateras.uml.sequencediagram.model.SyncMessageModel>
@@ -74,7 +74,7 @@
                       <x>258</x>
                       <y>20</y>
                       <width>5</width>
-                      <height>489</height>
+                      <height>565</height>
                     </constraint>
                     <sourceConnections/>
                     <targetConnections/>
@@ -87,7 +87,7 @@
                           <x>253</x>
                           <y>287</y>
                           <width>10</width>
-                          <height>182</height>
+                          <height>258</height>
                         </constraint>
                         <sourceConnections>
                           <net.java.amateras.uml.sequencediagram.model.ReturnMessageModel>
@@ -149,7 +149,7 @@
                                   <x>457</x>
                                   <y>20</y>
                                   <width>5</width>
-                                  <height>489</height>
+                                  <height>565</height>
                                 </constraint>
                                 <sourceConnections/>
                                 <targetConnections/>
@@ -176,7 +176,7 @@
                                 <x>452</x>
                                 <y>298</y>
                                 <width>10</width>
-                                <height>62</height>
+                                <height>141</height>
                               </constraint>
                               <sourceConnections>
                                 <net.java.amateras.uml.sequencediagram.model.ReturnMessageModel>
@@ -199,7 +199,7 @@
                                 <net.java.amateras.uml.sequencediagram.model.SyncMessageModel>
                                   <order>5</order>
                                   <oldOrder>5</oldOrder>
-                                  <name>deleteContactModule()</name>
+                                  <name>deleteContactObject()</name>
                                   <direction>true</direction>
                                   <source class="net.java.amateras.uml.sequencediagram.model.ActivationModel" reference="../../.."/>
                                   <target class="net.java.amateras.uml.sequencediagram.model.ActivationModel">
@@ -238,7 +238,7 @@
                                         <x>645</x>
                                         <y>20</y>
                                         <width>5</width>
-                                        <height>489</height>
+                                        <height>565</height>
                                       </constraint>
                                       <sourceConnections/>
                                       <targetConnections/>
@@ -269,7 +269,7 @@
                                     </constraint>
                                     <sourceConnections>
                                       <net.java.amateras.uml.sequencediagram.model.ReturnMessageModel>
-                                        <name>DeleteContactInstance</name>
+                                        <name>SUCCESS/FAILURE</name>
                                         <direction>false</direction>
                                         <source class="net.java.amateras.uml.sequencediagram.model.ActivationModel" reference="../../.."/>
                                         <target class="net.java.amateras.uml.sequencediagram.model.ActivationModel" reference="../../../../../.."/>
@@ -327,7 +327,7 @@
                                               <x>821</x>
                                               <y>20</y>
                                               <width>5</width>
-                                              <height>489</height>
+                                              <height>565</height>
                                             </constraint>
                                             <sourceConnections/>
                                             <targetConnections/>
@@ -439,12 +439,64 @@
                                     </java.beans.PropertyChangeSupport>
                                   </listeners>
                                 </net.java.amateras.uml.sequencediagram.model.SyncMessageModel>
+                                <net.java.amateras.uml.sequencediagram.model.SyncMessageModel>
+                                  <order>7</order>
+                                  <oldOrder>7</oldOrder>
+                                  <name>updateContactList()</name>
+                                  <direction>true</direction>
+                                  <source class="net.java.amateras.uml.sequencediagram.model.ActivationModel" reference="../../.."/>
+                                  <target class="net.java.amateras.uml.sequencediagram.model.ActivationModel">
+                                    <owner reference="../../../.."/>
+                                    <ownerLine reference="../../../../ownerLine"/>
+                                    <movable>true</movable>
+                                    <constraint>
+                                      <x>457</x>
+                                      <y>399</y>
+                                      <width>10</width>
+                                      <height>30</height>
+                                    </constraint>
+                                    <sourceConnections/>
+                                    <targetConnections>
+                                      <net.java.amateras.uml.sequencediagram.model.SyncMessageModel reference="../../.."/>
+                                    </targetConnections>
+                                    <children/>
+                                    <filterProperty/>
+                                    <backgroundColor reference="../../../../../../../../../owner/backgroundColor"/>
+                                    <foregroundColor reference="../../../../../../../../../owner/foregroundColor"/>
+                                    <showIcon>true</showIcon>
+                                    <parent class="net.java.amateras.uml.sequencediagram.model.InteractionModel" reference="../../../../../../../../../../../../../../../../../.."/>
+                                    <listeners serialization="custom">
+                                      <java.beans.PropertyChangeSupport>
+                                        <default>
+                                          <propertyChangeSupportSerializedDataVersion>2</propertyChangeSupportSerializedDataVersion>
+                                          <source class="net.java.amateras.uml.sequencediagram.model.ActivationModel" reference="../../../.."/>
+                                        </default>
+                                        <null/>
+                                      </java.beans.PropertyChangeSupport>
+                                    </listeners>
+                                  </target>
+                                  <bendpoints/>
+                                  <backgroundColor reference="../../../../../../../../owner/backgroundColor"/>
+                                  <foregroundColor reference="../../../../../../../../owner/foregroundColor"/>
+                                  <showIcon>true</showIcon>
+                                  <listeners serialization="custom">
+                                    <java.beans.PropertyChangeSupport>
+                                      <default>
+                                        <propertyChangeSupportSerializedDataVersion>2</propertyChangeSupportSerializedDataVersion>
+                                        <source class="net.java.amateras.uml.sequencediagram.model.SyncMessageModel" reference="../../../.."/>
+                                      </default>
+                                      <null/>
+                                    </java.beans.PropertyChangeSupport>
+                                  </listeners>
+                                </net.java.amateras.uml.sequencediagram.model.SyncMessageModel>
                               </sourceConnections>
                               <targetConnections>
                                 <net.java.amateras.uml.sequencediagram.model.SyncMessageModel reference="../../.."/>
                                 <net.java.amateras.uml.sequencediagram.model.ReturnMessageModel reference="../../sourceConnections/net.java.amateras.uml.sequencediagram.model.SyncMessageModel/target/sourceConnections/net.java.amateras.uml.sequencediagram.model.ReturnMessageModel"/>
                               </targetConnections>
-                              <children/>
+                              <children>
+                                <net.java.amateras.uml.sequencediagram.model.ActivationModel reference="../../sourceConnections/net.java.amateras.uml.sequencediagram.model.SyncMessageModel[2]/target"/>
+                              </children>
                               <filterProperty/>
                               <backgroundColor reference="../../../../../../owner/backgroundColor"/>
                               <foregroundColor reference="../../../../../../owner/foregroundColor"/>
@@ -473,9 +525,9 @@
                             </listeners>
                           </net.java.amateras.uml.sequencediagram.model.SyncMessageModel>
                           <net.java.amateras.uml.sequencediagram.model.SyncMessageModel>
-                            <order>7</order>
-                            <oldOrder>7</oldOrder>
-                            <name>createResultDialog()</name>
+                            <order>8</order>
+                            <oldOrder>8</oldOrder>
+                            <name>createContactDialog()</name>
                             <direction>true</direction>
                             <source class="net.java.amateras.uml.sequencediagram.model.ActivationModel" reference="../../.."/>
                             <target class="net.java.amateras.uml.sequencediagram.model.ActivationModel">
@@ -484,7 +536,7 @@
                               <movable>true</movable>
                               <constraint>
                                 <x>258</x>
-                                <y>429</y>
+                                <y>505</y>
                                 <width>10</width>
                                 <height>30</height>
                               </constraint>
@@ -587,23 +639,6 @@
                     <height>86</height>
                   </constraint>
                   <sourceConnections>
-                    <net.java.amateras.uml.sequencediagram.model.ReturnMessageModel>
-                      <name>GET_READY</name>
-                      <direction>false</direction>
-                      <source class="net.java.amateras.uml.sequencediagram.model.ActivationModel" reference="../../.."/>
-                      <target class="net.java.amateras.uml.sequencediagram.model.ActivationModel" reference="../../../../../.."/>
-                      <bendpoints/>
-                      <showIcon>true</showIcon>
-                      <listeners serialization="custom">
-                        <java.beans.PropertyChangeSupport>
-                          <default>
-                            <propertyChangeSupportSerializedDataVersion>2</propertyChangeSupportSerializedDataVersion>
-                            <source class="net.java.amateras.uml.sequencediagram.model.ReturnMessageModel" reference="../../../.."/>
-                          </default>
-                          <null/>
-                        </java.beans.PropertyChangeSupport>
-                      </listeners>
-                    </net.java.amateras.uml.sequencediagram.model.ReturnMessageModel>
                     <net.java.amateras.uml.sequencediagram.model.SyncMessageModel>
                       <order>2</order>
                       <oldOrder>2</oldOrder>
@@ -691,7 +726,6 @@
               <net.java.amateras.uml.sequencediagram.model.SyncMessageModel reference="../net.java.amateras.uml.sequencediagram.model.SyncMessageModel/target/ownerLine/children/net.java.amateras.uml.sequencediagram.model.ActivationModel[2]/targetConnections/net.java.amateras.uml.sequencediagram.model.SyncMessageModel"/>
             </sourceConnections>
             <targetConnections>
-              <net.java.amateras.uml.sequencediagram.model.ReturnMessageModel reference="../../sourceConnections/net.java.amateras.uml.sequencediagram.model.SyncMessageModel/target/sourceConnections/net.java.amateras.uml.sequencediagram.model.ReturnMessageModel"/>
               <net.java.amateras.uml.sequencediagram.model.ReturnMessageModel reference="../../sourceConnections/net.java.amateras.uml.sequencediagram.model.SyncMessageModel/target/ownerLine/children/net.java.amateras.uml.sequencediagram.model.ActivationModel[2]/sourceConnections/net.java.amateras.uml.sequencediagram.model.ReturnMessageModel"/>
             </targetConnections>
             <children/>
@@ -767,6 +801,7 @@
     <net.java.amateras.uml.sequencediagram.model.ActivationModel reference="../../instances/net.java.amateras.uml.sequencediagram.model.ActorModel/lifeLine/children/net.java.amateras.uml.sequencediagram.model.ActivationModel/sourceConnections/net.java.amateras.uml.sequencediagram.model.SyncMessageModel/target/ownerLine/children/net.java.amateras.uml.sequencediagram.model.ActivationModel[2]/sourceConnections/net.java.amateras.uml.sequencediagram.model.SyncMessageModel/target/sourceConnections/net.java.amateras.uml.sequencediagram.model.SyncMessageModel/target"/>
     <net.java.amateras.uml.sequencediagram.model.ActivationModel reference="../../instances/net.java.amateras.uml.sequencediagram.model.ActorModel/lifeLine/children/net.java.amateras.uml.sequencediagram.model.ActivationModel/sourceConnections/net.java.amateras.uml.sequencediagram.model.SyncMessageModel/target/ownerLine/children/net.java.amateras.uml.sequencediagram.model.ActivationModel[2]/sourceConnections/net.java.amateras.uml.sequencediagram.model.SyncMessageModel/target/sourceConnections/net.java.amateras.uml.sequencediagram.model.SyncMessageModel/target/sourceConnections/net.java.amateras.uml.sequencediagram.model.SyncMessageModel/target"/>
     <net.java.amateras.uml.sequencediagram.model.ActivationModel reference="../../instances/net.java.amateras.uml.sequencediagram.model.ActorModel/lifeLine/children/net.java.amateras.uml.sequencediagram.model.ActivationModel/sourceConnections/net.java.amateras.uml.sequencediagram.model.SyncMessageModel/target/ownerLine/children/net.java.amateras.uml.sequencediagram.model.ActivationModel[2]/sourceConnections/net.java.amateras.uml.sequencediagram.model.SyncMessageModel[2]/target"/>
+    <net.java.amateras.uml.sequencediagram.model.ActivationModel reference="../../instances/net.java.amateras.uml.sequencediagram.model.ActorModel/lifeLine/children/net.java.amateras.uml.sequencediagram.model.ActivationModel/sourceConnections/net.java.amateras.uml.sequencediagram.model.SyncMessageModel/target/ownerLine/children/net.java.amateras.uml.sequencediagram.model.ActivationModel[2]/sourceConnections/net.java.amateras.uml.sequencediagram.model.SyncMessageModel/target/sourceConnections/net.java.amateras.uml.sequencediagram.model.SyncMessageModel[2]/target"/>
   </activations>
   <fragments/>
   <lifelines>
@@ -797,6 +832,7 @@
     <net.java.amateras.uml.sequencediagram.model.ActivationModel reference="../../instances/net.java.amateras.uml.sequencediagram.model.ActorModel/lifeLine/children/net.java.amateras.uml.sequencediagram.model.ActivationModel/sourceConnections/net.java.amateras.uml.sequencediagram.model.SyncMessageModel/target/ownerLine/children/net.java.amateras.uml.sequencediagram.model.ActivationModel[2]/sourceConnections/net.java.amateras.uml.sequencediagram.model.SyncMessageModel/target/sourceConnections/net.java.amateras.uml.sequencediagram.model.SyncMessageModel/target"/>
     <net.java.amateras.uml.sequencediagram.model.ActivationModel reference="../../instances/net.java.amateras.uml.sequencediagram.model.ActorModel/lifeLine/children/net.java.amateras.uml.sequencediagram.model.ActivationModel/sourceConnections/net.java.amateras.uml.sequencediagram.model.SyncMessageModel/target/ownerLine/children/net.java.amateras.uml.sequencediagram.model.ActivationModel[2]/sourceConnections/net.java.amateras.uml.sequencediagram.model.SyncMessageModel/target/sourceConnections/net.java.amateras.uml.sequencediagram.model.SyncMessageModel/target/sourceConnections/net.java.amateras.uml.sequencediagram.model.SyncMessageModel/target"/>
     <net.java.amateras.uml.sequencediagram.model.ActivationModel reference="../../instances/net.java.amateras.uml.sequencediagram.model.ActorModel/lifeLine/children/net.java.amateras.uml.sequencediagram.model.ActivationModel/sourceConnections/net.java.amateras.uml.sequencediagram.model.SyncMessageModel/target/ownerLine/children/net.java.amateras.uml.sequencediagram.model.ActivationModel[2]/sourceConnections/net.java.amateras.uml.sequencediagram.model.SyncMessageModel[2]/target"/>
+    <net.java.amateras.uml.sequencediagram.model.ActivationModel reference="../../instances/net.java.amateras.uml.sequencediagram.model.ActorModel/lifeLine/children/net.java.amateras.uml.sequencediagram.model.ActivationModel/sourceConnections/net.java.amateras.uml.sequencediagram.model.SyncMessageModel/target/ownerLine/children/net.java.amateras.uml.sequencediagram.model.ActivationModel[2]/sourceConnections/net.java.amateras.uml.sequencediagram.model.SyncMessageModel/target/sourceConnections/net.java.amateras.uml.sequencediagram.model.SyncMessageModel[2]/target"/>
   </children>
   <filterProperty/>
   <backgroundColor reference="../instances/net.java.amateras.uml.sequencediagram.model.ActorModel/lifeLine/children/net.java.amateras.uml.sequencediagram.model.ActivationModel/sourceConnections/net.java.amateras.uml.sequencediagram.model.SyncMessageModel/target/ownerLine/owner/backgroundColor"/>
