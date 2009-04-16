@@ -110,7 +110,7 @@
                           <net.java.amateras.uml.sequencediagram.model.SyncMessageModel>
                             <order>4</order>
                             <oldOrder>4</oldOrder>
-                            <name>ImportContactData()</name>
+                            <name>importContactData()</name>
                             <direction>true</direction>
                             <source class="net.java.amateras.uml.sequencediagram.model.ActivationModel" reference="../../.."/>
                             <target class="net.java.amateras.uml.sequencediagram.model.ActivationModel">
@@ -199,7 +199,7 @@
                                 <net.java.amateras.uml.sequencediagram.model.SyncMessageModel>
                                   <order>5</order>
                                   <oldOrder>5</oldOrder>
-                                  <name>CheckFormat()</name>
+                                  <name>checkFileFormat()</name>
                                   <direction>true</direction>
                                   <source class="net.java.amateras.uml.sequencediagram.model.ActivationModel" reference="../../.."/>
                                   <target class="net.java.amateras.uml.sequencediagram.model.ActivationModel">
@@ -249,7 +249,7 @@
                                 <net.java.amateras.uml.sequencediagram.model.SyncMessageModel>
                                   <order>6</order>
                                   <oldOrder>6</oldOrder>
-                                  <name>CreateNewContactModule()</name>
+                                  <name>CreateNewContactObject()</name>
                                   <direction>true</direction>
                                   <source class="net.java.amateras.uml.sequencediagram.model.ActivationModel" reference="../../.."/>
                                   <target class="net.java.amateras.uml.sequencediagram.model.ActivationModel">
@@ -527,7 +527,7 @@
                           <net.java.amateras.uml.sequencediagram.model.SyncMessageModel>
                             <order>8</order>
                             <oldOrder>8</oldOrder>
-                            <name>CreatResultDailog()</name>
+                            <name>creatResultDailog()</name>
                             <direction>true</direction>
                             <source class="net.java.amateras.uml.sequencediagram.model.ActivationModel" reference="../../.."/>
                             <target class="net.java.amateras.uml.sequencediagram.model.ActivationModel">
@@ -642,7 +642,7 @@
                     <net.java.amateras.uml.sequencediagram.model.SyncMessageModel>
                       <order>2</order>
                       <oldOrder>2</oldOrder>
-                      <name>CreateImportDialog()</name>
+                      <name>createImportDialog()</name>
                       <direction>true</direction>
                       <source class="net.java.amateras.uml.sequencediagram.model.ActivationModel" reference="../../.."/>
                       <target class="net.java.amateras.uml.sequencediagram.model.ActivationModel">
