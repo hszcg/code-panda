@@ -2,5 +2,20 @@
 <classpath>
 	<classpathentry kind="src" path="src"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="lib" path="lib-jar/Filters.jar"/>
+	<classpathentry kind="lib" path="lib-jar/flamingo.jar"/>
+	<classpathentry kind="lib" path="lib-jar/hsqldb.jar"/>
+	<classpathentry kind="lib" path="lib-jar/jmock-1.1.0RC1.jar"/>
+	<classpathentry kind="lib" path="lib-jar/junit-4.5.jar"/>
+	<classpathentry kind="lib" path="lib-jar/MultipleGradientPaint.jar"/>
+	<classpathentry kind="lib" path="lib-jar/servlet.jar"/>
+	<classpathentry kind="lib" path="lib-jar/substance-extras.jar"/>
+	<classpathentry kind="lib" path="lib-jar/substance-flamingo.jar"/>
+	<classpathentry kind="lib" path="lib-jar/substance-swingx.jar"/>
+	<classpathentry kind="lib" path="lib-jar/substance.jar"/>
+	<classpathentry kind="lib" path="lib-jar/swing-layout.jar"/>
+	<classpathentry kind="lib" path="lib-jar/swing-worker.jar"/>
+	<classpathentry kind="lib" path="lib-jar/swingx-0.9.5.jar"/>
+	<classpathentry kind="lib" path="lib-jar/swingx-beaninfo-0.9.5.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
