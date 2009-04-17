@@ -262,11 +262,11 @@
                 <toMultiplicity></toMultiplicity>
                 <source class="net.java.amateras.uml.classdiagram.model.InterfaceModel" reference="../../.."/>
                 <target class="net.java.amateras.uml.classdiagram.model.ClassModel">
-                  <name>CommandVistor</name>
+                  <name>CommandVisitor</name>
                   <stereoType></stereoType>
                   <isAbstract>false</isAbstract>
                   <constraint>
-                    <x>356</x>
+                    <x>354</x>
                     <y>50</y>
                     <width>-1</width>
                     <height>-1</height>

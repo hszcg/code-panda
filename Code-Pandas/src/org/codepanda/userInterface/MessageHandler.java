@@ -3,7 +3,7 @@
  */
 package org.codepanda.userInterface;
 
-import org.codepanda.application.CommandVistor;
+import org.codepanda.application.CommandVisitor;
 
 
 
@@ -16,5 +16,5 @@ public interface MessageHandler {
 	/**
 	 * @param commandVistor
 	 */
-	public void executeCommand(CommandVistor commandVistor);
+	public void executeCommand(CommandVisitor commandVistor);
 }

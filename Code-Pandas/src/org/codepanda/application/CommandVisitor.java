@@ -7,7 +7,7 @@ package org.codepanda.application;
  * @author hszcg
  *
  */
-public abstract class CommandVistor {
+public abstract class CommandVisitor {
 	//Define Command Type
 	
 	//User Operations
