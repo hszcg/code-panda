@@ -592,7 +592,7 @@
                           <net.java.amateras.uml.sequencediagram.model.SyncMessageModel>
                             <order>9</order>
                             <oldOrder>9</oldOrder>
-                            <name>createContactDialog()</name>
+                            <name>refreshContactDialog()</name>
                             <direction>true</direction>
                             <source class="net.java.amateras.uml.sequencediagram.model.ActivationModel" reference="../../.."/>
                             <target class="net.java.amateras.uml.sequencediagram.model.ActivationModel">
