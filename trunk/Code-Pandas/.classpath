@@ -17,5 +17,6 @@
 	<classpathentry kind="lib" path="lib-jar/swing-worker.jar"/>
 	<classpathentry kind="lib" path="lib-jar/swingx-0.9.5.jar"/>
 	<classpathentry kind="lib" path="lib-jar/swingx-beaninfo-0.9.5.jar"/>
+	<classpathentry kind="lib" path="lib-jar/google-collect-1.0-rc1.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
