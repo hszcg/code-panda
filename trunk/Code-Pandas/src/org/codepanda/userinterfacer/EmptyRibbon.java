@@ -1,7 +1,7 @@
 /**
  * 
  */
-package org.codepanda.userInterface;
+package org.codepanda.userinterfacer;
 
 import javax.swing.*;
 import org.jvnet.flamingo.ribbon.*;
