@@ -1,7 +1,7 @@
 /**
  * 
  */
-package org.codepanda.userInterface;
+package org.codepanda.userinterfacer;
 
 import org.codepanda.application.CommandVisitor;
 
