@@ -110,7 +110,7 @@
                           <net.java.amateras.uml.sequencediagram.model.SyncMessageModel>
                             <order>8</order>
                             <oldOrder>8</oldOrder>
-                            <name>editCommonLabel()</name>
+                            <name>editContactCommonLabel()</name>
                             <direction>true</direction>
                             <source class="net.java.amateras.uml.sequencediagram.model.ActivationModel" reference="../../.."/>
                             <target class="net.java.amateras.uml.sequencediagram.model.ActivationModel">
@@ -431,7 +431,7 @@
                                                   <net.java.amateras.uml.sequencediagram.model.SyncMessageModel>
                                                     <order>9</order>
                                                     <oldOrder>9</oldOrder>
-                                                    <name>editCommonLabelObject()</name>
+                                                    <name>editContactCommonLabel()</name>
                                                     <direction>true</direction>
                                                     <source class="net.java.amateras.uml.sequencediagram.model.ActivationModel" reference="../../../../../../../../../../../.."/>
                                                     <target class="net.java.amateras.uml.sequencediagram.model.ActivationModel" reference="../../.."/>

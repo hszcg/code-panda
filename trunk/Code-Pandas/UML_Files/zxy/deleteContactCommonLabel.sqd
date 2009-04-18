@@ -210,7 +210,7 @@
                           <net.java.amateras.uml.sequencediagram.model.SyncMessageModel>
                             <order>8</order>
                             <oldOrder>8</oldOrder>
-                            <name>deleteCommonLabel()</name>
+                            <name>deleteContactCommonLabel()</name>
                             <direction>true</direction>
                             <source class="net.java.amateras.uml.sequencediagram.model.ActivationModel" reference="../../.."/>
                             <target class="net.java.amateras.uml.sequencediagram.model.ActivationModel">
