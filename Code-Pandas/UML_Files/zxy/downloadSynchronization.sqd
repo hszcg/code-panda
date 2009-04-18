@@ -9,7 +9,7 @@
           <x>61</x>
           <y>20</y>
           <width>5</width>
-          <height>512</height>
+          <height>534</height>
         </constraint>
         <sourceConnections/>
         <targetConnections/>
@@ -21,7 +21,7 @@
               <x>56</x>
               <y>87</y>
               <width>10</width>
-              <height>415</height>
+              <height>437</height>
             </constraint>
             <sourceConnections>
               <net.java.amateras.uml.sequencediagram.model.SyncMessageModel>
@@ -74,7 +74,7 @@
                       <x>235</x>
                       <y>20</y>
                       <width>5</width>
-                      <height>512</height>
+                      <height>534</height>
                     </constraint>
                     <sourceConnections/>
                     <targetConnections/>
@@ -85,7 +85,7 @@
                         <movable>true</movable>
                         <constraint>
                           <x>230</x>
-                          <y>183</y>
+                          <y>205</y>
                           <width>10</width>
                           <height>309</height>
                         </constraint>
@@ -120,7 +120,7 @@
                                   <lifeLine reference="../.."/>
                                   <root reference="../../../../../../../../../../../../../../../../.."/>
                                   <constraint>
-                                    <x>363</x>
+                                    <x>343</x>
                                     <y>20</y>
                                     <width>100</width>
                                     <height>-1</height>
@@ -146,10 +146,10 @@
                                   </listeners>
                                 </owner>
                                 <constraint>
-                                  <x>413</x>
+                                  <x>393</x>
                                   <y>20</y>
                                   <width>5</width>
-                                  <height>512</height>
+                                  <height>534</height>
                                 </constraint>
                                 <sourceConnections/>
                                 <targetConnections/>
@@ -173,8 +173,8 @@
                               </ownerLine>
                               <movable>true</movable>
                               <constraint>
-                                <x>408</x>
-                                <y>192</y>
+                                <x>388</x>
+                                <y>214</y>
                                 <width>10</width>
                                 <height>212</height>
                               </constraint>
@@ -207,8 +207,8 @@
                                     <ownerLine reference="../../../../ownerLine"/>
                                     <movable>true</movable>
                                     <constraint>
-                                      <x>413</x>
-                                      <y>218</y>
+                                      <x>393</x>
+                                      <y>240</y>
                                       <width>10</width>
                                       <height>30</height>
                                     </constraint>
@@ -259,7 +259,7 @@
                                         <lifeLine reference="../.."/>
                                         <root reference="../../../../../../../../../../../../../../../../../../../.."/>
                                         <constraint>
-                                          <x>536</x>
+                                          <x>506</x>
                                           <y>20</y>
                                           <width>100</width>
                                           <height>-1</height>
@@ -285,10 +285,10 @@
                                         </listeners>
                                       </owner>
                                       <constraint>
-                                        <x>586</x>
+                                        <x>556</x>
                                         <y>20</y>
                                         <width>5</width>
-                                        <height>512</height>
+                                        <height>534</height>
                                       </constraint>
                                       <sourceConnections/>
                                       <targetConnections/>
@@ -312,8 +312,8 @@
                                     </ownerLine>
                                     <movable>true</movable>
                                     <constraint>
-                                      <x>581</x>
-                                      <y>272</y>
+                                      <x>551</x>
+                                      <y>294</y>
                                       <width>10</width>
                                       <height>122</height>
                                     </constraint>
@@ -348,7 +348,7 @@
                                               <lifeLine reference="../.."/>
                                               <root reference="../../../../../../../../../../../../../../../../../../../../../../.."/>
                                               <constraint>
-                                                <x>709</x>
+                                                <x>673</x>
                                                 <y>20</y>
                                                 <width>100</width>
                                                 <height>-1</height>
@@ -374,10 +374,10 @@
                                               </listeners>
                                             </owner>
                                             <constraint>
-                                              <x>759</x>
+                                              <x>723</x>
                                               <y>20</y>
                                               <width>5</width>
-                                              <height>512</height>
+                                              <height>534</height>
                                             </constraint>
                                             <sourceConnections/>
                                             <targetConnections/>
@@ -401,8 +401,8 @@
                                           </ownerLine>
                                           <movable>true</movable>
                                           <constraint>
-                                            <x>754</x>
-                                            <y>280</y>
+                                            <x>718</x>
+                                            <y>302</y>
                                             <width>10</width>
                                             <height>30</height>
                                           </constraint>
@@ -467,8 +467,8 @@
                                           <ownerLine reference="../../../../ownerLine"/>
                                           <movable>true</movable>
                                           <constraint>
-                                            <x>586</x>
-                                            <y>354</y>
+                                            <x>556</x>
+                                            <y>376</y>
                                             <width>10</width>
                                             <height>30</height>
                                           </constraint>
@@ -588,7 +588,7 @@
                               <movable>true</movable>
                               <constraint>
                                 <x>235</x>
-                                <y>452</y>
+                                <y>474</y>
                                 <width>10</width>
                                 <height>30</height>
                               </constraint>
@@ -686,7 +686,7 @@
                   <movable>true</movable>
                   <constraint>
                     <x>230</x>
-                    <y>87</y>
+                    <y>95</y>
                     <width>10</width>
                     <height>70</height>
                   </constraint>
@@ -703,7 +703,7 @@
                         <movable>true</movable>
                         <constraint>
                           <x>235</x>
-                          <y>117</y>
+                          <y>125</y>
                           <width>10</width>
                           <height>30</height>
                         </constraint>

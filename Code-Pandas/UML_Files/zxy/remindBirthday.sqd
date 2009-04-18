@@ -553,7 +553,7 @@
       <lifeLine>
         <owner reference="../.."/>
         <constraint>
-          <x>751</x>
+          <x>741</x>
           <y>20</y>
           <width>5</width>
           <height>335</height>
@@ -578,7 +578,7 @@
       </lifeLine>
       <root reference="../../.."/>
       <constraint>
-        <x>701</x>
+        <x>691</x>
         <y>20</y>
         <width>100</width>
         <height>-1</height>
