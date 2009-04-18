@@ -194,7 +194,7 @@
                                               <lifeLine reference="../.."/>
                                               <root reference="../../../../../../../../../../../../../../../../../../../../../../.."/>
                                               <constraint>
-                                                <x>516</x>
+                                                <x>508</x>
                                                 <y>20</y>
                                                 <width>100</width>
                                                 <height>-1</height>
@@ -220,7 +220,7 @@
                                               </listeners>
                                             </owner>
                                             <constraint>
-                                              <x>566</x>
+                                              <x>558</x>
                                               <y>20</y>
                                               <width>5</width>
                                               <height>472</height>
@@ -247,7 +247,7 @@
                                           </ownerLine>
                                           <movable>true</movable>
                                           <constraint>
-                                            <x>561</x>
+                                            <x>553</x>
                                             <y>109</y>
                                             <width>10</width>
                                             <height>30</height>
@@ -740,7 +740,7 @@
       <lifeLine>
         <owner reference="../.."/>
         <constraint>
-          <x>738</x>
+          <x>722</x>
           <y>20</y>
           <width>5</width>
           <height>472</height>
@@ -765,7 +765,7 @@
       </lifeLine>
       <root reference="../../.."/>
       <constraint>
-        <x>688</x>
+        <x>672</x>
         <y>20</y>
         <width>100</width>
         <height>-1</height>
