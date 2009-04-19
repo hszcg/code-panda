@@ -6,7 +6,7 @@
       <lifeLine>
         <owner class="net.java.amateras.uml.sequencediagram.model.ActorModel" reference="../.."/>
         <constraint>
-          <x>75</x>
+          <x>56</x>
           <y>20</y>
           <width>5</width>
           <height>538</height>
@@ -18,7 +18,7 @@
             <ownerLine reference="../../.."/>
             <movable>true</movable>
             <constraint>
-              <x>70</x>
+              <x>51</x>
               <y>96</y>
               <width>10</width>
               <height>432</height>
@@ -33,11 +33,11 @@
                 <target class="net.java.amateras.uml.sequencediagram.model.ActivationModel">
                   <ownerLine>
                     <owner>
-                      <name>GUI</name>
+                      <name>:GUI</name>
                       <lifeLine reference="../.."/>
                       <root reference="../../../../../../../../../../.."/>
                       <constraint>
-                        <x>178</x>
+                        <x>140</x>
                         <y>20</y>
                         <width>100</width>
                         <height>-1</height>
@@ -71,7 +71,7 @@
                       </listeners>
                     </owner>
                     <constraint>
-                      <x>228</x>
+                      <x>190</x>
                       <y>20</y>
                       <width>5</width>
                       <height>538</height>
@@ -84,7 +84,7 @@
                         <ownerLine reference="../../.."/>
                         <movable>true</movable>
                         <constraint>
-                          <x>223</x>
+                          <x>185</x>
                           <y>284</y>
                           <width>10</width>
                           <height>234</height>
@@ -116,13 +116,13 @@
                             <target class="net.java.amateras.uml.sequencediagram.model.ActivationModel">
                               <ownerLine>
                                 <owner>
-                                  <name>Application</name>
+                                  <name>:NewContactCommonLabelActor</name>
                                   <lifeLine reference="../.."/>
                                   <root reference="../../../../../../../../../../../../../../../../.."/>
                                   <constraint>
-                                    <x>352</x>
+                                    <x>293</x>
                                     <y>20</y>
-                                    <width>100</width>
+                                    <width>177</width>
                                     <height>-1</height>
                                   </constraint>
                                   <sourceConnections/>
@@ -146,7 +146,7 @@
                                   </listeners>
                                 </owner>
                                 <constraint>
-                                  <x>402</x>
+                                  <x>380</x>
                                   <y>20</y>
                                   <width>5</width>
                                   <height>538</height>
@@ -158,7 +158,7 @@
                                     <ownerLine reference="../../.."/>
                                     <movable>true</movable>
                                     <constraint>
-                                      <x>397</x>
+                                      <x>375</x>
                                       <y>115</y>
                                       <width>10</width>
                                       <height>47</height>
@@ -190,7 +190,7 @@
                                         <target class="net.java.amateras.uml.sequencediagram.model.ActivationModel">
                                           <ownerLine>
                                             <owner>
-                                              <name>Utility</name>
+                                              <name>:Contact</name>
                                               <lifeLine reference="../.."/>
                                               <root reference="../../../../../../../../../../../../../../../../../../../../../../.."/>
                                               <constraint>
@@ -264,7 +264,7 @@
                                                     <target class="net.java.amateras.uml.sequencediagram.model.ActivationModel">
                                                       <ownerLine>
                                                         <owner>
-                                                          <name>DataBase</name>
+                                                          <name>:DataBase</name>
                                                           <lifeLine reference="../.."/>
                                                           <root reference="../../../../../../../../../../../../../../../../../../../../../../../../../../../../.."/>
                                                           <constraint>
@@ -599,7 +599,7 @@
                               </ownerLine>
                               <movable>true</movable>
                               <constraint>
-                                <x>397</x>
+                                <x>375</x>
                                 <y>291</y>
                                 <width>10</width>
                                 <height>140</height>
@@ -667,7 +667,7 @@
                               <ownerLine reference="../../../../../.."/>
                               <movable>true</movable>
                               <constraint>
-                                <x>228</x>
+                                <x>190</x>
                                 <y>478</y>
                                 <width>10</width>
                                 <height>30</height>
@@ -765,7 +765,7 @@
                   </ownerLine>
                   <movable>true</movable>
                   <constraint>
-                    <x>223</x>
+                    <x>185</x>
                     <y>108</y>
                     <width>10</width>
                     <height>147</height>
@@ -783,7 +783,7 @@
                         <ownerLine reference="../../../../ownerLine"/>
                         <movable>true</movable>
                         <constraint>
-                          <x>228</x>
+                          <x>190</x>
                           <y>215</y>
                           <width>10</width>
                           <height>30</height>
@@ -896,7 +896,7 @@
       </lifeLine>
       <root reference="../../.."/>
       <constraint>
-        <x>25</x>
+        <x>6</x>
         <y>20</y>
         <width>100</width>
         <height>-1</height>

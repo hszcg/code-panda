@@ -116,7 +116,7 @@
                             <target class="net.java.amateras.uml.sequencediagram.model.ActivationModel">
                               <ownerLine>
                                 <owner>
-                                  <name>:Application</name>
+                                  <name>:EditUserActor</name>
                                   <lifeLine reference="../.."/>
                                   <root reference="../../../../../../../../../../../../../../../../.."/>
                                   <constraint>
@@ -190,7 +190,7 @@
                                         <target class="net.java.amateras.uml.sequencediagram.model.ActivationModel">
                                           <ownerLine>
                                             <owner>
-                                              <name>:Utility</name>
+                                              <name>:User</name>
                                               <lifeLine reference="../.."/>
                                               <root reference="../../../../../../../../../../../../../../../../../../../../../../.."/>
                                               <constraint>

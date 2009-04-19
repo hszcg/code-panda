@@ -116,13 +116,13 @@
                             <target class="net.java.amateras.uml.sequencediagram.model.ActivationModel">
                               <ownerLine>
                                 <owner>
-                                  <name>:Application</name>
+                                  <name>:DeleteContactActor</name>
                                   <lifeLine reference="../.."/>
                                   <root reference="../../../../../../../../../../../../../../../../.."/>
                                   <constraint>
-                                    <x>358</x>
+                                    <x>341</x>
                                     <y>20</y>
-                                    <width>100</width>
+                                    <width>134</width>
                                     <height>-1</height>
                                   </constraint>
                                   <sourceConnections/>
@@ -146,7 +146,7 @@
                                   </listeners>
                                 </owner>
                                 <constraint>
-                                  <x>408</x>
+                                  <x>407</x>
                                   <y>20</y>
                                   <width>5</width>
                                   <height>732</height>
@@ -159,7 +159,7 @@
                                     <ownerLine reference="../../.."/>
                                     <movable>true</movable>
                                     <constraint>
-                                      <x>403</x>
+                                      <x>402</x>
                                       <y>131</y>
                                       <width>10</width>
                                       <height>48</height>
@@ -310,7 +310,7 @@
                                         <target class="net.java.amateras.uml.sequencediagram.model.ActivationModel">
                                           <ownerLine>
                                             <owner>
-                                              <name>:Utility</name>
+                                              <name>:Contact</name>
                                               <lifeLine reference="../.."/>
                                               <root reference="../../../../../../../../../../../../../../../../../../../../../../.."/>
                                               <constraint>
@@ -700,7 +700,7 @@
                               </ownerLine>
                               <movable>true</movable>
                               <constraint>
-                                <x>403</x>
+                                <x>402</x>
                                 <y>420</y>
                                 <width>10</width>
                                 <height>138</height>

@@ -37,7 +37,7 @@
                       <lifeLine reference="../.."/>
                       <root reference="../../../../../../../../../../.."/>
                       <constraint>
-                        <x>219</x>
+                        <x>210</x>
                         <y>20</y>
                         <width>100</width>
                         <height>-1</height>
@@ -71,7 +71,7 @@
                       </listeners>
                     </owner>
                     <constraint>
-                      <x>269</x>
+                      <x>260</x>
                       <y>20</y>
                       <width>5</width>
                       <height>493</height>
@@ -84,7 +84,7 @@
                         <ownerLine reference="../../.."/>
                         <movable>true</movable>
                         <constraint>
-                          <x>264</x>
+                          <x>255</x>
                           <y>214</y>
                           <width>10</width>
                           <height>259</height>
@@ -116,13 +116,13 @@
                             <target class="net.java.amateras.uml.sequencediagram.model.ActivationModel">
                               <ownerLine>
                                 <owner>
-                                  <name>:Application</name>
+                                  <name>:DeleteCommonLabelActor</name>
                                   <lifeLine reference="../.."/>
                                   <root reference="../../../../../../../../../../../../../../../../.."/>
                                   <constraint>
-                                    <x>388</x>
+                                    <x>364</x>
                                     <y>20</y>
-                                    <width>100</width>
+                                    <width>158</width>
                                     <height>-1</height>
                                   </constraint>
                                   <sourceConnections/>
@@ -146,7 +146,7 @@
                                   </listeners>
                                 </owner>
                                 <constraint>
-                                  <x>438</x>
+                                  <x>442</x>
                                   <y>20</y>
                                   <width>5</width>
                                   <height>493</height>
@@ -173,7 +173,7 @@
                               </ownerLine>
                               <movable>true</movable>
                               <constraint>
-                                <x>433</x>
+                                <x>437</x>
                                 <y>225</y>
                                 <width>10</width>
                                 <height>152</height>
@@ -205,11 +205,11 @@
                                   <target class="net.java.amateras.uml.sequencediagram.model.ActivationModel">
                                     <ownerLine>
                                       <owner>
-                                        <name>:Utility</name>
+                                        <name>:Label</name>
                                         <lifeLine reference="../.."/>
                                         <root reference="../../../../../../../../../../../../../../../../../../../.."/>
                                         <constraint>
-                                          <x>568</x>
+                                          <x>575</x>
                                           <y>20</y>
                                           <width>100</width>
                                           <height>-1</height>
@@ -235,7 +235,7 @@
                                         </listeners>
                                       </owner>
                                       <constraint>
-                                        <x>618</x>
+                                        <x>625</x>
                                         <y>20</y>
                                         <width>5</width>
                                         <height>493</height>
@@ -262,7 +262,7 @@
                                     </ownerLine>
                                     <movable>true</movable>
                                     <constraint>
-                                      <x>613</x>
+                                      <x>620</x>
                                       <y>236</y>
                                       <width>10</width>
                                       <height>131</height>
@@ -417,7 +417,7 @@
                                           <ownerLine reference="../../../../ownerLine"/>
                                           <movable>true</movable>
                                           <constraint>
-                                            <x>618</x>
+                                            <x>625</x>
                                             <y>327</y>
                                             <width>10</width>
                                             <height>30</height>
@@ -535,7 +535,7 @@
                               <ownerLine reference="../../../../../.."/>
                               <movable>true</movable>
                               <constraint>
-                                <x>269</x>
+                                <x>260</x>
                                 <y>433</y>
                                 <width>10</width>
                                 <height>30</height>
@@ -633,7 +633,7 @@
                   </ownerLine>
                   <movable>true</movable>
                   <constraint>
-                    <x>264</x>
+                    <x>255</x>
                     <y>109</y>
                     <width>10</width>
                     <height>78</height>
@@ -650,7 +650,7 @@
                         <ownerLine reference="../../../../ownerLine"/>
                         <movable>true</movable>
                         <constraint>
-                          <x>269</x>
+                          <x>260</x>
                           <y>147</y>
                           <width>10</width>
                           <height>30</height>

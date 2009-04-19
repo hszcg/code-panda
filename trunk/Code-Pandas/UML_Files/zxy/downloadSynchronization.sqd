@@ -116,13 +116,13 @@
                             <target class="net.java.amateras.uml.sequencediagram.model.ActivationModel">
                               <ownerLine>
                                 <owner>
-                                  <name>:Application</name>
+                                  <name>:SyncContactActor</name>
                                   <lifeLine reference="../.."/>
                                   <root reference="../../../../../../../../../../../../../../../../.."/>
                                   <constraint>
                                     <x>343</x>
                                     <y>20</y>
-                                    <width>100</width>
+                                    <width>118</width>
                                     <height>-1</height>
                                   </constraint>
                                   <sourceConnections/>
@@ -146,7 +146,7 @@
                                   </listeners>
                                 </owner>
                                 <constraint>
-                                  <x>393</x>
+                                  <x>401</x>
                                   <y>20</y>
                                   <width>5</width>
                                   <height>534</height>
@@ -173,7 +173,7 @@
                               </ownerLine>
                               <movable>true</movable>
                               <constraint>
-                                <x>388</x>
+                                <x>396</x>
                                 <y>214</y>
                                 <width>10</width>
                                 <height>212</height>
@@ -207,7 +207,7 @@
                                     <ownerLine reference="../../../../ownerLine"/>
                                     <movable>true</movable>
                                     <constraint>
-                                      <x>393</x>
+                                      <x>401</x>
                                       <y>240</y>
                                       <width>10</width>
                                       <height>30</height>
@@ -255,7 +255,7 @@
                                   <target class="net.java.amateras.uml.sequencediagram.model.ActivationModel">
                                     <ownerLine>
                                       <owner>
-                                        <name>:Utility</name>
+                                        <name>:Contact</name>
                                         <lifeLine reference="../.."/>
                                         <root reference="../../../../../../../../../../../../../../../../../../../.."/>
                                         <constraint>
