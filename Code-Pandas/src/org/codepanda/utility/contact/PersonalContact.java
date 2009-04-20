@@ -9,7 +9,8 @@ package org.codepanda.utility.contact;
  * @version 4.16.01
  * 
  */
-public class PersonalContact extends ContactData implements ContactOperations {
+public class PersonalContact implements ContactOperations {
+	private ContactData personalContactData;
 
 	@Override
 	public void editContactInformation(String editString) {
