@@ -1,7 +1,7 @@
 /**
  * 
  */
-package org.codepanda.application;
+package org.codepanda.utility.data;
 
 import java.util.ArrayList;
 import java.util.HashMap;

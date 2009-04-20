@@ -46,6 +46,19 @@ public abstract class CommandVisitor {
 	public static final int SYNCHRONOUS_CONTACT = 24;
 	public static final int GET_RELATION_NET = 25;
 	
+	//Custom Operation
+	public static final int CUSTOM_OPERATION_0 = 26;
+	public static final int CUSTOM_OPERATION_1 = 27;
+	public static final int CUSTOM_OPERATION_2 = 28;
+	public static final int CUSTOM_OPERATION_3 = 29;
+	public static final int CUSTOM_OPERATION_4 = 30;
+	public static final int CUSTOM_OPERATION_5 = 31;
+	public static final int CUSTOM_OPERATION_6 = 32;
+	public static final int CUSTOM_OPERATION_7 = 33;
+	public static final int CUSTOM_OPERATION_8 = 34;
+	public static final int CUSTOM_OPERATION_9 = 35;
+	
+	
 	/**
 	 * One of Commands Given Above
 	 * 
