@@ -2,7 +2,7 @@ package org.codepanda.application.factory;
 
 import org.codepanda.application.CommandActor;
 
-public class LabelActorFactory extends ApplicationFactory {
+public class LabelActorFactory extends CommandActorFactory {
 
 	@Override
 	public CommandActor creator(int commandType, String commandDetail) {

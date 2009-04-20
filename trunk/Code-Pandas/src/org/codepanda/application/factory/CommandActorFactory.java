@@ -12,6 +12,6 @@ import org.codepanda.application.CommandActor;
  * Factory Pattern
  * 
  */
-public abstract class ApplicationFactory {
+public abstract class CommandActorFactory {
 	public abstract CommandActor creator( int commandType, String commandDetail);
 }
