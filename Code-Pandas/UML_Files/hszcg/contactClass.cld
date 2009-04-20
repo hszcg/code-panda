@@ -7,8 +7,8 @@
       <name>ContactOperations</name>
       <stereoType></stereoType>
       <constraint>
-        <x>770</x>
-        <y>244</y>
+        <x>662</x>
+        <y>243</y>
         <width>-1</width>
         <height>-1</height>
       </constraint>
@@ -20,7 +20,7 @@
             <stereoType></stereoType>
             <isAbstract>false</isAbstract>
             <constraint>
-              <x>443</x>
+              <x>385</x>
               <y>478</y>
               <width>-1</width>
               <height>-1</height>
@@ -38,7 +38,7 @@
                   <stereoType></stereoType>
                   <isAbstract>false</isAbstract>
                   <constraint>
-                    <x>453</x>
+                    <x>410</x>
                     <y>244</y>
                     <width>-1</width>
                     <height>-1</height>
@@ -55,8 +55,8 @@
                         <stereoType></stereoType>
                         <isAbstract>false</isAbstract>
                         <constraint>
-                          <x>768</x>
-                          <y>478</y>
+                          <x>665</x>
+                          <y>480</y>
                           <width>-1</width>
                           <height>-1</height>
                         </constraint>
@@ -233,8 +233,8 @@
                         <stereoType></stereoType>
                         <isAbstract>false</isAbstract>
                         <constraint>
-                          <x>327</x>
-                          <y>41</y>
+                          <x>174</x>
+                          <y>40</y>
                           <width>-1</width>
                           <height>-1</height>
                         </constraint>
@@ -280,8 +280,8 @@
                         <stereoType></stereoType>
                         <isAbstract>false</isAbstract>
                         <constraint>
-                          <x>470</x>
-                          <y>41</y>
+                          <x>340</x>
+                          <y>40</y>
                           <width>-1</width>
                           <height>-1</height>
                         </constraint>
@@ -327,7 +327,7 @@
                         <stereoType></stereoType>
                         <isAbstract>false</isAbstract>
                         <constraint>
-                          <x>753</x>
+                          <x>664</x>
                           <y>41</y>
                           <width>-1</width>
                           <height>-1</height>
@@ -382,7 +382,7 @@
                         <stereoType></stereoType>
                         <isAbstract>false</isAbstract>
                         <constraint>
-                          <x>604</x>
+                          <x>496</x>
                           <y>41</y>
                           <width>-1</width>
                           <height>-1</height>
