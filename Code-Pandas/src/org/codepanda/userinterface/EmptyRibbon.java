@@ -22,7 +22,19 @@ import org.jvnet.flamingo.ribbon.JRibbonBand;
 import org.jvnet.flamingo.ribbon.JRibbonFrame;
 import org.jvnet.flamingo.ribbon.RibbonElementPriority;
 import org.jvnet.flamingo.ribbon.RibbonTask;
+import org.jvnet.substance.skin.SubstanceAutumnLookAndFeel;
+import org.jvnet.substance.skin.SubstanceBusinessBlueSteelLookAndFeel;
+import org.jvnet.substance.skin.SubstanceChallengerDeepLookAndFeel;
+import org.jvnet.substance.skin.SubstanceCremeCoffeeLookAndFeel;
+import org.jvnet.substance.skin.SubstanceMagmaLookAndFeel;
+import org.jvnet.substance.skin.SubstanceMistAquaLookAndFeel;
+import org.jvnet.substance.skin.SubstanceModerateLookAndFeel;
+import org.jvnet.substance.skin.SubstanceNebulaBrickWallLookAndFeel;
 import org.jvnet.substance.skin.SubstanceOfficeBlue2007LookAndFeel;
+import org.jvnet.substance.skin.SubstanceSaharaLookAndFeel;
+import org.jvnet.substance.skinpack.SubstanceFindingNemoLookAndFeel;
+import org.jvnet.substance.skinpack.SubstanceMangoLookAndFeel;
+import org.jvnet.substance.skinpack.SubstanceStreetlightsLookAndFeel;
 
 
 //import test.ribbon.BasicCheckRibbon.ExpandActionListener;
@@ -152,7 +164,7 @@ public class EmptyRibbon extends JRibbonFrame {
 	public static void main(String[] args) {
 		// Õ‚π€…Ë÷√
 		try {
-			UIManager.setLookAndFeel(new SubstanceOfficeBlue2007LookAndFeel());
+			UIManager.setLookAndFeel(new SubstanceMistAquaLookAndFeel());
 			JFrame.setDefaultLookAndFeelDecorated(true);
 			JDialog.setDefaultLookAndFeelDecorated(true);
 		} catch (UnsupportedLookAndFeelException e) {
