@@ -1,4 +1,4 @@
-package org.codepanda.userinterface;
+package org.codepanda.userinterface.utility;
 
 import java.awt.*;
 import java.awt.geom.*;
