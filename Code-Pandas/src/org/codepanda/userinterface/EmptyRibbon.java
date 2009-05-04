@@ -152,6 +152,111 @@ public class EmptyRibbon extends JRibbonFrame {
 		return contactManagerBand;
 	}
 	
+	JRibbonBand getContactExchangeBand(){
+		JRibbonBand contactExchangeBand = new JRibbonBand("Contact Exchange",
+				new edit_paste(), new ExpandActionListener());
+		
+		JCommandButton importContactButton = new JCommandButton("Import Contact",
+				new edit_paste());
+		
+		importContactButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				System.out.println("Import Contact");
+			}
+		});
+		
+		contactExchangeBand.addCommandButton
+		(importContactButton, RibbonElementPriority.MEDIUM);
+		
+		JCommandButton exportContactButton = new JCommandButton("Export Contact",
+				new edit_paste());
+		
+		exportContactButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				System.out.println("Export Contact");
+			}
+		});
+		
+		contactExchangeBand.addCommandButton
+		(exportContactButton, RibbonElementPriority.MEDIUM);
+		
+		return contactExchangeBand;
+	}
+	
+	JRibbonBand getContactSyncBand(){
+		JRibbonBand contactSyncBand = new JRibbonBand("Sync Contact",
+				new edit_paste(), new ExpandActionListener());
+		
+		JCommandButton googleContactButton = new JCommandButton
+		("Sync With Google Contact", new edit_paste());
+		
+		googleContactButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				System.out.println("Sync With Google Contact");
+			}
+		});
+		
+		contactSyncBand.addCommandButton
+		(googleContactButton, RibbonElementPriority.MEDIUM);
+		
+		JCommandButton bluetoothContactButton = new JCommandButton("Sync With Blutooth",
+				new edit_paste());
+		
+		bluetoothContactButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				System.out.println("Sync With Blutooth");
+			}
+		});
+		
+		contactSyncBand.addCommandButton
+		(bluetoothContactButton, RibbonElementPriority.MEDIUM);
+		
+		return contactSyncBand;
+	}
+	
+	JRibbonBand getOtherFunctionBand(){
+		JRibbonBand otherFunctionBand = new JRibbonBand("Others",
+				new edit_paste(), new ExpandActionListener());
+		
+		JCommandButton remindBirthdayButton = new JCommandButton("Birthday Tips",
+				new edit_paste());
+		
+		remindBirthdayButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				System.out.println("Birthday Tips");
+			}
+		});
+		
+		otherFunctionBand.addCommandButton
+		(remindBirthdayButton, RibbonElementPriority.MEDIUM);
+		
+		JCommandButton arrangeContactButton = new JCommandButton
+		("Contact Arrangement", new edit_paste());
+		
+		arrangeContactButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				System.out.println("Contact Arrangement");
+			}
+		});
+		
+		otherFunctionBand.addCommandButton
+		(arrangeContactButton, RibbonElementPriority.MEDIUM);
+		
+		JCommandButton relationNetButton = new JCommandButton("Human Cube",
+				new edit_paste());
+		
+		relationNetButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				System.out.println("Human Cube");
+			}
+		});
+		
+		otherFunctionBand.addCommandButton
+		(relationNetButton, RibbonElementPriority.MEDIUM);
+		
+		return otherFunctionBand;
+	}
+	
 	public void configureRibbon(){
 		JRibbonBand userManagerBand = this.getUserManagerBand();
 		JRibbonBand newContactBand = this.getContactManagerBand();
@@ -159,6 +264,13 @@ public class EmptyRibbon extends JRibbonFrame {
 				userManagerBand, newContactBand);
 		basicTask.setKeyTip("P");
 		this.getRibbon().addTask(basicTask);
+		
+		JRibbonBand contactExchangeBand = this.getContactExchangeBand();
+		JRibbonBand contactSyncBand = this.getContactSyncBand();
+		JRibbonBand otherFunctionBand = this.getOtherFunctionBand();
+		RibbonTask  advancedTask = new RibbonTask("Advanced",
+				contactExchangeBand, contactSyncBand, otherFunctionBand);
+		this.getRibbon().addTask(advancedTask);
 	}
 
 	public static void main(String[] args) {
