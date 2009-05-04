@@ -199,12 +199,12 @@ public class EmptyRibbon extends JRibbonFrame {
 		contactSyncBand.addCommandButton
 		(googleContactButton, RibbonElementPriority.MEDIUM);
 		
-		JCommandButton bluetoothContactButton = new JCommandButton("Sync With Blutooth",
+		JCommandButton bluetoothContactButton = new JCommandButton("Sync With Bluetooth",
 				new edit_paste());
 		
 		bluetoothContactButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				System.out.println("Sync With Blutooth");
+				System.out.println("Sync With Bluetooth");
 			}
 		});
 		
