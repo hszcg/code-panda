@@ -12,6 +12,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JProgressBar;
 import javax.swing.JTextField;
+import javax.swing.SpringLayout;
 import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
@@ -22,10 +23,9 @@ import java.awt.GraphicsEnvironment;
 import java.awt.Rectangle;
 import java.util.Locale;
 
-import org.jdesktop.swingx.JXStatusBar;
-import org.jdesktop.swingx.JXTaskPane;
-import org.jdesktop.swingx.JXTaskPaneContainer;
+import org.jdesktop.swingx.*;
 import org.jdesktop.swingx.JXStatusBar.Constraint;
+import org.jdesktop.swingx.auth.LoginService;
 import org.jvnet.flamingo.common.JCommandButton;
 import org.jvnet.flamingo.ribbon.JRibbonBand;
 import org.jvnet.flamingo.ribbon.JRibbonFrame;
@@ -252,23 +252,9 @@ public class EmptyRibbon extends JRibbonFrame {
 		return otherFunctionBand;
 	}
 
-	public void configureRibbon() {
-		JRibbonBand userManagerBand = this.getUserManagerBand();
-		JRibbonBand newContactBand = this.getContactManagerBand();
-		RibbonTask basicTask = new RibbonTask("Basic", userManagerBand,
-				newContactBand);
-		basicTask.setKeyTip("P");
-		this.getRibbon().addTask(basicTask);
-
-		JRibbonBand contactExchangeBand = this.getContactExchangeBand();
-		JRibbonBand contactSyncBand = this.getContactSyncBand();
-		JRibbonBand otherFunctionBand = this.getOtherFunctionBand();
-		RibbonTask advancedTask = new RibbonTask("Advanced",
-				contactExchangeBand, contactSyncBand, otherFunctionBand);
-		this.getRibbon().addTask(advancedTask);
-
+	JXPanel getMajorPanel() {
 		// ****************************************************************************
-		JPanel majorPanel = new JPanel();
+		JXPanel majorPanel = new JXPanel();
 		majorPanel.setLayout(new BorderLayout());
 		// a container to put all JXTaskPane together
 		JXTaskPaneContainer taskPaneContainer = new JXTaskPaneContainer();
@@ -286,7 +272,7 @@ public class EmptyRibbon extends JRibbonFrame {
 		details.setTitle("Details");
 
 		// add standard components to the details taskPane
-		JLabel searchLabel = new JLabel("Search:");
+		JXLabel searchLabel = new JXLabel("Search:");
 		JTextField searchField = new JTextField("");
 		details.add(searchLabel);
 		details.add(searchField);
@@ -296,18 +282,74 @@ public class EmptyRibbon extends JRibbonFrame {
 		majorPanel.add(taskPaneContainer, BorderLayout.WEST);
 
 		JXStatusBar bar = new JXStatusBar();
-		JLabel statusLabel = new JLabel("Ready");
+		JXLabel statusLabel = new JXLabel("Ready");
 		JXStatusBar.Constraint c1 = new Constraint();
 		c1.setFixedWidth(100);
 		bar.add(statusLabel, c1); // Fixed width of 100 with no inserts
 		JXStatusBar.Constraint c2 = new Constraint(
 				JXStatusBar.Constraint.ResizeBehavior.FILL); // Fill with no
-																// inserts
+		// inserts
 		JProgressBar pbar = new JProgressBar();
 		bar.add(pbar, c2); // Fill with no inserts - will use remaining space
-		
+
 		majorPanel.add(bar, BorderLayout.SOUTH);
-		// ****************************************************************************
+
+		JXPanel centerPanel = new JXPanel();
+		centerPanel.setLayout(new SpringLayout());
+
+		final JXLoginPane panel = new JXLoginPane(new LoginService() {
+			public boolean authenticate(String name, char[] password,
+					String server) throws Exception {
+				// perform authentication and return true on success.
+				String str = String.valueOf(password);
+
+				System.out.println("NAME:\t" + name);
+				System.out.println("PASSWORD:\t" + str);
+
+				if (name.equals("Sa") && str.equals("Sa")) {
+					return true;
+				}
+
+				return false;
+			}
+		});
+
+		final JFrame frame = JXLoginPane.showLoginFrame(panel);
+
+		JXButton loginButton = new JXButton("Login");
+		loginButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if(panel.getStatus() == JXLoginPane.Status.SUCCEEDED)
+					return;
+				
+				System.out.println("Login");
+				frame.setVisible(!frame.isVisible());
+			}
+		});
+
+		centerPanel.add(loginButton);
+
+		majorPanel.add(centerPanel, BorderLayout.CENTER);
+
+		return majorPanel;
+	}
+
+	public void configureRibbon() {
+		JRibbonBand userManagerBand = this.getUserManagerBand();
+		JRibbonBand newContactBand = this.getContactManagerBand();
+		RibbonTask basicTask = new RibbonTask("Basic", userManagerBand,
+				newContactBand);
+		basicTask.setKeyTip("P");
+		this.getRibbon().addTask(basicTask);
+
+		JRibbonBand contactExchangeBand = this.getContactExchangeBand();
+		JRibbonBand contactSyncBand = this.getContactSyncBand();
+		JRibbonBand otherFunctionBand = this.getOtherFunctionBand();
+		RibbonTask advancedTask = new RibbonTask("Advanced",
+				contactExchangeBand, contactSyncBand, otherFunctionBand);
+		this.getRibbon().addTask(advancedTask);
+
+		JXPanel majorPanel = this.getMajorPanel();
 
 		this.add(majorPanel, BorderLayout.CENTER);
 	}
