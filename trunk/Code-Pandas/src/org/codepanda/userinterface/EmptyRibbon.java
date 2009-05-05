@@ -24,14 +24,10 @@ import org.jdesktop.swingx.renderer.*;
 import org.jdesktop.swingx.treetable.FileSystemModel;
 import org.jvnet.flamingo.common.JCommandButton;
 import org.jvnet.flamingo.common.JCommandButton.CommandButtonKind;
-import org.jvnet.flamingo.ribbon.JRibbonBand;
-import org.jvnet.flamingo.ribbon.JRibbonFrame;
-import org.jvnet.flamingo.ribbon.RibbonApplicationMenu;
-import org.jvnet.flamingo.ribbon.RibbonApplicationMenuEntryPrimary;
-import org.jvnet.flamingo.ribbon.RibbonApplicationMenuEntrySecondary;
-import org.jvnet.flamingo.ribbon.RibbonElementPriority;
-import org.jvnet.flamingo.ribbon.RibbonTask;
+import org.jvnet.flamingo.ribbon.*;
+import org.jvnet.substance.SubstanceLegacyDefaultLookAndFeel;
 import org.jvnet.substance.skin.*;
+import org.jvnet.substance.skinpack.SubstanceGreenMagicLookAndFeel;
 
 //import test.ribbon.BasicCheckRibbon.ExpandActionListener;
 public class EmptyRibbon extends JRibbonFrame {
@@ -166,200 +162,224 @@ public class EmptyRibbon extends JRibbonFrame {
 		this.getRibbon().setApplicationMenu(applicationMenu);
 	}
 
-	private JRibbonBand getUserManagerBand() {
-		JRibbonBand userManagerBand = new JRibbonBand("User Management",
+	private JRibbonBand getUserManagerBand(){
+		JRibbonBand userManagerBand = new JRibbonBand("用户管理",
 				new edit_paste(), new ExpandActionListener());
-
-		JCommandButton newUserButton = new JCommandButton("New User",
+		
+		JCommandButton newUserButton = new JCommandButton("新建用户",
 				new edit_paste());
-
+		
 		newUserButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				System.out.println("New User");
+				System.out.println("新建用户");
 			}
 		});
-
-		userManagerBand.addCommandButton(newUserButton,
-				RibbonElementPriority.MEDIUM);
-
-		JCommandButton deleteUserButton = new JCommandButton("Delete User",
+		
+		userManagerBand.addCommandButton
+		(newUserButton, RibbonElementPriority.MEDIUM);
+		
+		JCommandButton deleteUserButton = new JCommandButton("删除用户",
 				new edit_paste());
-
+		
 		deleteUserButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				System.out.println("Delete User");
+				System.out.println("删除用户");
 			}
 		});
-
-		userManagerBand.addCommandButton(deleteUserButton,
-				RibbonElementPriority.MEDIUM);
-
-		JCommandButton editUserButton = new JCommandButton("Edit User Info",
+		
+		userManagerBand.addCommandButton
+		(deleteUserButton, RibbonElementPriority.MEDIUM);
+		
+		JCommandButton editUserButton = new JCommandButton("修改用户信息",
 				new edit_paste());
-
+		
 		editUserButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				System.out.println("Edit User Info");
+				System.out.println("修改用户信息");
 			}
 		});
-
-		userManagerBand.addCommandButton(editUserButton,
-				RibbonElementPriority.MEDIUM);
-
-		// userManagerBand.setResizePolicies(CoreRibbonResizePolicies
-		// .getCorePoliciesRestrictive(userManagerBand));
-
+		
+		userManagerBand.addCommandButton
+		(editUserButton, RibbonElementPriority.MEDIUM);
+		
+		//userManagerBand.setResizePolicies(CoreRibbonResizePolicies
+		//		.getCorePoliciesRestrictive(userManagerBand));
+		
 		return userManagerBand;
 	}
-
-	private JRibbonBand getContactManagerBand() {
-		JRibbonBand contactManagerBand = new JRibbonBand("Contact Management",
+	private JRibbonBand getContactManagerBand(){
+		JRibbonBand contactManagerBand = new JRibbonBand("联系人管理",
 				new edit_paste(), new ExpandActionListener());
+		
 
-		JCommandButton newContactButton = new JCommandButton("New Contact",
+		JCommandButton newContactButton = new JCommandButton("新建联系人",
 				new edit_paste());
-
+		
 		newContactButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				System.out.println("New Contact");
+				System.out.println("新建联系人");
 			}
 		});
-
-		contactManagerBand.addCommandButton(newContactButton,
-				RibbonElementPriority.MEDIUM);
-
-		JCommandButton deleteContactButton = new JCommandButton(
-				"Delete Contact", new edit_paste());
-
+		
+		contactManagerBand.addCommandButton
+		(newContactButton, RibbonElementPriority.MEDIUM);
+		
+		JCommandButton deleteContactButton = new JCommandButton("删除联系人",
+				new edit_paste());
+		
 		deleteContactButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				System.out.println("Delete Contact");
+				System.out.println("删除联系人");
 			}
 		});
-
-		contactManagerBand.addCommandButton(deleteContactButton,
-				RibbonElementPriority.MEDIUM);
-
-		JCommandButton editContactButton = new JCommandButton("Edit Contact",
+		
+		contactManagerBand.addCommandButton
+		(deleteContactButton, RibbonElementPriority.MEDIUM);
+		
+		JCommandButton editContactButton = new JCommandButton("修改联系人信息",
 				new edit_paste());
-
+		
 		editContactButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				System.out.println("Edit Contact");
+				System.out.println("修改联系人");
 			}
 		});
-
-		contactManagerBand.addCommandButton(editContactButton,
-				RibbonElementPriority.MEDIUM);
-
-		// contactManagerBand.setResizePolicies(CoreRibbonResizePolicies
-		// .getCorePoliciesRestrictive(contactManagerBand));
-
+		
+		contactManagerBand.addCommandButton
+		(editContactButton, RibbonElementPriority.MEDIUM);
+		
+		JCommandButton statContactButton = new JCommandButton("联系人统计",
+				new edit_paste());
+		
+		statContactButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				System.out.println("联系人统计");
+			}
+		});
+		
+		contactManagerBand.addCommandButton
+		(statContactButton, RibbonElementPriority.MEDIUM);
+		
+		JCommandButton searchContactButton = new JCommandButton("联系人搜索",
+				new edit_paste());
+		
+		searchContactButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				System.out.println("联系人搜索");
+			}
+		});
+		
+		contactManagerBand.addCommandButton
+		(searchContactButton, RibbonElementPriority.MEDIUM);
+		
+		//contactManagerBand.setResizePolicies(CoreRibbonResizePolicies
+		//		.getCorePoliciesRestrictive(contactManagerBand));
+		
 		return contactManagerBand;
 	}
-
-	JRibbonBand getContactExchangeBand() {
-		JRibbonBand contactExchangeBand = new JRibbonBand("Contact Exchange",
+	
+	JRibbonBand getContactExchangeBand(){
+		JRibbonBand contactExchangeBand = new JRibbonBand("数据导入导出",
 				new edit_paste(), new ExpandActionListener());
-
-		JCommandButton importContactButton = new JCommandButton(
-				"Import Contact", new edit_paste());
-
+		
+		JCommandButton importContactButton = new JCommandButton("联系人导入",
+				new edit_paste());
+		
 		importContactButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				System.out.println("Import Contact");
+				System.out.println("联系人导入");
 			}
 		});
-
-		contactExchangeBand.addCommandButton(importContactButton,
-				RibbonElementPriority.MEDIUM);
-
-		JCommandButton exportContactButton = new JCommandButton(
-				"Export Contact", new edit_paste());
-
+		
+		contactExchangeBand.addCommandButton
+		(importContactButton, RibbonElementPriority.MEDIUM);
+		
+		JCommandButton exportContactButton = new JCommandButton("联系人导出",
+				new edit_paste());
+		
 		exportContactButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				System.out.println("Export Contact");
+				System.out.println("联系人导出");
 			}
 		});
-
-		contactExchangeBand.addCommandButton(exportContactButton,
-				RibbonElementPriority.MEDIUM);
-
+		
+		contactExchangeBand.addCommandButton
+		(exportContactButton, RibbonElementPriority.MEDIUM);
+		
 		return contactExchangeBand;
 	}
-
-	JRibbonBand getContactSyncBand() {
-		JRibbonBand contactSyncBand = new JRibbonBand("Sync Contact",
+	
+	JRibbonBand getContactSyncBand(){
+		JRibbonBand contactSyncBand = new JRibbonBand("联系人同步",
 				new edit_paste(), new ExpandActionListener());
-
-		JCommandButton googleContactButton = new JCommandButton(
-				"Sync With Google Contact", new edit_paste());
-
+		
+		JCommandButton googleContactButton = new JCommandButton
+		("与Google Contact同步", new edit_paste());
+		
 		googleContactButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				System.out.println("Sync With Google Contact");
+				System.out.println("与Google Contact同步");
 			}
 		});
-
-		contactSyncBand.addCommandButton(googleContactButton,
-				RibbonElementPriority.MEDIUM);
-
-		JCommandButton bluetoothContactButton = new JCommandButton(
-				"Sync With Bluetooth", new edit_paste());
-
+		
+		contactSyncBand.addCommandButton
+		(googleContactButton, RibbonElementPriority.MEDIUM);
+		
+		JCommandButton bluetoothContactButton = new JCommandButton("与手机蓝牙同步",
+				new edit_paste());
+		
 		bluetoothContactButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				System.out.println("Sync With Bluetooth");
+				System.out.println("与手机蓝牙同步");
 			}
 		});
-
-		contactSyncBand.addCommandButton(bluetoothContactButton,
-				RibbonElementPriority.MEDIUM);
-
+		
+		contactSyncBand.addCommandButton
+		(bluetoothContactButton, RibbonElementPriority.MEDIUM);
+		
 		return contactSyncBand;
 	}
-
-	JRibbonBand getOtherFunctionBand() {
-		JRibbonBand otherFunctionBand = new JRibbonBand("Others",
+	
+	JRibbonBand getOtherFunctionBand(){
+		JRibbonBand otherFunctionBand = new JRibbonBand("其它高级功能",
 				new edit_paste(), new ExpandActionListener());
-
-		JCommandButton remindBirthdayButton = new JCommandButton(
-				"Birthday Tips", new edit_paste());
-
+		
+		JCommandButton remindBirthdayButton = new JCommandButton("生日提醒",
+				new edit_paste());
+		
 		remindBirthdayButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				System.out.println("Birthday Tips");
+				System.out.println("生日提醒");
 			}
 		});
-
-		otherFunctionBand.addCommandButton(remindBirthdayButton,
-				RibbonElementPriority.MEDIUM);
-
-		JCommandButton arrangeContactButton = new JCommandButton(
-				"Contact Arrangement", new edit_paste());
-
+		
+		otherFunctionBand.addCommandButton
+		(remindBirthdayButton, RibbonElementPriority.MEDIUM);
+		
+		JCommandButton arrangeContactButton = new JCommandButton
+		("联系人整理", new edit_paste());
+		
 		arrangeContactButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				System.out.println("Contact Arrangement");
+				System.out.println("联系人整理");
 			}
 		});
-
-		otherFunctionBand.addCommandButton(arrangeContactButton,
-				RibbonElementPriority.MEDIUM);
-
-		JCommandButton relationNetButton = new JCommandButton("Human Cube",
+		
+		otherFunctionBand.addCommandButton
+		(arrangeContactButton, RibbonElementPriority.MEDIUM);
+		
+		JCommandButton relationNetButton = new JCommandButton("人立方",
 				new edit_paste());
-
+		
 		relationNetButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				System.out.println("Human Cube");
+				System.out.println("人立方");
 			}
 		});
-
-		otherFunctionBand.addCommandButton(relationNetButton,
-				RibbonElementPriority.MEDIUM);
-
+		
+		otherFunctionBand.addCommandButton
+		(relationNetButton, RibbonElementPriority.MEDIUM);
+		
 		return otherFunctionBand;
 	}
 
@@ -486,16 +506,17 @@ public class EmptyRibbon extends JRibbonFrame {
 	private void configureRibbon() {
 		JRibbonBand userManagerBand = this.getUserManagerBand();
 		JRibbonBand newContactBand = this.getContactManagerBand();
-		RibbonTask basicTask = new RibbonTask("Basic", userManagerBand,
+		RibbonTask basicTask = new RibbonTask("基本功能", userManagerBand,
 				newContactBand);
-		basicTask.setKeyTip("P");
+		basicTask.setKeyTip("B");
 		this.getRibbon().addTask(basicTask);
 
 		JRibbonBand contactExchangeBand = this.getContactExchangeBand();
 		JRibbonBand contactSyncBand = this.getContactSyncBand();
 		JRibbonBand otherFunctionBand = this.getOtherFunctionBand();
-		RibbonTask advancedTask = new RibbonTask("Advanced",
+		RibbonTask advancedTask = new RibbonTask("高级功能",
 				contactExchangeBand, contactSyncBand, otherFunctionBand);
+		advancedTask.setKeyTip("A");
 		this.getRibbon().addTask(advancedTask);
 
 		JXPanel majorPanel = this.getMajorPanel();
@@ -523,7 +544,7 @@ public class EmptyRibbon extends JRibbonFrame {
 				// 外观设置
 				try {
 					UIManager
-							.setLookAndFeel(new SubstanceMistAquaLookAndFeel());
+							.setLookAndFeel(new SubstanceOfficeBlue2007LookAndFeel());
 					JFrame.setDefaultLookAndFeelDecorated(false);
 					JDialog.setDefaultLookAndFeelDecorated(false);
 				} catch (UnsupportedLookAndFeelException e) {
@@ -533,7 +554,11 @@ public class EmptyRibbon extends JRibbonFrame {
 				// Locale.setDefault(new Locale("USA"));
 				// **************************************************
 
-				InitGlobalFont(new Font(Font.SANS_SERIF, Font.BOLD, 12));
+				try {
+					InitGlobalFont(new Font("宋体", Font.PLAIN, 12));
+				} catch (Exception e) {
+					InitGlobalFont(new Font(Font.SANS_SERIF, Font.PLAIN, 12));
+				}
 
 				EmptyRibbon er = new EmptyRibbon();
 				er.configureRibbon();
