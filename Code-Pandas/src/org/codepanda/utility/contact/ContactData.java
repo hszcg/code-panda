@@ -27,6 +27,7 @@ public abstract class ContactData {
 	private ArrayList<String> commonLabelList;
 	private ArrayList<String> groupList;
 	private ArrayList<RelationLabel> relationLabelList;
+	private String ISN;
 	
 	/**
 	 * @param contactName the contactName to set
@@ -194,6 +195,20 @@ public abstract class ContactData {
 	 */
 	public ArrayList<String> getGroupList() {
 		return groupList;
+	}
+
+	/**
+	 * @param iSN the iSN to set
+	 */
+	public void setISN(String iSN) {
+		ISN = iSN;
+	}
+
+	/**
+	 * @return the iSN
+	 */
+	public String getISN() {
+		return ISN;
 	}
 	
 }

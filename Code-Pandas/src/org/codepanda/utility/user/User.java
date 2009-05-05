@@ -5,6 +5,9 @@ import org.codepanda.utility.contact.ContactOperations;
 
 public class User implements UserOperations,ContactOperations {
 	private ContactData userContactData;
+	
+	private String userName;
+	private String password;
 
 	@Override
 	public String getUserName() {
@@ -40,6 +43,27 @@ public class User implements UserOperations,ContactOperations {
 	public int editUserInformation(String editString) {
 		// TODO Auto-generated method stub
 		return 0;
+	}
+
+	/**
+	 * @param password the password to set
+	 */
+	public void setPassword(String password) {
+		this.password = password;
+	}
+
+	/**
+	 * @return the password
+	 */
+	public String getPassword() {
+		return password;
+	}
+
+	/**
+	 * @param userName the userName to set
+	 */
+	public void setUserName(String userName) {
+		this.userName = userName;
 	}
 
 }
