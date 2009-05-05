@@ -4,6 +4,7 @@
 package org.codepanda.application.factory;
 
 import org.codepanda.application.CommandActor;
+import org.codepanda.application.CommandType;
 
 /**
  * @author hszcg
@@ -13,5 +14,5 @@ import org.codepanda.application.CommandActor;
  * 
  */
 public abstract class CommandActorFactory {
-	public abstract CommandActor creator( int commandType, String commandDetail);
+	public abstract CommandActor creator( CommandType commandType, String commandDetail);
 }
