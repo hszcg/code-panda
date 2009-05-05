@@ -1,11 +1,12 @@
 package org.codepanda.application.factory;
 
 import org.codepanda.application.CommandActor;
+import org.codepanda.application.CommandType;
 
 public class UserActorFactory extends CommandActorFactory {
 
 	@Override
-	public CommandActor creator(int commandType, String commandDetail) {
+	public CommandActor creator(CommandType commandType, String commandDetail) {
 		// TODO Auto-generated method stub
 		return null;
 	}
