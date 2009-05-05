@@ -15,6 +15,10 @@ public abstract class CommandVisitor {
 	 */
 	private CommandType commandType;
 	
+	/**
+	 * 
+	 */
+	private String commandDetail;
 	
 	/**
 	 * To Execute Command
@@ -48,6 +52,20 @@ public abstract class CommandVisitor {
 	 */
 	public CommandType getCommandType() {
 		return commandType;
+	}
+
+	/**
+	 * @param commandDetail the commandDetail to set
+	 */
+	public void setCommandDetail(String commandDetail) {
+		this.commandDetail = commandDetail;
+	}
+
+	/**
+	 * @return the commandDetail
+	 */
+	public String getCommandDetail() {
+		return commandDetail;
 	}
 
 }
