@@ -569,7 +569,7 @@ public class EmptyRibbon extends JRibbonFrame {
 				er.pack();
 				er.setLocation(r.x, r.y);
 				er.setVisible(true);
-				er.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+				er.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 			}
 		});
 	}
