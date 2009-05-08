@@ -7,12 +7,9 @@ import java.util.ArrayList;
  * @version 4.17.01
  */
 public class ContactGroup {
-	public static final int NORMAL_GROUP = 1;
-	public static final int LABEL_GROUP = 2;
-	
 	private ArrayList<Integer> groupMembers;
 	
-	private int groupType;
+	private GroupType groupType;
 
 	/**
 	 * @param groupMembers the groupMembers to set

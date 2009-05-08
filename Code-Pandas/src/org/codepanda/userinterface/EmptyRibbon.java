@@ -25,7 +25,10 @@ import org.jdesktop.swingx.treetable.FileSystemModel;
 import org.jvnet.flamingo.common.JCommandButton;
 import org.jvnet.flamingo.common.JCommandButton.CommandButtonKind;
 import org.jvnet.flamingo.ribbon.*;
+import org.jvnet.lafwidget.LafWidget;
+import org.jvnet.lafwidget.tabbed.DefaultTabPreviewPainter;
 import org.jvnet.substance.SubstanceLegacyDefaultLookAndFeel;
+import org.jvnet.substance.SubstanceLookAndFeel;
 import org.jvnet.substance.skin.*;
 import org.jvnet.substance.skinpack.SubstanceGreenMagicLookAndFeel;
 
@@ -497,9 +500,10 @@ public class EmptyRibbon extends JRibbonFrame {
 		treePanel.add(tree);
 		centerPanel.addTab("Tree Tab", treePanel);
 		// ****************************************************************************
-
+		
 		majorPanel.add(centerPanel, BorderLayout.CENTER);
-
+		majorPanel.putClientProperty(LafWidget.TABBED_PANE_PREVIEW_PAINTER,
+		        new DefaultTabPreviewPainter());
 		return majorPanel;
 	}
 
