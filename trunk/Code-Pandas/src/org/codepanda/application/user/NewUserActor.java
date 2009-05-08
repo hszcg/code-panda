@@ -1,6 +1,7 @@
 package org.codepanda.application.user;
 
 import org.codepanda.application.CommandActor;
+import org.codepanda.utility.data.DataPool;
 import org.codepanda.utility.user.User;
 
 public class NewUserActor implements CommandActor {
@@ -12,7 +13,7 @@ public class NewUserActor implements CommandActor {
 		}
 
 		// 要求Utility增加createNewUser(User userToBeAdded)，Utility的数据都在DataPool里面
-		
+		DataPool.getInstance().createNewUser(this.newUser);
 		// 由于底层没有实现，样例到此为止
 		
 		// 剩下的事情就是Utility向数据库检查合法性checkExistUser()，和更新数据库 createNewUserData()	
