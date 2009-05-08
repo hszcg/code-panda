@@ -3,8 +3,12 @@
  */
 package org.codepanda.utility.data;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
+
+import org.codepanda.database.Database;
+import org.codepanda.database.DatabaseManager;
 import org.codepanda.utility.contact.ContactOperations;
 import org.codepanda.utility.group.ContactGroup;
 import org.codepanda.utility.label.CommonLabel;
@@ -23,9 +27,21 @@ import com.google.common.collect.HashMultimap;
 public class DataPool {
 	private DataPool(){
 		//TODO: Initialize all data except for dataPoolInstance
+		db=new Database();
+		try {
+			db.open("test");
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 	private static DataPool dataPoolInstance = new DataPool();
+	
+	/*
+	 * Database part
+	 */
+	private DatabaseManager db;
 	
 	/**
 	 * @return

@@ -14,6 +14,7 @@ import java.io.IOException;
 import java.util.*;
 
 import org.codepanda.userinterface.utility.*;
+import org.codepanda.utility.data.DataPool;
 
 import org.jdesktop.swingx.*;
 import org.jdesktop.swingx.JXStatusBar.Constraint;
@@ -663,6 +664,14 @@ public class EmptyRibbon extends JRibbonFrame {
 		SwingUtilities.invokeLater(new Runnable() {
 			@Override
 			public void run() {
+				
+				// datapool-init
+//				DataPool.getInstance()
+				DataPool.getInstance();
+				
+				
+				
+				
 				// Õ‚π€…Ë÷√
 				try {
 					UIManager
