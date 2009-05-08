@@ -35,6 +35,7 @@ public class DataPool {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		System.out.println("DataPoolInit");
 	}
 
 	private static DataPool dataPoolInstance = new DataPool();
@@ -67,7 +68,9 @@ public class DataPool {
 		currentUser = newUser;
 		if(!DataPool.getInstance().db.checkExistUser(currentUser.getUserName()))
 		{
+			System.out.println("newUser-begin");
 			DataPool.getInstance().db.newUser(newUser);
+			System.out.println("newUser-end");
 		}
 		else
 		{
