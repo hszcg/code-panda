@@ -27,7 +27,7 @@ import com.google.common.collect.HashMultimap;
  */
 public class DataPool {
 	private DataPool(){
-		//TODO: Initialize all data except for dataPoolInstance
+		//TODO Initialize all data except for dataPoolInstance
 		db=new Database();
 		try {
 			db.open("test");
