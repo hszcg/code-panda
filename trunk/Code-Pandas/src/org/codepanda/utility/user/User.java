@@ -17,7 +17,7 @@ public class User implements UserOperations,ContactOperations {
 	@Override
 	public String getUserName() {
 		// TODO Auto-generated method stub
-		return null;
+		return userName;
 	}
 
 	@Override
