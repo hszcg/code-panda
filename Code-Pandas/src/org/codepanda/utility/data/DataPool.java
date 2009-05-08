@@ -67,7 +67,7 @@ public class DataPool {
 		currentUser = newUser;
 		if(!DataPool.getInstance().db.checkExistUser(currentUser.getUserName()))
 		{
-			
+			DataPool.getInstance().db.newUser(newUser);
 		}
 		else
 		{
