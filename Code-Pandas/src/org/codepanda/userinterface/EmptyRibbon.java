@@ -665,6 +665,8 @@ public class EmptyRibbon extends JRibbonFrame {
 //				DataPool.getInstance()
 				DataPool.getInstance();
 				
+				MyMessageHandler mmh=new MyMessageHandler();
+				mmh.test();
 				
 				
 				

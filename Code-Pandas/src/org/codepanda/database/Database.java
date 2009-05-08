@@ -108,7 +108,7 @@ public class Database implements DatabaseManager{
 	public void newUser(User user) {
 		// TODO Auto-generated method stub
 		try {
-			db.updateS("INSERT INTO UserTable(string,class) VALUES(?,?)", user);
+			db.updateS("INSERT INTO UserTable(username,user) VALUES(?,?)", user);
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
