@@ -3,11 +3,13 @@
  */
 package org.codepanda.application;
 
+import org.codepanda.application.factory.CommandActorFactory;
+
 /**
  * @author hszcg
  *
  */
-public abstract class CommandVisitor {
+public class CommandVisitor {
 	
 	/**
 	 * One of Commands Given Above
@@ -26,6 +28,26 @@ public abstract class CommandVisitor {
 	 */
 	private CommandActor commandActor;
 
+	public CommandVisitor(CommandType commandType, String commandDetail) {
+		this.commandType = commandType;
+		this.commandDetail = commandDetail;
+		
+		String className = DynamicFactoryLinker.getDynamicFactoryLinker(commandType);
+		
+		try {
+			this.setCommandActor(((CommandActorFactory)(Class.forName(className).newInstance())).creator(commandType, commandDetail));
+		} catch (InstantiationException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IllegalAccessException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+
 	/**
 	 * @param commandActor the commandActor to set
 	 */
@@ -40,32 +62,5 @@ public abstract class CommandVisitor {
 		return commandActor;
 	}
 
-	/**
-	 * @param commandType the commandType to set
-	 */
-	public void setCommandType(CommandType commandType) {
-		this.commandType = commandType;
-	}
-
-	/**
-	 * @return the commandType
-	 */
-	public CommandType getCommandType() {
-		return commandType;
-	}
-
-	/**
-	 * @param commandDetail the commandDetail to set
-	 */
-	public void setCommandDetail(String commandDetail) {
-		this.commandDetail = commandDetail;
-	}
-
-	/**
-	 * @return the commandDetail
-	 */
-	public String getCommandDetail() {
-		return commandDetail;
-	}
-
+	
 }
