@@ -190,12 +190,12 @@ public class UserActorFactory extends CommandActorFactory {
 		//	} 
 		}
 	}
-	public static void main(String args[])
+/*	public static void main(String args[])
 	{
 		DataPool.getInstance();
 		UserActorFactory  uac=new UserActorFactory();
 		uac.creator(CommandType.NEW_USER,"<com>"+"<NewUser>"+"</NewUser>"+"<UserName>"+"leilei"+"</UserName>"+"<Telephone>"+"13699252256"+"</Telephone>"+"<Telephone>"+"51531174"+"</Telephone>"+"</com>");
 		
 	}
-
+*/
 }

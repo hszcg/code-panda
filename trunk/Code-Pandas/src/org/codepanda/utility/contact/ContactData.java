@@ -3,6 +3,7 @@
  */
 package org.codepanda.utility.contact;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 import org.codepanda.utility.label.RelationLabel;
@@ -14,7 +15,7 @@ import org.codepanda.utility.label.RelationLabel;
  * @version 4.16.01
  *
  */
-public class ContactData {
+public class ContactData implements Serializable {
 	public String contactName;
 	public ArrayList<String> phoneNumberList;
 	public ArrayList<String> emailAddresseList;
