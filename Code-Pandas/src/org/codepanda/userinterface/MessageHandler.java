@@ -16,5 +16,5 @@ public interface MessageHandler {
 	/**
 	 * @param commandVistor
 	 */
-	public void executeCommand(CommandVisitor commandVistor);
+	public void executeCommand(CommandVisitor commandVistor);  // ? visitor ?
 }
