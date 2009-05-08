@@ -18,16 +18,4 @@ public interface UserOperations {
 	 * @return
 	 */
 	public int varifyUserPassword(String inputPassword);
-	
-	/**
-	 * @param initializeString
-	 * @return
-	 */
-	public int initializeUserInformation( String initializeString );
-	
-	/**
-	 * @param editString
-	 * @return
-	 */
-	public int editUserInformation( String editString );
 }
