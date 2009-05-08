@@ -15,6 +15,8 @@ public class MyMessageHandler implements MessageHandler {
 			"</com>";
 		
 		CommandVisitor commandVistor = new CommandVisitor(commandType, commandDetail);
+		
+		this.executeCommand(commandVistor);
 	}
 
 	@Override
