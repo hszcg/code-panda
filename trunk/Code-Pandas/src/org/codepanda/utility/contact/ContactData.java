@@ -15,17 +15,17 @@ import org.codepanda.utility.label.RelationLabel;
  *
  */
 public class ContactData {
-	protected String contactName;
-	protected ArrayList<String> phoneNumberList;
-	protected ArrayList<String> emailAddresseList;
-	protected ArrayList<String> contactAddressList;
-	protected ArrayList<String> workingDepartmentList;
-	protected ArrayList<String> imContactInformationList;
-	protected Birthday contactBirthday;
-	protected HeadImage headImage;
-	protected ArrayList<String> urlList;
-	protected ArrayList<String> commonLabelList;
-	protected ArrayList<String> groupList;
-	protected ArrayList<RelationLabel> relationLabelList;
-	protected String ISN;
+	public String contactName;
+	public ArrayList<String> phoneNumberList;
+	public ArrayList<String> emailAddresseList;
+	public ArrayList<String> contactAddressList;
+	public ArrayList<String> workingDepartmentList;
+	public ArrayList<String> imContactInformationList;
+	public Birthday contactBirthday;
+	public HeadImage headImage;
+	public ArrayList<String> urlList;
+	public ArrayList<String> commonLabelList;
+	public ArrayList<String> groupList;
+	public ArrayList<RelationLabel> relationLabelList;
+	public String ISN;
 }
