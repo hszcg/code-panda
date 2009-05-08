@@ -28,8 +28,6 @@ import org.jvnet.flamingo.common.JCommandButton.CommandButtonKind;
 import org.jvnet.flamingo.ribbon.*;
 import org.jvnet.lafwidget.LafWidget;
 import org.jvnet.lafwidget.tabbed.DefaultTabPreviewPainter;
-import org.jvnet.lafwidget.utils.LafConstants.TabOverviewKind;
-import org.jvnet.substance.SubstanceLegacyDefaultLookAndFeel;
 import org.jvnet.substance.SubstanceLookAndFeel;
 import org.jvnet.substance.api.SubstanceConstants.TabCloseKind;
 import org.jvnet.substance.api.tabbed.TabCloseCallback;
@@ -37,9 +35,7 @@ import org.jvnet.substance.api.tabbed.TabCloseListener;
 import org.jvnet.substance.api.tabbed.VetoableMultipleTabCloseListener;
 import org.jvnet.substance.api.tabbed.VetoableTabCloseListener;
 import org.jvnet.substance.skin.*;
-import org.jvnet.substance.skinpack.SubstanceGreenMagicLookAndFeel;
 
-//import test.ribbon.BasicCheckRibbon.ExpandActionListener;
 public class EmptyRibbon extends JRibbonFrame {
 	public EmptyRibbon() {
 		super("PhoneMe test");
