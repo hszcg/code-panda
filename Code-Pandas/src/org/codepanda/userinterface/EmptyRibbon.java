@@ -27,8 +27,14 @@ import org.jvnet.flamingo.common.JCommandButton.CommandButtonKind;
 import org.jvnet.flamingo.ribbon.*;
 import org.jvnet.lafwidget.LafWidget;
 import org.jvnet.lafwidget.tabbed.DefaultTabPreviewPainter;
+import org.jvnet.lafwidget.utils.LafConstants.TabOverviewKind;
 import org.jvnet.substance.SubstanceLegacyDefaultLookAndFeel;
 import org.jvnet.substance.SubstanceLookAndFeel;
+import org.jvnet.substance.api.SubstanceConstants.TabCloseKind;
+import org.jvnet.substance.api.tabbed.TabCloseCallback;
+import org.jvnet.substance.api.tabbed.TabCloseListener;
+import org.jvnet.substance.api.tabbed.VetoableMultipleTabCloseListener;
+import org.jvnet.substance.api.tabbed.VetoableTabCloseListener;
 import org.jvnet.substance.skin.*;
 import org.jvnet.substance.skinpack.SubstanceGreenMagicLookAndFeel;
 
@@ -37,9 +43,10 @@ public class EmptyRibbon extends JRibbonFrame {
 	public EmptyRibbon() {
 		super("PhoneMe test");
 		try {
-			this.setIconImages(Arrays.asList(ImageIO.read(this.getClass()
-					.getResource("/ribbon-main-icon-16.png")), ImageIO.read(this
-					.getClass().getResource("/ribbon-main-icon.png"))));
+			this.setIconImages(Arrays
+					.asList(ImageIO.read(this.getClass().getResource(
+							"/ribbon-main-icon-16.png")), ImageIO.read(this
+							.getClass().getResource("/ribbon-main-icon.png"))));
 		} catch (IOException ioe) {
 			ioe.printStackTrace();
 		}
@@ -165,229 +172,229 @@ public class EmptyRibbon extends JRibbonFrame {
 		this.getRibbon().setApplicationMenu(applicationMenu);
 	}
 
-	private JRibbonBand getUserManagerBand(){
-		JRibbonBand userManagerBand = new JRibbonBand("用户管理",
-				new edit_paste(), new ExpandActionListener());
-		
+	private JRibbonBand getUserManagerBand() {
+		JRibbonBand userManagerBand = new JRibbonBand("用户管理", new edit_paste(),
+				new ExpandActionListener());
+
 		JCommandButton newUserButton = new JCommandButton("新建用户",
 				new edit_paste());
-		
+
 		newUserButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				System.out.println("新建用户");
 			}
 		});
-		
-		userManagerBand.addCommandButton
-		(newUserButton, RibbonElementPriority.MEDIUM);
-		
+
+		userManagerBand.addCommandButton(newUserButton,
+				RibbonElementPriority.MEDIUM);
+
 		JCommandButton deleteUserButton = new JCommandButton("删除用户",
 				new edit_paste());
-		
+
 		deleteUserButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				System.out.println("删除用户");
 			}
 		});
-		
-		userManagerBand.addCommandButton
-		(deleteUserButton, RibbonElementPriority.MEDIUM);
-		
+
+		userManagerBand.addCommandButton(deleteUserButton,
+				RibbonElementPriority.MEDIUM);
+
 		JCommandButton editUserButton = new JCommandButton("修改用户信息",
 				new edit_paste());
-		
+
 		editUserButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				System.out.println("修改用户信息");
 			}
 		});
-		
-		userManagerBand.addCommandButton
-		(editUserButton, RibbonElementPriority.MEDIUM);
-		
-		//userManagerBand.setResizePolicies(CoreRibbonResizePolicies
-		//		.getCorePoliciesRestrictive(userManagerBand));
-		
+
+		userManagerBand.addCommandButton(editUserButton,
+				RibbonElementPriority.MEDIUM);
+
+		// userManagerBand.setResizePolicies(CoreRibbonResizePolicies
+		// .getCorePoliciesRestrictive(userManagerBand));
+
 		return userManagerBand;
 	}
-	private JRibbonBand getContactManagerBand(){
+
+	private JRibbonBand getContactManagerBand() {
 		JRibbonBand contactManagerBand = new JRibbonBand("联系人管理",
 				new edit_paste(), new ExpandActionListener());
-		
 
 		JCommandButton newContactButton = new JCommandButton("新建联系人",
 				new edit_paste());
-		
+
 		newContactButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				System.out.println("新建联系人");
 			}
 		});
-		
-		contactManagerBand.addCommandButton
-		(newContactButton, RibbonElementPriority.MEDIUM);
-		
+
+		contactManagerBand.addCommandButton(newContactButton,
+				RibbonElementPriority.MEDIUM);
+
 		JCommandButton deleteContactButton = new JCommandButton("删除联系人",
 				new edit_paste());
-		
+
 		deleteContactButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				System.out.println("删除联系人");
 			}
 		});
-		
-		contactManagerBand.addCommandButton
-		(deleteContactButton, RibbonElementPriority.MEDIUM);
-		
+
+		contactManagerBand.addCommandButton(deleteContactButton,
+				RibbonElementPriority.MEDIUM);
+
 		JCommandButton editContactButton = new JCommandButton("修改联系人信息",
 				new edit_paste());
-		
+
 		editContactButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				System.out.println("修改联系人");
 			}
 		});
-		
-		contactManagerBand.addCommandButton
-		(editContactButton, RibbonElementPriority.MEDIUM);
-		
+
+		contactManagerBand.addCommandButton(editContactButton,
+				RibbonElementPriority.MEDIUM);
+
 		JCommandButton statContactButton = new JCommandButton("联系人统计",
 				new edit_paste());
-		
+
 		statContactButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				System.out.println("联系人统计");
 			}
 		});
-		
-		contactManagerBand.addCommandButton
-		(statContactButton, RibbonElementPriority.MEDIUM);
-		
+
+		contactManagerBand.addCommandButton(statContactButton,
+				RibbonElementPriority.MEDIUM);
+
 		JCommandButton searchContactButton = new JCommandButton("联系人搜索",
 				new edit_paste());
-		
+
 		searchContactButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				System.out.println("联系人搜索");
 			}
 		});
-		
-		contactManagerBand.addCommandButton
-		(searchContactButton, RibbonElementPriority.MEDIUM);
-		
-		//contactManagerBand.setResizePolicies(CoreRibbonResizePolicies
-		//		.getCorePoliciesRestrictive(contactManagerBand));
-		
+
+		contactManagerBand.addCommandButton(searchContactButton,
+				RibbonElementPriority.MEDIUM);
+
+		// contactManagerBand.setResizePolicies(CoreRibbonResizePolicies
+		// .getCorePoliciesRestrictive(contactManagerBand));
+
 		return contactManagerBand;
 	}
-	
-	JRibbonBand getContactExchangeBand(){
+
+	JRibbonBand getContactExchangeBand() {
 		JRibbonBand contactExchangeBand = new JRibbonBand("数据导入导出",
 				new edit_paste(), new ExpandActionListener());
-		
+
 		JCommandButton importContactButton = new JCommandButton("联系人导入",
 				new edit_paste());
-		
+
 		importContactButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				System.out.println("联系人导入");
 			}
 		});
-		
-		contactExchangeBand.addCommandButton
-		(importContactButton, RibbonElementPriority.MEDIUM);
-		
+
+		contactExchangeBand.addCommandButton(importContactButton,
+				RibbonElementPriority.MEDIUM);
+
 		JCommandButton exportContactButton = new JCommandButton("联系人导出",
 				new edit_paste());
-		
+
 		exportContactButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				System.out.println("联系人导出");
 			}
 		});
-		
-		contactExchangeBand.addCommandButton
-		(exportContactButton, RibbonElementPriority.MEDIUM);
-		
+
+		contactExchangeBand.addCommandButton(exportContactButton,
+				RibbonElementPriority.MEDIUM);
+
 		return contactExchangeBand;
 	}
-	
-	JRibbonBand getContactSyncBand(){
+
+	JRibbonBand getContactSyncBand() {
 		JRibbonBand contactSyncBand = new JRibbonBand("联系人同步",
 				new edit_paste(), new ExpandActionListener());
-		
-		JCommandButton googleContactButton = new JCommandButton
-		("与Google Contact同步", new edit_paste());
-		
+
+		JCommandButton googleContactButton = new JCommandButton(
+				"与Google Contact同步", new edit_paste());
+
 		googleContactButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				System.out.println("与Google Contact同步");
 			}
 		});
-		
-		contactSyncBand.addCommandButton
-		(googleContactButton, RibbonElementPriority.MEDIUM);
-		
+
+		contactSyncBand.addCommandButton(googleContactButton,
+				RibbonElementPriority.MEDIUM);
+
 		JCommandButton bluetoothContactButton = new JCommandButton("与手机蓝牙同步",
 				new edit_paste());
-		
+
 		bluetoothContactButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				System.out.println("与手机蓝牙同步");
 			}
 		});
-		
-		contactSyncBand.addCommandButton
-		(bluetoothContactButton, RibbonElementPriority.MEDIUM);
-		
+
+		contactSyncBand.addCommandButton(bluetoothContactButton,
+				RibbonElementPriority.MEDIUM);
+
 		return contactSyncBand;
 	}
-	
-	JRibbonBand getOtherFunctionBand(){
+
+	JRibbonBand getOtherFunctionBand() {
 		JRibbonBand otherFunctionBand = new JRibbonBand("其它高级功能",
 				new edit_paste(), new ExpandActionListener());
-		
+
 		JCommandButton remindBirthdayButton = new JCommandButton("生日提醒",
 				new edit_paste());
-		
+
 		remindBirthdayButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				System.out.println("生日提醒");
 			}
 		});
-		
-		otherFunctionBand.addCommandButton
-		(remindBirthdayButton, RibbonElementPriority.MEDIUM);
-		
-		JCommandButton arrangeContactButton = new JCommandButton
-		("联系人整理", new edit_paste());
-		
+
+		otherFunctionBand.addCommandButton(remindBirthdayButton,
+				RibbonElementPriority.MEDIUM);
+
+		JCommandButton arrangeContactButton = new JCommandButton("联系人整理",
+				new edit_paste());
+
 		arrangeContactButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				System.out.println("联系人整理");
 			}
 		});
-		
-		otherFunctionBand.addCommandButton
-		(arrangeContactButton, RibbonElementPriority.MEDIUM);
-		
+
+		otherFunctionBand.addCommandButton(arrangeContactButton,
+				RibbonElementPriority.MEDIUM);
+
 		JCommandButton relationNetButton = new JCommandButton("人立方",
 				new edit_paste());
-		
+
 		relationNetButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				System.out.println("人立方");
 			}
 		});
-		
-		otherFunctionBand.addCommandButton
-		(relationNetButton, RibbonElementPriority.MEDIUM);
-		
+
+		otherFunctionBand.addCommandButton(relationNetButton,
+				RibbonElementPriority.MEDIUM);
+
 		return otherFunctionBand;
 	}
 
 	JXPanel getMajorPanel() {
-		JXPanel majorPanel = new JXPanel();
+		final JXPanel majorPanel = new JXPanel();
 		majorPanel.setLayout(new BorderLayout());
 
 		// ****************************************************************************
@@ -499,11 +506,122 @@ public class EmptyRibbon extends JRibbonFrame {
 
 		treePanel.add(tree);
 		centerPanel.addTab("Tree Tab", treePanel);
+
+		TabCloseCallback closeCallbackMain = new TabCloseCallback() {
+			public TabCloseKind onAreaClick(JTabbedPane tabbedPane,
+					int tabIndex, MouseEvent mouseEvent) {
+				if (mouseEvent.getButton() != MouseEvent.BUTTON2)
+					return TabCloseKind.NONE;
+				if (mouseEvent.isShiftDown()) {
+					return TabCloseKind.ALL;
+				}
+				return TabCloseKind.THIS;
+			}
+
+			public TabCloseKind onCloseButtonClick(JTabbedPane tabbedPane,
+					int tabIndex, MouseEvent mouseEvent) {
+				if (mouseEvent.isAltDown()) {
+					return TabCloseKind.ALL_BUT_THIS;
+				}
+				if (mouseEvent.isShiftDown()) {
+					return TabCloseKind.ALL;
+				}
+				return TabCloseKind.THIS;
+			}
+
+			public String getAreaTooltip(JTabbedPane tabbedPane, int tabIndex) {
+				return null;
+			}
+
+			public String getCloseButtonTooltip(JTabbedPane tabbedPane,
+					int tabIndex) {
+				StringBuffer result = new StringBuffer();
+				result.append("<html><body>");
+				result.append("Mouse click closes <b>"
+						+ tabbedPane.getTitleAt(tabIndex) + "</b> tab");
+				result
+						.append("<br><b>Alt</b>-Mouse click closes all tabs but <b>"
+								+ tabbedPane.getTitleAt(tabIndex) + "</b> tab");
+				result.append("<br><b>Shift</b>-Mouse click closes all tabs");
+				result.append("</body></html>");
+				return result.toString();
+			}
+		};
+
+		centerPanel.putClientProperty(
+				SubstanceLookAndFeel.TABBED_PANE_CLOSE_CALLBACK,
+				closeCallbackMain);
+		centerPanel.putClientProperty(LafWidget.TABBED_PANE_PREVIEW_PAINTER,
+				new DefaultTabPreviewPainter());
+
+		SubstanceLookAndFeel
+				.registerTabCloseChangeListener(new TabCloseListener() {
+					public void tabClosed(JTabbedPane tabbedPane,
+							Component tabComponent) {
+						System.out.println("Closed tab");
+					}
+
+					public void tabClosing(JTabbedPane tabbedPane,
+							Component tabComponent) {
+						System.out.println("Closing tab");
+					}
+				});
+
+		SubstanceLookAndFeel.registerTabCloseChangeListener(centerPanel,
+				new VetoableTabCloseListener() {
+					public void tabClosed(JTabbedPane tabbedPane,
+							Component tabComponent) {
+						System.out.println("Closed tab - specific");
+					}
+
+					public void tabClosing(JTabbedPane tabbedPane,
+							Component tabComponent) {
+						System.out.println("Closing tab - specific");
+					}
+
+					public boolean vetoTabClosing(JTabbedPane tabbedPane,
+							Component tabComponent) {
+						int userCloseAnswer = JOptionPane
+								.showConfirmDialog(
+										majorPanel,
+										"Are you sure you want to close '"
+												+ tabbedPane
+														.getTitleAt(tabbedPane
+																.indexOfComponent(tabComponent))
+												+ "' tab?", "Confirm dialog",
+										JOptionPane.YES_NO_OPTION);
+						return (userCloseAnswer == JOptionPane.NO_OPTION);
+					}
+				});
+		
+		SubstanceLookAndFeel.registerTabCloseChangeListener(centerPanel,
+				new VetoableMultipleTabCloseListener() {
+					public void tabsClosed(JTabbedPane tabbedPane,
+							Set<Component> tabComponents) {
+						System.out.println("Closed " + tabComponents.size()
+								+ " tabs - specific");
+					}
+
+					public void tabsClosing(JTabbedPane tabbedPane,
+							Set<Component> tabComponents) {
+						System.out.println("Closing " + tabComponents.size()
+								+ " tabs - specific");
+					}
+
+					public boolean vetoTabsClosing(JTabbedPane tabbedPane,
+							Set<Component> tabComponents) {
+						int userCloseAnswer = JOptionPane.showConfirmDialog(
+								majorPanel, "Are you sure you want to close "
+										+ tabComponents.size() + " tabs?",
+								"Confirm dialog", JOptionPane.YES_NO_OPTION);
+						return (userCloseAnswer == JOptionPane.NO_OPTION);
+					}
+				});
 		// ****************************************************************************
 		
+		centerPanel.add("Contact Info", new ContactInfoPanel());
+
 		majorPanel.add(centerPanel, BorderLayout.CENTER);
-		majorPanel.putClientProperty(LafWidget.TABBED_PANE_PREVIEW_PAINTER,
-		        new DefaultTabPreviewPainter());
 		return majorPanel;
 	}
 
@@ -518,8 +636,8 @@ public class EmptyRibbon extends JRibbonFrame {
 		JRibbonBand contactExchangeBand = this.getContactExchangeBand();
 		JRibbonBand contactSyncBand = this.getContactSyncBand();
 		JRibbonBand otherFunctionBand = this.getOtherFunctionBand();
-		RibbonTask advancedTask = new RibbonTask("高级功能",
-				contactExchangeBand, contactSyncBand, otherFunctionBand);
+		RibbonTask advancedTask = new RibbonTask("高级功能", contactExchangeBand,
+				contactSyncBand, otherFunctionBand);
 		advancedTask.setKeyTip("A");
 		this.getRibbon().addTask(advancedTask);
 
@@ -548,14 +666,18 @@ public class EmptyRibbon extends JRibbonFrame {
 				// 外观设置
 				try {
 					UIManager
-							.setLookAndFeel(new SubstanceOfficeBlue2007LookAndFeel());
-					JFrame.setDefaultLookAndFeelDecorated(false);
-					JDialog.setDefaultLookAndFeelDecorated(false);
+							.setLookAndFeel(new SubstanceMistAquaLookAndFeel());
+					UIManager
+							.put(
+									SubstanceLookAndFeel.TABBED_PANE_CLOSE_BUTTONS_PROPERTY,
+									Boolean.TRUE);
+					JFrame.setDefaultLookAndFeelDecorated(true);
+					JDialog.setDefaultLookAndFeelDecorated(true);
 				} catch (UnsupportedLookAndFeelException e) {
 					e.printStackTrace();
 				}
 
-				// Locale.setDefault(new Locale("USA"));
+				Locale.setDefault(new Locale("USA"));
 				// **************************************************
 
 				try {
@@ -569,7 +691,7 @@ public class EmptyRibbon extends JRibbonFrame {
 				er.configureApplicationMenu();
 				Rectangle r = GraphicsEnvironment.getLocalGraphicsEnvironment()
 						.getMaximumWindowBounds();
-				er.setPreferredSize(new Dimension(r.width, r.height / 2));
+				er.setPreferredSize(new Dimension(r.width, r.height));
 				er.pack();
 				er.setLocation(r.x, r.y);
 				er.setVisible(true);
