@@ -9,4 +9,5 @@ public interface DatabaseManager {
 	public User getUser(String name);
 	public void open(String db_name) throws SQLException;
 	public void close() throws SQLException;
+	public boolean checkExistUser(String userName);
 }

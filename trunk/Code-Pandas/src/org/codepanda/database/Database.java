@@ -148,6 +148,11 @@ public class Database implements DatabaseManager{
 		}
 		
 	}
+	@Override
+	public boolean checkExistUser(String userName) {
+		// TODO Auto-generated method stub
+		return false;
+	}
 	
 
 }
