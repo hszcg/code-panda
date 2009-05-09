@@ -20,6 +20,7 @@ public class CommandVisitor {
 	/**
 	 * 
 	 */
+	
 	private String commandDetail;
 	
 	/**
