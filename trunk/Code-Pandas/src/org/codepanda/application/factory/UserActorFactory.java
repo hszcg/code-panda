@@ -24,29 +24,61 @@ public class UserActorFactory extends CommandActorFactory {
 	@Override
 	public CommandActor creator(CommandType commandType, String commandDetail) {
 		// TODO Auto-generated method stub
+		boolean start1=false;
+		boolean  end1=false;
+		boolean start2=false;
+		boolean end2=false;
 		commandType=CommandType.NEW_USER;
 		commandDetail=
 			"<com>"+
-			"<NewUser>"+"</NewUser>"+
+			"<NewUser>"+
 			"<UserName>"+"leilei"+"</UserName>"+
+			"<UserPassword>"+"hehe"+"</UserPassword>"+
 			"<Telephone>"+"13699252256"+"</Telephone>"+
 			"<Telephone>"+"51531174"+"</Telephone>"+
+			"</NewUser>"+
 			"</com>";
 		if( commandType == CommandType.NEW_USER ){
 			NewUserActor newUserActor = new NewUserActor();			
 			currentUser = new User();
 			newUserActor.setNewUser(currentUser);
+			String  substr2=null;
+			String substr=null;
 		//从commandDetail中解析出用户信息
 		try
 		{
 			DocumentBuilderFactory dbf=DocumentBuilderFactory.newInstance();
 			DocumentBuilder db=dbf.newDocumentBuilder();
 			//Document document=db.parse(commandDetail);
-			Document document=db.parse(new InputSource(new StringReader(commandDetail)));
-			
+			if(commandDetail.contains("<com>")&&commandDetail.contains("</com"))
+			{
+				start1=true;
+				end1=true;
+				int i=commandDetail.indexOf("<com>");
+				//System.out.println("i++++"+i);
+				int j=commandDetail.indexOf("</com>");
+				//System.out.println("j====="+j);
+				substr=commandDetail.substring(i+5, j);
+				//System.out.println("substr==="+substr);
+			}
+			if(!start1||!end1)
+			{
+				System.out.println("Wrong Format!!!");
+			}
+				if(start1&&end1&&substr.contains("<NewUser>")&&substr.contains("</NewUser>"))
+				{
+					start2=true;
+					end2=true;
+				}
+				if(!start2||!start2)
+				{
+					System.out.println("Wrong Function!!!");
+				}
+			Document document=db.parse(new InputSource(new StringReader(substr)));
 			//System.out.println("File Path"+document.getDocumentURI());
 			Element root=document.getDocumentElement();
 			Iterator(root);
+			System.out.println("root------"+root.getTextContent());
 		}
 		catch(Exception e)
 		{
@@ -62,38 +94,41 @@ public class UserActorFactory extends CommandActorFactory {
 	//	System.out.println(element.getNodeName());
 		for(int i=0;i<nodelist.getLength();i++)
 		{
-			System.out.println(i);
+			
 			Node node=nodelist.item(i);
 			String str=node.getNodeName();
-			/* if(i==0)
+			
+			if(i==0)
 			{
-				if(str.equalsIgnoreCase("NewUser"))
+				if(str.equalsIgnoreCase("UserName"))
 				{
-					System.out.println("New User!!!");
-					continue;
-				}
-				else
-				{
-					System.out.println("Wrong Function!!!");
-					break;
-				}
-			}*/
-			//else
-			//{
-			if(str.equalsIgnoreCase("UserName"))
-			{
+				System.out.println(i);
 				String value=node.getTextContent();
 				currentUser.setUserName(value);
 				System.out.println("UserName--"+value);
+				}
+				else
+				{
+					System.out.println("Please input UserName!!!");
+				}
 			}
-			else if(str.equalsIgnoreCase("UserPassword"))
+			else if(i==1)
 			{
+				if(str.equalsIgnoreCase("UserPassword"))
+				{
+				System.out.println(i);
 				String value=node.getTextContent();
 				currentUser.setPassword(value);
 				System.out.println("UserPassword--"+value);
+				}
+				else
+				{
+					System.out.println("Please input UserPassword!!!");
+				}
 			}
 			else if(str.equalsIgnoreCase("Telephone"))
 			{
+				System.out.println(i);
 				String value=node.getTextContent();
 				System.out.println(value);
 				ArrayList<String> myphoneNumberList=currentUser.getPhoneNumberList();
@@ -107,6 +142,7 @@ public class UserActorFactory extends CommandActorFactory {
 			}
 			else if(str.equalsIgnoreCase("Email"))
 			{
+				System.out.println(i);
 				String value=node.getTextContent();
 				ArrayList<String> myEmailList=currentUser.getEmailAddresseList();
 				if(myEmailList==null)
@@ -190,12 +226,4 @@ public class UserActorFactory extends CommandActorFactory {
 		//	} 
 		}
 	}
-/*	public static void main(String args[])
-	{
-		DataPool.getInstance();
-		UserActorFactory  uac=new UserActorFactory();
-		uac.creator(CommandType.NEW_USER,"<com>"+"<NewUser>"+"</NewUser>"+"<UserName>"+"leilei"+"</UserName>"+"<Telephone>"+"13699252256"+"</Telephone>"+"<Telephone>"+"51531174"+"</Telephone>"+"</com>");
-		
-	}
-*/
 }

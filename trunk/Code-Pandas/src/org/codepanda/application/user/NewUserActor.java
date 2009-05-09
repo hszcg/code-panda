@@ -11,7 +11,8 @@ public class NewUserActor implements CommandActor {
 		if( this.newUser == null ) {
 			System.out.println("this.newUser == null");
 		}
-
+		//User currentUser = new User();
+		
 		// 要求Utility增加createNewUser(User userToBeAdded)，Utility的数据都在DataPool里面
 		DataPool.getInstance().createNewUser(this.newUser);
 		// 由于底层没有实现，样例到此为止
