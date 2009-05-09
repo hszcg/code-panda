@@ -6,6 +6,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
+import org.codepanda.utility.contact.ContactData;
 import org.codepanda.utility.user.User;
 import org.hsqldb.*;
 import org.hsqldb.jdbc.jdbcDataSource;
@@ -152,6 +153,36 @@ public class Database implements DatabaseManager{
 	public boolean checkExistUser(String userName) {
 		// TODO Auto-generated method stub
 		return false;
+	}
+	@Override
+	public int delUser(User user) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+	@Override
+	public void deleteContact(User user, ContactData contact) {
+		// TODO Auto-generated method stub
+		
+	}
+	@Override
+	public User editUser(String username, User user) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	@Override
+	public ContactData editUser(User user, ContactData contact) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	@Override
+	public ContactData getContactData(User user, ContactData contact) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	@Override
+	public void newContact(User user, ContactData contact) {
+		// TODO Auto-generated method stub
+		
 	}
 	
 
