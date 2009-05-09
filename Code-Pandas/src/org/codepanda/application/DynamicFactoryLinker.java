@@ -5,29 +5,36 @@ import java.util.HashMap;
 /**
  * @author hszcg
  *
+ * Singleton Pattern
+ *
  */
 public class DynamicFactoryLinker {
 	/**
 	 * 
 	 */
-	private static HashMap<CommandType, String> linkerMap = null;
+	private HashMap<CommandType, String> linkerMap = null;
 	
+	private static DynamicFactoryLinker dynamicFactoryLinker = new DynamicFactoryLinker();
+	
+	/**
+	 * @return
+	 */
+	public static DynamicFactoryLinker getInstance() {
+		return dynamicFactoryLinker;
+	}
 	
 	/**
 	 * @param key
 	 * @return
 	 */
-	public static String getDynamicFactoryLinker(CommandType key) {
-		if( linkerMap == null )
-			DynamicFactoryLinker.initDynamicFactoryLinker();
-		
-		return linkerMap.get(key);
+	public  String getDynamicFactoryLinker(CommandType key) {		
+		return this.linkerMap.get(key);
 	}
 	
 	/**
 	 * 
 	 */
-	private static void initDynamicFactoryLinker(){
+	private DynamicFactoryLinker(){
 		linkerMap = new HashMap<CommandType, String>(CommandType.values().length);
 		
 		linkerMap.put(CommandType.NEW_USER, "org.codepanda.application.factory.UserActorFactory");
