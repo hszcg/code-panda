@@ -1,8 +1,11 @@
 package org.codepanda.userinterface;
 
 import java.awt.*;
+import java.awt.event.*;
 import javax.swing.*;
+import org.jdesktop.swingx.JXMultiSplitPane;
 import org.jdesktop.swingx.JXPanel;
+import org.jdesktop.swingx.MultiSplitLayout;
 import com.jgoodies.forms.layout.FormLayout;
 import com.jgoodies.forms.builder.PanelBuilder;
 import com.jgoodies.forms.layout.CellConstraints;
@@ -10,7 +13,13 @@ import com.jgoodies.forms.layout.CellConstraints;
 public class ContactInfoPanel extends JXPanel{
 	JPanel upperPanel;
 	JPanel upperLeftPanel;
+	JXMultiSplitPane upperRightPanel;
 	JPanel mainPanel;
+	
+	//图片部分
+	JLabel headImageLabel;
+	JButton editHeadImageButton;
+	JButton deleteHeadImageButton;
 	
 	//联系人姓名部分
 	//JXMultiSplitPane namePanel;
@@ -99,7 +108,7 @@ public class ContactInfoPanel extends JXPanel{
 	public void setUpperPanel(){
 		upperPanel = new JPanel();
 		upperPanel.setLayout(new BorderLayout());
-		upperLeftPanel = new JPanel();
+		//upperLeftPanel = new JPanel();
 		/*upperRightPanel = new JXMultiSplitPane();
 		//upperRightPanel.setLayout(new GridLayout(2,1));
 		String upperRightlayoutDef =
@@ -170,34 +179,56 @@ public class ContactInfoPanel extends JXPanel{
 		
 		FormLayout upperRightlayout = new FormLayout(
 	    "pref, 3dlu, pref, 15dlu, pref, 3dlu, pref, 3dlu, pref", // columns
-	    "p, 5dlu, p");      // rows
+	    "p, 8dlu, p, 5dlu, p");      // rows
 		upperRightlayout.setColumnGroups(new int[][]{{5, 7, 9}});
 		
 		PanelBuilder builder = new PanelBuilder(upperRightlayout);
 		builder.setDefaultDialogBorder();
 		
 		CellConstraints cc = new CellConstraints();
-		builder.addLabel("姓名/Name", cc.xy(1, 1));
-		builder.add(nameField, cc.xy(3, 1));
-		builder.add(nameEditButton, cc.xy(5, 1));
 		
-		builder.addLabel("联系电话/Phone Number", cc.xy(1, 3));
-		builder.add(phoneNumberBox, cc.xy(3, 3));
-		builder.add(addPhoneNumberButton, cc.xy(5, 3));
-		builder.add(editPhoneNumberButton, cc.xy(7, 3));
-		builder.add(deletePhoneNumberButton, cc.xy(9, 3));
+		builder.addSeparator("基本信息", cc.xyw(1, 1, 9));
+		builder.addLabel("姓名/Name", cc.xy(1, 3));
+		builder.add(nameField, cc.xy(3, 3));
+		builder.add(nameEditButton, cc.xy(5, 3));
 		
-		upperLeftPanel.add(new JLabel("test1"));
-		upperPanel.add(upperLeftPanel, "West");
+		builder.addLabel("联系电话/Phone Number", cc.xy(1, 5));
+		builder.add(phoneNumberBox, cc.xy(3, 5));
+		builder.add(addPhoneNumberButton, cc.xy(5, 5));
+		builder.add(editPhoneNumberButton, cc.xy(7, 5));
+		builder.add(deletePhoneNumberButton, cc.xy(9, 5));
+		
+		//upperLeftPanel.add(new JLabel("test1"));
+		FormLayout upperLeftlayout = new FormLayout(
+		"pref, 9dlu, pref", // columns
+		"p, 7dlu, p");      // rows
+		upperLeftlayout.setColumnGroups(new int[][]{{1, 3}});
+				
+		PanelBuilder leftBuilder = new PanelBuilder(upperLeftlayout);
+		leftBuilder.setDefaultDialogBorder();
+		
+		CellConstraints leftcc = new CellConstraints();
+		
+		headImageLabel = new JLabel("联系人图片");
+		editHeadImageButton = new JButton("编辑");
+		deleteHeadImageButton = new JButton("删除");
+		
+		leftBuilder.add(headImageLabel, leftcc.xyw(1, 1, 3));
+		leftBuilder.add(editHeadImageButton, leftcc.xy(1, 3));
+		leftBuilder.add(deleteHeadImageButton, leftcc.xy(3, 3));
+		
+		upperPanel.add(leftBuilder.getPanel(), "West");
 		upperPanel.add(builder.getPanel(), "Center");
 	}
 	public void setMainPanel(){
 		mainPanel = new JPanel();
 		FormLayout mainAreaLayout = new FormLayout(
-	"pref, 3dlu, pref, 2dlu, pref, 15dlu, pref, 3dlu, pref, 3dlu, pref",//column
-	"p, 5dlu, p, 5dlu, p, 5dlu, p, 5dlu, p, 5dlu, p, 5dlu, p, 5dlu, p, " +
-	"5dlu, p");
-		mainAreaLayout.setColumnGroups(new int[][]{{7, 9, 11}});
+	//"pref, 3dlu, pref, 2dlu, pref, 15dlu, pref, 3dlu, pref, 3dlu, pref",//column
+	"pref, 3dlu, pref, 15dlu, pref, 3dlu, pref, 3dlu, pref",//column
+	"p, 8dlu, p, 5dlu, p, 5dlu, p, 5dlu, p, 5dlu, p, 5dlu, p, 5dlu, p," +
+	" 5dlu, p, 5dlu, p");//row
+		//mainAreaLayout.setColumnGroups(new int[][]{{7, 9, 11}});
+		mainAreaLayout.setColumnGroups(new int[][]{{5, 7, 9}});
 		
 		PanelBuilder builder = new PanelBuilder(mainAreaLayout);
 		builder.setDefaultDialogBorder();
@@ -205,33 +236,41 @@ public class ContactInfoPanel extends JXPanel{
 		CellConstraints cc = new CellConstraints();
 		
 		String temp[] = {"010-51534419999999", "1381001318888888888888",
-				"029-8536780000000000000000000"};
+				"中华人民共和国陕西省西安市西北工业大学附属中学高2006届" +
+				"九班"};
 		
+		builder.addSeparator("个人信息", cc.xyw(1, 1, 9));
 		//e-mail
-		emailAddressBox = new JComboBox();
+		emailAddressBox = new JComboBox(temp);
+		//emailAddressBox.setPreferredSize(new   Dimension(200,20));
+		emailAddressBox.setEditable(true);
 		addEmailAddressButton = new JButton("添加");
 		editEmailAddressButton = new JButton("编辑");
 		deleteEmailAddressButton = new JButton("删除");
 		
-		builder.addLabel("电子邮箱/E-mail", cc.xy(1, 1));
-		builder.add(emailAddressBox, cc.xyw(3, 1, 3));
-		builder.add(addEmailAddressButton, cc.xy(7, 1));
-		builder.add(editEmailAddressButton, cc.xy(9, 1));
-		builder.add(deleteEmailAddressButton, cc.xy(11, 1));
+		builder.addLabel("电子邮箱/E-mail", cc.xy(1, 3));
+		//builder.add(emailAddressBox, cc.xyw(3, 1, 3));
+		builder.add(emailAddressBox, cc.xy(3, 3));
+		builder.add(addEmailAddressButton, cc.xy(5, 3));
+		builder.add(editEmailAddressButton, cc.xy(7, 3));
+		builder.add(deleteEmailAddressButton, cc.xy(9, 3));
+		//builder.add(addEmailAddressButton, cc.xy(7, 1));
+		//builder.add(editEmailAddressButton, cc.xy(9, 1));
+		//builder.add(deleteEmailAddressButton, cc.xy(11, 1));
 		
 		//联系人住址
-		contactAddressBox = new JComboBox(temp);
+		contactAddressBox = new JComboBox();
 		addContactAddressButton = new JButton("添加");
 		editContactAddressButton = new JButton("编辑");
 		deleteContactAddressButton = new JButton("删除");
 		
-		builder.addLabel("家庭住址/Address", cc.xy(1, 3));
-		builder.add(contactAddressBox, cc.xyw(3, 3, 3));
-		builder.add(addContactAddressButton, cc.xy(7, 3));
-		builder.add(editContactAddressButton, cc.xy(9, 3));
-		builder.add(deleteContactAddressButton, cc.xy(11, 3));
+		builder.addLabel("家庭住址/Address", cc.xy(1, 5));
+		builder.add(contactAddressBox, cc.xy(3, 5));
+		builder.add(addContactAddressButton, cc.xy(5, 5));
+		builder.add(editContactAddressButton, cc.xy(7, 5));
+		builder.add(deleteContactAddressButton, cc.xy(9, 5));
 		
-		//联系人工作／学习单位
+		/*//联系人工作／学习单位
 		workingDepartmentBox = new JComboBox();
 		addWorkingDepartmentButton = new JButton("添加");
 		editWorkingDepartmentButton = new JButton("编辑");
@@ -273,7 +312,21 @@ public class ContactInfoPanel extends JXPanel{
 		builder.add(urlListBox, cc.xyw(3, 11, 3));
 		builder.add(addUrlListButton, cc.xy(7, 11));
 		builder.add(editUrlListButton, cc.xy(9, 11));
-		builder.add(deleteUrlListButton, cc.xy(11, 11));
+		builder.add(deleteUrlListButton, cc.xy(11, 11));*/
+		
+		//标签以及分组的显示区域
+		FormLayout mainSouthAreaLayout = new FormLayout(
+	"pref, 3dlu, pref, 2dlu, pref, 15dlu, pref, 3dlu, pref, 3dlu, pref",//column
+	"p, 8dlu, p, 5dlu, p, 5dlu, p, 5dlu, p");//row
+		
+		mainSouthAreaLayout.setColumnGroups(new int[][]{{7, 9, 11}});
+		
+		PanelBuilder downbuilder = new PanelBuilder(mainSouthAreaLayout);
+		downbuilder.setDefaultDialogBorder();
+		
+		CellConstraints downcc = new CellConstraints();
+		
+		downbuilder.addSeparator("标签及分组信息", downcc.xyw(1, 1, 11));
 		
 		//联系人普通标签
 		commonLabelListBox = new JComboBox();
@@ -281,11 +334,11 @@ public class ContactInfoPanel extends JXPanel{
 		editCommonLabelListButton = new JButton("编辑");
 		deleteCommonLabelListButton = new JButton("删除");
 		
-		builder.addLabel("联系人普通标签/Common Label", cc.xy(1, 13));
-		builder.add(commonLabelListBox, cc.xyw(3, 13, 3));
-		builder.add(addCommonLabelListButton, cc.xy(7, 13));
-		builder.add(editCommonLabelListButton, cc.xy(9, 13));
-		builder.add(deleteCommonLabelListButton, cc.xy(11, 13));
+		downbuilder.addLabel("普通标签/Common Label", downcc.xy(1, 3));
+		downbuilder.add(commonLabelListBox, downcc.xyw(3, 3, 3));
+		downbuilder.add(addCommonLabelListButton, downcc.xy(7, 3));
+		downbuilder.add(editCommonLabelListButton, downcc.xy(9, 3));
+		downbuilder.add(deleteCommonLabelListButton, downcc.xy(11, 3));
 		
 		//联系人所属分组
 		groupListBox = new JComboBox();
@@ -293,27 +346,31 @@ public class ContactInfoPanel extends JXPanel{
 		editGroupListButton = new JButton("编辑");
 		deleteGroupListButton = new JButton("删除");
 		
-		builder.addLabel("所属分组/Group", cc.xy(1, 15));
-		builder.add(groupListBox, cc.xyw(3, 15, 3));
-		builder.add(addGroupListButton, cc.xy(7, 15));
-		builder.add(editGroupListButton, cc.xy(9, 15));
-		builder.add(deleteGroupListButton, cc.xy(11, 15));
+		downbuilder.addLabel("所属分组/Group", downcc.xy(1, 5));
+		downbuilder.add(groupListBox, downcc.xyw(3, 5, 3));
+		downbuilder.add(addGroupListButton, downcc.xy(7, 5));
+		//downbuilder.add(editGroupListButton, downcc.xy(9, 5));
+		downbuilder.add(deleteGroupListButton, downcc.xy(9, 5));
 		
 		
 		//关系标签
 		relationLabelListBox = new JComboBox();
 		objectContactListBox = new JComboBox();
+		relationLabelListBox.setPreferredSize(new   Dimension(100,20));
+		objectContactListBox.setPreferredSize(new   Dimension(100,20));
 		addRelationLabelListButton = new JButton("添加");
 		editRelationLabelListButton = new JButton("编辑");
 		deleteRelationLabelListButton = new JButton("删除");
 		
-		builder.addLabel("关系标签/Relation Label", cc.xy(1, 17));
-		builder.add(relationLabelListBox, cc.xy(3, 17));
-		builder.add(objectContactListBox, cc.xy(5, 17));
-		builder.add(addRelationLabelListButton, cc.xy(7, 17));
-		builder.add(editRelationLabelListButton, cc.xy(9, 17));
-		builder.add(deleteRelationLabelListButton, cc.xy(11, 17));
+		downbuilder.addLabel("关系标签/Relation Label", downcc.xy(1, 7));
+		downbuilder.add(relationLabelListBox, downcc.xy(3, 7));
+		downbuilder.add(objectContactListBox, downcc.xy(5, 7));
+		downbuilder.add(addRelationLabelListButton, downcc.xy(7, 7));
+		//downbuilder.add(editRelationLabelListButton, downcc.xy(9, 7));
+		downbuilder.add(deleteRelationLabelListButton, downcc.xy(9, 7));
 		
-		mainPanel.add(builder.getPanel());
+		mainPanel.setLayout(new BorderLayout());
+		mainPanel.add(builder.getPanel(), "Center");
+		mainPanel.add(downbuilder.getPanel(), "South");
 	}
 }
