@@ -284,11 +284,11 @@ public class EmptyRibbon extends JRibbonFrame {
 
 		return contactManagerBand;
 	}
-	
+
 	private JRibbonBand getCommonLabelManagerBand() {
 		JRibbonBand commonLabelManagerBand = new JRibbonBand("普通标签管理",
 				new edit_paste(), new ExpandActionListener());
-		
+
 		JCommandButton newCommonLabelButton = new JCommandButton("新建普通标签",
 				new edit_paste());
 
@@ -324,7 +324,7 @@ public class EmptyRibbon extends JRibbonFrame {
 
 		commonLabelManagerBand.addCommandButton(editCommonLabelButton,
 				RibbonElementPriority.MEDIUM);
-		
+
 		return commonLabelManagerBand;
 	}
 
@@ -633,7 +633,7 @@ public class EmptyRibbon extends JRibbonFrame {
 						return (userCloseAnswer == JOptionPane.NO_OPTION);
 					}
 				});
-		
+
 		SubstanceLookAndFeel.registerTabCloseChangeListener(centerPanel,
 				new VetoableMultipleTabCloseListener() {
 					public void tabsClosed(JTabbedPane tabbedPane,
@@ -658,11 +658,12 @@ public class EmptyRibbon extends JRibbonFrame {
 					}
 				});
 		// ****************************************************************************
-		
-		//JScrollPane contactInfoScrollPane = new JScrollPane(new ContactInfoPanel());
-		//contactInfoScrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
-		//contactInfoScrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
-		
+
+		// JScrollPane contactInfoScrollPane = new JScrollPane(new
+		// ContactInfoPanel());
+		// contactInfoScrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
+		// contactInfoScrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+
 		centerPanel.add("Contact Info", new ContactInfoPanel());
 
 		majorPanel.add(centerPanel, BorderLayout.CENTER);
@@ -708,16 +709,14 @@ public class EmptyRibbon extends JRibbonFrame {
 		SwingUtilities.invokeLater(new Runnable() {
 			@Override
 			public void run() {
-				
+
 				// datapool-init
-//				DataPool.getInstance()
+				// DataPool.getInstance()
 				DataPool.getInstance();
-				
-				MyMessageHandler mmh=new MyMessageHandler();
+
+				MyMessageHandler mmh = new MyMessageHandler();
 				mmh.test();
-				
-				
-				
+
 				// 外观设置
 				try {
 					UIManager
@@ -726,6 +725,14 @@ public class EmptyRibbon extends JRibbonFrame {
 							.put(
 									SubstanceLookAndFeel.TABBED_PANE_CLOSE_BUTTONS_PROPERTY,
 									Boolean.TRUE);
+					UIManager.put("JXLoginPane.banner.darkBackground",
+							Color.ORANGE);
+					UIManager.put("JXLoginPane.banner.lightBackground",
+							Color.ORANGE.brighter());
+					UIManager.put("JXLoginPane.banner.font", new Font("Arial",
+							Font.ITALIC, 35));
+					UIManager.put("JXLoginPane.banner.foreground", Color.WHITE);
+
 					JFrame.setDefaultLookAndFeelDecorated(true);
 					JDialog.setDefaultLookAndFeelDecorated(true);
 				} catch (UnsupportedLookAndFeelException e) {
