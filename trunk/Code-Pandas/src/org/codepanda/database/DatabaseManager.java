@@ -1,23 +1,25 @@
 package org.codepanda.database;
 
 import java.sql.SQLException;
+import java.util.Vector;
 
 import org.codepanda.utility.contact.ContactData;
 import org.codepanda.utility.user.User;
 
 public interface DatabaseManager {
-	
-	public void newUser(User user);
-	public User getUser(String username);
-	public User editUser(String username, User user);
+	// user
+	public int newUser(User user);
+	public int getUser(String username, User user);
+	public int editUser(String username, User user);
 	public int delUser(User user);
-	public boolean checkExistUser(String userName);
-	
-	public void newContact(User user, ContactData contact);
-	public ContactData getContactData(User user, ContactData contact);
-	public ContactData editUser(User user, ContactData contact);
-	public void deleteContact(User user, ContactData contact);
-	
-	public void open(String db_name) throws SQLException;
-	public void close() throws SQLException;
+	public int checkExistUser(String userName);
+	// contact
+	public int newContact(User user, ContactData contact);
+	public int getContactData(String userName, Vector<ContactData> contactList);
+	public int editUser(User user, ContactData contact);
+	public int deleteContact(User user, ContactData contact);
+	// operation
+	public int open(String db_name) throws SQLException;
+	public int close() throws SQLException;
 }
+

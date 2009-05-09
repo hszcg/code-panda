@@ -66,7 +66,7 @@ public class DataPool {
 		// 剩下的事情就是Utility向数据库检查合法性checkExistUser()，和更新数据库 createNewUserData()	
 		// 最后Utility更新DataPool并返回结果即可
 		currentUser = newUser;
-		if(!DataPool.getInstance().db.checkExistUser(currentUser.getUserName()))
+		if(DataPool.getInstance().db.checkExistUser(currentUser.getUserName())!=1)
 		{
 			System.out.println("newUser-begin");
 			DataPool.getInstance().db.newUser(newUser);

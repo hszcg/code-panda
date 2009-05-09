@@ -5,6 +5,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.Vector;
 
 import org.codepanda.utility.contact.ContactData;
 import org.codepanda.utility.user.User;
@@ -92,7 +93,6 @@ public class Database implements DatabaseManager{
 		return temp_user;
     	
     }
-	@Override
 	public User getUser(String name) {
 		// TODO Auto-generated method stub
 		try {
@@ -106,18 +106,19 @@ public class Database implements DatabaseManager{
 	}
 
 	@Override
-	public void newUser(User user) {
+	public int newUser(User user) {
 		// TODO Auto-generated method stub
 		try {
 			db.updateS("INSERT INTO UserTable(username,user) VALUES(?,?)", user);
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			return 0;
 		}
+		return 1;
 		
 	}
 	@Override
-	public void close() throws SQLException{
+	public int close() throws SQLException{
 		// TODO Auto-generated method stub
 		try {
 			db.shutdown();
@@ -125,11 +126,12 @@ public class Database implements DatabaseManager{
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		return 0;
 		
 	}
 
 	@Override
-	public void open(String db_name) throws SQLException{
+	public int open(String db_name) throws SQLException{
 		// TODO Auto-generated method stub
 		// new database
 		try {
@@ -147,12 +149,13 @@ public class Database implements DatabaseManager{
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		return 0;
 		
 	}
 	@Override
-	public boolean checkExistUser(String userName) {
+	public int checkExistUser(String userName) {
 		// TODO Auto-generated method stub
-		return false;
+		return 0;
 	}
 	@Override
 	public int delUser(User user) {
@@ -160,29 +163,46 @@ public class Database implements DatabaseManager{
 		return 0;
 	}
 	@Override
-	public void deleteContact(User user, ContactData contact) {
+	public int deleteContact(User user, ContactData contact) {
+		return 0;
 		// TODO Auto-generated method stub
 		
 	}
 	@Override
-	public User editUser(String username, User user) {
+	public int editUser(String username, User user) {
 		// TODO Auto-generated method stub
-		return null;
+		return 1;
 	}
 	@Override
-	public ContactData editUser(User user, ContactData contact) {
+	public int editUser(User user, ContactData contact) {
 		// TODO Auto-generated method stub
-		return null;
+		return 0;
 	}
-	@Override
 	public ContactData getContactData(User user, ContactData contact) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 	@Override
-	public void newContact(User user, ContactData contact) {
+	public int newContact(User user, ContactData contact) {
+		return 0;
 		// TODO Auto-generated method stub
 		
+	}
+	@Override
+	public int getContactData(String userName, Vector<ContactData> contactList) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+	@Override
+	public int getUser(String username, User user) {
+		// TODO Auto-generated method stub
+		try {
+			user=queryObject(username);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return 0;
 	}
 	
 
