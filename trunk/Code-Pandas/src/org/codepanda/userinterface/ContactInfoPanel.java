@@ -1,11 +1,9 @@
 package org.codepanda.userinterface;
 
 import java.awt.*;
-import java.awt.event.*;
 import javax.swing.*;
 import org.jdesktop.swingx.JXMultiSplitPane;
 import org.jdesktop.swingx.JXPanel;
-import org.jdesktop.swingx.MultiSplitLayout;
 import com.jgoodies.forms.layout.FormLayout;
 import com.jgoodies.forms.builder.PanelBuilder;
 import com.jgoodies.forms.layout.CellConstraints;
@@ -209,9 +207,18 @@ public class ContactInfoPanel extends JXPanel{
 		
 		CellConstraints leftcc = new CellConstraints();
 		
-		headImageLabel = new JLabel("联系人图片");
+		headImageLabel = new JLabel();//联系人图片
 		editHeadImageButton = new JButton("编辑");
 		deleteHeadImageButton = new JButton("删除");
+		
+		editHeadImageButton.setPreferredSize(new Dimension(50, 20));
+		deleteHeadImageButton.setPreferredSize(new Dimension(50, 20));
+		
+		ImageIcon imageIconSource = new ImageIcon("./resource/userpic/user1.jpg");
+		Image image = imageIconSource.getImage();
+		Image tempImage = image.getScaledInstance(115, 115, Image.SCALE_DEFAULT);
+		ImageIcon imageIcon = new ImageIcon(tempImage);
+		headImageLabel.setIcon(imageIcon);
 		
 		leftBuilder.add(headImageLabel, leftcc.xyw(1, 1, 3));
 		leftBuilder.add(editHeadImageButton, leftcc.xy(1, 3));
@@ -235,9 +242,8 @@ public class ContactInfoPanel extends JXPanel{
 		
 		CellConstraints cc = new CellConstraints();
 		
-		String temp[] = {"010-51534419999999", "1381001318888888888888",
-				"中华人民共和国陕西省西安市西北工业大学附属中学高2006届" +
-				"九班"};
+		String temp[] = {
+				"中华人民共和国北京市海淀区清华大学紫荆公寓1#419B"};
 		
 		builder.addSeparator("个人信息", cc.xyw(1, 1, 9));
 		//e-mail
@@ -270,17 +276,17 @@ public class ContactInfoPanel extends JXPanel{
 		builder.add(editContactAddressButton, cc.xy(7, 5));
 		builder.add(deleteContactAddressButton, cc.xy(9, 5));
 		
-		/*//联系人工作／学习单位
+		//联系人工作／学习单位
 		workingDepartmentBox = new JComboBox();
 		addWorkingDepartmentButton = new JButton("添加");
 		editWorkingDepartmentButton = new JButton("编辑");
 		deleteWorkingDepartmentButton = new JButton("删除");
 		
-		builder.addLabel("工作单位/Working Department", cc.xy(1, 5));
-		builder.add(workingDepartmentBox, cc.xyw(3, 5, 3));
-		builder.add(addWorkingDepartmentButton, cc.xy(7, 5));
-		builder.add(editWorkingDepartmentButton, cc.xy(9, 5));
-		builder.add(deleteWorkingDepartmentButton, cc.xy(11, 5));
+		builder.addLabel("工作单位/Working Department", cc.xy(1, 7));
+		builder.add(workingDepartmentBox, cc.xy(3, 7));
+		builder.add(addWorkingDepartmentButton, cc.xy(5, 7));
+		builder.add(editWorkingDepartmentButton, cc.xy(7, 7));
+		builder.add(deleteWorkingDepartmentButton, cc.xy(9, 7));
 		
 		//联系人即时联系方式
 		imContactInformationBox = new JComboBox();
@@ -288,19 +294,19 @@ public class ContactInfoPanel extends JXPanel{
 		editImContactInformationButton = new JButton("编辑");
 		deleteImContactInformationButton = new JButton("删除");
 		
-		builder.addLabel("即时联系方式/Im Contact", cc.xy(1, 7));
-		builder.add(imContactInformationBox, cc.xyw(3, 7, 3));
-		builder.add(addImContactInformationButton, cc.xy(7, 7));
-		builder.add(editImContactInformationButton, cc.xy(9, 7));
-		builder.add(deleteImContactInformationButton, cc.xy(11, 7));
+		builder.addLabel("即时联系方式/Im Contact", cc.xy(1, 9));
+		builder.add(imContactInformationBox, cc.xy(3, 9));
+		builder.add(addImContactInformationButton, cc.xy(5, 9));
+		builder.add(editImContactInformationButton, cc.xy(7, 9));
+		builder.add(deleteImContactInformationButton, cc.xy(9, 9));
 		
 		//联系人生日部分
 		contactBirthdayField = new JTextField(30);
 		editcontactBirthdayButton = new JButton("编辑");
 		
-		builder.addLabel("联系人生日/Birthday", cc.xy(1, 9));
-		builder.add(contactBirthdayField, cc.xyw(3, 9, 3));
-		builder.add(editcontactBirthdayButton, cc.xy(7, 9));
+		builder.addLabel("联系人生日/Birthday", cc.xy(1, 11));
+		builder.add(contactBirthdayField, cc.xy(3, 11));
+		builder.add(editcontactBirthdayButton, cc.xy(5, 11));
 		
 		//联系人Web地址
 		urlListBox = new JComboBox();
@@ -308,11 +314,11 @@ public class ContactInfoPanel extends JXPanel{
 		editUrlListButton = new JButton("编辑");
 		deleteUrlListButton = new JButton("删除");
 		
-		builder.addLabel("联系人Web地址/URL Address", cc.xy(1, 11));
-		builder.add(urlListBox, cc.xyw(3, 11, 3));
-		builder.add(addUrlListButton, cc.xy(7, 11));
-		builder.add(editUrlListButton, cc.xy(9, 11));
-		builder.add(deleteUrlListButton, cc.xy(11, 11));*/
+		builder.addLabel("联系人Web地址/URL Address", cc.xy(1, 13));
+		builder.add(urlListBox, cc.xy(3, 13));
+		builder.add(addUrlListButton, cc.xy(5, 13));
+		builder.add(editUrlListButton, cc.xy(7, 13));
+		builder.add(deleteUrlListButton, cc.xy(9, 13));
 		
 		//标签以及分组的显示区域
 		FormLayout mainSouthAreaLayout = new FormLayout(

@@ -284,6 +284,49 @@ public class EmptyRibbon extends JRibbonFrame {
 
 		return contactManagerBand;
 	}
+	
+	private JRibbonBand getCommonLabelManagerBand() {
+		JRibbonBand commonLabelManagerBand = new JRibbonBand("普通标签管理",
+				new edit_paste(), new ExpandActionListener());
+		
+		JCommandButton newCommonLabelButton = new JCommandButton("新建普通标签",
+				new edit_paste());
+
+		newCommonLabelButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				System.out.println("新建普通标签");
+			}
+		});
+
+		commonLabelManagerBand.addCommandButton(newCommonLabelButton,
+				RibbonElementPriority.MEDIUM);
+
+		JCommandButton deleteCommonLabelButton = new JCommandButton("删除普通标签",
+				new edit_paste());
+
+		deleteCommonLabelButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				System.out.println("删除普通标签");
+			}
+		});
+
+		commonLabelManagerBand.addCommandButton(deleteCommonLabelButton,
+				RibbonElementPriority.MEDIUM);
+
+		JCommandButton editCommonLabelButton = new JCommandButton("修改普通标签",
+				new edit_paste());
+
+		editCommonLabelButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				System.out.println("修改普通标签");
+			}
+		});
+
+		commonLabelManagerBand.addCommandButton(editCommonLabelButton,
+				RibbonElementPriority.MEDIUM);
+		
+		return commonLabelManagerBand;
+	}
 
 	JRibbonBand getContactExchangeBand() {
 		JRibbonBand contactExchangeBand = new JRibbonBand("数据导入导出",
@@ -443,7 +486,7 @@ public class EmptyRibbon extends JRibbonFrame {
 		// ****************************************************************************
 		JTabbedPane centerPanel = new JTabbedPane();
 
-		JXPanel loginPanel = new JXPanel();
+		JPanel loginPanel = new JPanel();
 		loginPanel.setLayout(new SpringLayout());
 
 		final JXLoginPane panel = new JXLoginPane(new LoginService() {
@@ -479,11 +522,11 @@ public class EmptyRibbon extends JRibbonFrame {
 		loginPanel.add(loginButton);
 		centerPanel.addTab("Login Tab", loginPanel);
 
-		JXPanel monthPanel = new JXPanel();
+		JPanel monthPanel = new JPanel();
 		monthPanel.add(new JXMonthView());
 		centerPanel.addTab("Month Tab", monthPanel);
 
-		JXPanel treePanel = new JXPanel();
+		JPanel treePanel = new JPanel();
 		treePanel.setLayout(new SpringLayout());
 		JXTree tree = new JXTree(new FileSystemModel());
 		// use system file icons and name to render
@@ -616,6 +659,10 @@ public class EmptyRibbon extends JRibbonFrame {
 				});
 		// ****************************************************************************
 		
+		//JScrollPane contactInfoScrollPane = new JScrollPane(new ContactInfoPanel());
+		//contactInfoScrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
+		//contactInfoScrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+		
 		centerPanel.add("Contact Info", new ContactInfoPanel());
 
 		majorPanel.add(centerPanel, BorderLayout.CENTER);
@@ -624,9 +671,10 @@ public class EmptyRibbon extends JRibbonFrame {
 
 	private void configureRibbon() {
 		JRibbonBand userManagerBand = this.getUserManagerBand();
-		JRibbonBand newContactBand = this.getContactManagerBand();
+		JRibbonBand contactManagerBand = this.getContactManagerBand();
+		JRibbonBand commonLabelManagerBand = this.getCommonLabelManagerBand();
 		RibbonTask basicTask = new RibbonTask("基本功能", userManagerBand,
-				newContactBand);
+				contactManagerBand, commonLabelManagerBand);
 		basicTask.setKeyTip("B");
 		this.getRibbon().addTask(basicTask);
 
@@ -702,6 +750,7 @@ public class EmptyRibbon extends JRibbonFrame {
 				er.pack();
 				er.setLocation(r.x, r.y);
 				er.setVisible(true);
+				er.setResizable(false);
 				er.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 			}
 		});
