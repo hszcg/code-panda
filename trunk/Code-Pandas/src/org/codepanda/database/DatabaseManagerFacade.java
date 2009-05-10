@@ -6,7 +6,7 @@ import java.util.Vector;
 import org.codepanda.utility.contact.ContactData;
 import org.codepanda.utility.user.User;
 
-public interface DatabaseManager {
+public interface DatabaseManagerFacade {
 	// user
 	public int newUser(User user);
 	public int getUser(String username, User user);

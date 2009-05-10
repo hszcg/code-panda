@@ -7,8 +7,8 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-import org.codepanda.database.Database;
-import org.codepanda.database.DatabaseManager;
+import org.codepanda.database.DatabaseMagager;
+import org.codepanda.database.DatabaseManagerFacade;
 import org.codepanda.utility.contact.ContactOperations;
 import org.codepanda.utility.group.ContactGroup;
 import org.codepanda.utility.label.CommonLabel;
@@ -28,7 +28,7 @@ import com.google.common.collect.HashMultimap;
 public class DataPool {
 	private DataPool(){
 		//TODO Initialize all data except for dataPoolInstance
-		db=new Database();
+		db=new DatabaseMagager();
 		try {
 			db.open("test");
 		} catch (SQLException e) {
@@ -43,7 +43,7 @@ public class DataPool {
 	/*
 	 * Database part
 	 */
-	private DatabaseManager db;
+	private DatabaseManagerFacade db;
 	
 	/**
 	 * @return

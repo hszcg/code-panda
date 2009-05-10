@@ -12,12 +12,12 @@ import org.codepanda.utility.user.User;
 import org.hsqldb.*;
 import org.hsqldb.jdbc.jdbcDataSource;
 
-public class Database implements DatabaseManager{
+public class DatabaseMagager implements DatabaseManagerFacade{
 //	private static final User NULL = null;
 	Connection conn;
-	Database db;
+	DatabaseMagager db;
 
-	public Database(String db_name) throws Exception{
+	public DatabaseMagager(String db_name) throws Exception{
 		// connect to the database.   This will load the db files and start the
         // database if it is not already running.
         // db_name is used to open or create files that hold the state
@@ -31,7 +31,7 @@ public class Database implements DatabaseManager{
         
         System.out.println("Database Connected! Con!");
 	}
-	public Database() {
+	public DatabaseMagager() {
 		// TODO Auto-generated constructor stub
 	}
 	
@@ -135,7 +135,7 @@ public class Database implements DatabaseManager{
 		// TODO Auto-generated method stub
 		// new database
 		try {
-			db=new Database(db_name);
+			db=new DatabaseMagager(db_name);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
