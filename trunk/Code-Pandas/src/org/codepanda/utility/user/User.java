@@ -209,9 +209,21 @@ public class User implements UserOperations,ContactOperations,Serializable {
 	
 	public void createNewUser(User UserToBeAdded)
 	{
-		UserToBeAdded.password=this.getPassword();
-		UserToBeAdded.userName=this.getUserName();
-		UserToBeAdded.userContactData=this.userContactData;
+		this.setUserName(UserToBeAdded.getUserName());
+		this.setPassword(UserToBeAdded.getPassword());
+		this.setCommonLabelList(UserToBeAdded.getCommonLabelList());
+		this.setContactAddressList(UserToBeAdded.getContactAddressList());
+		this.setContactBirthday(UserToBeAdded.getContactBirthday());
+		this.setContactName(UserToBeAdded.getContactName());
+		this.setEmailAddresseList(UserToBeAdded.getEmailAddresseList());
+		this.setGroupList(UserToBeAdded.getGroupList());
+		this.setHeadImage(UserToBeAdded.getHeadImage());
+		this.setImContactInformationList(UserToBeAdded.getImContactInformationList());
+		this.setISN(UserToBeAdded.getISN());
+		this.setPhoneNumberList(UserToBeAdded.getPhoneNumberList());
+		this.setRelationLabelList(UserToBeAdded.getRelationLabelList());
+		this.setUrlList(UserToBeAdded.getUrlList());
+		this.setWorkingDepartmentList(UserToBeAdded.getWorkingDepartmentList());
 		
 	}
 }
