@@ -25,6 +25,7 @@ import org.jdesktop.swingx.renderer.*;
 import org.jdesktop.swingx.treetable.FileSystemModel;
 import org.jvnet.flamingo.common.JCommandButton;
 import org.jvnet.flamingo.common.JCommandButton.CommandButtonKind;
+import org.jvnet.flamingo.common.icon.ImageWrapperResizableIcon;
 import org.jvnet.flamingo.ribbon.*;
 import org.jvnet.lafwidget.LafWidget;
 import org.jvnet.lafwidget.tabbed.DefaultTabPreviewPainter;
@@ -64,8 +65,8 @@ public class EmptyRibbon extends JRibbonFrame {
 						System.out.println("用户管理");
 					}
 				}, CommandButtonKind.ACTION_AND_POPUP_MAIN_ACTION);
-		// userManager.setActionKeyTip("A");
-		// userManager.setPopupKeyTip("F");
+		userManager.setActionKeyTip("P");
+		userManager.setPopupKeyTip("F");
 
 		RibbonApplicationMenuEntrySecondary newUser = new RibbonApplicationMenuEntrySecondary(
 				new x_office_document(), "新建用户", null,
@@ -173,17 +174,26 @@ public class EmptyRibbon extends JRibbonFrame {
 		JRibbonBand userManagerBand = new JRibbonBand("用户管理", new edit_paste(),
 				new ExpandActionListener());
 
-		JCommandButton newUserButton = new JCommandButton("新建用户",
-				new edit_paste());
+		JCommandButton newUserButton;
+		try {
+			newUserButton = new JCommandButton("新建用户",
+					ImageWrapperResizableIcon.getIcon(ImageIO.read(this.getClass().getResource(
+					"/userpic/user0.jpg")), new Dimension(32, 32)));
+			
+			newUserButton.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					System.out.println("新建用户");
+				}
+			});
 
-		newUserButton.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				System.out.println("新建用户");
-			}
-		});
+			userManagerBand.addCommandButton(newUserButton,
+					RibbonElementPriority.MEDIUM);
+		} catch (IOException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
 
-		userManagerBand.addCommandButton(newUserButton,
-				RibbonElementPriority.MEDIUM);
+		
 
 		JCommandButton deleteUserButton = new JCommandButton("删除用户",
 				new edit_paste());
