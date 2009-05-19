@@ -10,17 +10,21 @@ import javax.swing.*;
 import javax.swing.plaf.FontUIResource;
 
 import org.codepanda.utility.data.DataPool;
-import org.jdesktop.swingx.JXLoginDialog;
+import org.jdesktop.swingx.JXLabel;
 import org.jdesktop.swingx.JXLoginPane;
+import org.jdesktop.swingx.JXStatusBar;
+import org.jdesktop.swingx.JXStatusBar.Constraint;
 import org.jdesktop.swingx.auth.LoginService;
 import org.jvnet.flamingo.ribbon.*;
 import org.jvnet.substance.SubstanceLookAndFeel;
 import org.jvnet.substance.skin.SubstanceMistAquaLookAndFeel;
 
 public class PhoneMeFrame extends JRibbonFrame {
-	PhoneMeRibbon ribbon;
-	PhoneMeMenu menu;
-	PhoneMeMajorPanel majorPanel;
+	private PhoneMeRibbon ribbon;
+	private PhoneMeMenu menu;
+	private PhoneMeMajorPanel majorPanel;
+	private PhoneMeTaskPane taskPane;
+	private JXStatusBar statusBar;
 
 	public void configureRibbon() {
 		ribbon = new PhoneMeRibbon(this);
@@ -29,13 +33,38 @@ public class PhoneMeFrame extends JRibbonFrame {
 	}
 
 	public void configureApplicationMenu() {
-		menu = new PhoneMeMenu(this);
+		try {
+			menu = new PhoneMeMenu(this);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 		this.getRibbon().setApplicationMenu(menu);
 	}
 
+	public void configureStatusBar() {
+		this.statusBar = new JXStatusBar();
+		JXLabel statusLabel = new JXLabel("Ready");
+		
+		JXStatusBar.Constraint c1 = new Constraint();
+		c1.setFixedWidth(100);
+		statusBar.add(statusLabel, c1); // Fixed width of 100 with no inserts
+		JXStatusBar.Constraint c2 = new Constraint(
+				JXStatusBar.Constraint.ResizeBehavior.FILL); // Fill with no
+		
+		// inserts
+		JProgressBar pbar = new JProgressBar();
+		statusBar.add(pbar, c2);
+
+		add(statusBar, BorderLayout.SOUTH);
+	}
+
 	public void configureMajorPanel() {
+
 		majorPanel = new PhoneMeMajorPanel(this);
 		this.add(majorPanel, BorderLayout.CENTER);
+		
+		taskPane = new PhoneMeTaskPane(this);
+		add(taskPane, BorderLayout.WEST);
 	}
 
 	public void setLocation() {
@@ -62,6 +91,7 @@ public class PhoneMeFrame extends JRibbonFrame {
 		configureApplicationMenu();
 		configureRibbon();
 		configureMajorPanel();
+		configureStatusBar();
 		setLocation();
 	}
 
@@ -151,9 +181,9 @@ public class PhoneMeFrame extends JRibbonFrame {
 		// Font.ITALIC, 45));
 		// UIManager.put("JXLoginPane.banner.foreground", Color.BLUE);
 
-		// Image p = Toolkit.getDefaultToolkit().getImage("/userpic/user0.jpg");
+		// Image p =
+		// Toolkit.getDefaultToolkit().getImage(this.getClass().getResource("/userpic/user0.jpg"));
 		// panel.setBanner(p);
-
 		panel.setBannerText("Welcome To PhoneMe!");
 
 		JXLoginPane.Status loginStatus = JXLoginPane.showLoginDialog(this,

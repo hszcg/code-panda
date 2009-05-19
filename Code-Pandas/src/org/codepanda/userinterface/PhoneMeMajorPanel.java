@@ -7,7 +7,6 @@ import java.util.Set;
 import javax.swing.*;
 
 import org.jdesktop.swingx.*;
-import org.jdesktop.swingx.JXStatusBar.Constraint;
 import org.jdesktop.swingx.decorator.*;
 import org.jdesktop.swingx.decorator.ComponentAdapter;
 import org.jdesktop.swingx.renderer.*;
@@ -20,8 +19,6 @@ import org.jvnet.substance.api.tabbed.*;
 
 public class PhoneMeMajorPanel extends JPanel {
 	private PhoneMeFrame mainFrame;
-	private JXTaskPaneContainer taskPaneContainer;
-	private JXStatusBar statusBar;
 	private JTabbedPane centerPanel;
 
 	public PhoneMeMajorPanel(PhoneMeFrame mainFrame) {
@@ -29,12 +26,6 @@ public class PhoneMeMajorPanel extends JPanel {
 		setLayout(new BorderLayout());
 
 		this.mainFrame = mainFrame;
-
-		this.taskPaneContainer = getTaskPaneContainer();
-		add(taskPaneContainer, BorderLayout.WEST);
-
-		this.statusBar = getStatusBar();
-		add(statusBar, BorderLayout.SOUTH);
 
 		this.centerPanel = getCenterPanel();
 		add(centerPanel, BorderLayout.CENTER);
@@ -196,45 +187,6 @@ public class PhoneMeMajorPanel extends JPanel {
 		centerPanel.add("Contact Info", new ContactInfoPanel());
 
 		return centerPanel;
-	}
-
-	private JXStatusBar getStatusBar() {
-		JXStatusBar bar = new JXStatusBar();
-		JXLabel statusLabel = new JXLabel("Ready");
-		JXStatusBar.Constraint c1 = new Constraint();
-		c1.setFixedWidth(100);
-		bar.add(statusLabel, c1); // Fixed width of 100 with no inserts
-		JXStatusBar.Constraint c2 = new Constraint(
-				JXStatusBar.Constraint.ResizeBehavior.FILL); // Fill with no
-		// inserts
-		JProgressBar pbar = new JProgressBar();
-		bar.add(pbar, c2); // Fill with no inserts - will use remaining space
-
-		return bar;
-	}
-
-	private JXTaskPaneContainer getTaskPaneContainer() {
-		// ****************************************************************************
-		// a container to put all JXTaskPane together
-		JXTaskPaneContainer taskPaneContainer = new JXTaskPaneContainer();
-
-		JXTaskPane details = new JXTaskPane();
-		details.setTitle("Details");
-
-		JXLabel searchLabel = new JXLabel("Search:");
-		JTextField searchField = new JTextField("");
-		details.add(searchLabel);
-		details.add(searchField);
-
-		taskPaneContainer.add(details);
-
-		JXTaskPane actionPane = new JXTaskPane();
-		actionPane.setTitle("Files and Folders");
-		actionPane.setSpecial(true);
-
-		taskPaneContainer.add(actionPane);
-
-		return taskPaneContainer;
 	}
 
 }
