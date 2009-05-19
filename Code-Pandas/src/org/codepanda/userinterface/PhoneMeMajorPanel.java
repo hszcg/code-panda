@@ -1,69 +1,44 @@
 package org.codepanda.userinterface;
 
-import java.awt.BorderLayout;
-import java.awt.Color;
-import java.awt.Component;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.MouseEvent;
+import java.awt.*;
+import java.awt.event.*;
 import java.util.Set;
 
-import javax.swing.JFrame;
-import javax.swing.JOptionPane;
-import javax.swing.JPanel;
-import javax.swing.JProgressBar;
-import javax.swing.JTabbedPane;
-import javax.swing.JTextField;
-import javax.swing.SpringLayout;
+import javax.swing.*;
 
-import org.jdesktop.swingx.JXButton;
-import org.jdesktop.swingx.JXLabel;
-import org.jdesktop.swingx.JXLoginPane;
-import org.jdesktop.swingx.JXMonthView;
-import org.jdesktop.swingx.JXPanel;
-import org.jdesktop.swingx.JXStatusBar;
-import org.jdesktop.swingx.JXTaskPane;
-import org.jdesktop.swingx.JXTaskPaneContainer;
-import org.jdesktop.swingx.JXTree;
+import org.jdesktop.swingx.*;
 import org.jdesktop.swingx.JXStatusBar.Constraint;
-import org.jdesktop.swingx.auth.LoginService;
-import org.jdesktop.swingx.decorator.ColorHighlighter;
+import org.jdesktop.swingx.decorator.*;
 import org.jdesktop.swingx.decorator.ComponentAdapter;
-import org.jdesktop.swingx.decorator.HighlightPredicate;
-import org.jdesktop.swingx.renderer.DefaultTreeRenderer;
-import org.jdesktop.swingx.renderer.IconValues;
-import org.jdesktop.swingx.renderer.StringValues;
-import org.jdesktop.swingx.treetable.FileSystemModel;
+import org.jdesktop.swingx.renderer.*;
+import org.jdesktop.swingx.treetable.*;
 import org.jvnet.lafwidget.LafWidget;
 import org.jvnet.lafwidget.tabbed.DefaultTabPreviewPainter;
-import org.jvnet.substance.SubstanceLookAndFeel;
+import org.jvnet.substance.*;
 import org.jvnet.substance.api.SubstanceConstants.TabCloseKind;
-import org.jvnet.substance.api.tabbed.TabCloseCallback;
-import org.jvnet.substance.api.tabbed.TabCloseListener;
-import org.jvnet.substance.api.tabbed.VetoableMultipleTabCloseListener;
-import org.jvnet.substance.api.tabbed.VetoableTabCloseListener;
+import org.jvnet.substance.api.tabbed.*;
 
-public class PhoneMeMajorPanel extends JPanel{
+public class PhoneMeMajorPanel extends JPanel {
 	private PhoneMeFrame mainFrame;
 	private JXTaskPaneContainer taskPaneContainer;
 	private JXStatusBar statusBar;
 	private JTabbedPane centerPanel;
-	
+
 	public PhoneMeMajorPanel(PhoneMeFrame mainFrame) {
 		super();
 		setLayout(new BorderLayout());
-		
+
 		this.mainFrame = mainFrame;
-		
+
 		this.taskPaneContainer = getTaskPaneContainer();
 		add(taskPaneContainer, BorderLayout.WEST);
-		
+
 		this.statusBar = getStatusBar();
 		add(statusBar, BorderLayout.SOUTH);
-		
+
 		this.centerPanel = getCenterPanel();
 		add(centerPanel, BorderLayout.CENTER);
-		
+
 		this.configureListener();
 	}
 
@@ -121,45 +96,9 @@ public class PhoneMeMajorPanel extends JPanel{
 	}
 
 	private JTabbedPane getCenterPanel() {
-		
+
 		// ****************************************************************************
 		JTabbedPane centerPanel = new JTabbedPane();
-
-		JPanel loginPanel = new JPanel();
-		loginPanel.setLayout(new SpringLayout());
-
-		final JXLoginPane panel = new JXLoginPane(new LoginService() {
-			public boolean authenticate(String name, char[] password,
-					String server) throws Exception {
-				// perform authentication and return true on success.
-				String str = String.valueOf(password);
-
-				System.out.println("NAME:\t" + name);
-				System.out.println("PASSWORD:\t" + str);
-
-				if (name.equals("Sa") && str.equals("Sa")) {
-					return true;
-				}
-
-				return false;
-			}
-		});
-
-		final JFrame frame = JXLoginPane.showLoginFrame(panel);
-
-		JXButton loginButton = new JXButton("Login");
-		loginButton.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				if (panel.getStatus() == JXLoginPane.Status.SUCCEEDED)
-					return;
-
-				System.out.println("Login");
-				frame.setVisible(!frame.isVisible());
-			}
-		});
-
-		loginPanel.add(loginButton);
-		centerPanel.addTab("Login Tab", loginPanel);
 
 		JPanel monthPanel = new JPanel();
 		monthPanel.add(new JXMonthView());
@@ -182,7 +121,8 @@ public class PhoneMeMajorPanel extends JPanel{
 		};
 		// highlight with foreground color
 		tree.addHighlighter(new ColorHighlighter(predicate, null, Color.RED));
-
+		tree.updateUI();
+		
 		treePanel.add(tree);
 		centerPanel.addTab("Tree Tab", treePanel);
 
@@ -246,7 +186,6 @@ public class PhoneMeMajorPanel extends JPanel{
 					}
 				});
 
-		
 		// ****************************************************************************
 
 		// JScrollPane contactInfoScrollPane = new JScrollPane(new
@@ -255,7 +194,7 @@ public class PhoneMeMajorPanel extends JPanel{
 		// contactInfoScrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
 
 		centerPanel.add("Contact Info", new ContactInfoPanel());
-		
+
 		return centerPanel;
 	}
 
@@ -270,16 +209,15 @@ public class PhoneMeMajorPanel extends JPanel{
 		// inserts
 		JProgressBar pbar = new JProgressBar();
 		bar.add(pbar, c2); // Fill with no inserts - will use remaining space
-		
+
 		return bar;
 	}
-
 
 	private JXTaskPaneContainer getTaskPaneContainer() {
 		// ****************************************************************************
 		// a container to put all JXTaskPane together
 		JXTaskPaneContainer taskPaneContainer = new JXTaskPaneContainer();
-		
+
 		JXTaskPane details = new JXTaskPane();
 		details.setTitle("Details");
 
@@ -295,7 +233,7 @@ public class PhoneMeMajorPanel extends JPanel{
 		actionPane.setSpecial(true);
 
 		taskPaneContainer.add(actionPane);
-		
+
 		return taskPaneContainer;
 	}
 
