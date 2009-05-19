@@ -12,6 +12,8 @@ import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
 import org.codepanda.application.CommandActor;
 import org.codepanda.application.CommandType;
+import org.codepanda.application.user.DeleteUserActor;
+import org.codepanda.application.user.EditUserActor;
 import org.codepanda.application.user.LoginUserActor;
 import org.codepanda.application.user.NewUserActor;
 import org.codepanda.utility.user.User;
@@ -21,7 +23,7 @@ import org.codepanda.utility.user.User;
  *
  */
 public class UserActorFactory extends CommandActorFactory {
-	 User currentUser;
+	 private User currentUser;
 	@Override
 	public CommandActor creator(CommandType commandType, String commandDetail) {
 		// TODO Auto-generated method stub
@@ -42,7 +44,7 @@ public class UserActorFactory extends CommandActorFactory {
 			currentUser = new User();
 			//Document document=db.parse(commandDetail);
 			
-			Parser_XML myparser_xml=new Parser_XML();
+			User_XML myparser_xml=new User_XML();
 			myparser_xml.UserXML(currentUser,"<NewUser>","</NewUser>", commandDetail);
 			newUserActor.setNewUser(currentUser);
 			return newUserActor;
@@ -52,13 +54,41 @@ public class UserActorFactory extends CommandActorFactory {
 			System.out.println("Login");
 			LoginUserActor loginUserActor=new LoginUserActor();
 			currentUser=new User();
-			Parser_XML myparser_xml=new Parser_XML();
+			User_XML myparser_xml=new User_XML();
 			myparser_xml.UserXML(currentUser,"<LoginUser>","</LoginUser>", commandDetail);
 			loginUserActor.setUser(currentUser);
 			return loginUserActor;
 		}
-		
+		if(commandType==CommandType.DELETE_USER)
+		{
+			System.out.println("Delete User");
+			DeleteUserActor deleteUserActor=new DeleteUserActor();
+			return deleteUserActor;
+		}
+		if(commandType==CommandType.EDIT_USER)
+		{
+			System.out.println("Edit User");
+			EditUserActor editUserActor=new EditUserActor();
+			User tempUser=this.getUser();
+			User_XML myparser_xml=new User_XML();
+			myparser_xml.UserXML(tempUser, "<EditUser>", "</EditUser>", commandDetail);
+			editUserActor.setUser(tempUser);
+			return  editUserActor;
+		}
 		return null;
+	}
+	public void setUser(User user)
+	{
+		currentUser=user;
+	}
+	public User getUser()
+	{
+		return currentUser;
+	}
+	public static void main(String argv[])
+	{
+		UserActorFactory uaf=new UserActorFactory();
+		uaf.creator(CommandType.EDIT_USER,"fsjdl");
 	}
 }
 		

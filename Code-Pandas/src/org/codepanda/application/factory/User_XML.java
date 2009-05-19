@@ -5,12 +5,12 @@ import java.util.ArrayList;
 import javax.xml.parsers.*;
 
 import org.codepanda.utility.contact.Birthday;
+import org.codepanda.utility.contact.ContactData;
 import org.w3c.dom.*;
 import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
 import org.codepanda.utility.user.User;
-public class Parser_XML {
-	//User currentUser;
+public class User_XML {
 	boolean start1=false;
 	boolean  end1=false;
 	boolean start2=false;
@@ -50,7 +50,7 @@ public class Parser_XML {
 		Document document=db.parse(new InputSource(new StringReader(commandDetail)));
 		//System.out.println("File Path"+document.getDocumentURI());
 		Element root=document.getDocumentElement();
-		Iterator(currentUser,root);
+		UserIterator(currentUser,root);
 	//	System.out.println("root------"+root.getTextContent());
 	}
 	catch(Exception e)
@@ -58,7 +58,7 @@ public class Parser_XML {
 		e.printStackTrace();
 	}
 }
-public  void Iterator(User currentUser,Element element)
+public  void UserIterator(User currentUser,Element element)
 {
 	NodeList nodelist=element.getChildNodes();
 //	System.out.println(element.getNodeName());
@@ -189,8 +189,8 @@ public  void Iterator(User currentUser,Element element)
 		}
 		if(node instanceof Element)
 		{
-			//System.out.println("asdf");
-			Iterator(currentUser,(Element)node);
+			
+			UserIterator(currentUser,(Element)node);
 		}
 		
 	}

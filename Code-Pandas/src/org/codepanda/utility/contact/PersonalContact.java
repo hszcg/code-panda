@@ -17,160 +17,109 @@ public class PersonalContact implements ContactOperations {
 	private ContactData personalContactData;
 
 	@Override
-	public ArrayList<String> getCommonLabelList() {
-		// TODO Auto-generated method stub
-		return null;
+	public  void setContactName(String Name)
+	{
+		personalContactData.contactName=Name;
 	}
-
-	@Override
-	public ArrayList<String> getContactAddressList() {
-		// TODO Auto-generated method stub
-		return null;
+	public String getContactName()
+	{
+		return personalContactData.contactName;
 	}
-
-	@Override
-	public Birthday getContactBirthday() {
-		// TODO Auto-generated method stub
-		return null;
+	public void setISN(String iSN)
+	{
+		personalContactData.ISN=iSN;
 	}
-
-	@Override
-	public String getContactName() {
-		// TODO Auto-generated method stub
-		return null;
+	public String getISN()
+	{
+			return personalContactData.ISN;
 	}
-
-	@Override
-	public ArrayList<String> getEmailAddresseList() {
-		// TODO Auto-generated method stub
-		return null;
+	public ArrayList<String> getPhoneNumberList()
+	{
+		return personalContactData.phoneNumberList;
 	}
-
-	@Override
-	public ArrayList<String> getGroupList() {
-		// TODO Auto-generated method stub
-		return null;
+	public void setPhoneNumberList(ArrayList<String> phoneNumberList)
+	{
+		personalContactData.phoneNumberList=phoneNumberList;
 	}
-
-	@Override
-	public HeadImage getHeadImage() {
-		// TODO Auto-generated method stub
-		return null;
+	public ArrayList<String> getEmailAddresseList()
+	{
+		return personalContactData.emailAddresseList;
 	}
-
-	@Override
-	public String getISN() {
-		// TODO Auto-generated method stub
-		return null;
+	public void setEmailAddresseList(ArrayList<String> emailAddressList)
+	{
+		personalContactData.emailAddresseList=emailAddressList;
 	}
-
-	@Override
-	public ArrayList<String> getImContactInformationList() {
-		// TODO Auto-generated method stub
-		return null;
+	public void setContactAddressList(ArrayList<String> contactaddressList)
+	{
+		personalContactData.contactAddressList=contactaddressList;
 	}
-
-	@Override
-	public ArrayList<String> getPhoneNumberList() {
-		// TODO Auto-generated method stub
-		return null;
+	public  ArrayList<String> getContactAddressList()
+	{
+		return personalContactData.contactAddressList;
 	}
-
-	@Override
-	public ArrayList<RelationLabel> getRelationLabelList() {
-		// TODO Auto-generated method stub
-		return null;
+	public void setHeadImage(HeadImage headImage)
+	{
+		personalContactData.headImage=headImage;
 	}
-
-	@Override
-	public ArrayList<String> getUrlList() {
-		// TODO Auto-generated method stub
-		return null;
+	public  HeadImage getHeadImage()
+	{
+		return personalContactData.headImage;
 	}
-
-	@Override
-	public ArrayList<String> getWorkingDepartmentList() {
-		// TODO Auto-generated method stub
-		return null;
+	public void setImContactInformationList(ArrayList<String> imContactInformationList)
+	{
+		personalContactData.imContactInformationList=imContactInformationList;
 	}
-
-	@Override
-	public void setCommonLabelList(ArrayList<String> commonLabelList) {
-		// TODO Auto-generated method stub
-		
+	public  ArrayList<String> getImContactInformationList()
+	{
+		return personalContactData.imContactInformationList;
 	}
-
-	@Override
-	public void setContactAddressList(ArrayList<String> contactAddressList) {
-		// TODO Auto-generated method stub
-		
+	public void setContactBirthday(Birthday contactBirthday)
+	{
+		personalContactData.contactBirthday=contactBirthday;
 	}
-
-	@Override
-	public void setContactBirthday(Birthday contactBirthday) {
-		// TODO Auto-generated method stub
-		
+	public  Birthday getContactBirthday()
+	{
+		return personalContactData.contactBirthday;
 	}
-
-	@Override
-	public void setContactName(String contactName) {
-		// TODO Auto-generated method stub
-		
+	public void setWorkingDepartmentList(ArrayList<String> workingDepartmentList)
+	{
+		personalContactData.workingDepartmentList=workingDepartmentList;
 	}
-
-	@Override
-	public void setEmailAddresseList(ArrayList<String> emailAddresseList) {
-		// TODO Auto-generated method stub
-		
+	public  ArrayList<String> getWorkingDepartmentList()
+	{
+		return personalContactData.workingDepartmentList;
 	}
-
-	@Override
-	public void setGroupList(ArrayList<String> groupList) {
-		// TODO Auto-generated method stub
-		
+	public void setUrlList(ArrayList<String> urlList)
+	{
+		personalContactData.urlList=urlList;
 	}
-
-	@Override
-	public void setHeadImage(HeadImage headImage) {
-		// TODO Auto-generated method stub
-		
+	public  ArrayList<String> getUrlList()
+	{
+		return personalContactData.urlList;
 	}
-
-	@Override
-	public void setISN(String isn) {
-		// TODO Auto-generated method stub
-		
+	public void setCommonLabelList(ArrayList<String> commonLabelList)
+	{
+		personalContactData.commonLabelList=commonLabelList;
 	}
-
-	@Override
-	public void setImContactInformationList(
-			ArrayList<String> imContactInformationList) {
-		// TODO Auto-generated method stub
-		
+	public  ArrayList<String> getCommonLabelList()
+	{
+		return personalContactData.commonLabelList;
 	}
-
-	@Override
-	public void setPhoneNumberList(ArrayList<String> phoneNumberList) {
-		// TODO Auto-generated method stub
-		
+	public void setGroupList(ArrayList<String> groupList)
+	{
+		personalContactData.groupList=groupList;
 	}
-
-	@Override
-	public void setRelationLabelList(ArrayList<RelationLabel> relationLabelList) {
-		// TODO Auto-generated method stub
-		
+	public  ArrayList<String> getGroupList()
+	{
+		return personalContactData.groupList;
 	}
-
-	@Override
-	public void setUrlList(ArrayList<String> urlList) {
-		// TODO Auto-generated method stub
-		
+	public void setRelationLabelList(ArrayList<RelationLabel> relationLabelList )
+	{
+		personalContactData.relationLabelList=relationLabelList;
 	}
-
-	@Override
-	public void setWorkingDepartmentList(ArrayList<String> workingDepartmentList) {
-		// TODO Auto-generated method stub
-		
+	public  ArrayList<RelationLabel> getRelationLabelList()
+	{
+		return personalContactData.relationLabelList;
 	}
 
 }
