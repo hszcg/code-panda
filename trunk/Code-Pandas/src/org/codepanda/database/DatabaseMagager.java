@@ -18,7 +18,7 @@ public class DatabaseMagager implements DatabaseManagerFacade{
 	Connection conn;
 	DatabaseMagager db;
 
-	public DatabaseMagager(String db_name) throws Exception{
+	public DatabaseMagager(String dbName) throws Exception{
 		// connect to the database.   This will load the db files and start the
         // database if it is not already running.
         // db_name is used to open or create files that hold the state
@@ -26,7 +26,7 @@ public class DatabaseMagager implements DatabaseManagerFacade{
         // It can contain directory names relative to the
         // current working directory
         jdbcDataSource dataSource = new jdbcDataSource();
-        dataSource.setDatabase("jdbc:hsqldb:" + db_name);
+        dataSource.setDatabase("jdbc:hsqldb:" + dbName);
         
         conn = dataSource.getConnection("sa", "");
         
@@ -125,10 +125,10 @@ public class DatabaseMagager implements DatabaseManagerFacade{
 	}
 
 	@Override
-	public int open(String db_name) throws SQLException{
+	public int open(String dbName) throws SQLException{
 		// new database
 		try {
-			db=new DatabaseMagager(db_name);
+			db=new DatabaseMagager(dbName);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -162,7 +162,7 @@ public class DatabaseMagager implements DatabaseManagerFacade{
 		
 	}
 	@Override
-	public int editUser(String username, User user) {
+	public int editUser(String userName, User user) {
 		// TODO Auto-generated method stub
 		return 1;
 	}
@@ -176,8 +176,8 @@ public class DatabaseMagager implements DatabaseManagerFacade{
 		return null;
 	}
 	@Override
-	public int newContact(String username, ContactData contact) {
-		db.updateC("INSERT INTO contactList(username,contact) VALUES(?,?)",username,contact);
+	public int newContact(String userName, ContactData contact) {
+		db.updateC("INSERT INTO contactList(username,contact) VALUES(?,?)",userName,contact);
 		return 1;
 	}
 	private void updateC(String expression, String username, ContactData contact) {
@@ -216,12 +216,17 @@ public class DatabaseMagager implements DatabaseManagerFacade{
 		return 0;
 	}
 	@Override
-	public int getUser(String username, User user) {
+	public int getUser(String userName, User user) {
 		try {
-			user=queryUserObject(username);
+			user=queryUserObject(userName);
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
+		return 0;
+	}
+	@Override
+	public int loginUser(String userName, String password) {
+		// TODO Auto-generated method stub
 		return 0;
 	}
 	
