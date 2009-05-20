@@ -9,6 +9,7 @@ import java.util.HashMap;
 
 import org.codepanda.database.DatabaseMagager;
 import org.codepanda.database.DatabaseManagerFacade;
+import org.codepanda.utility.contact.ContactData;
 import org.codepanda.utility.contact.ContactOperations;
 import org.codepanda.utility.group.ContactGroup;
 import org.codepanda.utility.label.CommonLabel;
@@ -38,6 +39,15 @@ public class DataPool {
 		System.out.println("DataPoolInit");
 		// for test
 		try {
+			ContactData contact1 = new ContactData();
+			ContactData contact2 = new ContactData();
+			ContactData contact3 = new ContactData();
+			contact1.contactName="ְּװף1";
+			contact2.contactName="ְּװף2";
+			contact3.contactName="ְּװף3";
+			db.newContact("leilei", contact1);
+			db.newContact("leilei", contact2);
+			db.newContact("leilei", contact3);
 			db.close();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
