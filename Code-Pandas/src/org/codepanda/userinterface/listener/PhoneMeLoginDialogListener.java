@@ -5,9 +5,10 @@ import java.awt.event.ActionListener;
 
 import org.codepanda.application.CommandType;
 import org.codepanda.application.CommandVisitor;
-import org.codepanda.userinterface.MyMessageHandler;
 import org.codepanda.userinterface.PhoneMeCreateNewUserDialog;
 import org.codepanda.userinterface.PhoneMeLoginDialog;
+import org.codepanda.userinterface.messagehandler.LoginUserMessageHandler;
+import org.codepanda.userinterface.utility.LoginResultType;
 import org.codepanda.userinterface.xml.MyXMLMaker;
 
 /**
@@ -77,29 +78,23 @@ public class PhoneMeLoginDialogListener implements ActionListener {
 		String xml = MyXMLMaker.getLoginUserXML(userNameInput, password);
 
 		System.out.println(xml);
-		
-		// TODO Login
-		CommandVisitor loginCommandVisitor = new CommandVisitor(CommandType.LOGIN_USER, xml);
-		MyMessageHandler loginMessageHandler = new MyMessageHandler();
-		loginMessageHandler.executeCommand(loginCommandVisitor);
 
-		if (userNameInput.equals("Sa")) {
-			if (password.equals("Sa"))
-				return LoginResultType.SUCCEED;
-			else
-				return LoginResultType.INVAILD_PASSWORD;
-		} else {
-			return LoginResultType.USERNAME_NOT_EXIST;
-		}
+		// TODO Login
+		CommandVisitor loginCommandVisitor = new CommandVisitor(
+				CommandType.LOGIN_USER, xml);
+		LoginUserMessageHandler loginMessageHandler = new LoginUserMessageHandler();
+		return (LoginResultType) loginMessageHandler
+				.executeCommand(loginCommandVisitor);
+
+		// if (userNameInput.equals("Sa")) {
+		// if (password.equals("Sa"))
+		// return LoginResultType.SUCCEED;
+		// else
+		// return LoginResultType.INVAILD_PASSWORD;
+		// } else {
+		// return LoginResultType.USERNAME_NOT_EXIST;
+		// }
 
 	}
 
-}
-
-/**
- * @author hszcg
- * 
- */
-enum LoginResultType {
-	SUCCEED, USERNAME_NOT_EXIST, INVAILD_PASSWORD;
 }
