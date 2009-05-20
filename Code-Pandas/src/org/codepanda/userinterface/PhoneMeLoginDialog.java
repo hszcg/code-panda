@@ -7,8 +7,12 @@ import java.awt.GridLayout;
 import java.awt.Toolkit;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.io.IOException;
 
+import javax.imageio.ImageIO;
 import javax.swing.*;
+import javax.swing.border.BevelBorder;
+import javax.swing.border.SoftBevelBorder;
 
 import org.codepanda.userinterface.listener.PhoneMeLoginDialogListener;
 
@@ -30,6 +34,19 @@ public class PhoneMeLoginDialog {
 				System.exit(0);
 			}
 		});
+		// **************************************************
+
+		// 顶部Logo
+		try {
+			JLabel topLogo = new JLabel(new ImageIcon(ImageIO.read(this
+					.getClass().getResource("/icon/Logo.png"))));
+			this.myLoginDialog.add(topLogo, BorderLayout.NORTH);
+		} catch (IOException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+
+		// **************************************************
 
 		// 用户名
 		JPanel userNamePanel = new JPanel();
@@ -50,16 +67,18 @@ public class PhoneMeLoginDialog {
 		userPasswordPanel.add(userPasswordLabel);
 		userPasswordPanel.add(userPasswordField);
 		// **************************************************
-		
+
 		// 信息提示
 		this.errorMessageLabel = new JLabel(
 				"Welcome To PhoneMe, Please Login to Procceed.");
 		this.errorMessageLabel.setForeground(Color.BLUE);
+
 		// **************************************************
 
 		// 主界面设置
 		JPanel major = new JPanel();
 		major.setLayout(new BoxLayout(major, BoxLayout.Y_AXIS));
+		major.setBorder(new SoftBevelBorder(BevelBorder.RAISED));
 
 		major.add(Box.createGlue());
 		major.add(userNamePanel);
@@ -68,6 +87,8 @@ public class PhoneMeLoginDialog {
 		major.add(Box.createGlue());
 		major.add(errorMessageLabel);
 		major.add(Box.createGlue());
+
+		this.myLoginDialog.add(major, BorderLayout.CENTER);
 		// **************************************************
 
 		// 底部按钮设置
@@ -98,11 +119,11 @@ public class PhoneMeLoginDialog {
 		bottom.add(Box.createGlue());
 		bottom.add(cancelButton);
 		bottom.add(Box.createGlue());
+
+		this.myLoginDialog.add(bottom, BorderLayout.SOUTH);
 		// **************************************************
 
 		// 对话框位置和大小设置
-		this.myLoginDialog.add(major, BorderLayout.CENTER);
-		this.myLoginDialog.add(bottom, BorderLayout.SOUTH);
 		this.myLoginDialog.pack();
 		Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
 		this.myLoginDialog.setLocation((screenSize.width - myLoginDialog
@@ -124,7 +145,7 @@ public class PhoneMeLoginDialog {
 	 * @return String UserNameInput
 	 */
 	public String getUserNameInput() {
-		return userNameField.getText();
+		return userNameField.getText().trim();
 	}
 
 	/**
