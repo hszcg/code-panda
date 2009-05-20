@@ -47,7 +47,6 @@ public class DatabaseMagager implements DatabaseManagerFacade{
 		try {
 			i = st.executeUpdate(expression);
 		} catch (Exception e) {
-			// TODO: handle exception
 		}
 
         if (i == -1) {
@@ -57,18 +56,7 @@ public class DatabaseMagager implements DatabaseManagerFacade{
         st.close();
     }    // void update()
     
-    // use for SQL commands INSERT, especially, for object INSERT 
-    public synchronized void updateS(String expression,User user) throws SQLException{
-    	PreparedStatement ps=conn.prepareStatement(expression);
-//      ps.setObject(1, "hello world");
-//      ps.setString(1,"hello world");
-//      ps.setInt(1,100);
-    	ps.setString(1, user.getUserName());
-    	ps.setObject(2, user);
-      
-    	ps.executeUpdate();
-    	ps.close();
-    }
+   
     
     // use for SHUTDOWN
     public void shutdown() throws SQLException {
@@ -88,8 +76,7 @@ public class DatabaseMagager implements DatabaseManagerFacade{
     	User temp_user=null;
     	st=conn.createStatement();
     	rs=st.executeQuery("SELECT * FROM UserTable WHERE username = "+name);
-//   	dumps(rs);
-    	temp_user=(User) rs.getObject(3);
+    	temp_user=(User) rs.getObject(2);  // 2 or 3
     	st.close();
 		return temp_user;
     }
@@ -103,14 +90,13 @@ public class DatabaseMagager implements DatabaseManagerFacade{
     	for(;rs.next();){
     		acd.add((ContactData) rs.getObject(3));
     	}
+    	st.close();
 		return acd;
     }
 	public User getUser(String name) {
-		// TODO Auto-generated method stub
 		try {
 			return queryUserObject(name);
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return null;
@@ -119,11 +105,9 @@ public class DatabaseMagager implements DatabaseManagerFacade{
 
 	@Override
 	public int newUser(User user) {
-		// TODO Auto-generated method stub
 		try {
 			db.updateS("INSERT INTO UserTable(username,user) VALUES(?,?)", user);
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			return 0;
 		}
 		return 1;
@@ -131,11 +115,9 @@ public class DatabaseMagager implements DatabaseManagerFacade{
 	}
 	@Override
 	public int close() throws SQLException{
-		// TODO Auto-generated method stub
 		try {
 			db.shutdown();
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return 0;
@@ -144,12 +126,10 @@ public class DatabaseMagager implements DatabaseManagerFacade{
 
 	@Override
 	public int open(String db_name) throws SQLException{
-		// TODO Auto-generated method stub
 		// new database
 		try {
 			db=new DatabaseMagager(db_name);
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		// create table
@@ -160,7 +140,6 @@ public class DatabaseMagager implements DatabaseManagerFacade{
 			db.update(
 					"CREATE TABLE contactList(username VARCHAR(256), contact OTHER)");
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return 0;
@@ -198,33 +177,49 @@ public class DatabaseMagager implements DatabaseManagerFacade{
 	}
 	@Override
 	public int newContact(String username, ContactData contact) {
-		db.updateC("INSERT INTO contactList(username,contact) VALUE(?,?)",contact);
-		return 0;
+		db.updateC("INSERT INTO contactList(username,contact) VALUES(?,?)",username,contact);
+		return 1;
 	}
-	private void updateC(String string, ContactData contact) {
-		// TODO Auto-generated method stub
-		
+	private void updateC(String expression, String username, ContactData contact) {
+		try {
+			PreparedStatement ps=conn.prepareStatement(expression);
+			ps.setString(1,username );
+			ps.setObject(2, contact);
+			
+			ps.executeUpdate();
+			ps.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
 		
 	}
+	 // use for SQL commands INSERT, especially, for object INSERT 
+    public synchronized void updateS(String expression,User user) throws SQLException{
+    	PreparedStatement ps=conn.prepareStatement(expression);
+//      ps.setObject(1, "hello world");
+//      ps.setString(1,"hello world");
+//      ps.setInt(1,100);
+    	ps.setString(1, user.getUserName());
+    	ps.setObject(2, user);
+      
+    	ps.executeUpdate();
+    	ps.close();
+    }
 	@Override
 	public int getContactData(String userName, ArrayList<ContactData> contactList) {
-		// TODO Auto-generated method stub
 		try {
 			contactList=queryContactData(userName);
 			return 1;
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return 0;
 	}
 	@Override
 	public int getUser(String username, User user) {
-		// TODO Auto-generated method stub
 		try {
 			user=queryUserObject(username);
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return 0;
