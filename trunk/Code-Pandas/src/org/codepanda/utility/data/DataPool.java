@@ -36,6 +36,14 @@ public class DataPool {
 			e.printStackTrace();
 		}
 		System.out.println("DataPoolInit");
+		// for test
+		try {
+			db.close();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		System.out.println("close database!");
 	}
 
 	private static DataPool dataPoolInstance = new DataPool();
