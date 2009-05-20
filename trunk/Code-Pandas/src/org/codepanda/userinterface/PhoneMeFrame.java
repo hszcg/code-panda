@@ -117,7 +117,8 @@ public class PhoneMeFrame extends JRibbonFrame {
 				// datapool-init
 				// DataPool.getInstance()
 				// DataPool.getInstance();
-
+				/* ADD BY SA*/
+				DataPool.getInstance();
 				// MyMessageHandler mmh = new MyMessageHandler();
 				// mmh.test();
 
