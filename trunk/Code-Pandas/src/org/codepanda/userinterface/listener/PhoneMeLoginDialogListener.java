@@ -3,11 +3,12 @@ package org.codepanda.userinterface.listener;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-import javax.swing.JDialog;
-
-import org.codepanda.userinterface.ContactInfoPanel;
+import org.codepanda.application.CommandType;
+import org.codepanda.application.CommandVisitor;
+import org.codepanda.userinterface.MyMessageHandler;
 import org.codepanda.userinterface.PhoneMeCreateNewUserDialog;
 import org.codepanda.userinterface.PhoneMeLoginDialog;
+import org.codepanda.userinterface.xml.MyXMLMaker;
 
 /**
  * @author hszcg
@@ -29,14 +30,14 @@ public class PhoneMeLoginDialogListener implements ActionListener {
 		// TODO Auto-generated method stub
 		if (e.getActionCommand().equals("New User")) {
 			System.out.println("PhoneMeLoginDialog New User Action Comfirmed.");
-			
+
 			myPhoneMeLoginDialog.setVisible(false);
-			
-			PhoneMeCreateNewUserDialog myCreateNewUserDialog = new PhoneMeCreateNewUserDialog(myPhoneMeLoginDialog
-					.getParentFrame(), myPhoneMeLoginDialog);
-			
+
+			PhoneMeCreateNewUserDialog myCreateNewUserDialog = new PhoneMeCreateNewUserDialog(
+					myPhoneMeLoginDialog.getParentFrame(), myPhoneMeLoginDialog);
+
 			myCreateNewUserDialog.setVisible(true);
-			
+
 		} else if (e.getActionCommand().equals("Login User")) {
 			System.out.println("PhoneMeLoginDialog Login Action Comfirmed.");
 
@@ -71,10 +72,16 @@ public class PhoneMeLoginDialogListener implements ActionListener {
 	 */
 	private LoginResultType loginUser(String userNameInput,
 			char[] userPasswordInput) {
-		// TODO Auto-generated method stub
 		String password = String.valueOf(userPasswordInput);
-		System.out.println("UserName:\t" + userNameInput);
-		System.out.println("Password:\t" + password);
+
+		String xml = MyXMLMaker.getLoginUserXML(userNameInput, password);
+
+		System.out.println(xml);
+		
+		// TODO Login
+		CommandVisitor loginCommandVisitor = new CommandVisitor(CommandType.LOGIN_USER, xml);
+		MyMessageHandler loginMessageHandler = new MyMessageHandler();
+		loginMessageHandler.executeCommand(loginCommandVisitor);
 
 		if (userNameInput.equals("Sa")) {
 			if (password.equals("Sa"))

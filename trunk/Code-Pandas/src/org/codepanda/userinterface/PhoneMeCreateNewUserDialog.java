@@ -16,8 +16,11 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
+import javax.swing.border.BevelBorder;
+import javax.swing.border.SoftBevelBorder;
 
 import org.codepanda.userinterface.listener.PhoneMeCreateNewUserDialogListener;
+import org.codepanda.utility.user.User;
 
 public class PhoneMeCreateNewUserDialog {
 	private PhoneMeFrame parentFrame;
@@ -28,12 +31,14 @@ public class PhoneMeCreateNewUserDialog {
 	private JPasswordField userPasswordField;
 	private JPasswordField userComfirmPasswordField;
 	private JLabel errorMessageLabel;
+	private User myUser;
 
 	public PhoneMeCreateNewUserDialog(PhoneMeFrame parentFrame,
 			PhoneMeLoginDialog myPhoneMeLoginDialog) {
 		// TODO Auto-generated constructor stub
 		this.parentFrame = parentFrame;
 		this.myPhoneMeLoginDialog = myPhoneMeLoginDialog;
+		this.setMyUser(new User());
 
 		this.newUserDialog = new JDialog(parentFrame, "Create New User Dialog",
 				true);
@@ -64,7 +69,7 @@ public class PhoneMeCreateNewUserDialog {
 		userPasswordPanel.add(userPasswordLabel);
 		userPasswordPanel.add(userPasswordField);
 		// **************************************************
-		
+
 		// 用户密码确认
 		JPanel userComfirmPasswordPanel = new JPanel();
 		userComfirmPasswordPanel.setLayout(new GridLayout());
@@ -74,16 +79,17 @@ public class PhoneMeCreateNewUserDialog {
 		userComfirmPasswordPanel.add(userComfirmPasswordLabel);
 		userComfirmPasswordPanel.add(userComfirmPasswordField);
 		// **************************************************
-		
+
 		// 信息提示
 		this.errorMessageLabel = new JLabel(
 				"Welcome To PhoneMe, Please Login to Procceed.");
 		this.errorMessageLabel.setForeground(Color.BLUE);
 		// **************************************************
-		
+
 		// 顶部界面设置
 		JPanel top = new JPanel();
 		top.setLayout(new BoxLayout(top, BoxLayout.Y_AXIS));
+		top.setBorder(new SoftBevelBorder(BevelBorder.RAISED));
 
 		top.add(Box.createGlue());
 		top.add(userNamePanel);
@@ -94,16 +100,17 @@ public class PhoneMeCreateNewUserDialog {
 		top.add(Box.createGlue());
 		top.add(errorMessageLabel);
 		top.add(Box.createGlue());
-		
+
 		this.newUserDialog.add(top, BorderLayout.NORTH);
-		
+
 		// **************************************************
 
 		JPanel major = new ContactInfoPanel();
 		this.newUserDialog.add(major, BorderLayout.CENTER);
 
 		// **************************************************
-		myPhoneMeCreateNewUserDialogListener = new PhoneMeCreateNewUserDialogListener(this);
+		myPhoneMeCreateNewUserDialogListener = new PhoneMeCreateNewUserDialogListener(
+				this);
 
 		JPanel bottom = new JPanel();
 		bottom.setLayout(new BoxLayout(bottom, BoxLayout.X_AXIS));
@@ -163,5 +170,39 @@ public class PhoneMeCreateNewUserDialog {
 	 */
 	public PhoneMeLoginDialog getMyPhoneMeLoginDialog() {
 		return myPhoneMeLoginDialog;
+	}
+
+	/**
+	 * @param myUser
+	 *            the myUser to set
+	 */
+	public void setMyUser(User myUser) {
+		this.myUser = myUser;
+	}
+
+	/**
+	 * @param errorMessage
+	 */
+	public void updateErrorMessageLabel(String errorMessage) {
+		this.errorMessageLabel.setText(errorMessage);
+		this.errorMessageLabel.setForeground(Color.RED);
+	}
+
+	/**
+	 * @return the myUser
+	 */
+	public User getMyUser() {
+		myUser.setUserName(this.userNameField.getText().trim());
+		String passwordInput = String.valueOf(this.userPasswordField
+				.getPassword());
+		String passwordComfirm = String.valueOf(this.userComfirmPasswordField
+				.getPassword());
+
+		if (passwordInput.equals(passwordComfirm))
+			myUser.setPassword(passwordInput);
+		else
+			myUser.setPassword(null);
+
+		return myUser;
 	}
 }

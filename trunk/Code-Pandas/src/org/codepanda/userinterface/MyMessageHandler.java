@@ -3,9 +3,9 @@ package org.codepanda.userinterface;
 import org.codepanda.application.CommandType;
 import org.codepanda.application.CommandVisitor;
 
-public class MyMessageHandler implements MessageHandler {
+public class MyMessageHandler implements MessageHandler {	
 	public void test(){
-		CommandType commandType=CommandType.NEW_USER;
+		CommandType commandType = CommandType.NEW_USER;
 		String commandDetail=
 			"<com>"+
 			"<NewUser>"+
