@@ -6,65 +6,66 @@ import java.util.*;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
-
 import javax.swing.plaf.FontUIResource;
 
 import org.codepanda.utility.data.DataPool;
-import org.jdesktop.swingx.JXLabel;
-import org.jdesktop.swingx.JXLoginPane;
-import org.jdesktop.swingx.JXStatusBar;
+import org.jdesktop.swingx.*;
 import org.jdesktop.swingx.JXStatusBar.Constraint;
-import org.jdesktop.swingx.auth.LoginService;
 import org.jvnet.flamingo.ribbon.*;
 import org.jvnet.substance.SubstanceLookAndFeel;
 import org.jvnet.substance.skin.SubstanceMistAquaLookAndFeel;
 
 public class PhoneMeFrame extends JRibbonFrame {
-	private PhoneMeRibbon ribbon;
-	private PhoneMeMenu menu;
-	private PhoneMeMajorPanel majorPanel;
-	private PhoneMeTaskPane taskPane;
-	private JXStatusBar statusBar;
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 2654797980693943612L;
+	private PhoneMeRibbon myPhoneMeRibbon;
+	private PhoneMeMenu myPhoneMeMenu;
+	private PhoneMeMajorPanel myPhoneMeMajorPanel;
+	private PhoneMeTaskPane myPhoneMeTaskPane;
+	private PhoneMeLoginDialog myPhoneMeLoginDialog;
+	private JXStatusBar myPhoneMeStatusBar;
 
 	public void configureRibbon() {
-		ribbon = new PhoneMeRibbon(this);
-		this.getRibbon().addTask(ribbon.getBasicTask());
-		this.getRibbon().addTask(ribbon.getAdvancedTask());
+		myPhoneMeRibbon = new PhoneMeRibbon(this);
+		this.getRibbon().addTask(myPhoneMeRibbon.getBasicTask());
+		this.getRibbon().addTask(myPhoneMeRibbon.getAdvancedTask());
 	}
 
 	public void configureApplicationMenu() {
 		try {
-			menu = new PhoneMeMenu(this);
+			myPhoneMeMenu = new PhoneMeMenu(this);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		this.getRibbon().setApplicationMenu(menu);
+		this.getRibbon().setApplicationMenu(myPhoneMeMenu);
 	}
 
 	public void configureStatusBar() {
-		this.statusBar = new JXStatusBar();
+		this.myPhoneMeStatusBar = new JXStatusBar();
 		JXLabel statusLabel = new JXLabel("Ready");
-		
+
 		JXStatusBar.Constraint c1 = new Constraint();
 		c1.setFixedWidth(100);
-		statusBar.add(statusLabel, c1); // Fixed width of 100 with no inserts
+		myPhoneMeStatusBar.add(statusLabel, c1); // Fixed width of 100 with no inserts
 		JXStatusBar.Constraint c2 = new Constraint(
 				JXStatusBar.Constraint.ResizeBehavior.FILL); // Fill with no
-		
+
 		// inserts
 		JProgressBar pbar = new JProgressBar();
-		statusBar.add(pbar, c2);
+		myPhoneMeStatusBar.add(pbar, c2);
 
-		add(statusBar, BorderLayout.SOUTH);
+		add(myPhoneMeStatusBar, BorderLayout.SOUTH);
 	}
 
 	public void configureMajorPanel() {
 
-		majorPanel = new PhoneMeMajorPanel(this);
-		this.add(majorPanel, BorderLayout.CENTER);
-		
-		taskPane = new PhoneMeTaskPane(this);
-		add(taskPane, BorderLayout.WEST);
+		myPhoneMeMajorPanel = new PhoneMeMajorPanel(this);
+		this.add(myPhoneMeMajorPanel, BorderLayout.CENTER);
+
+		myPhoneMeTaskPane = new PhoneMeTaskPane(this);
+		add(myPhoneMeTaskPane, BorderLayout.WEST);
 	}
 
 	public void setLocation() {
@@ -155,43 +156,7 @@ public class PhoneMeFrame extends JRibbonFrame {
 
 	private void configureLogin() {
 		// TODO Auto-generated method stub
-
-		final JXLoginPane panel = new JXLoginPane(new LoginService() {
-			public boolean authenticate(String name, char[] password,
-					String server) throws Exception {
-				// perform authentication and return true on success.
-				String str = String.valueOf(password);
-
-				System.out.println("NAME:\t" + name);
-				System.out.println("PASSWORD:\t" + str);
-
-				if (name.equals("Sa") && str.equals("Sa")) {
-					return true;
-				}
-
-				return false;
-			}
-		});
-
-		// UIManager.put("JXLoginPane.banner.darkBackground",
-		// Color.ORANGE);
-		// UIManager.put("JXLoginPane.banner.lightBackground",
-		// Color.ORANGE.brighter());
-		// UIManager.put("JXLoginPane.banner.font", new Font("Arial",
-		// Font.ITALIC, 45));
-		// UIManager.put("JXLoginPane.banner.foreground", Color.BLUE);
-
-		// Image p =
-		// Toolkit.getDefaultToolkit().getImage(this.getClass().getResource("/userpic/user0.jpg"));
-		// panel.setBanner(p);
-		panel.setBannerText("Welcome To PhoneMe!");
-
-		JXLoginPane.Status loginStatus = JXLoginPane.showLoginDialog(this,
-				panel);
-
-		if (loginStatus != JXLoginPane.Status.SUCCEEDED) {
-			System.exit(-1);
-		}
-
+		myPhoneMeLoginDialog = new PhoneMeLoginDialog(this);
+		myPhoneMeLoginDialog.setVisible(true);
 	}
 }
