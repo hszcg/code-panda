@@ -1,6 +1,7 @@
 package org.codepanda.database;
 
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.Vector;
 
 import org.codepanda.utility.contact.ContactData;
@@ -14,8 +15,8 @@ public interface DatabaseManagerFacade {
 	public int delUser(User user);
 	public int checkExistUser(String userName);
 	// contact
-	public int newContact(User user, ContactData contact);
-	public int getContactData(String userName, Vector<ContactData> contactList);
+	public int newContact(String username, ContactData contact);
+	public int getContactData(String userName, ArrayList<ContactData> contactList);
 	public int editUser(User user, ContactData contact);
 	public int deleteContact(User user, ContactData contact);
 	// operation

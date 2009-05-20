@@ -5,6 +5,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 import java.util.Vector;
 
 import org.codepanda.utility.contact.ContactData;
@@ -81,7 +82,7 @@ public class DatabaseMagager implements DatabaseManagerFacade{
         conn.close();    // if there are no other open connection
     }
 	// use for a query that return a User object
-    public synchronized User queryObject(String name) throws SQLException{
+    public synchronized User queryUserObject(String name) throws SQLException{
     	Statement st=null;
     	ResultSet rs=null;
     	User temp_user=null;
@@ -91,12 +92,23 @@ public class DatabaseMagager implements DatabaseManagerFacade{
     	temp_user=(User) rs.getObject(3);
     	st.close();
 		return temp_user;
-    	
+    }
+    // use for a query that return a list of Contact
+    public synchronized ArrayList<ContactData> queryContactData(String name) throws SQLException{
+    	Statement st=null;
+    	ResultSet rs=null;
+    	ArrayList<ContactData> acd = null;
+    	st=conn.createStatement();
+    	rs=st.executeQuery("SELECT * FROM contactList WHERE username ="+name);
+    	for(;rs.next();){
+    		acd.add((ContactData) rs.getObject(3));
+    	}
+		return acd;
     }
 	public User getUser(String name) {
 		// TODO Auto-generated method stub
 		try {
-			return queryObject(name);
+			return queryUserObject(name);
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -145,6 +157,8 @@ public class DatabaseMagager implements DatabaseManagerFacade{
 			// create user-table
 			db.update(
 					"CREATE TABLE UserTable (id INTEGER IDENTITY, username VARCHAR(256), user OTHER)");
+			db.update(
+					"CREATE TABLE contactList(username VARCHAR(256), contact OTHER)");
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -183,21 +197,32 @@ public class DatabaseMagager implements DatabaseManagerFacade{
 		return null;
 	}
 	@Override
-	public int newContact(User user, ContactData contact) {
+	public int newContact(String username, ContactData contact) {
+		db.updateC("INSERT INTO contactList(username,contact) VALUE(?,?)",contact);
 		return 0;
+	}
+	private void updateC(String string, ContactData contact) {
 		// TODO Auto-generated method stub
+		
 		
 	}
 	@Override
-	public int getContactData(String userName, Vector<ContactData> contactList) {
+	public int getContactData(String userName, ArrayList<ContactData> contactList) {
 		// TODO Auto-generated method stub
+		try {
+			contactList=queryContactData(userName);
+			return 1;
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		return 0;
 	}
 	@Override
 	public int getUser(String username, User user) {
 		// TODO Auto-generated method stub
 		try {
-			user=queryObject(username);
+			user=queryUserObject(username);
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
