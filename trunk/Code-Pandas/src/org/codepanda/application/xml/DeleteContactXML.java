@@ -31,7 +31,7 @@ public class DeleteContactXML {
 	 * @param commandDetail
 	 * @return
 	 */
-	public boolean DeleteConXML(PersonalContact currentContact, String match1,
+	public void DeleteConXML(PersonalContact currentContact, String match1,
 			String match2, String commandDetail) {
 		// 从commandDetail中解析出用户信息
 		try {
@@ -70,6 +70,5 @@ public class DeleteContactXML {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		return false;
 	}
 }
