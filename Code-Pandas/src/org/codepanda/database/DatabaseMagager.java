@@ -99,7 +99,7 @@ public class DatabaseMagager implements DatabaseManagerFacade {
 	}
 
 	@Override
-	public int newUser(User user) {
+	public int newUser(final User user) {
 		try {
 			db
 					.updateS(
@@ -152,37 +152,37 @@ public class DatabaseMagager implements DatabaseManagerFacade {
 	}
 
 	@Override
-	public int delUser(User user) {
+	public int delUser(final User user) {
 		// TODO Auto-generated method stub
 		return 0;
 	}
 
 	@Override
-	public int deleteContact(User user, ContactData contact) {
+	public int deleteContact(final User user, final  ContactData contact) {
 		return 0;
 		// TODO Auto-generated method stub
 
 	}
 
 	@Override
-	public int editUser(String userName, User user) {
+	public int editUser(String userName, final User user) {
 		// TODO Auto-generated method stub
 		return 1;
 	}
 
 	@Override
-	public int editUser(User user, ContactData contact) {
+	public int editUser(final User user, final ContactData contact) {
 		// TODO Auto-generated method stub
 		return 0;
 	}
 
-	public ContactData getContactData(User user, ContactData contact) {
+	public ContactData getContactData(final User user, final ContactData contact) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public int newContact(String userName, ContactData contact) {
+	public int newContact(String userName, final ContactData contact) {
 		db.updateC("INSERT INTO contactList(username,contact) VALUES(?,?)",
 				userName, contact);
 		return 1;

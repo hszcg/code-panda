@@ -9,18 +9,18 @@ import org.codepanda.utility.user.User;
 
 public interface DatabaseManagerFacade {
 	// user
-	public int newUser(User user);
-	public int getUser(String userName, User user);
-	public int editUser(String userName, User user);
-	public int delUser(User user);
+	public int newUser(final User user);
+	public int getUser(String userName, final User user);
+	public int editUser(String userName, final User user);
+	public int delUser(final User user);
 	public int checkExistUser(String userName);
 	public int loginUser(String userName, String password);
 	
 	// contact
-	public int newContact(String userName, ContactData contact);
-	public int getContactData(String userName, ArrayList<ContactData> contactList);
-	public int editUser(User user, ContactData contact);
-	public int deleteContact(User user, ContactData contact);
+	public int newContact(String userName,final ContactData contact);
+	public int getContactData(String userName,final ArrayList<ContactData> contactList);
+	public int editUser(final User user, final ContactData contact);
+	public int deleteContact(final User user, final ContactData contact);
 	// label
 	public int newLabel(String labelname, String username);
 	// operation
