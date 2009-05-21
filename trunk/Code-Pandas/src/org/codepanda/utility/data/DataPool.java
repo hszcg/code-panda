@@ -116,4 +116,26 @@ public class DataPool {
 
 		return 0;
 	}
+	public int  deleteUser(User user)
+	{
+		//TODO  删除用户时假定这个用户名已经存在，需要验证密码
+		//检查密码是否正确，return  -2;
+		if(DataPool.getInstance().db.delUser(user)==0)
+		{
+			System.out.println("Wrong  User Password ");
+			return -2;
+		}
+		//同时需要更新所有的用户列表
+		return 0;
+	}
+	public int editUser(String userName,User user)
+	{
+		//修改成功
+		if(DataPool.getInstance().db.editUser(userName, user)==-1)
+		{
+			System.out.println("Edit User Failed!!!!");
+			return -2;
+		}
+		return 0;
+	}
 }
