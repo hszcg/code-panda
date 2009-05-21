@@ -276,4 +276,9 @@ public class DatabaseMagager implements DatabaseManagerFacade {
 	{
 		return 0;
 	}
+	public int delCommonlabel(String labelname)
+	{
+		return 0;
+		
+	}
 }

@@ -2,6 +2,7 @@ package org.codepanda.application.factory;
 
 import org.codepanda.application.CommandActor;
 import org.codepanda.application.CommandType;
+import org.codepanda.application.label.DeleteCommonLabelActor;
 import org.codepanda.application.label.EditCommonLabelActor;
 import org.codepanda.application.label.NewCommonLabelActor;
 import org.codepanda.application.xml.CommonLabelXML;
@@ -33,7 +34,12 @@ public class LabelActorFactory extends CommandActorFactory {
 		}
 		if(commandType==CommandType.DELETE_COMMON_LABEL)
 		{
-			
+			DeleteCommonLabelActor deleteCommonLabelActor=new DeleteCommonLabelActor();
+			CommonLabel currentCommonLabel=new CommonLabel();
+			CommonLabelXML myCommandLabelXML=new  CommonLabelXML();
+			myCommandLabelXML.labelParserXML(currentCommonLabel, "<DeleteCommonLabel>", "</DeleteCommonLabel>", commandDetail);
+			deleteCommonLabelActor.setLabel(currentCommonLabel);
+			return deleteCommonLabelActor;
 		}
 		return null;
 	}
