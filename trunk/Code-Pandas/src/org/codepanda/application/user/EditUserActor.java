@@ -12,6 +12,7 @@ public class EditUserActor implements CommandActor {
 		{
 			System.out.println("this.user==null");
 		}
+		user.changeUser();
 		return 0;
 	}
 	public void setUser(User user)
