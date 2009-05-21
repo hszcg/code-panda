@@ -71,17 +71,17 @@ public class DatabaseMagager implements DatabaseManagerFacade {
 	}
 
 	// use for a query that return a User object
-	public synchronized User queryUserObject(String name) throws SQLException {
+	public synchronized void queryUserObject(String name, User user) throws SQLException {
 		Statement st = null;
 		ResultSet rs = null;
-		User temp_user = null;
+	//	User temp_user = null;
 		st = conn.createStatement();
 		rs = st
 				.executeQuery("SELECT * FROM UserTable WHERE username = "
 						+ name);
-		temp_user = (User) rs.getObject(2); // 2 or 3
+		user = (User) rs.getObject(2); // 2 or 3
 		st.close();
-		return temp_user;
+	//	return temp_user;
 	}
 
 	// use for a query that return a list of Contact
@@ -126,12 +126,12 @@ public class DatabaseMagager implements DatabaseManagerFacade {
 
 	@Override
 	public int open(String dbName) throws SQLException {
-		// new database
+	/*	// new database
 		try {
 //			db = new DatabaseMagager(dbName);
 		} catch (Exception e) {
 			e.printStackTrace();
-		}
+		}*/
 		// create table
 		try {
 			// create user-table
@@ -234,7 +234,7 @@ public class DatabaseMagager implements DatabaseManagerFacade {
 	public int getUser(String userName, User user) {
 		// TODO 同样，不能修改user指向的内存地址区域
 		try {
-			user = queryUserObject(userName);
+			queryUserObject(userName,user);
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
