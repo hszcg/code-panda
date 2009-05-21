@@ -67,17 +67,17 @@ public class DataPool {
 		contact1.setCommonLabelList(cl1);
 		contact2.setCommonLabelList(cl2);
 		contact3.setCommonLabelList(cl3);
-		db.newUser(user);
-		db.newContact("leilei", contact1);
-		db.newContact("leilei", contact2);
-		db.newContact("leilei", contact3);
-
-		try {
-			db.close();
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+//		db.newUser(user);
+//		db.newContact("leilei", contact1);
+//		db.newContact("leilei", contact2);
+//		db.newContact("leilei", contact3);
+//
+//		try {
+//			db.close();
+//		} catch (SQLException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
 		
 		System.out.println("close database!");
 	}
