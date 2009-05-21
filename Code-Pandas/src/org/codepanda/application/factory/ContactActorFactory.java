@@ -4,6 +4,7 @@ import org.codepanda.application.CommandActor;
 import org.codepanda.application.CommandType;
 import org.codepanda.application.contact.NewContactActor;
 import org.codepanda.application.xml.ContactXML;
+import org.codepanda.utility.contact.ContactData;
 import org.codepanda.utility.contact.PersonalContact;
 
 /**

@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import javax.xml.parsers.*;
 
 import org.codepanda.utility.contact.Birthday;
+import org.codepanda.utility.contact.ContactData;
 import org.codepanda.utility.contact.PersonalContact;
 import org.codepanda.utility.label.RelationLabel;
 import org.w3c.dom.*;
