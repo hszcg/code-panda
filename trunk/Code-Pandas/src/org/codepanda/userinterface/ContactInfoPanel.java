@@ -14,10 +14,10 @@ import javax.swing.*;
 import javax.swing.border.BevelBorder;
 import javax.swing.border.SoftBevelBorder;
 
-import org.codepanda.userinterface.listener.ContactHeadImageEditListener;
+import org.codepanda.userinterface.listener.*;
 import org.codepanda.utility.contact.ContactOperations;
+
 import org.jdesktop.swingx.JXDatePicker;
-import org.jdesktop.swingx.JXMultiSplitPane;
 import org.jdesktop.swingx.JXPanel;
 import com.jgoodies.forms.layout.FormLayout;
 import com.jgoodies.forms.builder.PanelBuilder;
@@ -39,7 +39,6 @@ public class ContactInfoPanel extends JXPanel {
 	//
 	private JPanel upperPanel;
 	private JPanel upperLeftPanel;
-	private JXMultiSplitPane upperRightPanel;
 	private JPanel mainPanel;
 
 	// 图片部分
@@ -60,6 +59,7 @@ public class ContactInfoPanel extends JXPanel {
 	private JButton addPhoneNumberButton;
 	private JButton editPhoneNumberButton;
 	private JButton deletePhoneNumberButton;
+	private PhoneMeField phoneNumberField;
 
 	// 联系人e-mail部分
 	// JXMultiSplitPane emailAddressPanel;
@@ -238,7 +238,7 @@ public class ContactInfoPanel extends JXPanel {
 		 * upperRightPanel.add(phoneNumberPanel, "down");
 		 */
 
-		nameField = new JTextField(30);
+		nameField = new JTextField(15);
 		// nameField.setText("请输入联系人的姓名");
 		nameEditButton = new JButton("编辑");
 		this.myButtonList.add(nameEditButton);
@@ -249,12 +249,23 @@ public class ContactInfoPanel extends JXPanel {
 		addPhoneNumberButton = new JButton("添加");
 		editPhoneNumberButton = new JButton("编辑");
 		deletePhoneNumberButton = new JButton("删除");
+		phoneNumberField = new PhoneMeField(20);
+		phoneNumberField.addActionListener(new FieldActionListener(
+				phoneNumberBox, phoneNumberField));
+		phoneNumberField.setVisible(false);
+
+		ActionListener phoneNumberListener = new ComboBoxButtonListener(
+				phoneNumberBox, phoneNumberField);
+		// addPhoneNumberButton.addActionListener(phoneNumberListener);
+		// editPhoneNumberButton.addActionListener(phoneNumberListener);
+		deletePhoneNumberButton.addActionListener(phoneNumberListener);
 		this.myButtonList.add(addPhoneNumberButton);
 		this.myButtonList.add(editPhoneNumberButton);
 		this.myButtonList.add(deletePhoneNumberButton);
 
 		FormLayout upperRightlayout = new FormLayout(
-				"pref, 3dlu, pref, 15dlu, pref, 3dlu, pref, 3dlu, pref", // columns
+				"pref, 3dlu, pref, 15dlu, pref, 3dlu, pref, "
+						+ "3dlu, pref, 3dlu, pref", // columns
 				"p, 8dlu, p, 5dlu, p"); // rows
 		upperRightlayout.setColumnGroups(new int[][] { { 5, 7, 9 } });
 
@@ -264,15 +275,34 @@ public class ContactInfoPanel extends JXPanel {
 		CellConstraints cc = new CellConstraints();
 
 		builder.addSeparator("基本信息", cc.xyw(1, 1, 9));
-		builder.addLabel("姓名/Name", cc.xy(1, 3));
+		builder.addLabel("姓名", cc.xy(1, 3));
 		builder.add(nameField, cc.xy(3, 3));
 		builder.add(nameEditButton, cc.xy(5, 3));
 
-		builder.addLabel("联系电话/Phone Number", cc.xy(1, 5));
+		builder.addLabel("联系电话", cc.xy(1, 5));
 		builder.add(phoneNumberBox, cc.xy(3, 5));
 		builder.add(addPhoneNumberButton, cc.xy(5, 5));
+		addPhoneNumberButton.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				// TODO Auto-generated method stub
+				phoneNumberField.setVisible(true);
+				phoneNumberField.setState(0);
+				paintComponents(getGraphics());
+			}
+		});
+		editPhoneNumberButton.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				// TODO Auto-generated method stub
+				phoneNumberField.setVisible(true);
+				phoneNumberField.setState(1);
+				paintComponents(getGraphics());
+			}
+		});
 		builder.add(editPhoneNumberButton, cc.xy(7, 5));
 		builder.add(deletePhoneNumberButton, cc.xy(9, 5));
+		builder.add(phoneNumberField, cc.xy(11, 5));
 
 		// upperLeftPanel.add(new JLabel("test1"));
 		FormLayout upperLeftlayout = new FormLayout("pref, 9dlu, pref", // columns
@@ -286,7 +316,7 @@ public class ContactInfoPanel extends JXPanel {
 
 		headImageLabel = new JLabel();// 联系人图片
 		this.setContactHeadImage("/userpic/user1.jpg");
-		headImageLabel.setPreferredSize(new Dimension(115, 115));
+		headImageLabel.setPreferredSize(new Dimension(130, 115));
 		headImageLabel.setBorder(new SoftBevelBorder(BevelBorder.RAISED));
 		editHeadImageButton = new JButton("编辑");
 		deleteHeadImageButton = new JButton("删除");
@@ -307,11 +337,30 @@ public class ContactInfoPanel extends JXPanel {
 		editHeadImageButton.setPreferredSize(new Dimension(50, 20));
 		deleteHeadImageButton.setPreferredSize(new Dimension(50, 20));
 
-		leftBuilder.add(headImageLabel, leftcc.xyw(1, 1, 3));
-		leftBuilder.add(editHeadImageButton, leftcc.xy(1, 3));
-		leftBuilder.add(deleteHeadImageButton, leftcc.xy(3, 3));
+		// leftBuilder.add(headImageLabel, leftcc.xyw(1, 1, 3));
+		// leftBuilder.add(editHeadImageButton, leftcc.xy(1, 3));
+		// leftBuilder.add(deleteHeadImageButton, leftcc.xy(3, 3));
 
-		upperPanel.add(leftBuilder.getPanel(), "West");
+		FormLayout upperLeftDownlayout = new FormLayout("pref, 3dlu, pref", // columns
+				"p"); // rows
+		upperLeftDownlayout.setColumnGroups(new int[][] { { 1, 3 } });
+
+		PanelBuilder leftDownBuilder = new PanelBuilder(upperLeftDownlayout);
+		leftDownBuilder.setDefaultDialogBorder();
+
+		CellConstraints leftDowncc = new CellConstraints();
+		leftDownBuilder.add(editHeadImageButton, leftDowncc.xy(1, 1));
+		leftDownBuilder.add(deleteHeadImageButton, leftDowncc.xy(3, 1));
+
+		upperLeftPanel = new JPanel();
+		upperLeftPanel.setLayout(new BorderLayout());
+		upperLeftPanel.add(headImageLabel, "Center");
+		upperLeftPanel.add(leftDownBuilder.getPanel(), "South");
+		// upperLeftPanel.add(editHeadImageButton, "South");
+		// upperLeftPanel.add(deleteHeadImageButton, "South");
+		upperLeftPanel.setVisible(true);
+		// upperPanel.add(leftBuilder.getPanel(), "West");
+		upperPanel.add(upperLeftPanel, "West");
 		upperPanel.add(builder.getPanel(), "Center");
 	}
 
@@ -319,7 +368,7 @@ public class ContactInfoPanel extends JXPanel {
 		mainPanel = new JPanel();
 		FormLayout mainAreaLayout = new FormLayout(
 		// "pref, 3dlu, pref, 2dlu, pref, 15dlu, pref, 3dlu, pref, 3dlu, pref",//column
-				"pref, 3dlu, pref, 15dlu, pref, 3dlu, pref, 3dlu, pref",// column
+				"pref, 3dlu, pref, 15dlu, pref, 3dlu, pref, 3dlu, pref, 3dlu, pref",// column
 				"p, 8dlu, p, 5dlu, p, 5dlu, p, 5dlu, p, 5dlu, p, 5dlu, p, 5dlu, p,"
 						+ " 5dlu, p, 5dlu, p");// row
 		// mainAreaLayout.setColumnGroups(new int[][]{{7, 9, 11}});
@@ -333,6 +382,7 @@ public class ContactInfoPanel extends JXPanel {
 		String temp[] = { "中华人民共和国北京市海淀区清华大学紫荆公寓1#419B" };
 
 		builder.addSeparator("个人信息", cc.xyw(1, 1, 9));
+		builder.addLabel("                      ", cc.xy(11, 1));
 		// e-mail
 		emailAddressBox = new JComboBox(temp);
 		// emailAddressBox.setPreferredSize(new Dimension(200,20));
@@ -344,7 +394,7 @@ public class ContactInfoPanel extends JXPanel {
 		this.myButtonList.add(editEmailAddressButton);
 		this.myButtonList.add(deleteEmailAddressButton);
 
-		builder.addLabel("电子邮箱/E-mail", cc.xy(1, 3));
+		builder.addLabel("电子邮箱", cc.xy(1, 3));
 		// builder.add(emailAddressBox, cc.xyw(3, 1, 3));
 		builder.add(emailAddressBox, cc.xy(3, 3));
 		builder.add(addEmailAddressButton, cc.xy(5, 3));
@@ -363,7 +413,7 @@ public class ContactInfoPanel extends JXPanel {
 		this.myButtonList.add(editContactAddressButton);
 		this.myButtonList.add(deleteContactAddressButton);
 
-		builder.addLabel("家庭住址/Address", cc.xy(1, 5));
+		builder.addLabel("家庭住址", cc.xy(1, 5));
 		builder.add(contactAddressBox, cc.xy(3, 5));
 		builder.add(addContactAddressButton, cc.xy(5, 5));
 		builder.add(editContactAddressButton, cc.xy(7, 5));
@@ -379,7 +429,7 @@ public class ContactInfoPanel extends JXPanel {
 		this.myButtonList.add(editWorkingDepartmentButton);
 		this.myButtonList.add(deleteWorkingDepartmentButton);
 
-		builder.addLabel("工作单位/Working Department", cc.xy(1, 7));
+		builder.addLabel("工作单位", cc.xy(1, 7));
 		builder.add(workingDepartmentBox, cc.xy(3, 7));
 		builder.add(addWorkingDepartmentButton, cc.xy(5, 7));
 		builder.add(editWorkingDepartmentButton, cc.xy(7, 7));
@@ -395,7 +445,7 @@ public class ContactInfoPanel extends JXPanel {
 		this.myButtonList.add(editImContactInformationButton);
 		this.myButtonList.add(deleteImContactInformationButton);
 
-		builder.addLabel("即时联系方式/Im Contact", cc.xy(1, 9));
+		builder.addLabel("即时联系方式", cc.xy(1, 9));
 		builder.add(imContactInformationBox, cc.xy(3, 9));
 		builder.add(addImContactInformationButton, cc.xy(5, 9));
 		builder.add(editImContactInformationButton, cc.xy(7, 9));
@@ -423,10 +473,10 @@ public class ContactInfoPanel extends JXPanel {
 			}
 		});
 
-		builder.addLabel("联系人生日/Birthday", cc.xy(1, 11));
+		builder.addLabel("联系人生日", cc.xy(1, 11));
 		builder.add(contactBirthdayField, cc.xy(3, 11));
 		builder.add(editcontactBirthdayButton, cc.xy(5, 11));
-		builder.add(contactBirthdayPicker, cc.xy(7, 11));
+		builder.add(contactBirthdayPicker, cc.xy(11, 11));
 
 		// 联系人Web地址
 		urlListBox = new JComboBox();
@@ -438,7 +488,7 @@ public class ContactInfoPanel extends JXPanel {
 		this.myButtonList.add(editUrlListButton);
 		this.myButtonList.add(deleteUrlListButton);
 
-		builder.addLabel("联系人Web地址/URL Address", cc.xy(1, 13));
+		builder.addLabel("Web地址", cc.xy(1, 13));
 		builder.add(urlListBox, cc.xy(3, 13));
 		builder.add(addUrlListButton, cc.xy(5, 13));
 		builder.add(editUrlListButton, cc.xy(7, 13));
@@ -468,7 +518,7 @@ public class ContactInfoPanel extends JXPanel {
 		this.myButtonList.add(editCommonLabelListButton);
 		this.myButtonList.add(deleteCommonLabelListButton);
 
-		downbuilder.addLabel("普通标签/Common Label", downcc.xy(1, 3));
+		downbuilder.addLabel("普通标签", downcc.xy(1, 3));
 		downbuilder.add(commonLabelListBox, downcc.xyw(3, 3, 3));
 		downbuilder.add(addCommonLabelListButton, downcc.xy(7, 3));
 		downbuilder.add(editCommonLabelListButton, downcc.xy(9, 3));
@@ -484,7 +534,7 @@ public class ContactInfoPanel extends JXPanel {
 		this.myButtonList.add(editGroupListButton);
 		this.myButtonList.add(deleteGroupListButton);
 
-		downbuilder.addLabel("所属分组/Group", downcc.xy(1, 5));
+		downbuilder.addLabel("所属分组", downcc.xy(1, 5));
 		downbuilder.add(groupListBox, downcc.xyw(3, 5, 3));
 		downbuilder.add(addGroupListButton, downcc.xy(7, 5));
 		// downbuilder.add(editGroupListButton, downcc.xy(9, 5));
@@ -503,7 +553,7 @@ public class ContactInfoPanel extends JXPanel {
 		this.myButtonList.add(editRelationLabelListButton);
 		this.myButtonList.add(deleteRelationLabelListButton);
 
-		downbuilder.addLabel("关系标签/Relation Label", downcc.xy(1, 7));
+		downbuilder.addLabel("关系标签", downcc.xy(1, 7));
 		downbuilder.add(relationLabelListBox, downcc.xy(3, 7));
 		downbuilder.add(objectContactListBox, downcc.xy(5, 7));
 		downbuilder.add(addRelationLabelListButton, downcc.xy(7, 7));
@@ -545,7 +595,7 @@ public class ContactInfoPanel extends JXPanel {
 		if (pic == null)
 			return;
 
-		Image tempImage = pic.getScaledInstance(115, 115, Image.SCALE_DEFAULT);
+		Image tempImage = pic.getScaledInstance(130, 115, Image.SCALE_DEFAULT);
 		ImageIcon imageIcon = new ImageIcon(tempImage);
 		headImageLabel.setIcon(imageIcon);
 	}
@@ -582,7 +632,7 @@ public class ContactInfoPanel extends JXPanel {
 	/**
 	 * @return the parenetWindow
 	 */
-	public Window getParenetWindow() {
+	public Window getParentWindow() {
 		if (this.parentFrame != null)
 			return this.parentFrame;
 		else

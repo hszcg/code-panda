@@ -32,7 +32,7 @@ public class PhoneMeTaskPane extends JXTaskPaneContainer
 		currentUserPane.add(usernameField);
 		add(currentUserPane);*/
 		// create another taskPane, it will show details of the selected file
-		mainFrame = phoneMeFrame;
+		this.mainFrame = phoneMeFrame;
 		details = new JXTaskPane();
 		details.setTitle("按姓名搜索    ");
 
@@ -53,17 +53,17 @@ public class PhoneMeTaskPane extends JXTaskPaneContainer
 		group = new DefaultMutableTreeNode("同学");
 		root.add(group);
 		
-		contact = new DefaultMutableTreeNode(new test("张三"));
+		contact = new DefaultMutableTreeNode(new TreeNodeItem("张三", 1));
 		group.add(contact);
-		contact = new DefaultMutableTreeNode(new test("李四"));
+		contact = new DefaultMutableTreeNode(new TreeNodeItem("李四", 2));
 		group.add(contact);
 		
-		group = new DefaultMutableTreeNode(new test("朋友"));
+		group = new DefaultMutableTreeNode(new TreeNodeItem("朋友", 3));
 		root.add(group);
 		
-		contact = new DefaultMutableTreeNode(new test("王五"));
+		contact = new DefaultMutableTreeNode(new TreeNodeItem("王五", 4));
 		group.add(contact);
-		contact = new DefaultMutableTreeNode(new test("赵六"));
+		contact = new DefaultMutableTreeNode(new TreeNodeItem("赵六", 5));
 		group.add(contact);
 	}
 	
@@ -87,31 +87,36 @@ public class PhoneMeTaskPane extends JXTaskPaneContainer
 			return;
 		Object nodeInfo = node.getUserObject();
 		if (node.isLeaf()) {
-			System.out.println(((test)nodeInfo).email());
+			System.out.println(((TreeNodeItem)nodeInfo).getISN());
 		} 
 		else {
 			//displayURL(helpURL);
 		}
 	}
-	
-	private class test{
-		String name;
-		Vector<String> email;
-		test(String name){
+
+	/**
+	 * @return the mainFrame
+	 */
+	public PhoneMeFrame getMainFrame() {
+		return mainFrame;
+	}
+
+	private class TreeNodeItem{
+		private String name;
+		private Integer iSN;
+
+		TreeNodeItem(String name, Integer iSN){
 			this.name = name;
-			String temp = name;
-			String temp2 = "fdsfds";
-			email = new Vector<String> ();
-			email.add(temp);
-			email.add(temp2);
-			//email = new Vector<Stirng>();
+			this.iSN = iSN;
 		}
 		
 		public String toString(){
 			return name;
 		}
-		public String email(){
-			return email.elementAt(0);
+		
+		public Integer getISN() {
+			return iSN;
 		}
+		
 	}
 }
