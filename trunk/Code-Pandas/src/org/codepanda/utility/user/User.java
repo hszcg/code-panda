@@ -12,6 +12,14 @@ import org.codepanda.utility.contact.HeadImage;
 import org.codepanda.utility.label.RelationLabel;
 public class User implements UserOperations,ContactOperations,Serializable {
 	private ContactData userContactData=new ContactData();
+	public ContactData getUserContactData() {
+		return userContactData;
+	}
+
+	public void setUserContactData(ContactData userContactData) {
+		this.userContactData = userContactData;
+	}
+
 	private String userName;
 	private String password;
 	@Override
