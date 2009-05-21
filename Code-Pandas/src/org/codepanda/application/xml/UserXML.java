@@ -181,7 +181,7 @@ public  void UserIterator(User currentUser,Element element)
 		{
 			String value=node.getTextContent();
 			String str1[]= new String[3];
-			str1=value.split(" ");
+			str1=value.split("-");
 			Birthday  birth=new Birthday();
 			birth.setYear(Integer.parseInt(str1[0]));
 			birth.setMonth(Integer.parseInt(str1[1]));

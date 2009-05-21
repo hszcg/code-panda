@@ -1,15 +1,19 @@
 package org.codepanda.application.xml;
 
 import java.io.StringReader;
+import java.util.ArrayList;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 
+import org.codepanda.utility.contact.PersonalContact;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.InputSource;
+
+import com.sun.xml.internal.bind.v2.runtime.unmarshaller.XsiNilLoader.Array;
 
 /**
  * @author xdq
@@ -22,12 +26,13 @@ public class SearchContactXML {
 	boolean funcEnd=false;
 	String  funcSubStr=null;
 	String comSubStr=null;
+	String InputInfomation=null;
 	/**
 	 * @param match1   //<SearchContact>
 	 * @param match2   //</SearchContact>
 	 * @param commandDetail  //传入的字符串
 	 */
-	public void SearchContact(String match1,String match2,String commandDetail)
+	public void SearchContact(PersonalContact currentContact,String match1,String match2,String commandDetail)
 	{
 		try
 		{
@@ -69,24 +74,31 @@ public class SearchContactXML {
 					if(str.equalsIgnoreCase("SearchInput"))
 					{
 						String value=node.getTextContent();
+						InputInfomation=value;
 					}
 					else if(str.equalsIgnoreCase("BlurSearch"))
 					{
 						String value=node.getTextContent();
+						//blur=1表示进行模糊匹配，0表示进行非模糊匹配
 						int blur=Integer.parseInt(value);
-						if(blur==0)//不模糊匹配
-						{
-							
-						}
-						if(blur==1)  //模糊匹配
-						{
-							
-						}
+						
 					}
 					else if(str.equalsIgnoreCase("SearchType"))
 					{
 						String value=node.getTextContent();
-						
+						//按照姓名进行查询Name
+						if(value.equalsIgnoreCase("Name"))
+						{
+							currentContact.setContactName(InputInfomation);
+						}
+						//按照电话号码进行查询，Telephone
+						else if(value.equalsIgnoreCase("Telephone"))
+						{
+							ArrayList<String> myTelephoneList=new ArrayList<String>();
+							myTelephoneList.add(InputInfomation);
+							currentContact.setPhoneNumberList(myTelephoneList);
+						}
+						//按照标签进行查询
 					}
 					}
 		}
