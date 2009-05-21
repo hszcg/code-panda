@@ -117,8 +117,7 @@ public class DataPool {
 		}
 
 		// TODO 把当前用户的联系人读入DataPool
-		this.currentUser.setUserName(userName);
-		this.currentUser.setPassword(password);
+		this.db.getUser(userName, currentUser);
 
 		ArrayList<ContactOperations> allContactList = new ArrayList<ContactOperations>();
 		this.db.getContactData(userName, allContactList);
@@ -154,7 +153,7 @@ public class DataPool {
 			}
 			
 			// allRelationLabelList
-			// TODO 内置的RelationLabelList需要设置一下
+			// TODO 内置的RelationLabelList需要设置一下 读configuration里面的xml
 		}
 
 		return 0;

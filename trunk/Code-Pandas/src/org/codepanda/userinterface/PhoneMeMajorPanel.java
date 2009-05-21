@@ -185,6 +185,8 @@ public class PhoneMeMajorPanel extends JPanel {
 		// contactInfoScrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
 
 		centerPanel.add("Contact Info", new ContactInfoPanel(this.mainFrame, null, false));
+		
+		centerPanel.add("Search Result", new SearchResultPanel(this.mainFrame));
 
 		return centerPanel;
 	}
