@@ -34,6 +34,8 @@ public class PhoneMeLoginDialog {
 				System.exit(0);
 			}
 		});
+		
+		this.myPhoneMeLoginDialogListener = new PhoneMeLoginDialogListener(this);
 		// **************************************************
 
 		// 顶部Logo
@@ -63,6 +65,8 @@ public class PhoneMeLoginDialog {
 		userPasswordPanel.setLayout(new GridLayout());
 		JLabel userPasswordLabel = new JLabel("Password");
 		this.userPasswordField = new JPasswordField();
+		this.userPasswordField.setActionCommand("Login User");
+		this.userPasswordField.addActionListener(myPhoneMeLoginDialogListener);
 
 		userPasswordPanel.add(userPasswordLabel);
 		userPasswordPanel.add(userPasswordField);
@@ -94,8 +98,6 @@ public class PhoneMeLoginDialog {
 		// 底部按钮设置
 		JPanel bottom = new JPanel();
 		bottom.setLayout(new BoxLayout(bottom, BoxLayout.X_AXIS));
-
-		this.myPhoneMeLoginDialogListener = new PhoneMeLoginDialogListener(this);
 
 		JButton newUserButton = new JButton("New User");
 		newUserButton.setActionCommand("New User");

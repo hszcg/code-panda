@@ -39,7 +39,7 @@ public class ContactHeadImageEditListener implements ActionListener {
 		playerHeadChooser.addChoosableFileFilter(playerHeadFileFilter);
 
 		int result = playerHeadChooser.showOpenDialog(myContactInfoPanel
-				.getParenetWindow());
+				.getParentWindow());
 
 		if (result == JFileChooser.CANCEL_OPTION)
 			return;

@@ -206,4 +206,11 @@ public class PhoneMeCreateNewUserDialog {
 
 		return myUser;
 	}
+	
+	/**
+	 * @return
+	 */
+	public JDialog getNewUserDialog() {
+		return newUserDialog;
+	}
 }
