@@ -137,10 +137,10 @@ public interface ContactOperations {
 	/**
 	 * @param iSN the iSN to set
 	 */
-	public void setISN(String iSN);
+	public void setISN(Integer iSN);
 
 	/**
 	 * @return the iSN
 	 */
-	public String getISN();
+	public Integer getISN();
 }

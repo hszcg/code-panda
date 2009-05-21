@@ -96,7 +96,7 @@ public class User implements UserOperations,ContactOperations,Serializable {
 	}
 
 	@Override
-	public String getISN() {
+	public Integer getISN() {
 		// TODO Auto-generated method stub
 		return userContactData.ISN;
 	}
@@ -174,7 +174,7 @@ public class User implements UserOperations,ContactOperations,Serializable {
 	}
 
 	@Override
-	public void setISN(String isn) {
+	public void setISN(Integer isn) {
 		// TODO Auto-generated method stub
 		userContactData.ISN=isn;
 	}

@@ -8,6 +8,7 @@ import java.sql.Statement;
 import java.util.ArrayList;
 
 import org.codepanda.utility.contact.ContactData;
+import org.codepanda.utility.contact.ContactOperations;
 import org.codepanda.utility.user.User;
 import org.hsqldb.*;
 import org.hsqldb.jdbc.jdbcDataSource;
@@ -83,16 +84,16 @@ public class DatabaseMagager implements DatabaseManagerFacade {
 	}
 
 	// use for a query that return a list of Contact
-	public synchronized ArrayList<ContactData> queryContactData(String name)
+	public synchronized ArrayList<ContactOperations> queryContactData(String name)
 			throws SQLException {
 		Statement st = null;
 		ResultSet rs = null;
-		ArrayList<ContactData> acd = null;
+		ArrayList<ContactOperations> acd = null;
 		st = conn.createStatement();
 		rs = st.executeQuery("SELECT * FROM contactList WHERE username ="
 				+ name);
 		for (; rs.next();) {
-			acd.add((ContactData) rs.getObject(3));
+			acd.add((ContactOperations) rs.getObject(3));
 		}
 		st.close();
 		return acd;
@@ -218,7 +219,7 @@ public class DatabaseMagager implements DatabaseManagerFacade {
 
 	@Override
 	public int getContactData(String userName,
-			ArrayList<ContactData> contactList) {
+			ArrayList<ContactOperations> contactList) {
 		// TODO 你这里修改了contactList指向的内存地址区域，应该用contactList.add(XXX)
 		try {
 			contactList = queryContactData(userName);

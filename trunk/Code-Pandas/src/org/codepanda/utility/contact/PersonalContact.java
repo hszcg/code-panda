@@ -25,11 +25,11 @@ public class PersonalContact implements ContactOperations {
 	{
 		return personalContactData.contactName;
 	}
-	public void setISN(String iSN)
+	public void setISN(Integer iSN)
 	{
 		personalContactData.ISN=iSN;
 	}
-	public String getISN()
+	public Integer getISN()
 	{
 			return personalContactData.ISN;
 	}
@@ -121,5 +121,4 @@ public class PersonalContact implements ContactOperations {
 	{
 		return personalContactData.relationLabelList;
 	}
-
 }
