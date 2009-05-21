@@ -20,7 +20,7 @@ public class NewContactActor implements CommandActor {
 			return NewContactActor.NULL_CONTACT;
 		}
 		int result=DataPool.getInstance().newContact(myContact);
-		if(result==-1)
+		if(result==-2)
 		{
 			System.out.println("New Contact Failed!!!!");
 			return NewContactActor.FAILED;

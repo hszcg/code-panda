@@ -159,7 +159,7 @@ public class DatabaseMagager implements DatabaseManagerFacade {
 	}
 
 	@Override
-	public int deleteContact(final User user, final  ContactData contact) {
+	public int deleteContact(final User user, final  PersonalContact contact) {
 		return 0;
 		// TODO Auto-generated method stub
 
@@ -172,7 +172,7 @@ public class DatabaseMagager implements DatabaseManagerFacade {
 	}
 
 	@Override
-	public int editUser(final User user, final ContactData contact) {
+	public int editContact(final User user, final PersonalContact contact) {
 		// TODO Auto-generated method stub
 		return 0;
 	}
