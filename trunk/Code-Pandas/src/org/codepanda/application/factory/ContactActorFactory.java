@@ -2,10 +2,12 @@ package org.codepanda.application.factory;
 
 import org.codepanda.application.CommandActor;
 import org.codepanda.application.CommandType;
+import org.codepanda.application.contact.DeleteContactActor;
 import org.codepanda.application.contact.EditContactActor;
 import org.codepanda.application.contact.ImportContactActor;
 import org.codepanda.application.contact.NewContactActor;
 import org.codepanda.application.xml.ContactXML;
+import org.codepanda.application.xml.DeleteContactXML;
 import org.codepanda.utility.contact.ContactData;
 import org.codepanda.utility.contact.PersonalContact;
 
@@ -19,6 +21,7 @@ public class ContactActorFactory extends CommandActorFactory {
 
 	public CommandActor creator(CommandType commandType, String commandDetail) {
 		// TODO Auto-generated method stub
+		//新建联系人
 		if (commandType == CommandType.NEW_CONTACT) {
 			NewContactActor newContactActor = new NewContactActor();
 			currentContact = new PersonalContact();
@@ -28,6 +31,7 @@ public class ContactActorFactory extends CommandActorFactory {
 			newContactActor.setContact(currentContact);
 			return newContactActor;
 		}
+		//编辑联系人
 		 if(commandType==CommandType.EDIT_CONTACT)
 		 {
 			 EditContactActor editContactActor=new EditContactActor();
@@ -38,6 +42,7 @@ public class ContactActorFactory extends CommandActorFactory {
 			 editContactActor.setContact(currentContact);
 			 return  editContactActor;
 		 }
+		 //导出联系人
 		 if(commandType==CommandType.IMPORT_CONTACT)
 		 {
 			 ImportContactActor importContactActor=new  ImportContactActor();
@@ -47,6 +52,17 @@ public class ContactActorFactory extends CommandActorFactory {
 						"</ImportContact>", commandDetail);
 			 importContactActor.setContact(currentContact);
 			 return  importContactActor;
+		 }
+		 //删除联系人
+		 if(commandType==CommandType.DELETE_CONTACT)
+		 {
+			 DeleteContactActor deleteContactActor=new DeleteContactActor();
+			 currentContact=new PersonalContact();
+			 DeleteContactXML deleteContactXML=new DeleteContactXML();
+			 deleteContactXML.DeleteConXML(currentContact, "<DeleteContact>", "</DeletaContact>", commandDetail);
+			 deleteContactActor.setContact(currentContact);
+			 return deleteContactActor;
+			 
 		 }
 		return null;
 	}

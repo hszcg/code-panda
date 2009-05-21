@@ -66,11 +66,6 @@ public class DeleteContactXML {
 			String str = node.getNodeName();
 			if (str.equalsIgnoreCase("ISN")) {
 				String value = node.getTextContent();
-				// 怎么得到所有的ISN列表呢
-				// if(currentContact.getISN().equalsIgnoreCase(value))
-				// {
-				// return true;
-				// }
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
