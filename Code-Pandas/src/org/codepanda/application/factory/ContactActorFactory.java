@@ -6,6 +6,7 @@ import org.codepanda.application.contact.DeleteContactActor;
 import org.codepanda.application.contact.EditContactActor;
 import org.codepanda.application.contact.ImportContactActor;
 import org.codepanda.application.contact.NewContactActor;
+import org.codepanda.application.contact.StatContactActor;
 import org.codepanda.application.xml.ContactXML;
 import org.codepanda.application.xml.DeleteContactXML;
 import org.codepanda.utility.contact.ContactData;
@@ -62,6 +63,13 @@ public class ContactActorFactory extends CommandActorFactory {
 			 deleteContactXML.DeleteConXML(currentContact, "<DeleteContact>", "</DeletaContact>", commandDetail);
 			 deleteContactActor.setContact(currentContact);
 			 return deleteContactActor;
+			 
+		 }
+		 //进行联系人的生日统计
+		 if(commandType==CommandType.STAT_CONTACT)
+		 {
+			 StatContactActor StatContactActor=new StatContactActor();
+			//TODO  
 			 
 		 }
 		return null;
