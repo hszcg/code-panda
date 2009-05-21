@@ -32,7 +32,12 @@ public class DataPool {
 	private DataPool() {
 		// TODO Initialize all data except for dataPoolInstance
 		currentUser = new User();
-		db = new DatabaseMagager();
+		try {
+			db = new DatabaseMagager("test");
+		} catch (Exception e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
 		try {
 			db.open("test");
 		} catch (SQLException e) {
@@ -40,22 +45,16 @@ public class DataPool {
 			e.printStackTrace();
 		}
 		System.out.println("DataPoolInit");
-		// for test
-		try {
-			PersonalContact contact1 = new PersonalContact();
-			PersonalContact  contact2 = new PersonalContact();
-			PersonalContact  contact3 = new PersonalContact();
-			contact1.setContactName("汤则1");
-			contact2.setContactName("汤则2");
-			contact3.setContactName("汤则3");
-			db.newContact("leilei", contact1);
-			db.newContact("leilei", contact2);
-			db.newContact("leilei", contact3);
-			db.close();
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		PersonalContact contact1 = new PersonalContact();
+		PersonalContact  contact2 = new PersonalContact();
+		PersonalContact  contact3 = new PersonalContact();
+		contact1.setContactName("汤则1");
+		contact2.setContactName("汤则2");
+		contact3.setContactName("汤则3");
+		db.newContact("leilei", contact1);
+		db.newContact("leilei", contact2);
+		db.newContact("leilei", contact3);
+//		db.close();
 		System.out.println("close database!");
 	}
 
