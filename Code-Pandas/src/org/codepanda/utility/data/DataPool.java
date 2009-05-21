@@ -34,16 +34,15 @@ public class DataPool {
 		currentUser = new User();
 		try {
 			db = new DatabaseMagager("test");
+			db.open("test");
 		} catch (Exception e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
-		try {
-			db.open("test");
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		User user=new User();
+		user.setUserName("leilei");
+		user.setPassword("leilei");
+
 		System.out.println("DataPoolInit");
 		PersonalContact contact1 = new PersonalContact();
 		PersonalContact  contact2 = new PersonalContact();
@@ -51,10 +50,11 @@ public class DataPool {
 		contact1.setContactName("汤则1");
 		contact2.setContactName("汤则2");
 		contact3.setContactName("汤则3");
+		db.newUser(user);
 		db.newContact("leilei", contact1);
-		db.newContact("leilei", contact2);
-		db.newContact("leilei", contact3);
-//		db.close();
+//		db.newContact("leilei", contact2);
+//		db.newContact("leilei", contact3);
+		
 		System.out.println("close database!");
 	}
 
@@ -64,6 +64,7 @@ public class DataPool {
 	 * Database part
 	 */
 	private DatabaseManagerFacade db;
+	
 
 	/**
 	 * @return
@@ -117,7 +118,7 @@ public class DataPool {
 		}
 
 		// TODO 把当前用户的联系人读入DataPool
-		this.db.getUser(userName, currentUser);
+		DataPool.getInstance().db.getUser(userName, currentUser);
 
 		ArrayList<ContactOperations> allContactList = new ArrayList<ContactOperations>();
 		this.db.getContactData(userName, allContactList);

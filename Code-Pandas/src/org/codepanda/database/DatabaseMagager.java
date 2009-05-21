@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import org.codepanda.utility.contact.ContactData;
 import org.codepanda.utility.contact.ContactOperations;
 import org.codepanda.utility.contact.PersonalContact;
+import org.codepanda.utility.data.DataPool;
 import org.codepanda.utility.user.User;
 import org.hsqldb.*;
 import org.hsqldb.jdbc.jdbcDataSource;
@@ -30,7 +31,7 @@ public class DatabaseMagager implements DatabaseManagerFacade {
 		dataSource.setDatabase("jdbc:hsqldb:" + dbName);
 
 		conn = dataSource.getConnection("sa", "");
-
+		System.out.println(conn.toString());
 		System.out.println("Database Connected! Con!");
 	}
 
@@ -44,7 +45,7 @@ public class DatabaseMagager implements DatabaseManagerFacade {
 		Statement st = null;
 
 		st = conn.createStatement(); // statements
-
+		System.out.println(conn.toString());
 		int i = 0; // run the query
 		try {
 			i = st.executeUpdate(expression);
@@ -76,9 +77,15 @@ public class DatabaseMagager implements DatabaseManagerFacade {
 		ResultSet rs = null;
 	//	User temp_user = null;
 		st = conn.createStatement();
-		rs = st
-				.executeQuery("SELECT * FROM UserTable WHERE username = "
-						+ name);
+		System.out.println(conn.toString());
+//		rs = st.executeQuery("SELECT * FROM UserTable WHERE username = "+ name);
+//		rs = st.executeQuery("SELECT * FROM UserTable WHERE username > 0    ");
+		rs = st.executeQuery("SELECT * FROM UserTable WHERE username = '"+name+"'");
+//		rs = st.executeQuery("SELECT * FROM UserTable WHERE UserTable.COL1=leilei");
+//		rs = st.executeQuery("SELECT username = "+name+" FROM UserTable");
+//		rs = st.executeQuery("SELECT * FROM UserTable WHERE username=username");
+		System.out.println(rs.toString());
+		rs.next();
 		user = (User) rs.getObject(2); // 2 or 3
 		st.close();
 	//	return temp_user;
@@ -91,10 +98,11 @@ public class DatabaseMagager implements DatabaseManagerFacade {
 		ResultSet rs = null;
 //		ArrayList<ContactOperations> acd = null;
 		st = conn.createStatement();
-		rs = st.executeQuery("SELECT * FROM contactList WHERE username ="
-				+ name);
+		System.out.println(conn.toString());
+		rs = st.executeQuery("SELECT * FROM contactList WHERE username = '" + name+"'");
+		rs.next();
 		for (; rs.next();) {
-			contactList.add((ContactOperations) rs.getObject(3));
+			contactList.add((ContactOperations) rs.getObject(2));
 		}
 		st.close();
 	}
@@ -133,15 +141,14 @@ public class DatabaseMagager implements DatabaseManagerFacade {
 			e.printStackTrace();
 		}*/
 		// create table
-		try {
+//		try {
 			// create user-table
-			this
-					.update("CREATE TABLE UserTable (id INTEGER IDENTITY, username VARCHAR(256), user OTHER)");
-			this
-					.update("CREATE TABLE contactList(username VARCHAR(256), contact OTHER)");
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
+	//		this.update("CREATE TABLE UserTable (username VARCHAR(256), user OTHER)");
+			this.update("CREATE TABLE UserTable (username VARCHAR(256), user OTHER)");
+			this.update("CREATE TABLE contactList (username VARCHAR(256), contact OTHER)");
+//		} catch (SQLException e) {
+//			e.printStackTrace();
+//		}
 		return 0;
 
 	}
