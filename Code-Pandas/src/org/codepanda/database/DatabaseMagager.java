@@ -148,7 +148,7 @@ public class DatabaseMagager implements DatabaseManagerFacade{
 	@Override
 	public int checkExistUser(String userName) {
 		// TODO Auto-generated method stub
-		return 0;
+		return 1;
 	}
 	@Override
 	public int delUser(User user) {
@@ -229,6 +229,12 @@ public class DatabaseMagager implements DatabaseManagerFacade{
 		// TODO Auto-generated method stub
 		return 0;
 	}
+	@Override
+	public int newLabel(String labelname, String username) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
 	
 
 }

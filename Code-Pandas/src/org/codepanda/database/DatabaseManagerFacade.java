@@ -21,6 +21,8 @@ public interface DatabaseManagerFacade {
 	public int getContactData(String userName, ArrayList<ContactData> contactList);
 	public int editUser(User user, ContactData contact);
 	public int deleteContact(User user, ContactData contact);
+	// label
+	public int newLabel(String labelname, String username);
 	// operation
 	public int open(String dbName) throws SQLException;
 	public int close() throws SQLException;
