@@ -69,7 +69,7 @@ public class UserActorFactory extends CommandActorFactory {
 	}
 	
 	//用于测试使用
-	public static void main(String argv[])
+	/*public static void main(String argv[])
 	{
 		CommandType commandType=CommandType.LOGIN_USER;
 		 String commandDetail=
@@ -81,10 +81,6 @@ public class UserActorFactory extends CommandActorFactory {
 		 "</com>";
 		UserActorFactory uaf=new UserActorFactory();
 		uaf.creator(commandType,commandDetail);
-	}
+	}*/
 
-	// public static void main(String argv[]) {
-	 //UserActorFactory uaf = new UserActorFactory();
-	 //uaf.creator(CommandType.EDIT_USER, "fsjdl");
-	// }
 }
