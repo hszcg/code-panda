@@ -172,7 +172,7 @@ public class DatabaseMagager implements DatabaseManagerFacade {
 	}
 
 	@Override
-	public int editContact(final User user, final PersonalContact contact) {
+	public int editContact(final User user, final PersonalContact contact){
 		// TODO Auto-generated method stub
 		return 0;
 	}
