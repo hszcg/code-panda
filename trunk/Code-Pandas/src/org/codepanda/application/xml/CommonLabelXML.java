@@ -1,39 +1,27 @@
 package org.codepanda.application.xml;
 
 import java.io.StringReader;
-import java.util.ArrayList;
 
-import javax.xml.parsers.*;
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
 
-import org.codepanda.utility.contact.Birthday;
-import org.codepanda.utility.contact.ContactData;
-import org.codepanda.utility.contact.PersonalContact;
-import org.codepanda.utility.label.RelationLabel;
-import org.w3c.dom.*;
-import org.xml.sax.InputSource;
-import org.xml.sax.SAXException;
+import org.codepanda.utility.label.CommonLabel;
 import org.codepanda.utility.user.User;
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+import org.w3c.dom.Node;
+import org.xml.sax.InputSource;
 
-public class DeleteContactXML {
-	boolean comStart = false;
-	boolean comEnd = false;
-	boolean funcStart = false;
-	boolean funcEnd = false;
-	String funcSubStr = null;
-	String comSubStr = null;
-
-	// 该函数的含义是：当前的联系人符合XML格式联系人，如果符合，返回true（为调用的方便）
-
-	/**
-	 * @param currentContact
-	 * @param match1
-	 * @param match2
-	 * @param commandDetail
-	 * @return
-	 */
-	public void DeleteConXML(PersonalContact currentContact, String match1,
-			String match2, String commandDetail) {
-		// 从commandDetail中解析出用户信息
+public class CommonLabelXML {
+	boolean comStart=false;
+	boolean  comEnd=false;
+	boolean funcStart=false;
+	boolean funcEnd=false;
+	String  funSubStr=null;
+	String comSubStr=null;
+	public void labelParserXML(CommonLabel commonLabel,String match1,String match2,String commandDetail)
+	{
+		//从commandDetail中解析出用户信息
 		try {
 			if (commandDetail.contains("<com>")
 					&& commandDetail.contains("</com")) {
@@ -64,10 +52,9 @@ public class DeleteContactXML {
 			Element root = document.getDocumentElement();
 			Node node = root.getFirstChild();
 			String str = node.getNodeName();
-			if (str.equalsIgnoreCase("ISN")) {
+			if (str.equalsIgnoreCase("LabelName")) {
 				String value = node.getTextContent();
-				Integer tempISN=Integer.parseInt(value);
-				currentContact.setISN(tempISN);
+				commonLabel.setLabelName(value);
 			}
 		} catch (Exception e) {
 			e.printStackTrace();

@@ -44,7 +44,7 @@ public class DataPool {
 		allContactGroupMap= new HashMap<String, ContactGroup>();
 		allCommonLabelDataMap = new HashMap<String, ContactGroup>();
 		allRelationLabelList = new ArrayList<String>();
-		User currentUser = new User();
+	//	User currentUser = new User();
 
 		// 1个Key对应多个Value的HashMap
 		allContactNameMultimap = HashMultimap.create();
@@ -221,6 +221,15 @@ public class DataPool {
 	{
 		//如果失败，返回-2，成功返回0
 		if(DataPool.getInstance().db.deleteContact(currentUser, contactData)==-2)
+		{
+			return -2;
+		}
+		return 0;
+	}
+	public int newCommonLabel(CommonLabel commonLabel)
+	{
+		//添加普通标签失败，返回-2,成功返回0
+		if(DataPool.getInstance().db.newLabel(commonLabel.getLabelName(), currentUser.getUserName())==-2)
 		{
 			return -2;
 		}
