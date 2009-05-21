@@ -66,7 +66,12 @@ public class DataPool {
 		db.newContact("leilei", contact1);
 //		db.newContact("leilei", contact2);
 //		db.newContact("leilei", contact3);
-		
+/*		try {
+			db.close();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}*/
 		System.out.println("close database!");
 	}
 
