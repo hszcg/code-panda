@@ -27,7 +27,7 @@ public class PhoneMeMajorPanel extends JPanel {
 
 		this.mainFrame = mainFrame;
 
-		this.centerPanel = getCenterPanel();
+		this.centerPanel = configureCenterPanel();
 		add(centerPanel, BorderLayout.CENTER);
 
 		this.configureListener();
@@ -86,7 +86,7 @@ public class PhoneMeMajorPanel extends JPanel {
 				});
 	}
 
-	private JTabbedPane getCenterPanel() {
+	private JTabbedPane configureCenterPanel() {
 
 		// ****************************************************************************
 		JTabbedPane centerPanel = new JTabbedPane();
@@ -184,9 +184,16 @@ public class PhoneMeMajorPanel extends JPanel {
 		// contactInfoScrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
 		// contactInfoScrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
 
-		centerPanel.add("Contact Info", new ContactInfoPanel(this.mainFrame));
+		centerPanel.add("Contact Info", new ContactInfoPanel(this.mainFrame, null, false));
 
 		return centerPanel;
+	}
+	
+	/**
+	 * @return Component CurrentTab
+	 */
+	public Component getCurrentTab() {
+		return centerPanel.getSelectedComponent();
 	}
 
 }

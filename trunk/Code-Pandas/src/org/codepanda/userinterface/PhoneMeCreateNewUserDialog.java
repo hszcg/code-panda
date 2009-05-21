@@ -104,8 +104,9 @@ public class PhoneMeCreateNewUserDialog {
 		this.newUserDialog.add(top, BorderLayout.NORTH);
 
 		// **************************************************
-
-		JPanel major = new ContactInfoPanel(this.newUserDialog);
+		
+		// TODO 如何让头像显示正常
+		JPanel major = new ContactInfoPanel(this.newUserDialog, null, true);
 		this.newUserDialog.add(major, BorderLayout.CENTER);
 
 		// **************************************************

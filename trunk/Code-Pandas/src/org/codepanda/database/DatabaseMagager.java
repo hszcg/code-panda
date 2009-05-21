@@ -243,7 +243,7 @@ public class DatabaseMagager implements DatabaseManagerFacade {
 	@Override
 	public int loginUser(String userName, String password) {
 		// TODO Auto-generated method stub
-		return 0;
+		return 1;
 	}
 
 	@Override
