@@ -180,10 +180,19 @@ public class DataPool {
 	}
 	public int newContact(PersonalContact contactData)
 	{
-		//如果失败，返回-1,成功返回0
-		if(DataPool.getInstance().db.newContact(currentUser.getUserName(), contactData)==-1)
+		//如果失败，返回-2,成功返回0
+		if(DataPool.getInstance().db.newContact(currentUser.getUserName(), contactData)==-2)
 		{
-			return -1;
+			return -2;
+		}
+		return 0;
+	}
+	public int editContact(PersonalContact contactData)
+	{
+		//如果失败，返回-2，成功返回0
+		if(DataPool.getInstance().db.editContact(currentUser, contactData)==-2)
+		{
+			return -2;
 		}
 		return 0;
 	}

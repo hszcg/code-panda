@@ -20,8 +20,10 @@ public interface DatabaseManagerFacade {
 	// contact
 	public int newContact(String userName,final PersonalContact contact);
 	public int getContactData(String userName,final ArrayList<ContactOperations> contactList);
-	public int editUser(final User user, final ContactData contact);
-	public int deleteContact(final User user, final ContactData contact);
+	//这里有名字的小错误，我帮你改了
+	//public int editUser(final User user, final ContactData contact);
+	public int editContact(final User user, final PersonalContact contact);
+	public int deleteContact(final User user, final PersonalContact contact);
 	// label
 	public int newLabel(String labelname, String username);
 	// operation
