@@ -3,6 +3,7 @@ package org.codepanda.application.factory;
 import org.codepanda.application.CommandActor;
 import org.codepanda.application.CommandType;
 import org.codepanda.application.contact.EditContactActor;
+import org.codepanda.application.contact.ImportContactActor;
 import org.codepanda.application.contact.NewContactActor;
 import org.codepanda.application.xml.ContactXML;
 import org.codepanda.utility.contact.ContactData;
@@ -36,6 +37,16 @@ public class ContactActorFactory extends CommandActorFactory {
 						"</EditContact>", commandDetail);
 			 editContactActor.setContact(currentContact);
 			 return  editContactActor;
+		 }
+		 if(commandType==CommandType.IMPORT_CONTACT)
+		 {
+			 ImportContactActor importContactActor=new  ImportContactActor();
+			 currentContact=new PersonalContact();
+			 ContactXML myContactXML = new ContactXML();
+			 myContactXML.contactParserXML(currentContact, "<ImportContact>",
+						"</ImportContact>", commandDetail);
+			 importContactActor.setContact(currentContact);
+			 return  importContactActor;
 		 }
 		return null;
 	}
