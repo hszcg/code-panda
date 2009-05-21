@@ -3,12 +3,15 @@ package org.codepanda.userinterface;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+import javax.imageio.ImageIO;
 import javax.swing.*;
 
+import org.codepanda.userinterface.listener.ContactHeadImageEditListener;
 import org.jdesktop.swingx.JXDatePicker;
 import org.jdesktop.swingx.JXMultiSplitPane;
 import org.jdesktop.swingx.JXPanel;
@@ -21,7 +24,8 @@ public class ContactInfoPanel extends JXPanel {
 	 * 
 	 */
 	private static final long serialVersionUID = 7578999178358931661L;
-	private PhoneMeFrame parenetFrame;
+	private PhoneMeFrame parentFrame;
+	private JDialog parentDialog;
 	private JPanel upperPanel;
 	private JPanel upperLeftPanel;
 	private JXMultiSplitPane upperRightPanel;
@@ -78,7 +82,8 @@ public class ContactInfoPanel extends JXPanel {
 	private JTextField contactBirthdayField;
 	private JButton editcontactBirthdayButton;
 	private JXDatePicker contactBirthdayPicker;
-	private static SimpleDateFormat birthdayDateFormat = new SimpleDateFormat("yyyy-MM-dd");
+	private static SimpleDateFormat birthdayDateFormat = new SimpleDateFormat(
+			"yyyy-MM-dd");
 
 	// 联系人Web地址
 	private JComboBox urlListBox;
@@ -107,7 +112,19 @@ public class ContactInfoPanel extends JXPanel {
 
 	public ContactInfoPanel(PhoneMeFrame parenetFrame) {
 		super();
-		this.parenetFrame = parenetFrame;
+		this.parentFrame = parenetFrame;
+		this.parentDialog = null;
+		setUpperPanel();
+		setLayout(new BorderLayout());
+		add(upperPanel, "North");
+		setMainPanel();
+		add(mainPanel, "Center");
+	}
+
+	public ContactInfoPanel(JDialog parenetDialog) {
+		super();
+		this.parentFrame = null;
+		this.parentDialog = parenetDialog;
 		setUpperPanel();
 		setLayout(new BorderLayout());
 		add(upperPanel, "North");
@@ -120,7 +137,7 @@ public class ContactInfoPanel extends JXPanel {
 	 * JXPanel_test(); test.setVisible(true); }
 	 */
 
-	public void setUpperPanel() {
+	private void setUpperPanel() {
 		upperPanel = new JPanel();
 		upperPanel.setLayout(new BorderLayout());
 		// upperLeftPanel = new JPanel();
@@ -219,16 +236,21 @@ public class ContactInfoPanel extends JXPanel {
 		editHeadImageButton = new JButton("编辑");
 		deleteHeadImageButton = new JButton("删除");
 
+		editHeadImageButton.addActionListener(new ContactHeadImageEditListener(
+				this));
+		deleteHeadImageButton.addActionListener(new ActionListener(){
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				deleteContactHeadImage();
+			}
+			
+		});
+
 		editHeadImageButton.setPreferredSize(new Dimension(50, 20));
 		deleteHeadImageButton.setPreferredSize(new Dimension(50, 20));
 
-		ImageIcon imageIconSource = new ImageIcon(
-				"./resource/userpic/user1.jpg");
-		Image image = imageIconSource.getImage();
-		Image tempImage = image
-				.getScaledInstance(115, 115, Image.SCALE_DEFAULT);
-		ImageIcon imageIcon = new ImageIcon(tempImage);
-		headImageLabel.setIcon(imageIcon);
+		this.setContactHeadImage("/userpic/user1.jpg");
 
 		leftBuilder.add(headImageLabel, leftcc.xyw(1, 1, 3));
 		leftBuilder.add(editHeadImageButton, leftcc.xy(1, 3));
@@ -238,7 +260,7 @@ public class ContactInfoPanel extends JXPanel {
 		upperPanel.add(builder.getPanel(), "Center");
 	}
 
-	public void setMainPanel() {
+	private void setMainPanel() {
 		mainPanel = new JPanel();
 		FormLayout mainAreaLayout = new FormLayout(
 		// "pref, 3dlu, pref, 2dlu, pref, 15dlu, pref, 3dlu, pref, 3dlu, pref",//column
@@ -412,8 +434,6 @@ public class ContactInfoPanel extends JXPanel {
 	public Date getContactBirthday() {
 		String birthdayString = this.contactBirthdayField.getText();
 
-		
-
 		Date birthday;
 		try {
 			birthday = birthdayDateFormat.parse(birthdayString);
@@ -432,9 +452,53 @@ public class ContactInfoPanel extends JXPanel {
 	}
 
 	/**
-	 * @return the parenetFrame
+	 * @param pic
 	 */
-	public PhoneMeFrame getParenetFrame() {
-		return parenetFrame;
+	public void setContactHeadImage(Image pic) {
+		if (pic == null)
+			return;
+
+		Image tempImage = pic.getScaledInstance(115, 115, Image.SCALE_DEFAULT);
+		ImageIcon imageIcon = new ImageIcon(tempImage);
+		headImageLabel.setIcon(imageIcon);
+	}
+
+	/**
+	 * @param url
+	 */
+	public void setContactHeadImage(String url) {
+		if(url == null)
+			return;
+		
+		try {
+			this.setContactHeadImage(ImageIO.read(this.getClass().getResource(
+					url)));
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+
+	/**
+	 * 
+	 */
+	public void deleteContactHeadImage() {
+		try {
+			this.setContactHeadImage(ImageIO.read(this.getClass().getResource(
+					"/icon/Logo Square.png")));
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+
+	/**
+	 * @return the parenetWindow
+	 */
+	public Window getParenetWindow() {
+		if (this.parentFrame != null)
+			return this.parentFrame;
+		else
+			return this.parentDialog;
 	}
 }

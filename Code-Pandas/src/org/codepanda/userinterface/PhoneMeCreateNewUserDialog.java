@@ -105,7 +105,7 @@ public class PhoneMeCreateNewUserDialog {
 
 		// **************************************************
 
-		JPanel major = new ContactInfoPanel(this.parentFrame);
+		JPanel major = new ContactInfoPanel(this.newUserDialog);
 		this.newUserDialog.add(major, BorderLayout.CENTER);
 
 		// **************************************************
