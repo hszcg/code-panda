@@ -2,6 +2,8 @@ package org.codepanda.utility.user;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import org.codepanda.database.DatabaseMagager;
+import org.codepanda.database.DatabaseManagerFacade;
 
 import org.codepanda.utility.contact.Birthday;
 import org.codepanda.utility.contact.ContactData;
@@ -12,6 +14,7 @@ public class User implements UserOperations,ContactOperations,Serializable {
 	private ContactData userContactData=new ContactData();
 	private String userName;
 	private String password;
+	private  DatabaseManagerFacade db;
 	@Override
 	public String getUserName() {
 		// TODO Auto-generated method stub
@@ -209,21 +212,43 @@ public class User implements UserOperations,ContactOperations,Serializable {
 	
 	public void createNewUser(User UserToBeAdded)
 	{
-		this.setUserName(UserToBeAdded.getUserName());
-		this.setPassword(UserToBeAdded.getPassword());
-		this.setCommonLabelList(UserToBeAdded.getCommonLabelList());
-		this.setContactAddressList(UserToBeAdded.getContactAddressList());
-		this.setContactBirthday(UserToBeAdded.getContactBirthday());
-		this.setContactName(UserToBeAdded.getContactName());
-		this.setEmailAddresseList(UserToBeAdded.getEmailAddresseList());
-		this.setGroupList(UserToBeAdded.getGroupList());
-		this.setHeadImage(UserToBeAdded.getHeadImage());
-		this.setImContactInformationList(UserToBeAdded.getImContactInformationList());
-		this.setISN(UserToBeAdded.getISN());
-		this.setPhoneNumberList(UserToBeAdded.getPhoneNumberList());
-		this.setRelationLabelList(UserToBeAdded.getRelationLabelList());
-		this.setUrlList(UserToBeAdded.getUrlList());
-		this.setWorkingDepartmentList(UserToBeAdded.getWorkingDepartmentList());
-		
+		db=new DatabaseMagager();
+		if(db.checkExistUser(UserToBeAdded.getUserName())!=1)
+		{
+			db.newUser(UserToBeAdded);
+		}
+		else
+		{
+			System.out.println("This User Has  Already Exist ");
+			return ;
+		}
+	}
+	public  void loginUser()
+	{
+		db=new DatabaseMagager();
+		boolean flag1=false;
+		boolean flag2=false;
+		//首先检查是否存在
+		if(db.checkExistUser(this.getUserName())==1)
+		{
+			flag1=true;
+		}
+		System.out.println("Already Login!!!");
+		//数据库应该提供检查密码的操作
+	//	if(db.checkPassword()==1)
+		//{
+		//	flag2=true;
+	//	}
+		//如果检查全部合格，则进行登录操作,显示所有的联系人列表
+	}
+	public void deleteUser()
+	{
+		db=new DatabaseMagager();
+		//检查密码是否匹配，如果匹配则可以进行删除操作
+	}
+	public void changeUser()
+	{
+		db=new DatabaseMagager();
+		//对数据进行修改
 	}
 }
