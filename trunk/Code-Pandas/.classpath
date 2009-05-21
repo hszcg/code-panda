@@ -20,5 +20,6 @@
 	<classpathentry kind="lib" path="lib-jar/swingx-0.9.7.jar"/>
 	<classpathentry kind="lib" path="lib-jar/swingx-beaninfo-0.9.7.jar"/>
 	<classpathentry kind="lib" path="lib-jar/Filters.jar"/>
+	<classpathentry kind="lib" path="lib-jar/prefuse.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
