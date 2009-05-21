@@ -14,13 +14,17 @@ public class LoginUserActor implements CommandActor {
 
 	@Override
 	public int executeCommand() {
-		// TODO Auto-generated method stub
 		if (this.user == null) {
 			System.out.println("User Null!!!");
 			return LoginUserActor.NULL_USER;
 		}
 		
-		DataPool.getInstance();
+		int result = DataPool.getInstance().loginUser(this.user.getUserName(), this.user.getPassword());
+		
+		if(result == -1)
+			return LoginUserActor.USERNAME_NOT_EXIST;
+		else if(result == -2)
+			return LoginUserActor.INVAILD_PASSWORD;
 		
 		return LoginUserActor.SUCCEED;
 	}

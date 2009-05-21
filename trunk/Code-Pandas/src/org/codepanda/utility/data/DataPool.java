@@ -101,6 +101,9 @@ public class DataPool {
 	 * @return
 	 */
 	public int loginUser(String userName, String password) {
+		
+		// TODO 用常量来作为返回类型
+		
 		if (DataPool.getInstance().db.checkExistUser(userName) == 0) {
 			System.out.println("Login User Name Not Exist");
 			return -1;
