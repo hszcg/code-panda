@@ -4,7 +4,7 @@ import org.codepanda.utility.user.User;
 
 /**
  * @author hszcg
- *
+ * 
  */
 public class MyXMLMaker {
 	/**
@@ -13,8 +13,8 @@ public class MyXMLMaker {
 	 * @return
 	 */
 	public static String getLoginUserXML(String userName, String password) {
-		String loginUserXML = addTag("UserName", userName)
-				+ addTag("UserPassword", password);
+		String loginUserXML = addTag("LoginUser", addTag("UserName", userName)
+				+ addTag("UserPassword", password));
 		return addTag("com", loginUserXML);
 	}
 
@@ -26,10 +26,10 @@ public class MyXMLMaker {
 		StringBuffer newUserXML = new StringBuffer();
 		newUserXML.append(addTag("UserName", myUser.getUserName()));
 		newUserXML.append(addTag("UserPassword", myUser.getPassword()));
-		
+
 		// TODO Add Other User Info
-		
-		return addTag("com", newUserXML.toString());
+
+		return addTag("com", addTag("NewUser", newUserXML.toString()));
 	}
 
 	/**
