@@ -72,6 +72,9 @@ public class DataPool {
 		contact3.setGroupList(cl3);
 		
 		
+		contact1.setISN(1);
+		contact2.setISN(2);
+		contact3.setISN(3);
 		
 //		db.newUser(user);
 //		db.newContact("leilei", contact1);
