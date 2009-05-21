@@ -29,4 +29,21 @@ public class ContactData implements Serializable {
 	public ArrayList<String> groupList;
 	public ArrayList<RelationLabel> relationLabelList;
 	public Integer ISN;
+	public ContactData()
+	{
+		contactName=new String();
+		phoneNumberList=new ArrayList<String>();
+		emailAddresseList=new ArrayList<String>();
+		contactAddressList=new ArrayList<String>();
+		workingDepartmentList=new ArrayList<String>();
+		imContactInformationList=new ArrayList<String>();
+		contactBirthday=new Birthday();
+		headImage=new HeadImage();
+		urlList=new ArrayList<String>();
+		commonLabelList=new ArrayList<String>();
+		groupList=new ArrayList<String>();
+		relationLabelList=new ArrayList<RelationLabel>();
+		 
+		
+	}
 }

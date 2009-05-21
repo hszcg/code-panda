@@ -15,8 +15,11 @@ import org.codepanda.utility.label.RelationLabel;
  */
 public class PersonalContact implements ContactOperations {
 	private ContactData personalContactData;
-
-	@Override
+	
+	public PersonalContact()
+	{
+		personalContactData=new ContactData();
+	}
 	public  void setContactName(String Name)
 	{
 		personalContactData.contactName=Name;
