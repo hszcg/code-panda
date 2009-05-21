@@ -272,5 +272,8 @@ public class DatabaseMagager implements DatabaseManagerFacade {
 		// TODO Auto-generated method stub
 		return 0;
 	}
-
+	public int editCommonlabel(String labelname)
+	{
+		return 0;
+	}
 }
