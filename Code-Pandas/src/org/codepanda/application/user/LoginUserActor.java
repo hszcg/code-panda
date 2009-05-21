@@ -31,6 +31,7 @@ public class LoginUserActor implements CommandActor {
 
 	public void setUser(User user) {
 		this.user = user;
+	//	System.out.println("LoginUserActor...UserName------"+user.getUserName());
 	}
 
 	/**
