@@ -82,7 +82,7 @@ public  void ContactIterator(PersonalContact currentContact,Element element)
 			else if(str.equalsIgnoreCase("ISN"))
 			{
 				String value=node.getTextContent();
-				currentContact.setISN(value);
+				currentContact.setISN(Integer.parseInt(value));
 				System.out.println("ISN----"+value);
 			}
 			else if(str.equalsIgnoreCase("Telephone"))

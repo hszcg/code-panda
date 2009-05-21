@@ -12,6 +12,7 @@ import org.codepanda.database.DatabaseManagerFacade;
 import org.codepanda.utility.contact.ContactData;
 import org.codepanda.utility.contact.ContactOperations;
 import org.codepanda.utility.group.ContactGroup;
+import org.codepanda.utility.group.GroupType;
 import org.codepanda.utility.label.CommonLabel;
 import org.codepanda.utility.label.RelationLabel;
 import org.codepanda.utility.user.User;
@@ -29,6 +30,7 @@ import com.google.common.collect.HashMultimap;
 public class DataPool {
 	private DataPool() {
 		// TODO Initialize all data except for dataPoolInstance
+		currentUser = new User();
 		db = new DatabaseMagager();
 		try {
 			db.open("test");
@@ -72,12 +74,12 @@ public class DataPool {
 
 	private HashMap<Integer, ContactOperations> allContactISNMap;
 	private HashMap<String, ContactGroup> allContactGroupMap;
-	private HashMap<String, CommonLabel> allCommonLabelDataMap;
-	private ArrayList<RelationLabel> allRelationDataList;
+	private HashMap<String, ContactGroup> allCommonLabelDataMap;
+	private ArrayList<String> allRelationLabelList;
 	private User currentUser;
 
 	// 1个Key对应多个Value的HashMap
-	private HashMultimap<String, ContactOperations> allContactNameMultimap;
+	private HashMultimap<String, Integer> allContactNameMultimap;
 
 	public int createNewUser(User newUser) {
 		// TODO Auto-generated method stub
@@ -101,9 +103,9 @@ public class DataPool {
 	 * @return
 	 */
 	public int loginUser(String userName, String password) {
-		
+
 		// TODO 用常量来作为返回类型
-		
+
 		if (DataPool.getInstance().db.checkExistUser(userName) == 0) {
 			System.out.println("Login User Name Not Exist");
 			return -1;
@@ -114,25 +116,64 @@ public class DataPool {
 			return -2;
 		}
 
+		// TODO 把当前用户的联系人读入DataPool
+		this.currentUser.setUserName(userName);
+		this.currentUser.setPassword(password);
+
+		ArrayList<ContactOperations> allContactList = new ArrayList<ContactOperations>();
+		this.db.getContactData(userName, allContactList);
+
+		for (ContactOperations t : allContactList) {
+			Integer iSN = t.getISN();
+			
+			allContactISNMap.put(iSN, t);
+			
+			allContactNameMultimap.put(t.getContactName(), iSN);
+			
+			for (String groupName : t.getGroupList()) {
+				if (allContactGroupMap.containsKey(groupName)) {
+					allContactGroupMap.get(groupName).addGroupMember(iSN);
+				} else {
+					ContactGroup newContactGroup = new ContactGroup(
+							GroupType.NORMAL_GROUP, groupName);
+					newContactGroup.addGroupMember(iSN);
+					allContactGroupMap.put(groupName, newContactGroup);
+				}
+			}
+
+			for (String commonLabelName : t.getCommonLabelList()) {
+				if (allCommonLabelDataMap.containsKey(commonLabelName)) {
+					allCommonLabelDataMap.get(commonLabelName).addGroupMember(
+							iSN);
+				} else {
+					ContactGroup newContactGroup = new ContactGroup(
+							GroupType.LABEL_GROUP, commonLabelName);
+					newContactGroup.addGroupMember(iSN);
+					allCommonLabelDataMap.put(commonLabelName, newContactGroup);
+				}
+			}
+			
+			// allRelationLabelList
+			// TODO 内置的RelationLabelList需要设置一下
+		}
+
 		return 0;
 	}
-	public int  deleteUser(User user)
-	{
-		//TODO  删除用户时假定这个用户名已经存在，需要验证密码
-		//检查密码是否正确，return  -2;
-		if(DataPool.getInstance().db.delUser(user)==0)
-		{
+
+	public int deleteUser(User user) {
+		// TODO 删除用户时假定这个用户名已经存在，需要验证密码
+		// 检查密码是否正确，return -2;
+		if (DataPool.getInstance().db.delUser(user) == 0) {
 			System.out.println("Wrong  User Password ");
 			return -2;
 		}
-		//同时需要更新所有的用户列表
+		// 同时需要更新所有的用户列表
 		return 0;
 	}
-	public int editUser(String userName,User user)
-	{
-		//修改成功
-		if(DataPool.getInstance().db.editUser(userName, user)==-1)
-		{
+
+	public int editUser(String userName, User user) {
+		// 修改成功
+		if (DataPool.getInstance().db.editUser(userName, user) == -1) {
 			System.out.println("Edit User Failed!!!!");
 			return -2;
 		}

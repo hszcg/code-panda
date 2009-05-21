@@ -28,5 +28,5 @@ public class ContactData implements Serializable {
 	public ArrayList<String> commonLabelList;
 	public ArrayList<String> groupList;
 	public ArrayList<RelationLabel> relationLabelList;
-	public String ISN;
+	public Integer ISN;
 }

@@ -59,7 +59,7 @@ public class DepartmentContact implements ContactOperations {
 	}
 
 	@Override
-	public String getISN() {
+	public Integer getISN() {
 		// TODO Auto-generated method stub
 		return null;
 	}
@@ -137,7 +137,7 @@ public class DepartmentContact implements ContactOperations {
 	}
 
 	@Override
-	public void setISN(String isn) {
+	public void setISN(Integer isn) {
 		// TODO Auto-generated method stub
 		
 	}
