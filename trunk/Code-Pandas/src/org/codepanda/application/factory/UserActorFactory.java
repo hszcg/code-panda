@@ -19,19 +19,6 @@ public class UserActorFactory extends CommandActorFactory {
 	@Override
 	public CommandActor creator(CommandType commandType, String commandDetail) {
 		// TODO Auto-generated method stub
-		 //commandType=CommandType.LOGIN_USER;
-		 //commandDetail=
-		 //"<com>"+
-		 //"<LoginUser>"+
-		 //"<UserName>"+"leilei"+"</UserName>"+
-		 //"<UserPassword>"+"hehe"+"</UserPassword>"+
-		 //"<Telephone>"+"13699252256"+"</Telephone>"+
-		 //"<Telephone>"+"51531174"+"</Telephone>"+
-		 //"<Office>"+"Tsinghua"+"</Office>"+
-		 //"<Url>"+"www.leilei.com"+"</Url>"+
-		 //"</LoginUser>"+
-		 //"</com>";
-
 		if (commandType == CommandType.NEW_USER) {
 			NewUserActor newUserActor = new NewUserActor();
 			currentUser = new User();
@@ -45,8 +32,10 @@ public class UserActorFactory extends CommandActorFactory {
 			LoginUserActor loginUserActor=new LoginUserActor();
 			currentUser=new User();
 			UserXML myParserXML=new UserXML();
+			//System.out.println("LLLLLLLL");
 			myParserXML.userParserXML(currentUser,"<LoginUser>","</LoginUser>", commandDetail);
 			loginUserActor.setUser(currentUser);
+			System.out.println("UserName------"+currentUser.getUserName());
 			return loginUserActor;
 		}
 		if (commandType == CommandType.DELETE_USER) {
@@ -72,6 +61,7 @@ public class UserActorFactory extends CommandActorFactory {
 
 	public void setUser(User user) {
 		currentUser = user;
+		
 	}
 
 	public User getUser() {
@@ -81,8 +71,16 @@ public class UserActorFactory extends CommandActorFactory {
 	//用于测试使用
 	public static void main(String argv[])
 	{
+		CommandType commandType=CommandType.LOGIN_USER;
+		 String commandDetail=
+		 "<com>"+
+		 "<LoginUser>"+
+		 "<UserName>"+"leilei"+"</UserName>"+
+		 "<UserPassword>"+"hehe"+"</UserPassword>"+
+		 "</LoginUser>"+
+		 "</com>";
 		UserActorFactory uaf=new UserActorFactory();
-		uaf.creator(CommandType.EDIT_USER,"fsjdl");
+		uaf.creator(commandType,commandDetail);
 	}
 
 	// public static void main(String argv[]) {
