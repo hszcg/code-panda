@@ -196,4 +196,13 @@ public class DataPool {
 		}
 		return 0;
 	}
+	public int deleteContact(PersonalContact contactData)
+	{
+		//如果失败，返回-2，成功返回0
+		if(DataPool.getInstance().db.deleteContact(currentUser, contactData)==-2)
+		{
+			return -2;
+		}
+		return 0;
+	}
 }
