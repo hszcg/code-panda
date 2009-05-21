@@ -58,14 +58,27 @@ public class DataPool {
 		contact1.setContactName("汤则1");
 		contact2.setContactName("汤则2");
 		contact3.setContactName("汤则3");
+		ArrayList<String> cl1 = new ArrayList<String>();
+		ArrayList<String> cl2 = new ArrayList<String>();
+		ArrayList<String> cl3 = new ArrayList<String>();
+		cl1.add("同学");		cl1.add("朋友");		cl1.add("校友");
+		cl2.add("朋友");		cl2.add("老乡");		cl2.add("博士");
+		cl3.add("土鳖");		cl3.add("同学");		cl3.add("朋友");
+		contact1.setCommonLabelList(cl1);
+		contact2.setCommonLabelList(cl2);
+		contact3.setCommonLabelList(cl3);
 		db.newUser(user);
 		db.newContact("leilei", contact1);
-		// db.newContact("leilei", contact2);
-		// db.newContact("leilei", contact3);
-		/*
-		 * try { db.close(); } catch (SQLException e) { // TODO Auto-generated
-		 * catch block e.printStackTrace(); }
-		 */
+		db.newContact("leilei", contact2);
+		db.newContact("leilei", contact3);
+
+		try {
+			db.close();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
 		System.out.println("close database!");
 	}
 
