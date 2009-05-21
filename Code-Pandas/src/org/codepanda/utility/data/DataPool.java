@@ -64,9 +64,15 @@ public class DataPool {
 		cl1.add("同学");		cl1.add("朋友");		cl1.add("校友");
 		cl2.add("朋友");		cl2.add("老乡");		cl2.add("博士");
 		cl3.add("土鳖");		cl3.add("同学");		cl3.add("朋友");
-		contact1.setCommonLabelList(cl1);
-		contact2.setCommonLabelList(cl2);
-		contact3.setCommonLabelList(cl3);
+//		contact1.setCommonLabelList(cl1);
+//		contact2.setCommonLabelList(cl2);
+//		contact3.setCommonLabelList(cl3);
+		contact1.setGroupList(cl1);
+		contact2.setGroupList(cl2);
+		contact3.setGroupList(cl3);
+		
+		
+		
 //		db.newUser(user);
 //		db.newContact("leilei", contact1);
 //		db.newContact("leilei", contact2);
