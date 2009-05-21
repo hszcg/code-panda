@@ -261,4 +261,12 @@ public class DataPool {
 		}
 		return 0;
 	}
+	public int deleteCommonLabel(CommonLabel commonLabel)
+	{
+		if(DataPool.getInstance().db.delCommonlabel(commonLabel.getLabelName())==-2)
+		{
+			return -2;
+		}
+		return 0;
+	}
 }

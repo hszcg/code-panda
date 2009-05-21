@@ -27,6 +27,7 @@ public interface DatabaseManagerFacade {
 	// label
 	public int newLabel(String labelname, String username);
 	public int editCommonlabel(String labelname);
+	public int delCommonlabel(String labelname);
 	// operation
 	public int open(String dbName) throws SQLException;
 	public int close() throws SQLException;
