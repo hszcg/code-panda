@@ -100,7 +100,7 @@ public class DatabaseMagager implements DatabaseManagerFacade {
 		st = conn.createStatement();
 		System.out.println(conn.toString());
 		rs = st.executeQuery("SELECT * FROM contactList WHERE username = '" + name+"'");
-		rs.next();
+//		rs.next();
 		for (; rs.next();) {
 			contactList.add((ContactOperations) rs.getObject(2));
 		}
@@ -161,12 +161,13 @@ public class DatabaseMagager implements DatabaseManagerFacade {
 		try {
 			st=conn.createStatement();
 			rs = st.executeQuery("SELECT * FROM contactList WHERE username = '" + userName+"'");
-	//		if(rs.last()==false)
-	//			return 0;
+			rs.next();
+			if(rs.isFirst()==false)
+				return 0;
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
-			return 0;
-	//		e.printStackTrace();
+	//		return 0;
+			e.printStackTrace();
 		}
 		return 1;
 	}
