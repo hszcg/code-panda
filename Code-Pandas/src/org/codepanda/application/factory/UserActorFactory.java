@@ -34,6 +34,7 @@ public class UserActorFactory extends CommandActorFactory {
 			UserXML myParserXML=new UserXML();
 			//System.out.println("LLLLLLLL");
 			myParserXML.userParserXML(currentUser,"<LoginUser>","</LoginUser>", commandDetail);
+			System.out.println("UserName"+currentUser.getUserName());
 			loginUserActor.setUser(currentUser);
 			System.out.println("UserName------"+currentUser.getUserName());
 			return loginUserActor;

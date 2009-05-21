@@ -25,11 +25,13 @@ public class LoginUserActor implements CommandActor {
 			return LoginUserActor.USERNAME_NOT_EXIST;
 		else if(result == -2)
 			return LoginUserActor.INVAILD_PASSWORD;
-		
+		System.out.println("UserName==="+this.user.getUserName());
 		return LoginUserActor.SUCCEED;
+		
 	}
 
 	public void setUser(User user) {
+		System.out.println("UserName==="+user.getUserName());
 		this.user = user;
 	//	System.out.println("LoginUserActor...UserName------"+user.getUserName());
 	}

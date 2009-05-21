@@ -10,6 +10,10 @@ import org.codepanda.utility.label.RelationLabel;
 import org.w3c.dom.*;
 import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
+/**
+ * @author xdq
+ *
+ */
 public class ContactXML {
 	
 	boolean comStart=false;
