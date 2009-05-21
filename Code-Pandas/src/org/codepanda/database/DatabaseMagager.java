@@ -17,7 +17,7 @@ import org.hsqldb.jdbc.jdbcDataSource;
 public class DatabaseMagager implements DatabaseManagerFacade {
 	// private static final User NULL = null;
 	Connection conn;
-	DatabaseMagager db;
+//	DatabaseMagager db;
 
 	public DatabaseMagager(String dbName) throws Exception {
 		// connect to the database. This will load the db files and start the
@@ -102,7 +102,7 @@ public class DatabaseMagager implements DatabaseManagerFacade {
 	@Override
 	public int newUser(final User user) {
 		try {
-			db
+			this
 					.updateS(
 							"INSERT INTO UserTable(username,user) VALUES(?,?)",
 							user);
@@ -116,7 +116,7 @@ public class DatabaseMagager implements DatabaseManagerFacade {
 	@Override
 	public int close() throws SQLException {
 		try {
-			db.shutdown();
+			this.shutdown();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -128,16 +128,16 @@ public class DatabaseMagager implements DatabaseManagerFacade {
 	public int open(String dbName) throws SQLException {
 		// new database
 		try {
-			db = new DatabaseMagager(dbName);
+//			db = new DatabaseMagager(dbName);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		// create table
 		try {
 			// create user-table
-			db
+			this
 					.update("CREATE TABLE UserTable (id INTEGER IDENTITY, username VARCHAR(256), user OTHER)");
-			db
+			this
 					.update("CREATE TABLE contactList(username VARCHAR(256), contact OTHER)");
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -184,7 +184,7 @@ public class DatabaseMagager implements DatabaseManagerFacade {
 
 	@Override
 	public int newContact(String userName, final PersonalContact contact) {
-		db.updateC("INSERT INTO contactList(username,contact) VALUES(?,?)",
+		this.updateC("INSERT INTO contactList(username,contact) VALUES(?,?)",
 				userName, contact);
 		return 1;
 	}
