@@ -11,6 +11,7 @@ import org.codepanda.database.DatabaseMagager;
 import org.codepanda.database.DatabaseManagerFacade;
 import org.codepanda.utility.contact.ContactData;
 import org.codepanda.utility.contact.ContactOperations;
+import org.codepanda.utility.contact.PersonalContact;
 import org.codepanda.utility.group.ContactGroup;
 import org.codepanda.utility.group.GroupType;
 import org.codepanda.utility.label.CommonLabel;
@@ -41,12 +42,12 @@ public class DataPool {
 		System.out.println("DataPoolInit");
 		// for test
 		try {
-			ContactData contact1 = new ContactData();
-			ContactData contact2 = new ContactData();
-			ContactData contact3 = new ContactData();
-			contact1.contactName = "汤泽1";
-			contact2.contactName = "汤泽2";
-			contact3.contactName = "汤泽3";
+			PersonalContact contact1 = new PersonalContact();
+			PersonalContact  contact2 = new PersonalContact();
+			PersonalContact  contact3 = new PersonalContact();
+			contact1.setContactName("汤则1");
+			contact2.setContactName("汤则2");
+			contact3.setContactName("汤则3");
 			db.newContact("leilei", contact1);
 			db.newContact("leilei", contact2);
 			db.newContact("leilei", contact3);
@@ -175,6 +176,15 @@ public class DataPool {
 		if (DataPool.getInstance().db.editUser(userName, user) == -1) {
 			System.out.println("Edit User Failed!!!!");
 			return -2;
+		}
+		return 0;
+	}
+	public int newContact(PersonalContact contactData)
+	{
+		//如果失败，返回-1,成功返回0
+		if(DataPool.getInstance().db.newContact(currentUser.getUserName(), contactData)==-1)
+		{
+			return -1;
 		}
 		return 0;
 	}

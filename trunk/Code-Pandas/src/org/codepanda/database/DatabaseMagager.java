@@ -9,6 +9,7 @@ import java.util.ArrayList;
 
 import org.codepanda.utility.contact.ContactData;
 import org.codepanda.utility.contact.ContactOperations;
+import org.codepanda.utility.contact.PersonalContact;
 import org.codepanda.utility.user.User;
 import org.hsqldb.*;
 import org.hsqldb.jdbc.jdbcDataSource;
@@ -182,13 +183,13 @@ public class DatabaseMagager implements DatabaseManagerFacade {
 	}
 
 	@Override
-	public int newContact(String userName, final ContactData contact) {
+	public int newContact(String userName, final PersonalContact contact) {
 		db.updateC("INSERT INTO contactList(username,contact) VALUES(?,?)",
 				userName, contact);
 		return 1;
 	}
 
-	private void updateC(String expression, String username, ContactData contact) {
+	private void updateC(String expression, String username, PersonalContact contact) {
 		try {
 			PreparedStatement ps = conn.prepareStatement(expression);
 			ps.setString(1, username);

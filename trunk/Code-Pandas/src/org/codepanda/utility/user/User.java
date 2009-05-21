@@ -210,7 +210,7 @@ public class User implements UserOperations,ContactOperations,Serializable {
 		userContactData.workingDepartmentList=workingDepartmentList;
 	}
 	
-	public void createNewUser(User UserToBeAdded)
+/*	public void createNewUser(User UserToBeAdded)
 	{
 		db=new DatabaseMagager();
 		if(db.checkExistUser(UserToBeAdded.getUserName())!=1)
@@ -250,5 +250,5 @@ public class User implements UserOperations,ContactOperations,Serializable {
 	{
 		db=new DatabaseMagager();
 		//对数据进行修改
-	}
+	}*/
 }
