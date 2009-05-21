@@ -156,6 +156,18 @@ public class DatabaseMagager implements DatabaseManagerFacade {
 	@Override
 	public int checkExistUser(String userName) {
 		// TODO Auto-generated method stub
+		Statement st=null;
+		ResultSet rs=null;
+		try {
+			st=conn.createStatement();
+			rs = st.executeQuery("SELECT * FROM contactList WHERE username = '" + userName+"'");
+	//		if(rs.last()==false)
+	//			return 0;
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			return 0;
+	//		e.printStackTrace();
+		}
 		return 1;
 	}
 

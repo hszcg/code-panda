@@ -39,7 +39,19 @@ public class DataPool {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
+		
+		allContactISNMap = new HashMap<Integer, ContactOperations>();
+		allContactGroupMap= new HashMap<String, ContactGroup>();
+		allCommonLabelDataMap = new HashMap<String, ContactGroup>();
+		allRelationLabelList = new ArrayList<String>();
+		User currentUser = new User();
+
+		// 1个Key对应多个Value的HashMap
+		allContactNameMultimap = HashMultimap.create();
+		
 		User user=new User();
+		
+		
 		user.setUserName("leilei");
 		user.setPassword("leilei");
 
@@ -130,6 +142,7 @@ public class DataPool {
 			
 			allContactNameMultimap.put(t.getContactName(), iSN);
 			
+			
 			for (String groupName : t.getGroupList()) {
 				if (allContactGroupMap.containsKey(groupName)) {
 					allContactGroupMap.get(groupName).addGroupMember(iSN);
@@ -156,6 +169,8 @@ public class DataPool {
 			// allRelationLabelList
 			// TODO 内置的RelationLabelList需要设置一下 读configuration里面的xml
 		}
+		
+		System.out.println(allContactNameMultimap.toString());
 
 		return 0;
 	}
