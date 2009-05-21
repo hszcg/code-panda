@@ -253,4 +253,12 @@ public class DataPool {
 		}
 		return 0;
 	}
+	public int editCommonLabel(CommonLabel commonLabel)
+	{
+		if(DataPool.getInstance().db.editCommonlabel(commonLabel.getLabelName())==-2)
+		{
+			return -2;
+		}
+		return 0;
+	}
 }
