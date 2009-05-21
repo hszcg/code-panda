@@ -3,6 +3,7 @@
  */
 package org.codepanda.utility.contact;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 import org.codepanda.utility.label.RelationLabel;
@@ -13,7 +14,7 @@ import org.codepanda.utility.label.RelationLabel;
  * @version 4.16.01
  * 
  */
-public class PersonalContact implements ContactOperations {
+public class PersonalContact implements ContactOperations,Serializable {
 	private ContactData personalContactData;
 	
 	public PersonalContact()

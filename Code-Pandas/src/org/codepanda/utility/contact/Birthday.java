@@ -3,13 +3,15 @@
  */
 package org.codepanda.utility.contact;
 
+import java.io.Serializable;
+
 /**
  * 
  * @author hszcg
  * @version 4.16.01
  * 
  */
-public class Birthday {
+public class Birthday implements Serializable{
 	private Integer year;
 	private Integer month;
 	private Integer day;

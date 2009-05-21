@@ -3,6 +3,8 @@
  */
 package org.codepanda.utility.contact;
 
+import java.io.Serializable;
+
 import javax.swing.ImageIcon;
 
 /**
@@ -11,7 +13,7 @@ import javax.swing.ImageIcon;
  * @version 4.16.01
  *
  */
-public class HeadImage {
+public class HeadImage implements Serializable{
 	private ImageIcon myImageIcon;
 
 	/**
