@@ -1,11 +1,20 @@
 package org.codepanda.userinterface;
 
+import java.util.Enumeration;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.Set;
 import java.util.Vector;
+import java.util.Map.Entry;
 
 import javax.swing.*;
 import javax.swing.event.*;
 import javax.swing.tree.*;
 
+import org.codepanda.utility.contact.ContactOperations;
+import org.codepanda.utility.data.DataPool;
+import org.codepanda.utility.group.ContactGroup;
 import org.jdesktop.swingx.*;
 
 public class PhoneMeTaskPane extends JXTaskPaneContainer implements
@@ -32,8 +41,6 @@ public class PhoneMeTaskPane extends JXTaskPaneContainer implements
 		searchField = new JTextField("");
 		searchTaskPane.add(searchField);
 		this.add(searchTaskPane);
-
-		configureContactList();
 	}
 
 	public void configureContactList() {
@@ -59,7 +66,7 @@ public class PhoneMeTaskPane extends JXTaskPaneContainer implements
 			return;
 		Object nodeInfo = node.getUserObject();
 		if (node.isLeaf()) {
-			System.out.println(((TreeNodeItem) nodeInfo).getISN());
+			// System.out.println(((TreeNodeItem) nodeInfo).getISN());
 		} else {
 			// displayURL(helpURL);
 		}
@@ -72,21 +79,37 @@ public class PhoneMeTaskPane extends JXTaskPaneContainer implements
 		DefaultMutableTreeNode group = null;
 		DefaultMutableTreeNode contact = null;
 
-		group = new DefaultMutableTreeNode("同学");
-		root.add(group);
+		System.out.println("Create Tree!");
 
-		contact = new DefaultMutableTreeNode(new TreeNodeItem("张三", 1));
-		group.add(contact);
-		contact = new DefaultMutableTreeNode(new TreeNodeItem("李四", 2));
-		group.add(contact);
+		final HashMap<String, ContactGroup> allContactGroup = DataPool
+				.getInstance().getAllContactGroupMap();
 
-		group = new DefaultMutableTreeNode(new TreeNodeItem("朋友", 3));
-		root.add(group);
+		System.out.println("GROUP" + allContactGroup.size());
 
-		contact = new DefaultMutableTreeNode(new TreeNodeItem("王五", 4));
-		group.add(contact);
-		contact = new DefaultMutableTreeNode(new TreeNodeItem("赵六", 5));
-		group.add(contact);
+		final HashMap<Integer, ContactOperations> allContactISN = DataPool
+				.getInstance().getAllContactISNMap();
+
+		System.out.println("ALL CONTACT" + allContactISN.size());
+
+		Iterator<Entry<String, ContactGroup>> it = allContactGroup.entrySet()
+				.iterator();
+		while (it.hasNext()) {
+			Entry<String, ContactGroup> entry = (Entry<String, ContactGroup>) it
+					.next();
+			group = new DefaultMutableTreeNode(entry.getKey());
+			root.add(group);
+
+			final HashSet<Integer> groupMember = entry.getValue()
+					.getGroupMembers();
+			Iterator<Integer> newIt = groupMember.iterator();
+
+			while (newIt.hasNext()) {
+				ContactOperations c = allContactISN.get(newIt.next());
+				contact = new DefaultMutableTreeNode(new TreeNodeItem(c
+						.getContactName(), c.getISN()));
+				root.add(contact);
+			}
+		}
 	}
 
 	/**
@@ -117,5 +140,13 @@ public class PhoneMeTaskPane extends JXTaskPaneContainer implements
 			return iSN;
 		}
 
+	}
+
+	/**
+	 * 
+	 */
+	public void initializeData() {
+		// TODO
+		configureContactList();
 	}
 }

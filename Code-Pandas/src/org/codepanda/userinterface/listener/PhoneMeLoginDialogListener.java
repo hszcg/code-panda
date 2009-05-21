@@ -47,6 +47,7 @@ public class PhoneMeLoginDialogListener implements ActionListener {
 					.getUserPasswordInput());
 			if (loginResult == LoginResultType.SUCCEED) {
 				myPhoneMeLoginDialog.setVisible(false);
+				myPhoneMeLoginDialog.getParentFrame().initializeData();
 			} else {
 				if (loginResult == LoginResultType.INVAILD_PASSWORD)
 					myPhoneMeLoginDialog

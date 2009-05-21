@@ -195,4 +195,12 @@ public class PhoneMeFrame extends JRibbonFrame {
 	public PhoneMeMajorPanel getMyPhoneMeMajorPanel() {
 		return myPhoneMeMajorPanel;
 	}
+	
+	
+	/**
+	 * 
+	 */
+	public void initializeData() {
+		this.myPhoneMeTaskPane.initializeData();
+	}
 }
