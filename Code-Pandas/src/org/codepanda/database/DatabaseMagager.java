@@ -86,7 +86,10 @@ public class DatabaseMagager implements DatabaseManagerFacade {
 //		rs = st.executeQuery("SELECT * FROM UserTable WHERE username=username");
 		System.out.println(rs.toString());
 		rs.next();
-		user = (User) rs.getObject(2); // 2 or 3
+		User tempuser = (User) rs.getObject(2); // 2 or 3
+		user.setPassword(tempuser.getPassword());
+		user.setUserName(tempuser.getUserName());
+		user.setUserContactData(tempuser.getUserContactData());
 		st.close();
 	//	return temp_user;
 	}
@@ -96,14 +99,16 @@ public class DatabaseMagager implements DatabaseManagerFacade {
 			throws SQLException {
 		Statement st = null;
 		ResultSet rs = null;
-//		ArrayList<ContactOperations> acd = null;
+//		ArrayList<ContactOperations> acd = null;	
 		st = conn.createStatement();
 		System.out.println(conn.toString());
 		rs = st.executeQuery("SELECT * FROM contactList WHERE username = '" + name+"'");
 //		rs.next();
 		for (; rs.next();) {
 			contactList.add((ContactOperations) rs.getObject(2));
+//			acd.add((ContactOperations) rs.getObject(2));
 		}
+		
 		st.close();
 	}
 
@@ -263,8 +268,33 @@ public class DatabaseMagager implements DatabaseManagerFacade {
 
 	@Override
 	public int loginUser(String userName, String password) {
-		// TODO Auto-generated method stub
-		return 1;
+		
+		if(this.checkExistUser(userName)==0)
+			return 0;
+		
+		User user = new User();
+//		try {
+//			Statement st = null;
+//			ResultSet rs = null;
+//			st = conn.createStatement();
+//			System.out.println(conn.toString());
+//			rs = st.executeQuery("SELECT * FROM UserTable WHERE username = '"
+//					+ userName + "'");
+//			System.out.println(rs.toString());
+//			rs.next();
+//			user = (User) rs.getObject(2); // 2 or 3
+//			st.close();
+//		} catch (Exception e) {
+//			// TODO: handle exception
+//		}
+
+		// It's a stupid implement......
+		// I could also ......
+		getUser(userName,user);
+		System.out.println(user.toString());
+		if(user.getPassword().equals(password))
+			return 1;
+		return 0;
 	}
 
 	@Override
