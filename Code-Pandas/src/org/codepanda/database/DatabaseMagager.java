@@ -84,19 +84,18 @@ public class DatabaseMagager implements DatabaseManagerFacade {
 	}
 
 	// use for a query that return a list of Contact
-	public synchronized ArrayList<ContactOperations> queryContactData(String name)
+	public synchronized void queryContactData(String name, ArrayList<ContactOperations> contactList)
 			throws SQLException {
 		Statement st = null;
 		ResultSet rs = null;
-		ArrayList<ContactOperations> acd = null;
+//		ArrayList<ContactOperations> acd = null;
 		st = conn.createStatement();
 		rs = st.executeQuery("SELECT * FROM contactList WHERE username ="
 				+ name);
 		for (; rs.next();) {
-			acd.add((ContactOperations) rs.getObject(3));
+			contactList.add((ContactOperations) rs.getObject(3));
 		}
 		st.close();
-		return acd;
 	}
 
 	@Override
@@ -222,7 +221,7 @@ public class DatabaseMagager implements DatabaseManagerFacade {
 			ArrayList<ContactOperations> contactList) {
 		// TODO 你这里修改了contactList指向的内存地址区域，应该用contactList.add(XXX)
 		try {
-			contactList = queryContactData(userName);
+			queryContactData(userName,contactList);
 			return 1;
 		} catch (SQLException e) {
 			e.printStackTrace();
