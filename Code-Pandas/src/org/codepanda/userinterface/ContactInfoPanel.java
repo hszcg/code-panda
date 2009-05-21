@@ -6,12 +6,16 @@ import java.awt.event.ActionListener;
 import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
+import javax.swing.border.BevelBorder;
+import javax.swing.border.SoftBevelBorder;
 
 import org.codepanda.userinterface.listener.ContactHeadImageEditListener;
+import org.codepanda.utility.contact.ContactOperations;
 import org.jdesktop.swingx.JXDatePicker;
 import org.jdesktop.swingx.JXMultiSplitPane;
 import org.jdesktop.swingx.JXPanel;
@@ -26,6 +30,13 @@ public class ContactInfoPanel extends JXPanel {
 	private static final long serialVersionUID = 7578999178358931661L;
 	private PhoneMeFrame parentFrame;
 	private JDialog parentDialog;
+	private ContactOperations myContact;
+	private boolean isEditable;
+
+	// All the buttons
+	private ArrayList<JButton> myButtonList;
+
+	//
 	private JPanel upperPanel;
 	private JPanel upperLeftPanel;
 	private JXMultiSplitPane upperRightPanel;
@@ -110,32 +121,69 @@ public class ContactInfoPanel extends JXPanel {
 	private JButton editRelationLabelListButton;
 	private JButton deleteRelationLabelListButton;
 
-	public ContactInfoPanel(PhoneMeFrame parenetFrame) {
+	/**
+	 * @param parenetFrame
+	 * @param myContact
+	 * @param isEditable
+	 */
+	public ContactInfoPanel(PhoneMeFrame parenetFrame,
+			ContactOperations myContact, boolean isEditable) {
 		super();
 		this.parentFrame = parenetFrame;
 		this.parentDialog = null;
+		this.isEditable = true;
+		this.myContact = myContact;
+		this.myButtonList = new ArrayList<JButton>();
 		setUpperPanel();
 		setLayout(new BorderLayout());
 		add(upperPanel, "North");
 		setMainPanel();
 		add(mainPanel, "Center");
+
+		if (myContact != null) {
+			// TODO initialize Display
+			this.setMyContact(myContact);
+		} else {
+			// TODO new Contact
+		}
+
+		if (isEditable == false) {
+			// TODO initialize Editable
+			this.setEditable(isEditable);
+		}
 	}
 
-	public ContactInfoPanel(JDialog parenetDialog) {
+	/**
+	 * @param parenetDialog
+	 * @param myContact
+	 * @param isEditable
+	 */
+	public ContactInfoPanel(JDialog parenetDialog, ContactOperations myContact,
+			boolean isEditable) {
 		super();
 		this.parentFrame = null;
 		this.parentDialog = parenetDialog;
+		this.myContact = myContact;
+		this.isEditable = true;
+		this.myButtonList = new ArrayList<JButton>();
 		setUpperPanel();
 		setLayout(new BorderLayout());
 		add(upperPanel, "North");
 		setMainPanel();
 		add(mainPanel, "Center");
-	}
 
-	/*
-	 * public static void main(String args[]){ JXPanel_test test = new
-	 * JXPanel_test(); test.setVisible(true); }
-	 */
+		if (myContact != null) {
+			// TODO initialize Display
+			this.setMyContact(myContact);
+		} else {
+			// TODO new Contact
+		}
+
+		if (isEditable == false) {
+			// TODO initialize Editable
+			this.setEditable(isEditable);
+		}
+	}
 
 	private void setUpperPanel() {
 		upperPanel = new JPanel();
@@ -193,6 +241,7 @@ public class ContactInfoPanel extends JXPanel {
 		nameField = new JTextField(30);
 		// nameField.setText("请输入联系人的姓名");
 		nameEditButton = new JButton("编辑");
+		this.myButtonList.add(nameEditButton);
 
 		// phoneNumberLabel = new JLabel("联系电话");
 		String temp[] = { "010-51534419", "13810013188", "029-85367800" };
@@ -200,6 +249,9 @@ public class ContactInfoPanel extends JXPanel {
 		addPhoneNumberButton = new JButton("添加");
 		editPhoneNumberButton = new JButton("编辑");
 		deletePhoneNumberButton = new JButton("删除");
+		this.myButtonList.add(addPhoneNumberButton);
+		this.myButtonList.add(editPhoneNumberButton);
+		this.myButtonList.add(deletePhoneNumberButton);
 
 		FormLayout upperRightlayout = new FormLayout(
 				"pref, 3dlu, pref, 15dlu, pref, 3dlu, pref, 3dlu, pref", // columns
@@ -233,24 +285,27 @@ public class ContactInfoPanel extends JXPanel {
 		CellConstraints leftcc = new CellConstraints();
 
 		headImageLabel = new JLabel();// 联系人图片
+		this.setContactHeadImage("/userpic/user1.jpg");
+		headImageLabel.setPreferredSize(new Dimension(115, 115));
+		headImageLabel.setBorder(new SoftBevelBorder(BevelBorder.RAISED));
 		editHeadImageButton = new JButton("编辑");
 		deleteHeadImageButton = new JButton("删除");
+		this.myButtonList.add(editHeadImageButton);
+		this.myButtonList.add(deleteHeadImageButton);
 
 		editHeadImageButton.addActionListener(new ContactHeadImageEditListener(
 				this));
-		deleteHeadImageButton.addActionListener(new ActionListener(){
+		deleteHeadImageButton.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
 				deleteContactHeadImage();
 			}
-			
+
 		});
 
 		editHeadImageButton.setPreferredSize(new Dimension(50, 20));
 		deleteHeadImageButton.setPreferredSize(new Dimension(50, 20));
-
-		this.setContactHeadImage("/userpic/user1.jpg");
 
 		leftBuilder.add(headImageLabel, leftcc.xyw(1, 1, 3));
 		leftBuilder.add(editHeadImageButton, leftcc.xy(1, 3));
@@ -285,6 +340,9 @@ public class ContactInfoPanel extends JXPanel {
 		addEmailAddressButton = new JButton("添加");
 		editEmailAddressButton = new JButton("编辑");
 		deleteEmailAddressButton = new JButton("删除");
+		this.myButtonList.add(addEmailAddressButton);
+		this.myButtonList.add(editEmailAddressButton);
+		this.myButtonList.add(deleteEmailAddressButton);
 
 		builder.addLabel("电子邮箱/E-mail", cc.xy(1, 3));
 		// builder.add(emailAddressBox, cc.xyw(3, 1, 3));
@@ -301,6 +359,9 @@ public class ContactInfoPanel extends JXPanel {
 		addContactAddressButton = new JButton("添加");
 		editContactAddressButton = new JButton("编辑");
 		deleteContactAddressButton = new JButton("删除");
+		this.myButtonList.add(addContactAddressButton);
+		this.myButtonList.add(editContactAddressButton);
+		this.myButtonList.add(deleteContactAddressButton);
 
 		builder.addLabel("家庭住址/Address", cc.xy(1, 5));
 		builder.add(contactAddressBox, cc.xy(3, 5));
@@ -314,6 +375,10 @@ public class ContactInfoPanel extends JXPanel {
 		editWorkingDepartmentButton = new JButton("编辑");
 		deleteWorkingDepartmentButton = new JButton("删除");
 
+		this.myButtonList.add(addWorkingDepartmentButton);
+		this.myButtonList.add(editWorkingDepartmentButton);
+		this.myButtonList.add(deleteWorkingDepartmentButton);
+
 		builder.addLabel("工作单位/Working Department", cc.xy(1, 7));
 		builder.add(workingDepartmentBox, cc.xy(3, 7));
 		builder.add(addWorkingDepartmentButton, cc.xy(5, 7));
@@ -325,6 +390,10 @@ public class ContactInfoPanel extends JXPanel {
 		addImContactInformationButton = new JButton("添加");
 		editImContactInformationButton = new JButton("编辑");
 		deleteImContactInformationButton = new JButton("删除");
+
+		this.myButtonList.add(addImContactInformationButton);
+		this.myButtonList.add(editImContactInformationButton);
+		this.myButtonList.add(deleteImContactInformationButton);
 
 		builder.addLabel("即时联系方式/Im Contact", cc.xy(1, 9));
 		builder.add(imContactInformationBox, cc.xy(3, 9));
@@ -342,7 +411,9 @@ public class ContactInfoPanel extends JXPanel {
 				setContactBirthday(contactBirthdayPicker.getDate());
 			}
 		});
+
 		editcontactBirthdayButton = new JButton("编辑");
+		this.myButtonList.add(editcontactBirthdayButton);
 		editcontactBirthdayButton.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
@@ -362,6 +433,10 @@ public class ContactInfoPanel extends JXPanel {
 		addUrlListButton = new JButton("添加");
 		editUrlListButton = new JButton("编辑");
 		deleteUrlListButton = new JButton("删除");
+
+		this.myButtonList.add(addUrlListButton);
+		this.myButtonList.add(editUrlListButton);
+		this.myButtonList.add(deleteUrlListButton);
 
 		builder.addLabel("联系人Web地址/URL Address", cc.xy(1, 13));
 		builder.add(urlListBox, cc.xy(3, 13));
@@ -389,6 +464,10 @@ public class ContactInfoPanel extends JXPanel {
 		editCommonLabelListButton = new JButton("编辑");
 		deleteCommonLabelListButton = new JButton("删除");
 
+		this.myButtonList.add(addCommonLabelListButton);
+		this.myButtonList.add(editCommonLabelListButton);
+		this.myButtonList.add(deleteCommonLabelListButton);
+
 		downbuilder.addLabel("普通标签/Common Label", downcc.xy(1, 3));
 		downbuilder.add(commonLabelListBox, downcc.xyw(3, 3, 3));
 		downbuilder.add(addCommonLabelListButton, downcc.xy(7, 3));
@@ -400,6 +479,10 @@ public class ContactInfoPanel extends JXPanel {
 		addGroupListButton = new JButton("添加");
 		editGroupListButton = new JButton("编辑");
 		deleteGroupListButton = new JButton("删除");
+
+		this.myButtonList.add(addGroupListButton);
+		this.myButtonList.add(editGroupListButton);
+		this.myButtonList.add(deleteGroupListButton);
 
 		downbuilder.addLabel("所属分组/Group", downcc.xy(1, 5));
 		downbuilder.add(groupListBox, downcc.xyw(3, 5, 3));
@@ -415,6 +498,10 @@ public class ContactInfoPanel extends JXPanel {
 		addRelationLabelListButton = new JButton("添加");
 		editRelationLabelListButton = new JButton("编辑");
 		deleteRelationLabelListButton = new JButton("删除");
+
+		this.myButtonList.add(addRelationLabelListButton);
+		this.myButtonList.add(editRelationLabelListButton);
+		this.myButtonList.add(deleteRelationLabelListButton);
 
 		downbuilder.addLabel("关系标签/Relation Label", downcc.xy(1, 7));
 		downbuilder.add(relationLabelListBox, downcc.xy(3, 7));
@@ -467,9 +554,9 @@ public class ContactInfoPanel extends JXPanel {
 	 * @param url
 	 */
 	public void setContactHeadImage(String url) {
-		if(url == null)
+		if (url == null)
 			return;
-		
+
 		try {
 			this.setContactHeadImage(ImageIO.read(this.getClass().getResource(
 					url)));
@@ -501,4 +588,45 @@ public class ContactInfoPanel extends JXPanel {
 		else
 			return this.parentDialog;
 	}
+
+	/**
+	 * @param isEditable
+	 *            the isEditable to set
+	 */
+	public void setEditable(boolean isEditable) {
+		if (this.isEditable == isEditable)
+			return;
+
+		this.isEditable = isEditable;
+
+		for (JButton p : myButtonList) {
+			p.setVisible(isEditable);
+		}
+	}
+
+	/**
+	 * @return the isEditable
+	 */
+	public boolean isEditable() {
+		return isEditable;
+	}
+
+	/**
+	 * @param myContact
+	 *            the myContact to set
+	 */
+	public void setMyContact(ContactOperations myContact) {
+		if (this.myContact == myContact)
+			return;
+
+		this.myContact = myContact;
+	}
+
+	/**
+	 * @return the myContact
+	 */
+	public ContactOperations getMyContact() {
+		return myContact;
+	}
+
 }

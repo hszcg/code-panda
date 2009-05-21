@@ -15,6 +15,10 @@ import org.jvnet.flamingo.ribbon.*;
 import org.jvnet.substance.SubstanceLookAndFeel;
 import org.jvnet.substance.skin.SubstanceMistAquaLookAndFeel;
 
+/**
+ * @author hszcg
+ *
+ */
 public class PhoneMeFrame extends JRibbonFrame {
 	/**
 	 * 
@@ -27,12 +31,18 @@ public class PhoneMeFrame extends JRibbonFrame {
 	private PhoneMeLoginDialog myPhoneMeLoginDialog;
 	private JXStatusBar myPhoneMeStatusBar;
 
+	/**
+	 * 
+	 */
 	public void configureRibbon() {
 		myPhoneMeRibbon = new PhoneMeRibbon(this);
 		this.getRibbon().addTask(myPhoneMeRibbon.getBasicTask());
 		this.getRibbon().addTask(myPhoneMeRibbon.getAdvancedTask());
 	}
 
+	/**
+	 * 
+	 */
 	public void configureApplicationMenu() {
 		try {
 			myPhoneMeMenu = new PhoneMeMenu(this);
@@ -42,6 +52,9 @@ public class PhoneMeFrame extends JRibbonFrame {
 		this.getRibbon().setApplicationMenu(myPhoneMeMenu);
 	}
 
+	/**
+	 * 
+	 */
 	public void configureStatusBar() {
 		this.myPhoneMeStatusBar = new JXStatusBar();
 		JXLabel statusLabel = new JXLabel("Ready");
@@ -59,6 +72,9 @@ public class PhoneMeFrame extends JRibbonFrame {
 		add(myPhoneMeStatusBar, BorderLayout.SOUTH);
 	}
 
+	/**
+	 * 
+	 */
 	public void configureMajorPanel() {
 
 		myPhoneMeMajorPanel = new PhoneMeMajorPanel(this);
@@ -68,6 +84,9 @@ public class PhoneMeFrame extends JRibbonFrame {
 		add(myPhoneMeTaskPane, BorderLayout.WEST);
 	}
 
+	/**
+	 * 
+	 */
 	public void setLocation() {
 		Rectangle r = GraphicsEnvironment.getLocalGraphicsEnvironment()
 				.getMaximumWindowBounds();
@@ -79,6 +98,9 @@ public class PhoneMeFrame extends JRibbonFrame {
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	}
 
+	/**
+	 * 
+	 */
 	public PhoneMeFrame() {
 		super("PhoneMe test");
 		try {
@@ -96,6 +118,9 @@ public class PhoneMeFrame extends JRibbonFrame {
 		setLocation();
 	}
 
+	/**
+	 * @param font
+	 */
 	private static void InitGlobalFont(Font font) {
 		FontUIResource fontRes = new FontUIResource(font);
 		for (Enumeration<Object> keys = UIManager.getDefaults().keys(); keys
@@ -108,6 +133,9 @@ public class PhoneMeFrame extends JRibbonFrame {
 		}
 	}
 
+	/**
+	 * @param args
+	 */
 	public static void main(String args[]) {
 
 		SwingUtilities.invokeLater(new Runnable() {
@@ -152,9 +180,19 @@ public class PhoneMeFrame extends JRibbonFrame {
 		});
 	}
 
+	/**
+	 * 
+	 */
 	private void configureLogin() {
 		// TODO Auto-generated method stub
 		myPhoneMeLoginDialog = new PhoneMeLoginDialog(this);
 		myPhoneMeLoginDialog.setVisible(true);
+	}
+	
+	/**
+	 * @return
+	 */
+	public PhoneMeMajorPanel getMyPhoneMeMajorPanel() {
+		return myPhoneMeMajorPanel;
 	}
 }

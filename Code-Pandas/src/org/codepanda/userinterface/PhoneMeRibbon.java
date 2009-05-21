@@ -1,5 +1,6 @@
 package org.codepanda.userinterface;
 
+import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -146,6 +147,10 @@ public class PhoneMeRibbon {
 		editContactButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				System.out.println("修改联系人");
+				Component currentTab = mainFrame.getMyPhoneMeMajorPanel().getCurrentTab();
+				if(currentTab instanceof ContactInfoPanel){
+					((ContactInfoPanel) currentTab).setEditable(true);
+				}
 			}
 		});
 
