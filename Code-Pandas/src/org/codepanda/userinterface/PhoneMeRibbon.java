@@ -120,7 +120,7 @@ public class PhoneMeRibbon {
 				System.out.println("新建联系人");
 				mainFrame.getMyPhoneMeMajorPanel().addNewTab(
 						"New Contact",
-						new ContactInfoPanel(mainFrame, null, false,
+						new ContactInfoPanel(mainFrame, null, true,
 								ContactInfoPanel.CONTACT_INFO_PANEL));
 			}
 		});

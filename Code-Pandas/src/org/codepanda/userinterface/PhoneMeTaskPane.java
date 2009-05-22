@@ -64,7 +64,7 @@ public class PhoneMeTaskPane extends JXTaskPaneContainer implements
 			return;
 		Object nodeInfo = node.getUserObject();
 
-		if (node.isLeaf()) {
+		if (node.isLeaf() && nodeInfo instanceof TreeNodeItem) {
 			int iSN = ((TreeNodeItem) nodeInfo).getISN();
 			ContactOperations myContact = DataPool.getInstance()
 					.getAllContactISNMap().get(iSN);

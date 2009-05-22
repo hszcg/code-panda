@@ -1,5 +1,6 @@
 package org.codepanda.userinterface;
 
+import java.awt.Font;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -57,28 +58,32 @@ public class SingleResultPanel extends JPanel {
 		String name = myContact.getContactName();
 		if (name == null)
 			name = "N/A";
-		JLabel nameLabel = new JLabel("Contact Name £º " + name);
+		JLabel nameLabel = new JLabel(name);
+		nameLabel.setFont(nameLabel.getFont().deriveFont(Font.BOLD,
+				(float) 15.0));
 
 		String phoneNumber = "N/A";
 		ArrayList<String> phoneNumberList = myContact.getPhoneNumberList();
 		if (phoneNumberList != null && phoneNumberList.size() > 0)
 			phoneNumber = myContact.getPhoneNumberList().get(0);
 
-		JLabel phoneLabel = new JLabel("Phone Number £º " + phoneNumber);
+		JLabel phoneLabel = new JLabel(phoneNumber);
+		phoneLabel.setFont(phoneLabel.getFont().deriveFont(Font.BOLD,
+				(float) 15.0));
 
-		String emailAddress = "N/A";
-		ArrayList<String> emailList = myContact.getEmailAddresseList();
-		if (emailList != null && emailList.size() > 0)
-			emailAddress = myContact.getEmailAddresseList().get(0);
-		JLabel emailLabel = new JLabel("E-mail Address £º" + emailAddress);
+		// String emailAddress = "N/A";
+		// ArrayList<String> emailList = myContact.getEmailAddresseList();
+		// if (emailList != null && emailList.size() > 0)
+		// emailAddress = myContact.getEmailAddresseList().get(0);
+		// JLabel emailLabel = new JLabel("E-mail Address £º" + emailAddress);
 
 		infoPanel.add(Box.createGlue());
 		infoPanel.add(nameLabel);
 		infoPanel.add(Box.createGlue());
 		infoPanel.add(phoneLabel);
 		infoPanel.add(Box.createGlue());
-		infoPanel.add(emailLabel);
-		infoPanel.add(Box.createGlue());
+		// infoPanel.add(emailLabel);
+		// infoPanel.add(Box.createGlue());
 
 		JButton contactHeadImage = new JButton();
 
