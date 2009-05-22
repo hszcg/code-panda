@@ -212,6 +212,7 @@ public class PhoneMeMajorPanel extends JPanel {
 	 */
 	public boolean addNewTab(String tabName, Component p) {
 		if (p instanceof ContactInfoPanel) {
+			// ÁªÏµÈËtab»¥³â
 			ContactOperations newContact = ((ContactInfoPanel) p)
 					.getMyContact();
 
