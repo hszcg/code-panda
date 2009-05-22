@@ -115,7 +115,7 @@ public  void ContactIterator(PersonalContact currentContact,Element element)
 				currentContact.setEmailAddresseList(myEmailList);
 				for(int l=0;l<myEmailList.size();l++)
 				{
-					System.out.println("Email"+l+myEmailList.get(l));
+					System.out.println("Email"+l+":"+myEmailList.get(l));
 				}
 			}
 			else if(str.equalsIgnoreCase("Address"))
@@ -228,8 +228,12 @@ public  void ContactIterator(PersonalContact currentContact,Element element)
 			if(node instanceof Element && node.getNodeName().equalsIgnoreCase("RelationLabel"))
 			{
 				ArrayList<RelationLabel>relationLabelList = currentContact.getRelationLabelList();
-				RelationLabelIterator(relationLabelList,(Element)node);
+				RelationLabel relationLabel=new RelationLabel();
+				RelationLabelIterator(relationLabel,(Element)node);
+				relationLabelList.add(relationLabel);
+				System.out.println("LabelName----"+relationLabel.getLabelName());
 				currentContact.setRelationLabelList(relationLabelList);
+				System.out.println("Size----"+currentContact.getRelationLabelList().size());
 			}
 			if(node instanceof Element && !node.getNodeName().equalsIgnoreCase("RelationLabel"))
 			{
@@ -239,34 +243,30 @@ public  void ContactIterator(PersonalContact currentContact,Element element)
 	}
 	
 }
-	public void  RelationLabelIterator(ArrayList<RelationLabel>relationLabelList,Element  element)
+	public void  RelationLabelIterator(RelationLabel  relationLabel,Element  element)
 	{
+		
 		NodeList nodelist=element.getChildNodes();
-		RelationLabel relationLabel=new RelationLabel();
+	//	relationLabel=new RelationLabel();
 		for(int i=0;i<nodelist.getLength();i++)
 		{
 			
 			Node node=nodelist.item(i);
 			String str=node.getNodeName();
-			if(relationLabelList.isEmpty())
-			{
-				relationLabelList=new  ArrayList<RelationLabel>();
-			}
 			if(str.equalsIgnoreCase("LabelName"))
 			{
 				String value=node.getTextContent();
 				relationLabel.setLabelName(value);
-				System.out.println("LabelName---"+value);
+				//System.out.println("fjsdkl---"+value);
 			}
 			else if(str.equalsIgnoreCase("DestISN"))
 			{
 				String value=node.getTextContent();
 				int DestISN=Integer.parseInt(value);
 				relationLabel.setRelationObjectISN(DestISN);
-				System.out.println("DestISN---"+value);
 			}
 	}
-		relationLabelList.add(relationLabel);
-}
+		
 }
 
+}

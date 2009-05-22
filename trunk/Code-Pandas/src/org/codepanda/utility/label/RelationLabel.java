@@ -3,7 +3,10 @@
  */
 package org.codepanda.utility.label;
 
+import java.io.Serializable;
+
 import org.codepanda.utility.contact.ContactOperations;
+import org.jdesktop.swingx.search.Searchable;
 
 /**
  * 
@@ -11,7 +14,7 @@ import org.codepanda.utility.contact.ContactOperations;
  * @version 4.16.01
  *
  */
-public class RelationLabel {
+public class RelationLabel implements Serializable{
 	/**
 	 * 
 	 */

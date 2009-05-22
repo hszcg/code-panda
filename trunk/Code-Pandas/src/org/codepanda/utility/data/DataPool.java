@@ -28,7 +28,7 @@ import com.google.common.collect.HashMultimap;
 public class DataPool {
 	private DataPool() {
 		// TODO Initialize all data except for dataPoolInstance
-		currentUser = new User();
+		setCurrentUser(new User());
 		try {
 			setDb(new DatabaseMagager("test"));
 			getDb().open("test");
@@ -41,7 +41,7 @@ public class DataPool {
 		allCommonLabelDataMap = new HashMap<String, ContactGroup>();
 		allRelationLabelList = new ArrayList<String>();
 
-		currentUser = new User();
+		setCurrentUser(new User());
 
 		// 1个Key对应多个Value的HashMap
 		allContactNameMultimap = HashMultimap.create();
@@ -124,8 +124,8 @@ public class DataPool {
 		// 剩下的事情就是Utility向数据库检查合法性checkExistUser()，和更新数据库 createNewUserData()
 		// 最后Utility更新DataPool并返回结果即可
 		System.out.println(newUser.getUserName());
-		currentUser = newUser;
-		if (DataPool.getInstance().getDb().checkExistUser(currentUser.getUserName()) != 1) {
+		setCurrentUser(newUser);
+		if (DataPool.getInstance().getDb().checkExistUser(getCurrentUser().getUserName()) != 1) {
 			System.out.println("newUser-begin");
 			DataPool.getInstance().getDb().newUser(newUser);
 			//System.out.println("createNewUser"+newUser.getUserName());
@@ -159,7 +159,7 @@ public class DataPool {
 		}
 
 		// TODO 把当前用户的联系人读入DataPool
-		DataPool.getInstance().getDb().getUser(userName, currentUser);
+		DataPool.getInstance().getDb().getUser(userName, getCurrentUser());
 
 		ArrayList<ContactOperations> allContactList = new ArrayList<ContactOperations>();
 		this.getDb().getContactData(userName, allContactList);
@@ -225,7 +225,7 @@ public class DataPool {
 
 	public int newContact(PersonalContact contactData) {
 		// 如果失败，返回-2,成功返回0
-		if (DataPool.getInstance().getDb().newContact(currentUser.getUserName(),
+		if (DataPool.getInstance().getDb().newContact(getCurrentUser().getUserName(),
 				contactData) == -2) {
 			return -2;
 		}
@@ -234,7 +234,7 @@ public class DataPool {
 
 	public int editContact(PersonalContact contactData) {
 		// 如果失败，返回-2，成功返回0
-		if (DataPool.getInstance().getDb().editContact(currentUser, contactData) == -2) {
+		if (DataPool.getInstance().getDb().editContact(getCurrentUser(), contactData) == -2) {
 			return -2;
 		}
 		return 0;
@@ -242,7 +242,7 @@ public class DataPool {
 
 	public int deleteContact(PersonalContact contactData) {
 		// 如果失败，返回-2，成功返回0
-		if (DataPool.getInstance().getDb().deleteContact(currentUser, contactData) == -2) {
+		if (DataPool.getInstance().getDb().deleteContact(getCurrentUser(), contactData) == -2) {
 			return -2;
 		}
 		return 0;
@@ -279,7 +279,7 @@ public class DataPool {
 	public int newCommonLabel(CommonLabel commonLabel) {
 		// 添加普通标签失败，返回-2,成功返回0
 		if (DataPool.getInstance().getDb().newLabel(commonLabel.getLabelName(),
-				currentUser.getUserName()) == -2) {
+				getCurrentUser().getUserName()) == -2) {
 			return -2;
 		}
 		return 0;
@@ -307,5 +307,13 @@ public class DataPool {
 
 	public DatabaseManagerFacade getDb() {
 		return db;
+	}
+
+	public void setCurrentUser(User currentUser) {
+		this.currentUser = currentUser;
+	}
+
+	public User getCurrentUser() {
+		return currentUser;
 	}
 }
