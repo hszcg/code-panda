@@ -37,7 +37,7 @@ public class SingleResultPanel extends JPanel {
 			if (SingleResultPanel.defaultImage == null)
 				SingleResultPanel.defaultImage = ImageIO.read(getClass()
 						.getResource("/userpic/user1.jpg"));
-			
+
 			configurePanel();
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
@@ -50,53 +50,27 @@ public class SingleResultPanel extends JPanel {
 		this.setLayout(new BoxLayout(this, BoxLayout.X_AXIS));
 		this.setBorder(new BevelBorder(BevelBorder.RAISED));
 
-		JButton contactHeadImage = new JButton();
-		
-		ImageIcon imageIcon = new ImageIcon(SingleResultPanel.defaultImage
-				.getScaledInstance(64, 64, Image.SCALE_DEFAULT));
-
-		if (myContact.getHeadImage().getMyImageIcon() != null) {
-			imageIcon = new ImageIcon(myContact.getHeadImage()
-					.getMyImageIcon().getImage().getScaledInstance(64, 64,
-							Image.SCALE_DEFAULT));
-		}
-		contactHeadImage.setIcon(imageIcon);
-
-		contactHeadImage.addActionListener(new ActionListener() {
-
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				// TODO Auto-generated method stub
-				parentFrame.getMyPhoneMeMajorPanel().addNewTab("test",
-						new ContactInfoPanel(parentFrame, myContact, false, ContactInfoPanel.CONTACT_INFO_PANEL));
-			}
-
-		});
-
 		//
 		JPanel infoPanel = new JPanel();
 		infoPanel.setLayout(new BoxLayout(infoPanel, BoxLayout.Y_AXIS));
-		
+
 		String name = myContact.getContactName();
-		if( name == null)
+		if (name == null)
 			name = "N/A";
 		JLabel nameLabel = new JLabel("Contact Name £º " + name);
-		
+
+		String phoneNumber = "N/A";
 		ArrayList<String> phoneNumberList = myContact.getPhoneNumberList();
-		if( phoneNumberList != null && phoneNumberList.size() > 0)
-			name = myContact.getPhoneNumberList().get(0);
-		else
-			name = "N/A";
-		
-		JLabel phoneLabel = new JLabel("Phone Number £º " + name);
-		
-		
+		if (phoneNumberList != null && phoneNumberList.size() > 0)
+			phoneNumber = myContact.getPhoneNumberList().get(0);
+
+		JLabel phoneLabel = new JLabel("Phone Number £º " + phoneNumber);
+
+		String emailAddress = "N/A";
 		ArrayList<String> emailList = myContact.getEmailAddresseList();
-		if( emailList != null && emailList.size() > 0)
-			name = myContact.getEmailAddresseList().get(0);
-		else
-			name = "N/A";
-		JLabel emailLabel = new JLabel("E-mail Address £º" + name);
+		if (emailList != null && emailList.size() > 0)
+			emailAddress = myContact.getEmailAddresseList().get(0);
+		JLabel emailLabel = new JLabel("E-mail Address £º" + emailAddress);
 
 		infoPanel.add(Box.createGlue());
 		infoPanel.add(nameLabel);
@@ -105,6 +79,34 @@ public class SingleResultPanel extends JPanel {
 		infoPanel.add(Box.createGlue());
 		infoPanel.add(emailLabel);
 		infoPanel.add(Box.createGlue());
+
+		JButton contactHeadImage = new JButton();
+
+		ImageIcon imageIcon = new ImageIcon(SingleResultPanel.defaultImage
+				.getScaledInstance(64, 64, Image.SCALE_DEFAULT));
+
+		if (myContact.getHeadImage().getMyImageIcon() != null) {
+			imageIcon = new ImageIcon(myContact.getHeadImage().getMyImageIcon()
+					.getImage().getScaledInstance(64, 64, Image.SCALE_DEFAULT));
+		}
+		contactHeadImage.setIcon(imageIcon);
+
+		contactHeadImage.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				String name = myContact.getContactName();
+				if (name == null)
+					name = "N/A";
+
+				parentFrame.getMyPhoneMeMajorPanel().addNewTab(
+						name,
+						new ContactInfoPanel(parentFrame, myContact, false,
+								ContactInfoPanel.CONTACT_INFO_PANEL));
+			}
+
+		});
 
 		this.add(contactHeadImage);
 		this.add(Box.createHorizontalStrut(8));

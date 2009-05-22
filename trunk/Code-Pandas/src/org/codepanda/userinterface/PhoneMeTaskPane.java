@@ -1,11 +1,8 @@
 package org.codepanda.userinterface;
 
-import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
-import java.util.Set;
-import java.util.Vector;
 import java.util.Map.Entry;
 
 import javax.swing.*;
@@ -19,11 +16,12 @@ import org.jdesktop.swingx.*;
 
 public class PhoneMeTaskPane extends JXTaskPaneContainer implements
 		TreeSelectionListener {
-	// JXTaskPane currentUserPane;
-	// JXLabel usernameLabel;
-	// JTextField usernameField;
 
-	private PhoneMeFrame mainFrame;
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -2688085485464738955L;
+	private PhoneMeFrame parentFrame;
 	private JXTaskPane searchTaskPane;
 	private JTextField searchField;
 
@@ -33,7 +31,7 @@ public class PhoneMeTaskPane extends JXTaskPaneContainer implements
 
 	public PhoneMeTaskPane(PhoneMeFrame phoneMeFrame) {
 		super();
-		this.mainFrame = phoneMeFrame;
+		this.parentFrame = phoneMeFrame;
 
 		// ËÑË÷
 		searchTaskPane = new JXTaskPane();
@@ -65,8 +63,19 @@ public class PhoneMeTaskPane extends JXTaskPaneContainer implements
 			// Nothing is selected.
 			return;
 		Object nodeInfo = node.getUserObject();
+
 		if (node.isLeaf()) {
-			// System.out.println(((TreeNodeItem) nodeInfo).getISN());
+			int iSN = ((TreeNodeItem) nodeInfo).getISN();
+			ContactOperations myContact = DataPool.getInstance()
+					.getAllContactISNMap().get(iSN);
+			String name = myContact.getContactName();
+			if (name == null)
+				name = "N/A";
+
+			parentFrame.getMyPhoneMeMajorPanel().addNewTab(
+					name,
+					new ContactInfoPanel(parentFrame, myContact, false,
+							ContactInfoPanel.CONTACT_INFO_PANEL));
 		} else {
 			// displayURL(helpURL);
 		}
@@ -116,7 +125,7 @@ public class PhoneMeTaskPane extends JXTaskPaneContainer implements
 	 * @return the mainFrame
 	 */
 	public PhoneMeFrame getMainFrame() {
-		return mainFrame;
+		return parentFrame;
 	}
 
 	/**
