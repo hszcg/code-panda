@@ -31,7 +31,6 @@ public class DatabaseMagager implements DatabaseManagerFacade {
 		dataSource.setDatabase("jdbc:hsqldb:" + dbName);
 
 		conn = dataSource.getConnection("sa", "");
-		System.out.println(conn.toString());
 		System.out.println("Database Connected! Con!");
 	}
 
@@ -102,7 +101,6 @@ public class DatabaseMagager implements DatabaseManagerFacade {
 		Statement st = null;
 
 		st = conn.createStatement(); // statements
-		System.out.println(conn.toString());
 		int i = 0; // run the query
 		try {
 			i = st.executeUpdate(expression);
@@ -141,9 +139,6 @@ public class DatabaseMagager implements DatabaseManagerFacade {
 	public int newContact(String userName, final PersonalContact contact) {
 		this.updateC("INSERT INTO contactList(username,contact) VALUES(?,?)",
 				userName, contact);
-	//	System.out.println(contact.getContactName());
-	//	System.out.println(contact.getRelationLabelList().size());
-	//	System.out.println(contact.getRelationLabelList().get(0).getLabelName());
 		return 1;
 	}
 
@@ -169,9 +164,7 @@ public class DatabaseMagager implements DatabaseManagerFacade {
 		// ps.setString(1,"hello world");
 		// ps.setInt(1,100);
 		ps.setString(1, user.getUserName());
-		System.out.println(user.getUserName());
 		ps.setObject(2, user);
-		System.out.println("@@@@@@@@@"+user.toString());
 		ps.executeUpdate();
 		ps.close();
 	}
@@ -202,7 +195,6 @@ public class DatabaseMagager implements DatabaseManagerFacade {
 		ResultSet rs = null;
 //		ArrayList<ContactOperations> acd = null;	
 		st = conn.createStatement();
-		System.out.println(conn.toString());
 		rs = st.executeQuery("SELECT * FROM contactList WHERE username = '" + name+"'");
 //		rs.next();
 		for (; rs.next();) {
@@ -232,14 +224,12 @@ public class DatabaseMagager implements DatabaseManagerFacade {
 		ResultSet rs = null;
 	//	User temp_user = null;
 		st = conn.createStatement();
-		System.out.println(conn.toString());
 //		rs = st.executeQuery("SELECT * FROM UserTable WHERE username = "+ name);
 //		rs = st.executeQuery("SELECT * FROM UserTable WHERE username > 0    ");
 		rs = st.executeQuery("SELECT * FROM UserTable WHERE username = '"+name+"'");
 //		rs = st.executeQuery("SELECT * FROM UserTable WHERE UserTable.COL1=leilei");
 //		rs = st.executeQuery("SELECT username = "+name+" FROM UserTable");
 //		rs = st.executeQuery("SELECT * FROM UserTable WHERE username=username");
-		System.out.println(rs.toString());
 		rs.next();
 		User tempuser = (User) rs.getObject(2); // 2 or 3
 		user.setPassword(tempuser.getPassword());
@@ -274,7 +264,6 @@ public class DatabaseMagager implements DatabaseManagerFacade {
 		// It's a stupid implement......
 		// I could also ......
 		getUser(userName,user);
-		System.out.println(user.toString());
 		if(user.getPassword().equals(password))
 			return 1;
 		return 0;
@@ -333,20 +322,6 @@ public class DatabaseMagager implements DatabaseManagerFacade {
 		// TODO Auto-generated method stub
 		this.deleteContact(user, contact);
 		this.newContact(user.getUserName(), contact);
-		return 0;
-	}
-
-	@Override
-	public int newLabel(String labelname, String username) {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-	public int editCommonlabel(String labelname)
-	{
-		return 0;
-	}
-	public int delCommonlabel(String labelname)
-	{
 		return 0;
 	}
 }
