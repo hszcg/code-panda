@@ -58,6 +58,8 @@ public class TestMessageHandler implements MessageHandler {
 		"<ContactName>"+"zhang xin yu"+"</ContactName>"+
 		"<Telephone>"+"122489389"+"</Telephone>"+
 		"<Email>"+"jdksd@dfjk"+"</Email>"+
+		"<Email>"+"fsdf@fdjk"+"</Email>"+
+		"<Email>"+"fdk@fdjk"+"</Email>"+
 		"<RelationLabel>"+
 		"<LabelName>"+"friends"+"</LabelName>"+
 		"<DestISN>"+"1234"+"</DestISN>"+
@@ -84,6 +86,7 @@ public class TestMessageHandler implements MessageHandler {
 		TestMessageHandler tmh=new TestMessageHandler();
 		tmh.testFunc(CommandType.NEW_USER,NewUserxml);
 		tmh.testFunc(CommandType.LOGIN_USER, LoginUserxml);
+		System.out.println("LLLLLLLLLLLLLL"+DataPool.getInstance().getCurrentUser().getUserName());
 		tmh.testFunc(CommandType.NEW_CONTACT, NewContactxml);
 		//tmh.testFunc(CommandType.DELETE_USER, DeleteUserxml);
 		try {

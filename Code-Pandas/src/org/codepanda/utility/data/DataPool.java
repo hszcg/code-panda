@@ -239,8 +239,10 @@ public class DataPool {
 		//		contactData) == -2) {
 			int temp=currentLowBound;
 			contactData.setISN(temp);
+			System.out.println("ISN----"+contactData.getISN());
 			int result=DataPool.getInstance().getDb().newContact(getCurrentUser().getUserName(), contactData);
 			int j=0;
+			System.out.println("ISNtjk----"+contactData.getISN());
 			for(j=currentLowBound+1;j<Integer.MAX_VALUE;j++)
 			{
 				if(allContactISNMap.containsKey(j))
