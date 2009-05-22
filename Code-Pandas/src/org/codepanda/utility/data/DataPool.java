@@ -245,6 +245,8 @@ public class DataPool {
 			{
 				if(allContactISNMap.containsKey(j))
 					j++;
+				else 
+					break;
 			}
 			currentLowBound=j;
 		System.out.println("User----"+currentUser.getUserName());
