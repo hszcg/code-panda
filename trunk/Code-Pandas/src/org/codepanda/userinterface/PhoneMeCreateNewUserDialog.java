@@ -27,6 +27,7 @@ public class PhoneMeCreateNewUserDialog {
 	private PhoneMeFrame parentFrame;
 	private PhoneMeLoginDialog myPhoneMeLoginDialog;
 	private JDialog newUserDialog;
+	private ContactInfoPanel userContactInfoPanel;
 	private PhoneMeCreateNewUserDialogListener myPhoneMeCreateNewUserDialogListener;
 	private JTextField userNameField;
 	private JPasswordField userPasswordField;
@@ -39,7 +40,6 @@ public class PhoneMeCreateNewUserDialog {
 
 	public PhoneMeCreateNewUserDialog(PhoneMeFrame parentFrame,
 			PhoneMeLoginDialog myPhoneMeLoginDialog) {
-		// TODO Auto-generated constructor stub
 		this.parentFrame = parentFrame;
 		this.myPhoneMeLoginDialog = myPhoneMeLoginDialog;
 		this.setMyUser(new User());
@@ -110,9 +110,9 @@ public class PhoneMeCreateNewUserDialog {
 		// **************************************************
 
 		// TODO 如何让头像显示正常
-		JPanel major = new ContactInfoPanel(this.newUserDialog, null, true,
+		userContactInfoPanel = new ContactInfoPanel(this.newUserDialog, null, true,
 				ContactInfoPanel.USER_INFO_PANEL);
-		this.newUserDialog.add(major, BorderLayout.CENTER);
+		this.newUserDialog.add(userContactInfoPanel, BorderLayout.CENTER);
 
 		// **************************************************
 		myPhoneMeCreateNewUserDialogListener = new PhoneMeCreateNewUserDialogListener(
@@ -157,6 +157,9 @@ public class PhoneMeCreateNewUserDialog {
 		// **************************************************
 	}
 	
+	/**
+	 * @return
+	 */
 	public StringBuffer makeUserOnlyMessageXML(){
 		StringBuffer message = new StringBuffer();
 		message.append(MyXMLMaker.addTag("UserName",
@@ -227,5 +230,12 @@ public class PhoneMeCreateNewUserDialog {
 	 */
 	public JDialog getNewUserDialog() {
 		return newUserDialog;
+	}
+
+	/**
+	 * @return the userContactInfoPanel
+	 */
+	public ContactInfoPanel getUserContactInfoPanel() {
+		return userContactInfoPanel;
 	}
 }

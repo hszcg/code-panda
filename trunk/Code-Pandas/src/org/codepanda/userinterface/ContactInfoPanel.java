@@ -229,7 +229,7 @@ public class ContactInfoPanel extends JXPanel {
 			public void actionPerformed(ActionEvent arg0) {
 				phoneNumberField.setVisible(true);
 				phoneNumberField.setState(0);
-				getParentWindow().repaint();
+				paintComponents(getGraphics());
 			}
 		});
 		editPhoneNumberButton = new JButton("编辑");
@@ -238,7 +238,7 @@ public class ContactInfoPanel extends JXPanel {
 			public void actionPerformed(ActionEvent arg0) {
 				phoneNumberField.setVisible(true);
 				phoneNumberField.setState(1);
-				getParentWindow().repaint();
+				paintComponents(getGraphics());
 			}
 		});
 		deletePhoneNumberButton = new JButton("删除");
@@ -361,7 +361,7 @@ public class ContactInfoPanel extends JXPanel {
 		String temp[] = { "中华人民共和国北京市海淀区清华大学紫荆公寓1#419B" };
 
 		builder.addSeparator("个人信息", cc.xyw(1, 1, 9));
-		builder.addLabel("           ", cc.xy(11, 1));
+		builder.addLabel("                     ", cc.xy(11, 1));
 		// e-mail
 		emailAddressBox = new JComboBox(temp);
 		addEmailAddressButton = new JButton("添加");
