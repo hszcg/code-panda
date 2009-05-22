@@ -241,6 +241,11 @@ public class PhoneMeMajorPanel extends JPanel {
 			return false;
 		}
 
+		// TODO 是否有滚动条
+		// JScrollPane container = new JScrollPane(p,
+		// JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED,
+		// JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+
 		centerPanel.addTab(tabName, p);
 		centerPanel.setSelectedComponent(p);
 		this.mainFrame.getMyPhoneMeStatusBar().setStatus("Open NewTab");
@@ -255,7 +260,7 @@ public class PhoneMeMajorPanel extends JPanel {
 		//
 		ArrayList<Integer> myISNList = new ArrayList<Integer>();
 		myISNList.addAll(DataPool.getInstance().getAllContactISNMap().keySet());
-		
+
 		centerPanel.addTab("Search Result", new SearchResultPanel(
 				this.mainFrame, myISNList));
 
