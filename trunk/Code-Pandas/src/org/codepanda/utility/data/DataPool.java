@@ -237,9 +237,9 @@ public class DataPool {
 		// 如果失败，返回-2,成功返回0
 		//if (DataPool.getInstance().getDb().newContact(getCurrentUser().getUserName(),
 		//		contactData) == -2) {
-			int result=DataPool.getInstance().getDb().newContact(getCurrentUser().getUserName(), contactData);
 			int temp=currentLowBound;
 			contactData.setISN(temp);
+			int result=DataPool.getInstance().getDb().newContact(getCurrentUser().getUserName(), contactData);
 			int j=0;
 			for(j=currentLowBound+1;j<Integer.MAX_VALUE;j++)
 			{
