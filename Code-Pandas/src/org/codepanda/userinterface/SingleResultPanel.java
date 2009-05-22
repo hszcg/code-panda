@@ -1,11 +1,10 @@
 package org.codepanda.userinterface;
 
-import java.awt.BorderLayout;
-import java.awt.Dimension;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
+import java.util.ArrayList;
 
 import javax.imageio.ImageIO;
 import javax.swing.Box;
@@ -25,6 +24,7 @@ public class SingleResultPanel extends JPanel {
 	private static final long serialVersionUID = -3302839879471641065L;
 	private PhoneMeFrame parentFrame;
 	private ContactOperations myContact;
+	private static Image defaultImage;
 
 	public SingleResultPanel(PhoneMeFrame phoneMeFrame,
 			final ContactOperations c) {
@@ -34,6 +34,10 @@ public class SingleResultPanel extends JPanel {
 		this.myContact = c;
 
 		try {
+			if (SingleResultPanel.defaultImage == null)
+				SingleResultPanel.defaultImage = ImageIO.read(getClass()
+						.getResource("/userpic/user1.jpg"));
+			
 			configurePanel();
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
@@ -47,20 +51,24 @@ public class SingleResultPanel extends JPanel {
 		this.setBorder(new BevelBorder(BevelBorder.RAISED));
 
 		JButton contactHeadImage = new JButton();
+		
+		ImageIcon imageIcon = new ImageIcon(SingleResultPanel.defaultImage
+				.getScaledInstance(64, 64, Image.SCALE_DEFAULT));
 
-		String url = "/userpic/user0.jpg";
-
-		Image pic = ImageIO.read(this.getClass().getResource(url));
-		Image tempImage = pic.getScaledInstance(64, 64, Image.SCALE_DEFAULT);
-		ImageIcon imageIcon = new ImageIcon(tempImage);
+		if (myContact.getHeadImage().getMyImageIcon() != null) {
+			imageIcon = new ImageIcon(myContact.getHeadImage()
+					.getMyImageIcon().getImage().getScaledInstance(64, 64,
+							Image.SCALE_DEFAULT));
+		}
 		contactHeadImage.setIcon(imageIcon);
+
 		contactHeadImage.addActionListener(new ActionListener() {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
 				parentFrame.getMyPhoneMeMajorPanel().addNewTab("test",
-						new ContactInfoPanel(parentFrame, myContact, false));
+						new ContactInfoPanel(parentFrame, myContact, false, ContactInfoPanel.CONTACT_INFO_PANEL));
 			}
 
 		});
@@ -68,10 +76,27 @@ public class SingleResultPanel extends JPanel {
 		//
 		JPanel infoPanel = new JPanel();
 		infoPanel.setLayout(new BoxLayout(infoPanel, BoxLayout.Y_AXIS));
-
-		JLabel nameLabel = new JLabel("Name Test");
-		JLabel phoneLabel = new JLabel("Phone Number Test");
-		JLabel emailLabel = new JLabel("E-mail Test");
+		
+		String name = myContact.getContactName();
+		if( name == null)
+			name = "N/A";
+		JLabel nameLabel = new JLabel("Contact Name £º " + name);
+		
+		ArrayList<String> phoneNumberList = myContact.getPhoneNumberList();
+		if( phoneNumberList != null && phoneNumberList.size() > 0)
+			name = myContact.getPhoneNumberList().get(0);
+		else
+			name = "N/A";
+		
+		JLabel phoneLabel = new JLabel("Phone Number £º " + name);
+		
+		
+		ArrayList<String> emailList = myContact.getEmailAddresseList();
+		if( emailList != null && emailList.size() > 0)
+			name = myContact.getEmailAddresseList().get(0);
+		else
+			name = "N/A";
+		JLabel emailLabel = new JLabel("E-mail Address £º" + name);
 
 		infoPanel.add(Box.createGlue());
 		infoPanel.add(nameLabel);
@@ -85,5 +110,4 @@ public class SingleResultPanel extends JPanel {
 		this.add(Box.createHorizontalStrut(8));
 		this.add(infoPanel);
 	}
-
 }

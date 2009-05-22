@@ -2,6 +2,7 @@ package org.codepanda.userinterface;
 
 import java.awt.FlowLayout;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import org.codepanda.utility.contact.ContactOperations;
 import org.codepanda.utility.data.DataPool;
@@ -31,20 +32,17 @@ public class SearchResultPanel extends JXPanel {
 		// TODO Auto-generated method stub
 		this.setLayout(new FlowLayout());
 		
-		// ContactOperations temp = DataPool.getInstance().getAllContactISNMap().get(myISNList.get(0));
-		SingleResultPanel p1 = new SingleResultPanel(this.parentFrame, null);
-		SingleResultPanel p2 = new SingleResultPanel(this.parentFrame, null);
-		SingleResultPanel p3 = new SingleResultPanel(this.parentFrame, null);
+		HashMap<Integer, ContactOperations> temp = DataPool.getInstance().getAllContactISNMap();
 		
-		this.add(p1);
-		this.add(p2);
-		this.add(p3);
+		for(int t: myISNList){
+			this.add(new SingleResultPanel(this.parentFrame, temp.get(t)));
+		}
 	}
 
 	/**
 	 * @return the parentFrame
 	 */
-	public PhoneMeFrame getParentFrame() {
+	public final PhoneMeFrame getParentFrame() {
 		return parentFrame;
 	}
 }
