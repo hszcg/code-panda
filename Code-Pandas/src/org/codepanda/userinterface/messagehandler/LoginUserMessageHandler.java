@@ -1,6 +1,5 @@
 package org.codepanda.userinterface.messagehandler;
 
-import org.codepanda.application.CommandType;
 import org.codepanda.application.CommandVisitor;
 import org.codepanda.application.user.LoginUserActor;
 import org.codepanda.userinterface.utility.LoginResultType;

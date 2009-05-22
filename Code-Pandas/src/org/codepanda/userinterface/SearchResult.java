@@ -69,11 +69,13 @@ public class SearchResult {
 		layout.setHgap(5);
 		layout.setVgap(5);
 		resultPanel.setLayout(layout);
+		
 
 		for (int t : myISNList) {
 			resultPanel
 					.add(new SingleResultPanel(this.parentFrame, temp.get(t)));
 		}
+		
 		center.add(resultPanel);
 
 		content.add(center, BorderLayout.CENTER);

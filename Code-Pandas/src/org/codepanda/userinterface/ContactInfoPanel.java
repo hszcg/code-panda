@@ -15,7 +15,13 @@ import javax.swing.*;
 import javax.swing.border.BevelBorder;
 import javax.swing.border.SoftBevelBorder;
 
+import org.codepanda.application.CommandType;
+import org.codepanda.application.CommandVisitor;
 import org.codepanda.userinterface.listener.*;
+import org.codepanda.userinterface.messagehandler.EditContactMessageHandler;
+import org.codepanda.userinterface.messagehandler.LoginUserMessageHandler;
+import org.codepanda.userinterface.messagehandler.NewContactMessageHandler;
+import org.codepanda.userinterface.utility.LoginResultType;
 import org.codepanda.userinterface.xml.MyXMLMaker;
 import org.codepanda.utility.contact.ContactOperations;
 import org.codepanda.utility.data.DataPool;
@@ -563,6 +569,39 @@ public class ContactInfoPanel extends JXPanel {
 			public void actionPerformed(ActionEvent arg0) {
 				// TODO
 				// makeMainMessageXML
+				if (myContact == null) {
+					// 新建联系人
+					String xml = makeMainMessageXML().toString();
+					xml = MyXMLMaker.addTag("NewContact", xml);
+					xml = MyXMLMaker.addTag("com", xml);
+
+					System.out.println("NEW_CONTACT\n" + xml);
+
+					// TODO Login
+					CommandVisitor newContactCommandVisitor = new CommandVisitor(
+							CommandType.NEW_CONTACT, xml);
+					NewContactMessageHandler newContactMessageHandler = new NewContactMessageHandler();
+					newContactMessageHandler
+							.executeCommand(newContactCommandVisitor);
+
+					setEditable(false);
+				} else {
+					// 修改联系人
+					String xml = makeMainMessageXML().toString();
+					xml = MyXMLMaker.addTag("EditContact", xml);
+					xml = MyXMLMaker.addTag("com", xml);
+
+					System.out.println("EDIT_CONTACT\n" + xml);
+
+					// TODO Login
+					CommandVisitor editContactCommandVisitor = new CommandVisitor(
+							CommandType.EDIT_CONTACT, xml);
+					EditContactMessageHandler editContactMessageHandler = new EditContactMessageHandler();
+					editContactMessageHandler
+							.executeCommand(editContactCommandVisitor);
+
+					setEditable(false);
+				}
 			}
 		});
 		cancelButton = new JButton("取消");
@@ -715,8 +754,9 @@ public class ContactInfoPanel extends JXPanel {
 			message.append(MyXMLMaker.addTag("IMContact",
 					imContactInformationBox.getItemAt(index).toString()));
 		}
-		message.append(MyXMLMaker.addTag("Birthday", contactBirthdayField
-				.getText()));
+		if (contactBirthdayField.getText().length() != 0)
+			message.append(MyXMLMaker.addTag("Birthday", contactBirthdayField
+					.getText()));
 		for (int index = 0; index < urlListBox.getItemCount(); index++) {
 			message.append(MyXMLMaker.addTag("URL", urlListBox.getItemAt(index)
 					.toString()));
