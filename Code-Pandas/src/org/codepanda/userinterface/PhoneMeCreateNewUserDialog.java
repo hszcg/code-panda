@@ -31,6 +31,9 @@ public class PhoneMeCreateNewUserDialog {
 	private JTextField userNameField;
 	private JPasswordField userPasswordField;
 	private JPasswordField userComfirmPasswordField;
+	private JButton newUserButton;
+	private JButton loginUserButton;
+	private JButton cancelButton;
 	private JLabel errorMessageLabel;
 	private User myUser;
 
@@ -118,17 +121,17 @@ public class PhoneMeCreateNewUserDialog {
 		JPanel bottom = new JPanel();
 		bottom.setLayout(new BoxLayout(bottom, BoxLayout.X_AXIS));
 
-		JButton newUserButton = new JButton("Return To Login");
+		newUserButton = new JButton("Return To Login");
 		newUserButton.setActionCommand("Return");
 		newUserButton.setMnemonic('r');
 		newUserButton.addActionListener(myPhoneMeCreateNewUserDialogListener);
 
-		JButton loginUserButton = new JButton("OK");
+		loginUserButton = new JButton("OK");
 		loginUserButton.setActionCommand("OK");
 		loginUserButton.setMnemonic('o');
 		loginUserButton.addActionListener(myPhoneMeCreateNewUserDialogListener);
 
-		JButton cancelButton = new JButton("Cancel");
+		cancelButton = new JButton("Cancel");
 		cancelButton.setActionCommand("Cancel");
 		cancelButton.setMnemonic('c');
 		cancelButton.addActionListener(myPhoneMeCreateNewUserDialogListener);
