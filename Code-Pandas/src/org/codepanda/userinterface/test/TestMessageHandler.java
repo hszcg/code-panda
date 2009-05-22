@@ -12,6 +12,7 @@ import org.codepanda.userinterface.utility.DeleteUserResultType;
 import org.codepanda.userinterface.utility.LoginResultType;
 import org.codepanda.userinterface.utility.NewUserResultType;
 import org.codepanda.utility.data.DataPool;
+import org.codepanda.utility.user.User;
 
 /**
  * ½ö¹©²âÊÔ
@@ -20,9 +21,10 @@ import org.codepanda.utility.data.DataPool;
  *
  */
 public class TestMessageHandler implements MessageHandler {
-	public void testFunc(String xml){
+	private User currentUser;
+	public void testFunc(CommandType commandType,String xml){
 	/*	CommandVisitor c = new CommandVisitor(CommandType.NEW_USER, xml);*/
-		CommandVisitor c = new CommandVisitor(CommandType.DELETE_USER, xml);
+		CommandVisitor c = new CommandVisitor(commandType, xml);
 		this.executeCommand(c);		
 	}
 	@Override
@@ -38,24 +40,35 @@ public class TestMessageHandler implements MessageHandler {
 	}
 	public static void main(String argv[])
 	{
+		String LoginUserxml="<com>"+
+		"<LoginUser>"+
+		"<UserName>"+"xdq"+"</UserName>"+
+		"<UserPassword>"+"fighting"+"</UserPassword>"+
+		"</LoginUser>"+
+		"</com>";
+		
 		String DeleteUserxml="<com>"+
 		"<DeleteUser>"+
-		"<UserName>"+"zcg"+"</UserName>"+
-		"<UserPassword>"+"fdjk"+"</UserPassword>"+
+		"<UserName>"+"xdq"+"</UserName>"+
+		"<UserPassword>"+"fighting"+"</UserPassword>"+
 		"</DeleteUser>"+
 		"</com>";
 		String NewContactxml="<com>"+
 		"<NewContact>"+
 		"<ContactName>"+"zhang xin yu"+"</ContactName>"+
-		"<Telepohone>"+"122489389"+"</Telephone>"+
+		"<Telephone>"+"122489389"+"</Telephone>"+
 		"<Email>"+"jdksd@dfjk"+"</Email>"+
+		"<RelationLabel>"+
+		"<LabelName>"+"friends"+"</LabelName>"+
+		"<DestISN>"+"1234"+"</DestISN>"+
+		"</RelationLabel>"+
 		"</NewContact>"+
-		"<com>";
+		"</com>";
 		String NewUserxml="<com>"+
 		"<NewUser>"+
 		"<UserName>"+"xdq"+"</UserName>"+
-		"<UserPassword>"+"fighting"+"</Userpassword>"+
-		"<Telephone>"+"13699252256"+"<Telephone>"+
+		"<UserPassword>"+"fighting"+"</UserPassword>"+
+		"<Telephone>"+"13699252256"+"</Telephone>"+
 		"<Url>"+"www.leilei.org"+"</Url>"+
 		"</NewUser>"+
 		"</com>";
@@ -69,7 +82,10 @@ public class TestMessageHandler implements MessageHandler {
 		"</com>";
 		
 		TestMessageHandler tmh=new TestMessageHandler();
-		tmh.testFunc(DeleteUserxml);
+		tmh.testFunc(CommandType.NEW_USER,NewUserxml);
+		tmh.testFunc(CommandType.LOGIN_USER, LoginUserxml);
+		tmh.testFunc(CommandType.NEW_CONTACT, NewContactxml);
+		//tmh.testFunc(CommandType.DELETE_USER, DeleteUserxml);
 		try {
 			DataPool.getInstance().getDb().close();
 		} catch (SQLException e) {
