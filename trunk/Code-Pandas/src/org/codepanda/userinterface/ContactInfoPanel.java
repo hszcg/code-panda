@@ -28,6 +28,10 @@ public class ContactInfoPanel extends JXPanel {
 	 * 
 	 */
 	private static final long serialVersionUID = 7578999178358931661L;
+	public static final int USER_INFO_PANEL = 1;
+	public static final int CONTACT_INFO_PANEL = 2;
+	
+	//
 	private PhoneMeFrame parentFrame;
 	private JDialog parentDialog;
 	private ContactOperations myContact;
@@ -126,7 +130,7 @@ public class ContactInfoPanel extends JXPanel {
 	 * @param isEditable
 	 */
 	public ContactInfoPanel(PhoneMeFrame parenetFrame,
-			ContactOperations myContact, boolean isEditable) {
+			ContactOperations myContact, boolean isEditable, int panelType) {
 		super();
 		this.parentFrame = parenetFrame;
 		this.parentDialog = null;
@@ -139,13 +143,8 @@ public class ContactInfoPanel extends JXPanel {
 		add(upperPanel, "North");
 		setMainPanel();
 		add(mainPanel, "Center");
-
-		if (myContact != null) {
-			// TODO initialize Display
-			this.setMyContact(myContact);
-		} else {
-			// TODO new Contact
-		}
+		
+		this.setMyContact(myContact);
 
 		if (isEditable == false) {
 			// TODO initialize Editable
@@ -159,26 +158,21 @@ public class ContactInfoPanel extends JXPanel {
 	 * @param isEditable
 	 */
 	public ContactInfoPanel(JDialog parenetDialog, ContactOperations myContact,
-			boolean isEditable) {
+			boolean isEditable, int panelType) {
 		super();
 		this.parentFrame = null;
 		this.parentDialog = parenetDialog;
-		this.myContact = myContact;
+		this.myContact = null;
 		this.isEditable = true;
 		this.myButtonList = new ArrayList<JButton>();
-		this.myTextFieldList = new ArrayList<JTextField>();
 		setUpperPanel();
 		setLayout(new BorderLayout());
 		add(upperPanel, "North");
 		setMainPanel();
 		add(mainPanel, "Center");
 
-		if (myContact != null) {
-			// TODO initialize Display
-			this.setMyContact(myContact);
-		} else {
-			// TODO new Contact
-		}
+
+		this.setMyContact(myContact);
 
 		if (isEditable == false) {
 			// TODO initialize Editable
@@ -334,7 +328,6 @@ public class ContactInfoPanel extends JXPanel {
 	private void setMainPanel() {
 		mainPanel = new JPanel();
 		FormLayout mainAreaLayout = new FormLayout(
-		// "pref, 3dlu, pref, 2dlu, pref, 15dlu, pref, 3dlu, pref, 3dlu, pref",//column
 		"pref, 3dlu, pref, 15dlu, pref, 3dlu, pref, 3dlu, pref, 3dlu, pref",// column
 		"p, 8dlu, p, 5dlu, p, 5dlu, p, 5dlu, p, 5dlu, p, 5dlu, p, 5dlu, p,"
 						+ " 5dlu, p, 5dlu, p");// row
@@ -484,9 +477,9 @@ public class ContactInfoPanel extends JXPanel {
 
 		// 标签以及分组的显示区域
 		FormLayout mainSouthAreaLayout = new FormLayout(
-				"pref, 3dlu, pref, 2dlu, pref, 15dlu, pref, 3dlu, pref, 3dlu, pref, " +
-				"5dlu, pref, 10dlu, pref, 5dlu, pref",// column
-				"p, 8dlu, p, 5dlu, p, 5dlu, p, 5dlu, p, 5dlu, p");// row
+		"pref, 3dlu, pref, 2dlu, pref, 15dlu, pref, 3dlu, pref, 3dlu, pref, " +
+		"5dlu, pref, 10dlu, pref, 5dlu, pref",// column
+		"p, 8dlu, p, 5dlu, p, 5dlu, p, 5dlu, p, 5dlu, p");// row
 
 		mainSouthAreaLayout.setColumnGroups(new int[][] { { 7, 9, 11 } });
 
@@ -553,6 +546,8 @@ public class ContactInfoPanel extends JXPanel {
 		
 		confirmButton = new JButton("确认");
 		cancelButton = new JButton("取消");
+		this.myButtonList.add(confirmButton);
+		this.myButtonList.add(cancelButton);
 		downbuilder.add(confirmButton, downcc.xy(15, 9));
 		downbuilder.add(cancelButton, downcc.xy(17, 9));
 		
@@ -628,7 +623,7 @@ public class ContactInfoPanel extends JXPanel {
 	}
 
 	/**
-	 * @return the parentWindow
+	 * @return the parenetWindow
 	 */
 	public Window getParentWindow() {
 		if (this.parentFrame != null)
@@ -673,7 +668,7 @@ public class ContactInfoPanel extends JXPanel {
 	 *            the myContact to set
 	 */
 	public void setMyContact(ContactOperations myContact) {
-		if (this.myContact == myContact)
+		if (this.myContact == myContact || myContact == null)
 			return;
 		System.out.println("zzzzzzzz");
 		ArrayList<String> temp = new ArrayList<String>();
@@ -683,13 +678,32 @@ public class ContactInfoPanel extends JXPanel {
 		phoneNumberBox.setModel
 		(new DefaultComboBoxModel
 				((String [])(temp.toArray(new String[0]))));
+		
+		if(myContact.getContactName() != null){
+			nameField.setText(myContact.getContactName());
+		}
+		
+		if(myContact.getPhoneNumberList() != null){
+			phoneNumberBox.setModel
+			(new DefaultComboBoxModel
+		((String []) ((myContact.getPhoneNumberList())).toArray
+				(new String[0])));
+		}
+		
+		if(myContact.getGroupList() != null){
+			groupListBox.setModel
+			(new DefaultComboBoxModel
+		((String []) ((myContact.getGroupList())).toArray
+				(new String[0])));
+		}
+		
 		this.myContact = myContact;
 	}
 
 	/**
 	 * @return the myContact
 	 */
-	public ContactOperations getMyContact() {
+	public final ContactOperations getMyContact() {
 		return myContact;
 	}
 

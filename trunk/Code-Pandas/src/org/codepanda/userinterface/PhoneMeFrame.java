@@ -9,8 +9,6 @@ import javax.swing.*;
 import javax.swing.plaf.FontUIResource;
 
 import org.codepanda.utility.data.DataPool;
-import org.jdesktop.swingx.*;
-import org.jdesktop.swingx.JXStatusBar.Constraint;
 import org.jvnet.flamingo.ribbon.*;
 import org.jvnet.substance.SubstanceLookAndFeel;
 import org.jvnet.substance.skin.SubstanceMistAquaLookAndFeel;
@@ -29,7 +27,7 @@ public class PhoneMeFrame extends JRibbonFrame {
 	private PhoneMeMajorPanel myPhoneMeMajorPanel;
 	private PhoneMeTaskPane myPhoneMeTaskPane;
 	private PhoneMeLoginDialog myPhoneMeLoginDialog;
-	private JXStatusBar myPhoneMeStatusBar;
+	private PhoneMeStatusBar myPhoneMeStatusBar;
 
 	/**
 	 * 
@@ -56,19 +54,7 @@ public class PhoneMeFrame extends JRibbonFrame {
 	 * 
 	 */
 	public void configureStatusBar() {
-		this.myPhoneMeStatusBar = new JXStatusBar();
-		JXLabel statusLabel = new JXLabel("Ready");
-
-		JXStatusBar.Constraint c1 = new Constraint();
-		c1.setFixedWidth(100);
-		myPhoneMeStatusBar.add(statusLabel, c1); // Fixed width of 100 with no inserts
-		JXStatusBar.Constraint c2 = new Constraint(
-				JXStatusBar.Constraint.ResizeBehavior.FILL); // Fill with no
-
-		// inserts
-		JProgressBar pbar = new JProgressBar();
-		myPhoneMeStatusBar.add(pbar, c2);
-
+		this.myPhoneMeStatusBar = new PhoneMeStatusBar(this);
 		add(myPhoneMeStatusBar, BorderLayout.SOUTH);
 	}
 
@@ -193,7 +179,7 @@ public class PhoneMeFrame extends JRibbonFrame {
 	/**
 	 * @return
 	 */
-	public PhoneMeMajorPanel getMyPhoneMeMajorPanel() {
+	public final PhoneMeMajorPanel getMyPhoneMeMajorPanel() {
 		return myPhoneMeMajorPanel;
 	}
 	
@@ -203,5 +189,13 @@ public class PhoneMeFrame extends JRibbonFrame {
 	 */
 	public void initializeData() {
 		this.myPhoneMeTaskPane.initializeData();
+		this.myPhoneMeMajorPanel.initializeData();
+	}
+
+	/**
+	 * @return
+	 */
+	public final PhoneMeStatusBar getMyPhoneMeStatusBar() {
+		return myPhoneMeStatusBar;
 	}
 }

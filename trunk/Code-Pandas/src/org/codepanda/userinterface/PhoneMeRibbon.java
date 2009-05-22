@@ -118,6 +118,10 @@ public class PhoneMeRibbon {
 		newContactButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				System.out.println("新建联系人");
+				mainFrame.getMyPhoneMeMajorPanel().addNewTab(
+						"New Contact",
+						new ContactInfoPanel(mainFrame, null, false,
+								ContactInfoPanel.CONTACT_INFO_PANEL));
 			}
 		});
 
@@ -147,8 +151,9 @@ public class PhoneMeRibbon {
 		editContactButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				System.out.println("修改联系人");
-				Component currentTab = mainFrame.getMyPhoneMeMajorPanel().getCurrentTab();
-				if(currentTab instanceof ContactInfoPanel){
+				Component currentTab = mainFrame.getMyPhoneMeMajorPanel()
+						.getCurrentTab();
+				if (currentTab instanceof ContactInfoPanel) {
 					((ContactInfoPanel) currentTab).setEditable(true);
 				}
 			}

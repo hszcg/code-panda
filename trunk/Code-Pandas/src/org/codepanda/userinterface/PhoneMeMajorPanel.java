@@ -2,10 +2,13 @@ package org.codepanda.userinterface;
 
 import java.awt.*;
 import java.awt.event.*;
+import java.util.ArrayList;
 import java.util.Set;
 
 import javax.swing.*;
 
+import org.codepanda.utility.contact.ContactOperations;
+import org.codepanda.utility.data.DataPool;
 import org.jdesktop.swingx.*;
 import org.jdesktop.swingx.decorator.*;
 import org.jdesktop.swingx.decorator.ComponentAdapter;
@@ -187,14 +190,7 @@ public class PhoneMeMajorPanel extends JPanel {
 		// contactInfoScrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
 
 		centerPanel.addTab("Contact Info", new ContactInfoPanel(this.mainFrame,
-				null, false));
-		
-		//
-		centerPanel.addTab("Search Result", new SearchResultPanel(
-				this.mainFrame, null));
-
-		centerPanel.addTab("CommonLabel Show", new CommonLabelShowPanel(
-				this.mainFrame));
+				null, false, ContactInfoPanel.CONTACT_INFO_PANEL));
 
 		return centerPanel;
 	}
@@ -211,11 +207,60 @@ public class PhoneMeMajorPanel extends JPanel {
 	 * @return
 	 */
 	public boolean addNewTab(String tabName, JPanel p) {
-		if (centerPanel.getTabCount() > MAX_TAB_NUMBER - 1)
+		if (p instanceof ContactInfoPanel) {
+			ContactOperations newContact = ((ContactInfoPanel) p)
+					.getMyContact();
+
+			// 如果不是新建联系人
+			if (newContact != null) {
+				int newISN = newContact.getISN();
+				// System.out.println("NEW ISN = " + newISN);
+				for (int i = 0; i < centerPanel.getTabCount(); i++) {
+					// 查看当前所有打开的联系人Tab
+					// System.out.println("ISN[" + i + "] = "
+					// + centerPanel.getComponentAt(i).toString());
+
+					if (centerPanel.getComponentAt(i) instanceof ContactInfoPanel) {
+						ContactOperations contact = ((ContactInfoPanel) centerPanel
+								.getComponentAt(i)).getMyContact();
+
+						if (contact != null && newISN == contact.getISN()) {
+							centerPanel.setSelectedIndex(i);
+							this.mainFrame.getMyPhoneMeStatusBar().setStatus(
+									"This Tab has Already Opened");
+							return true;
+						}
+					}
+				}
+			}
+		}
+
+		if (centerPanel.getTabCount() > MAX_TAB_NUMBER - 1) {
+			this.mainFrame.getMyPhoneMeStatusBar().setStatus(
+					"Max Tab Number is: " + MAX_TAB_NUMBER);
 			return false;
+		}
 
 		centerPanel.addTab(tabName, p);
+		centerPanel.setSelectedComponent(p);
+		this.mainFrame.getMyPhoneMeStatusBar().setStatus("Open NewTab");
 		return true;
+	}
+
+	/**
+	 * 
+	 */
+	public void initializeData() {
+		// TODO Auto-generated method stub
+		//
+		ArrayList<Integer> myISNList = new ArrayList<Integer>();
+		myISNList.addAll(DataPool.getInstance().getAllContactISNMap().keySet());
+		
+		centerPanel.addTab("Search Result", new SearchResultPanel(
+				this.mainFrame, myISNList));
+
+		centerPanel.addTab("CommonLabel Show", new CommonLabelShowPanel(
+				this.mainFrame));
 	}
 
 }
