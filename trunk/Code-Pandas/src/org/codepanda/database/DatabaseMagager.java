@@ -123,7 +123,7 @@ public class DatabaseMagager implements DatabaseManagerFacade {
 		ResultSet rs=null;
 		try {
 			st=conn.createStatement();
-			rs = st.executeQuery("SELECT * FROM contactList WHERE username = '" + userName+"'");
+			rs = st.executeQuery("SELECT * FROM UserTable WHERE username = '" + userName+"'");
 			rs.next();
 			if(rs.isFirst()==false)
 				return 0;
@@ -166,8 +166,16 @@ public class DatabaseMagager implements DatabaseManagerFacade {
 		// ps.setString(1,"hello world");
 		// ps.setInt(1,100);
 		ps.setString(1, user.getUserName());
+		System.out.println(user.getUserName());
 		ps.setObject(2, user);
-
+		System.out.println("@@@@@@@@@"+user.toString());
+		ps.executeUpdate();
+		ps.close();
+	}
+	
+	public synchronized void updateD(String expression, User user) throws SQLException{
+		PreparedStatement ps = conn.prepareStatement(expression);
+		
 		ps.executeUpdate();
 		ps.close();
 	}
@@ -269,7 +277,16 @@ public class DatabaseMagager implements DatabaseManagerFacade {
 	
 	@Override
 	public int delUser(final User user) {
-		// TODO Auto-generated method stub
+							// TODO 		check the password.....
+		User tempuser=new User();
+		try {
+			this.getUser(user.getUserName(), tempuser);
+			this.updateD(
+					"DELETE FROM UserTable WHERE username = '"+user.getUserName()+"'", user);
+			return 1;
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
 		return 0;
 	}
 
@@ -282,7 +299,8 @@ public class DatabaseMagager implements DatabaseManagerFacade {
 
 	@Override
 	public int editUser(String userName, final User user) {
-		// TODO Auto-generated method stub
+		this.delUser(user);
+		this.newUser(user);
 		return 1;
 	}
 
@@ -292,10 +310,6 @@ public class DatabaseMagager implements DatabaseManagerFacade {
 		return 0;
 	}
 
-	public ContactData getContactData(final User user, final ContactData contact) {
-		// TODO Auto-generated method stub
-		return null;
-	}
 	@Override
 	public int newLabel(String labelname, String username) {
 		// TODO Auto-generated method stub
