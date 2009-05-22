@@ -20,10 +20,17 @@ public class UserActorFactory extends CommandActorFactory {
 	public CommandActor creator(CommandType commandType, String commandDetail) {
 		// TODO Auto-generated method stub
 		if (commandType == CommandType.NEW_USER) {
+			
 			NewUserActor newUserActor = new NewUserActor();
 			currentUser = new User();
 			UserXML myParserXML=new UserXML();
+			//System.out.println("MMMMMMMMMLLL");
 			myParserXML.userParserXML(currentUser,"<NewUser>","</NewUser>", commandDetail);
+			if(currentUser==null)
+			{
+				System.out.print("LLLLLLLLLL");
+			}
+			//System.out.println("Test1----"+currentUser.getUserName());
 			newUserActor.setNewUser(currentUser);
 			return newUserActor;
 		}
@@ -34,9 +41,9 @@ public class UserActorFactory extends CommandActorFactory {
 			UserXML myParserXML=new UserXML();
 			//System.out.println("LLLLLLLL");
 			myParserXML.userParserXML(currentUser,"<LoginUser>","</LoginUser>", commandDetail);
-			System.out.println("UserName"+currentUser.getUserName());
+		//	System.out.println("UserName"+currentUser.getUserName());
 			loginUserActor.setUser(currentUser);
-			System.out.println("UserName------"+currentUser.getUserName());
+			//System.out.println("UserName------"+currentUser.getUserName());
 			return loginUserActor;
 		}
 		if (commandType == CommandType.DELETE_USER) {
