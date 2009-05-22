@@ -79,15 +79,10 @@ public class SearchContactXML {
 	}
 		public  void SearchContactIterator(ArrayList<Integer>iSNList,PersonalContact contactData,Element element)
 		{
-			if(iSNList.isEmpty())
-			{
-				iSNList=new ArrayList<Integer>();
-			}
 			NodeList nodelist=element.getChildNodes();
 //			System.out.println(element.getNodeName());
 			for(int i=0;i<nodelist.getLength();i++)
-			{
-				
+			{	
 				Node node=nodelist.item(i);
 				String str=node.getNodeName();
 				if(str.equalsIgnoreCase("BlurSearch"))
