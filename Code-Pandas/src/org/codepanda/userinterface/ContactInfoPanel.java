@@ -82,6 +82,7 @@ public class ContactInfoPanel extends JXPanel {
 	private JButton addContactAddressButton;
 	private JButton editContactAddressButton;
 	private JButton deleteContactAddressButton;
+	private PhoneMeField addressField;
 
 	// 联系人工作／学习单位
 	private JComboBox workingDepartmentBox;
@@ -359,7 +360,7 @@ public class ContactInfoPanel extends JXPanel {
 		String temp[] = { "中华人民共和国北京市海淀区清华大学紫荆公寓1#419B" };
 
 		builder.addSeparator("个人信息", cc.xyw(1, 1, 9));
-		builder.addLabel("                     ", cc.xy(11, 1));
+		builder.addLabel("                     				", cc.xy(11, 1));
 		// e-mail
 		emailAddressBox = new JComboBox(temp);
 		addEmailAddressButton = new JButton("添加");
@@ -405,17 +406,45 @@ public class ContactInfoPanel extends JXPanel {
 		// 联系人住址
 		contactAddressBox = new JComboBox();
 		addContactAddressButton = new JButton("添加");
+		addContactAddressButton.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				System.out.println("asdadsad");
+				addressField.setVisible(true);
+				addressField.setState(0);
+				getParentWindow().repaint();
+			}
+		});
 		editContactAddressButton = new JButton("编辑");
+		editContactAddressButton.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				addressField.setVisible(true);
+				addressField.setState(1);
+				getParentWindow().repaint();
+			}
+		});
 		deleteContactAddressButton = new JButton("删除");
+		deleteContactAddressButton.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				contactAddressBox.removeItem(contactAddressBox.getSelectedItem());
+			}
+		});
+		addressField = new PhoneMeField(20);
+		addressField.addActionListener(new FieldActionListener
+				(contactAddressBox, addressField));
 		this.myButtonList.add(addContactAddressButton);
 		this.myButtonList.add(editContactAddressButton);
 		this.myButtonList.add(deleteContactAddressButton);
+		this.myTextFieldList.add(addressField);
 
 		builder.addLabel("家庭住址", cc.xy(1, 5));
 		builder.add(contactAddressBox, cc.xy(3, 5));
 		builder.add(addContactAddressButton, cc.xy(5, 5));
 		builder.add(editContactAddressButton, cc.xy(7, 5));
 		builder.add(deleteContactAddressButton, cc.xy(9, 5));
+		builder.add(addressField, cc.xy(11, 5));
 
 		// 联系人工作／学习单位
 		workingDepartmentBox = new JComboBox();
@@ -505,8 +534,7 @@ public class ContactInfoPanel extends JXPanel {
 		CellConstraints downcc = new CellConstraints();
 
 		downbuilder.addSeparator("标签及分组信息", downcc.xyw(1, 1, 11));
-		downbuilder.addLabel
-		("                        					", downcc.xy(13, 1));
+		downbuilder.addLabel("                  ", downcc.xy(13, 1));
 
 		// 联系人普通标签
 		commonLabelListBox = new JComboBox();
