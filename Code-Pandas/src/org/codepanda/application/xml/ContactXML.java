@@ -23,6 +23,7 @@ public class ContactXML {
 	boolean funcEnd=false;
 	String  funcSubStr=null;
 	String comSubStr=null;
+	ArrayList<RelationLabel> relationLabelList;
 	public void contactParserXML(PersonalContact currentContact,String match1,String match2,String commandDetail)
 	{
 	//从commandDetail中解析出用户信息
@@ -207,18 +208,63 @@ public  void ContactIterator(PersonalContact currentContact,Element element)
 					System.out.println("CommonLabel--"+l+currentContact.getCommonLabelList().get(l));
 				}
 			}
-			//关于由于关系标签的表示方法，所以这里可能有问题
-			//关系标签是内置的，这个实现具体不是很了解
-			else if(str.equalsIgnoreCase("RelationLabel"))
+			else if(str.equalsIgnoreCase("Group"))
 			{
+				String value=node.getTextContent();
+				ArrayList<String> myGroupList=currentContact.getGroupList();
+				if(myGroupList==null)
+				{
+					myGroupList=new ArrayList<String>();
+				}			
+				myGroupList.add(value);
+				currentContact.setUrlList(myGroupList);
+				for(int l=0;l<currentContact.getGroupList().size();l++)
+				{
+					System.out.println("CommonLabel--"+l+currentContact.getGroupList().get(l));
+				}
 			}
-			if(node instanceof Element)
+			//关于由于关系标签的表示方法，所以这里可能有问题
+			//关系标签的相关处理
+			if(node instanceof Element && node.getNodeName().equalsIgnoreCase("RelationLabel"))
+			{
+				ArrayList<RelationLabel>relationLabelList = currentContact.getRelationLabelList();
+				RelationLabelIterator(relationLabelList,(Element)node);
+				currentContact.setRelationLabelList(relationLabelList);
+			}
+			if(node instanceof Element && !node.getNodeName().equalsIgnoreCase("RelationLabel"))
 			{
 			
 				ContactIterator(currentContact,(Element)node);
 			}
 	}
+	
+}
+	public void  RelationLabelIterator(ArrayList<RelationLabel>relationLabelList,Element  element)
+	{
+		NodeList nodelist=element.getChildNodes();
+		RelationLabel relationLabel=new RelationLabel();
+		for(int i=0;i<nodelist.getLength();i++)
+		{
+			
+			Node node=nodelist.item(i);
+			String str=node.getNodeName();
+			if(relationLabelList.isEmpty())
+			{
+				relationLabelList=new  ArrayList<RelationLabel>();
+			}
+			if(str.equalsIgnoreCase("LabelName"))
+			{
+				String value=node.getTextContent();
+				relationLabel.setLabelName(value);
+			}
+			else if(str.equalsIgnoreCase("DestISN"))
+			{
+				String value=node.getTextContent();
+				int DestISN=Integer.parseInt(value);
+				relationLabel.setRelationObjectISN(DestISN);
+			}
+	}
+		relationLabelList.add(relationLabel);
 }
 }
-
 
