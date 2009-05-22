@@ -267,6 +267,8 @@ public class PhoneMeMajorPanel extends JPanel {
 				this.mainFrame).getMainPanel());
 		
 		centerPanel.addTab("Search", new SearchPanel());
+		
+		centerPanel.addTab("Edit User", new PhoneMeEditUserPanel(this.mainFrame));
 	}
 
 }

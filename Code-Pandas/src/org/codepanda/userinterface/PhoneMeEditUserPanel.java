@@ -41,7 +41,7 @@ public class PhoneMeEditUserPanel extends JXPanel {
 	
 	public void setUserData(PhoneMeFrame parentFrame){
 		FormLayout upperlayout = new FormLayout(
-				"pref, 50dlu, pref", // columns
+				"50dlu, pref, 50dlu, pref", // columns
 				"p, 8dlu, p, 5dlu, p"); // rows
 			
 			PanelBuilder builder = new PanelBuilder(upperlayout);
@@ -49,25 +49,26 @@ public class PhoneMeEditUserPanel extends JXPanel {
 
 			CellConstraints cc = new CellConstraints();
 			
-			builder.addLabel("当前用户", cc.xy(1, 1));
+			builder.addLabel("当前用户", cc.xy(2, 1));
 			userNameField = new JTextField();
-			builder.add(userNameField, cc.xy(1, 3));
-			//userNameField.setText
-			//(DataPool.getInstance().get
+			builder.add(userNameField, cc.xy(2, 3));
+			userNameField.setText
+			(DataPool.getInstance().getCurrentUser().getUserName());
 			userNameField.setEditable(false);
 			
-			builder.addLabel("如果需要修改密码，请在此填写", cc.xy(3, 1));
+			builder.addLabel("如果需要修改密码，请在此填写", cc.xy(4, 1));
 			userNewPasswordField = new JPasswordField();
-			builder.add(userNewPasswordField, cc.xy(3, 3));
+			builder.add(userNewPasswordField, cc.xy(4, 3));
 			
 			userNewComfirmPasswordField = new JPasswordField();
-			builder.add(userNewComfirmPasswordField, cc.xy(3, 5));
+			builder.add(userNewComfirmPasswordField, cc.xy(4, 5));
 			
 			setLayout(new BorderLayout());
 			add(builder.getPanel(), "North");
 			
-			//mainPanel = new ContactInfoPanel(parentFrame, currentUser,
-			//		true, ContactInfoPanel.USER_INFO_PANEL);
+			mainPanel = new ContactInfoPanel(parentFrame, 
+					DataPool.getInstance().getCurrentUser(),
+					true, ContactInfoPanel.USER_INFO_PANEL);
 			add(mainPanel, "Center");
 			
 			FormLayout downlayout = new FormLayout(
@@ -85,6 +86,7 @@ public class PhoneMeEditUserPanel extends JXPanel {
 			cancel = new JButton("取消信息修改");
 			downbuilder.add(cancel, downcc.xy(3, 1));
 			
+			add(downbuilder.getPanel(), "South");
 	}
 	
 	public StringBuffer makeEditUserMessageXML(){

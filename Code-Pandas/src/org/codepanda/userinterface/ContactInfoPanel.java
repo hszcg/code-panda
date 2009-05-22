@@ -794,6 +794,13 @@ public class ContactInfoPanel extends JXPanel {
 		// TODO set Contact Information
 
 		if (myContact.getContactName() != null) {
+			/*if(!nameField.isEditable())
+			{
+				nameField.setVisible(true);
+				nameField.setText(myContact.getContactName());
+				nameField.setVisible(false);
+			}*/
+			//else
 			nameField.setText(myContact.getContactName());
 		}
 
