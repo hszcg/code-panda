@@ -48,11 +48,11 @@ public class DataPool {
 
 		User user = new User();
 
-//		user.setUserName("leilei");
-//		user.setPassword("leilei");
+		user.setUserName("sa");
+		user.setPassword("sa");
 		
-		user.setUserName("Sa");
-		user.setPassword("Sa");
+//		user.setUserName("Sa");
+//		user.setPassword("Sa");
 
 		System.out.println("DataPoolInit");
 		PersonalContact contact1 = new PersonalContact();
@@ -82,9 +82,9 @@ public class DataPool {
 //		db.delUser(user);
 		
 //		db.newUser(user);
-//		db.newContact("leilei", contact1);
-//		db.newContact("leilei", contact2);
-//		db.newContact("leilei", contact3);
+//		db.newContact("sa", contact1);
+//		db.newContact("sa", contact2);
+//		db.newContact("sa", contact3);
 //
 //		try {
 //			db.close();
@@ -281,30 +281,30 @@ public class DataPool {
 		return allContactISNMap;
 	}
 
-	public int newCommonLabel(CommonLabel commonLabel) {
-		// 添加普通标签失败，返回-2,成功返回0
-		if (DataPool.getInstance().getDb().newLabel(commonLabel.getLabelName(),
-				getCurrentUser().getUserName()) == -2) {
-			return -2;
-		}
-		return 0;
-	}
-	public int editCommonLabel(CommonLabel commonLabel)
-	{
-		if(DataPool.getInstance().getDb().editCommonlabel(commonLabel.getLabelName())==-2)
-		{
-			return -2;
-		}
-		return 0;
-	}
-	public int deleteCommonLabel(CommonLabel commonLabel)
-	{
-		if(DataPool.getInstance().getDb().delCommonlabel(commonLabel.getLabelName())==-2)
-		{
-			return -2;
-		}
-		return 0;
-	}
+//	public int newCommonLabel(CommonLabel commonLabel) {
+//		// 添加普通标签失败，返回-2,成功返回0
+//		if (DataPool.getInstance().getDb().newLabel(commonLabel.getLabelName(),
+//				getCurrentUser().getUserName()) == -2) {
+//			return -2;
+//		}
+//		return 0;
+//	}
+//	public int editCommonLabel(CommonLabel commonLabel)
+//	{
+//		if(DataPool.getInstance().getDb().editCommonlabel(commonLabel.getLabelName())==-2)
+//		{
+//			return -2;
+//		}
+//		return 0;
+//	}
+//	public int deleteCommonLabel(CommonLabel commonLabel)
+//	{
+//		if(DataPool.getInstance().getDb().delCommonlabel(commonLabel.getLabelName())==-2)
+//		{
+//			return -2;
+//		}
+//		return 0;
+//	}
 
 	public void setDb(DatabaseManagerFacade db) {
 		this.db = db;
