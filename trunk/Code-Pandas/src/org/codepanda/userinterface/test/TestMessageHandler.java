@@ -38,14 +38,38 @@ public class TestMessageHandler implements MessageHandler {
 	}
 	public static void main(String argv[])
 	{
-		String xml="<com>"+
+		String DeleteUserxml="<com>"+
 		"<DeleteUser>"+
 		"<UserName>"+"zcg"+"</UserName>"+
 		"<UserPassword>"+"fdjk"+"</UserPassword>"+
 		"</DeleteUser>"+
 		"</com>";
+		String NewContactxml="<com>"+
+		"<NewContact>"+
+		"<ContactName>"+"zhang xin yu"+"</ContactName>"+
+		"<Telepohone>"+"122489389"+"</Telephone>"+
+		"<Email>"+"jdksd@dfjk"+"</Email>"+
+		"</NewContact>"+
+		"<com>";
+		String NewUserxml="<com>"+
+		"<NewUser>"+
+		"<UserName>"+"xdq"+"</UserName>"+
+		"<UserPassword>"+"fighting"+"</Userpassword>"+
+		"<Telephone>"+"13699252256"+"<Telephone>"+
+		"<Url>"+"www.leilei.org"+"</Url>"+
+		"</NewUser>"+
+		"</com>";
+		
+		String EditUserxml="<com>"+
+		"<EditUser>"+
+		"<UserName>"+"zcg"+"</UserName>"+
+		"<Telephone>"+"478937"+"</Telephone>"+
+		"<Email>"+"zcg@fjd"+"</Email>"+
+		"</EditUser>"+
+		"</com>";
+		
 		TestMessageHandler tmh=new TestMessageHandler();
-		tmh.testFunc(xml);
+		tmh.testFunc(DeleteUserxml);
 		try {
 			DataPool.getInstance().getDb().close();
 		} catch (SQLException e) {
