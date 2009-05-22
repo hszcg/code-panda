@@ -21,6 +21,10 @@ import org.jvnet.substance.api.SubstanceConstants.TabCloseKind;
 import org.jvnet.substance.api.tabbed.*;
 
 public class PhoneMeMajorPanel extends JPanel {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -3421117625162471802L;
 	private PhoneMeFrame mainFrame;
 	private JTabbedPane centerPanel;
 
@@ -241,11 +245,6 @@ public class PhoneMeMajorPanel extends JPanel {
 			return false;
 		}
 
-		// TODO 是否有滚动条
-		// JScrollPane container = new JScrollPane(p,
-		// JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED,
-		// JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
-
 		centerPanel.addTab(tabName, p);
 		centerPanel.setSelectedComponent(p);
 		this.mainFrame.getMyPhoneMeStatusBar().setStatus("Open NewTab");
@@ -261,11 +260,11 @@ public class PhoneMeMajorPanel extends JPanel {
 		ArrayList<Integer> myISNList = new ArrayList<Integer>();
 		myISNList.addAll(DataPool.getInstance().getAllContactISNMap().keySet());
 
-		centerPanel.addTab("Search Result", new SearchResultPanel(
-				this.mainFrame, myISNList));
+		centerPanel.addTab("Search Result", new SearchResult(
+				this.mainFrame, myISNList).getMainPanel());
 
-		centerPanel.addTab("CommonLabel Show", new CommonLabelShowPanel(
-				this.mainFrame));
+		centerPanel.addTab("CommonLabel Show", new CommonLabelShow(
+				this.mainFrame).getMainPanel());
 	}
 
 }

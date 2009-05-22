@@ -8,6 +8,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
@@ -15,7 +16,10 @@ import javax.swing.border.BevelBorder;
 import javax.swing.border.SoftBevelBorder;
 
 import org.codepanda.userinterface.listener.*;
+import org.codepanda.userinterface.xml.MyXMLMaker;
 import org.codepanda.utility.contact.ContactOperations;
+import org.codepanda.utility.data.DataPool;
+import org.codepanda.utility.label.RelationLabel;
 
 import org.jdesktop.swingx.JXDatePicker;
 import org.jdesktop.swingx.JXPanel;
@@ -31,7 +35,6 @@ public class ContactInfoPanel extends JXPanel {
 	public static final int USER_INFO_PANEL = 1;
 	public static final int CONTACT_INFO_PANEL = 2;
 
-	//
 	private PhoneMeFrame parentFrame;
 	private JDialog parentDialog;
 	private ContactOperations myContact;
@@ -120,9 +123,14 @@ public class ContactInfoPanel extends JXPanel {
 	private JButton addRelationLabelListButton;
 	private JButton editRelationLabelListButton;
 	private JButton deleteRelationLabelListButton;
+	private ArrayList<RelationLabel> localRelationLabelList;
+	private HashMap<String, ArrayList<Integer>> relationLabelList;
+	private HashMap<String, ArrayList<String>> relationLabelNameList;
 
 	private JButton confirmButton;
 	private JButton cancelButton;
+
+	// private StringBuffer messageXML;
 
 	/**
 	 * @param parenetFrame
@@ -147,11 +155,9 @@ public class ContactInfoPanel extends JXPanel {
 		this.setMyContact(myContact);
 
 		if (isEditable == false) {
-			// TODO initialize Editable
 			this.setEditable(isEditable);
-		}
-		else{
-			if(panelType == USER_INFO_PANEL){
+		} else {
+			if (panelType == USER_INFO_PANEL) {
 				confirmButton.setVisible(false);
 				cancelButton.setVisible(false);
 			}
@@ -181,10 +187,8 @@ public class ContactInfoPanel extends JXPanel {
 		this.setMyContact(myContact);
 
 		if (isEditable == false) {
-			// TODO initialize Editable
 			this.setEditable(isEditable);
-		}
-		else{
+		} else {
 			confirmButton.setVisible(false);
 			cancelButton.setVisible(false);
 		}
@@ -242,8 +246,8 @@ public class ContactInfoPanel extends JXPanel {
 		phoneNumberField.addActionListener(new FieldActionListener(
 				phoneNumberBox, phoneNumberField));
 
-		ActionListener phoneNumberListener = new ComboBoxButtonListener(
-				phoneNumberBox, phoneNumberField);
+		// ActionListener phoneNumberListener = new
+		// ComboBoxButtonListener(phoneNumberBox, phoneNumberField);
 		// addPhoneNumberButton.addActionListener(phoneNumberListener);
 		// editPhoneNumberButton.addActionListener(phoneNumberListener);
 		// deletePhoneNumberButton.addActionListener(phoneNumberListener);
@@ -283,7 +287,7 @@ public class ContactInfoPanel extends JXPanel {
 		PanelBuilder leftBuilder = new PanelBuilder(upperLeftlayout);
 		leftBuilder.setDefaultDialogBorder();
 
-		CellConstraints leftcc = new CellConstraints();
+		// CellConstraints leftcc = new CellConstraints();
 
 		headImageLabel = new JLabel();// 联系人图片
 		this.setContactHeadImage("/userpic/user1.jpg");
@@ -299,7 +303,6 @@ public class ContactInfoPanel extends JXPanel {
 		deleteHeadImageButton.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				// TODO Auto-generated method stub
 				deleteContactHeadImage();
 			}
 
@@ -458,7 +461,6 @@ public class ContactInfoPanel extends JXPanel {
 		editcontactBirthdayButton.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-				// TODO Auto-generated method stub
 				contactBirthdayPicker.setVisible(!contactBirthdayPicker
 						.isVisible());
 			}
@@ -543,6 +545,7 @@ public class ContactInfoPanel extends JXPanel {
 		addRelationLabelListButton = new JButton("添加");
 		editRelationLabelListButton = new JButton("编辑");
 		deleteRelationLabelListButton = new JButton("删除");
+		localRelationLabelList = new ArrayList<RelationLabel>();
 
 		this.myButtonList.add(addRelationLabelListButton);
 		this.myButtonList.add(editRelationLabelListButton);
@@ -555,7 +558,20 @@ public class ContactInfoPanel extends JXPanel {
 		downbuilder.add(deleteRelationLabelListButton, downcc.xy(9, 7));
 
 		confirmButton = new JButton("确认");
+		confirmButton.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				// TODO
+				// makeMainMessageXML
+			}
+		});
 		cancelButton = new JButton("取消");
+		cancelButton.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				setMyContact(myContact);
+			}
+		});
 		this.myButtonList.add(confirmButton);
 		this.myButtonList.add(cancelButton);
 		downbuilder.add(confirmButton, downcc.xy(15, 9));
@@ -588,7 +604,6 @@ public class ContactInfoPanel extends JXPanel {
 	 */
 	public void setContactBirthday(Date birthday) {
 		this.contactBirthdayField.setText(birthdayDateFormat.format(birthday));
-		// TODO setContactBirthday
 	}
 
 	/**
@@ -614,7 +629,6 @@ public class ContactInfoPanel extends JXPanel {
 			this.setContactHeadImage(ImageIO.read(this.getClass().getResource(
 					url)));
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
@@ -627,7 +641,6 @@ public class ContactInfoPanel extends JXPanel {
 			this.setContactHeadImage(ImageIO.read(this.getClass().getResource(
 					"/icon/Logo Square.png")));
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
@@ -674,12 +687,59 @@ public class ContactInfoPanel extends JXPanel {
 	}
 
 	/**
+	 * @return the XML format user/contact message
+	 */
+	public StringBuffer makeMainMessageXML() {
+		StringBuffer message = new StringBuffer();
+		message.append(MyXMLMaker.addTag("ContactName", nameField.getText()));
+		if (myContact != null)
+			message.append(MyXMLMaker.addTag("ISN", myContact.getISN()
+					.toString()));
+		for (int index = 0; index < phoneNumberBox.getItemCount(); index++) {
+			message.append(MyXMLMaker.addTag("TelePhone", phoneNumberBox
+					.getItemAt(index).toString()));
+		}
+		for (int index = 0; index < emailAddressBox.getItemCount(); index++) {
+			message.append(MyXMLMaker.addTag("Email", emailAddressBox
+					.getItemAt(index).toString()));
+		}
+		for (int index = 0; index < contactAddressBox.getItemCount(); index++) {
+			message.append(MyXMLMaker.addTag("Address", contactAddressBox
+					.getItemAt(index).toString()));
+		}
+		for (int index = 0; index < workingDepartmentBox.getItemCount(); index++) {
+			message.append(MyXMLMaker.addTag("Office", workingDepartmentBox
+					.getItemAt(index).toString()));
+		}
+		for (int index = 0; index < imContactInformationBox.getItemCount(); index++) {
+			message.append(MyXMLMaker.addTag("IMContact",
+					imContactInformationBox.getItemAt(index).toString()));
+		}
+		message.append(MyXMLMaker.addTag("Birthday", contactBirthdayField
+				.getText()));
+		for (int index = 0; index < urlListBox.getItemCount(); index++) {
+			message.append(MyXMLMaker.addTag("URL", urlListBox.getItemAt(index)
+					.toString()));
+		}
+		for (int index = 0; index < commonLabelListBox.getItemCount(); index++) {
+			message.append(MyXMLMaker.addTag("CommonLabel", commonLabelListBox
+					.getItemAt(index).toString()));
+		}
+		for (int index = 0; index < groupListBox.getItemCount(); index++) {
+			message.append(MyXMLMaker.addTag("Group", groupListBox.getItemAt(
+					index).toString()));
+		}
+		return message;
+	}
+
+	/**
 	 * @param myContact
 	 *            the myContact to set
 	 */
 	public void setMyContact(ContactOperations myContact) {
-		if (this.myContact == myContact || myContact == null)
+		if (myContact == null)
 			return;
+
 		ArrayList<String> temp = new ArrayList<String>();
 		temp.add("asd");
 		temp.add("asdasd");
@@ -687,20 +747,63 @@ public class ContactInfoPanel extends JXPanel {
 		phoneNumberBox.setModel(new DefaultComboBoxModel((String[]) (temp
 				.toArray(new String[0]))));
 
+		// TODO set Contact Information
+
 		if (myContact.getContactName() != null) {
 			nameField.setText(myContact.getContactName());
 		}
 
 		if (myContact.getPhoneNumberList() != null) {
 			phoneNumberBox.setModel(new DefaultComboBoxModel(
-					(String[]) ((myContact.getPhoneNumberList()))
+					(String[]) (myContact.getPhoneNumberList())
 							.toArray(new String[0])));
 		}
 
 		if (myContact.getGroupList() != null) {
 			groupListBox.setModel(new DefaultComboBoxModel(
-					(String[]) ((myContact.getGroupList()))
+					(String[]) (myContact.getGroupList())
 							.toArray(new String[0])));
+		}
+
+		localRelationLabelList = myContact.getRelationLabelList();
+		HashMap<Integer, ContactOperations> std = DataPool.getInstance()
+				.getAllContactISNMap();
+
+		if (localRelationLabelList != null) {
+			// TODO init relationLabelList / relationLabelNameList
+			relationLabelList = new HashMap<String, ArrayList<Integer>>();
+			relationLabelNameList = new HashMap<String, ArrayList<String>>();
+
+			for (RelationLabel t : localRelationLabelList) {
+				String name = t.getLabelName();
+				int iSN = t.getRelationObjectISN();
+				if (relationLabelList.containsKey(name)) {
+					relationLabelList.get(name).add(iSN);
+					relationLabelNameList.get(name).add(
+							std.get(iSN).getContactName());
+				} else {
+					ArrayList<Integer> toBeAddISN = new ArrayList<Integer>();
+					toBeAddISN.add(iSN);
+					relationLabelList.put(name, toBeAddISN);
+
+					ArrayList<String> toBeAddName = new ArrayList<String>();
+					toBeAddName.add(std.get(iSN).getContactName());
+					relationLabelNameList.put(name, toBeAddName);
+				}
+			}
+
+			if (relationLabelList.size() != 0
+					&& relationLabelNameList.size() != 0) {
+				// TODO init relationLabelListBox / objectContactListBox;
+				relationLabelListBox.setModel(new DefaultComboBoxModel(
+						(String[]) (relationLabelList.keySet())
+								.toArray(new String[0])));
+
+				objectContactListBox.setModel(new DefaultComboBoxModel(
+						(String[]) (relationLabelNameList
+								.get(relationLabelListBox.getItemAt(0)))
+								.toArray(new String[0])));
+			}
 		}
 
 		this.myContact = myContact;

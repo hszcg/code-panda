@@ -39,7 +39,7 @@ public class MyXMLMaker {
 	 *            value
 	 * @return String <tag>value</tag>
 	 */
-	private static String addTag(String tag, String value) {
+	public static String addTag(String tag, String value) {
 		String result = '<' + tag + '>' + value + "</" + tag + '>';
 		return result;
 	}

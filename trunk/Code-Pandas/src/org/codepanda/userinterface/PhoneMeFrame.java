@@ -55,7 +55,7 @@ public class PhoneMeFrame extends JRibbonFrame {
 	 */
 	public void configureStatusBar() {
 		this.myPhoneMeStatusBar = new PhoneMeStatusBar(this);
-		add(myPhoneMeStatusBar, BorderLayout.SOUTH);
+		this.getContentPane().add(myPhoneMeStatusBar, BorderLayout.SOUTH);
 	}
 
 	/**
@@ -64,10 +64,10 @@ public class PhoneMeFrame extends JRibbonFrame {
 	public void configureMajorPanel() {
 
 		myPhoneMeMajorPanel = new PhoneMeMajorPanel(this);
-		this.add(myPhoneMeMajorPanel, BorderLayout.CENTER);
+		this.getContentPane().add(myPhoneMeMajorPanel, BorderLayout.CENTER);
 
 		myPhoneMeTaskPane = new PhoneMeTaskPane(this);
-		add(myPhoneMeTaskPane, BorderLayout.WEST);
+		this.getContentPane().add(myPhoneMeTaskPane, BorderLayout.WEST);
 	}
 
 	/**
