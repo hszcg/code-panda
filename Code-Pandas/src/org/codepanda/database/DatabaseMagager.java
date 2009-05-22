@@ -319,7 +319,6 @@ public class DatabaseMagager implements DatabaseManagerFacade {
 
 	@Override
 	public int editContact(final User user, final PersonalContact contact){
-		// TODO Auto-generated method stub
 		this.deleteContact(user, contact);
 		this.newContact(user.getUserName(), contact);
 		return 0;
