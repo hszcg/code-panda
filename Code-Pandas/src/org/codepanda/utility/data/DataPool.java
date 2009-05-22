@@ -3,6 +3,7 @@
  */
 package org.codepanda.utility.data;
 
+import java.io.File;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -29,6 +30,13 @@ public class DataPool {
 	private int currentLowBound = Integer.MIN_VALUE;
 	
 	private DataPool() {
+		
+		// my test of file lock
+		File f=new File("D:/javawork/four pandas/test.script");
+		f.setReadOnly();	
+		// end of my file lock
+		
+		
 		// TODO Initialize all data except for dataPoolInstance
 		setCurrentUser(new User());
 		try {
