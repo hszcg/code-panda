@@ -1,7 +1,10 @@
 package org.codepanda.userinterface;
 
 import java.awt.*;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.io.IOException;
+import java.sql.SQLException;
 import java.util.*;
 
 import javax.imageio.ImageIO;
@@ -81,7 +84,12 @@ public class PhoneMeFrame extends JRibbonFrame {
 		this.setLocation(r.x, r.y);
 		this.setVisible(false);
 		this.setResizable(true);
-		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		this.addWindowListener(new WindowAdapter() {
+			public void windowClosing(WindowEvent e) {
+				System.out.println("PhoneMeFrame Closed.");
+				exitProgram();
+			}
+		});
 	}
 
 	/**
@@ -196,5 +204,17 @@ public class PhoneMeFrame extends JRibbonFrame {
 	 */
 	public final PhoneMeStatusBar getMyPhoneMeStatusBar() {
 		return myPhoneMeStatusBar;
+	}
+	
+	public void exitProgram(){
+		try {
+			DataPool.getInstance().getDb().close();
+			System.out.println("Normal Exit!");
+			System.exit(0);
+		} catch (SQLException e) {
+			e.printStackTrace();
+			System.out.println("Failed Exit!");
+			System.exit(-1);
+		}
 	}
 }

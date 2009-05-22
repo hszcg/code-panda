@@ -31,7 +31,7 @@ public class PhoneMeLoginDialog {
 		this.myLoginDialog.addWindowListener(new WindowAdapter() {
 			public void windowClosing(WindowEvent e) {
 				System.out.println("PhoneMeLoginDialog Closed.");
-				System.exit(0);
+				parentFrame.exitProgram();
 			}
 		});
 		
