@@ -20,6 +20,7 @@ import javax.swing.border.BevelBorder;
 import javax.swing.border.SoftBevelBorder;
 
 import org.codepanda.userinterface.listener.PhoneMeCreateNewUserDialogListener;
+import org.codepanda.userinterface.xml.MyXMLMaker;
 import org.codepanda.utility.user.User;
 
 public class PhoneMeCreateNewUserDialog {
@@ -151,6 +152,16 @@ public class PhoneMeCreateNewUserDialog {
 		this.newUserDialog.setResizable(false);
 		this.newUserDialog.setVisible(false);
 		// **************************************************
+	}
+	
+	public StringBuffer makeUserOnlyMessageXML(){
+		StringBuffer message = new StringBuffer();
+		message.append(MyXMLMaker.addTag("UserName",
+				userNameField.getText()));
+		message.append(MyXMLMaker.addTag("UserPassword",
+				String.valueOf(this.userPasswordField
+						.getPassword())));
+		return message;
 	}
 
 	/**
