@@ -30,8 +30,8 @@ public class DataPool {
 		// TODO Initialize all data except for dataPoolInstance
 		currentUser = new User();
 		try {
-			db = new DatabaseMagager("test");
-			db.open("test");
+			setDb(new DatabaseMagager("test"));
+			getDb().open("test");
 		} catch (Exception e1) {
 			e1.printStackTrace();
 		}
@@ -48,8 +48,11 @@ public class DataPool {
 
 		User user = new User();
 
-		user.setUserName("leilei");
-		user.setPassword("leilei");
+//		user.setUserName("leilei");
+//		user.setPassword("leilei");
+		
+		user.setUserName("Sa");
+		user.setPassword("Sa");
 
 		System.out.println("DataPoolInit");
 		PersonalContact contact1 = new PersonalContact();
@@ -75,6 +78,8 @@ public class DataPool {
 		contact1.setISN(1);
 		contact2.setISN(2);
 		contact3.setISN(3);
+		
+//		db.delUser(user);
 		
 //		db.newUser(user);
 //		db.newContact("leilei", contact1);
@@ -120,9 +125,9 @@ public class DataPool {
 		// 最后Utility更新DataPool并返回结果即可
 		System.out.println(newUser.getUserName());
 		currentUser = newUser;
-		if (DataPool.getInstance().db.checkExistUser(currentUser.getUserName()) != 1) {
+		if (DataPool.getInstance().getDb().checkExistUser(currentUser.getUserName()) != 1) {
 			System.out.println("newUser-begin");
-			DataPool.getInstance().db.newUser(newUser);
+			DataPool.getInstance().getDb().newUser(newUser);
 			//System.out.println("createNewUser"+newUser.getUserName());
 			System.out.println("newUser-end");
 		} else {
@@ -143,21 +148,21 @@ public class DataPool {
 
 		// TODO 用常量来作为返回类型
 
-		if (DataPool.getInstance().db.checkExistUser(userName) == 0) {
+		if (DataPool.getInstance().getDb().checkExistUser(userName) == 0) {
 			System.out.println("Login User Name Not Exist");
 			return -1;
 		}
 
-		if (DataPool.getInstance().db.loginUser(userName, password) == 0) {
+		if (DataPool.getInstance().getDb().loginUser(userName, password) == 0) {
 			System.out.println("Login User Password Invaild");
 			return -2;
 		}
 
 		// TODO 把当前用户的联系人读入DataPool
-		DataPool.getInstance().db.getUser(userName, currentUser);
+		DataPool.getInstance().getDb().getUser(userName, currentUser);
 
 		ArrayList<ContactOperations> allContactList = new ArrayList<ContactOperations>();
-		this.db.getContactData(userName, allContactList);
+		this.getDb().getContactData(userName, allContactList);
 
 		for (ContactOperations t : allContactList) {
 			Integer iSN = t.getISN();
@@ -201,7 +206,7 @@ public class DataPool {
 	public int deleteUser(User user) {
 		// TODO 删除用户时假定这个用户名已经存在，需要验证密码
 		// 检查密码是否正确，return -2;
-		if (DataPool.getInstance().db.delUser(user) == 0) {
+		if (DataPool.getInstance().getDb().delUser(user) == 0) {
 			System.out.println("Wrong  User Password ");
 			return -2;
 		}
@@ -211,7 +216,7 @@ public class DataPool {
 
 	public int editUser(String userName, User user) {
 		// 修改成功
-		if (DataPool.getInstance().db.editUser(userName, user) == -1) {
+		if (DataPool.getInstance().getDb().editUser(userName, user) == -1) {
 			System.out.println("Edit User Failed!!!!");
 			return -2;
 		}
@@ -220,7 +225,7 @@ public class DataPool {
 
 	public int newContact(PersonalContact contactData) {
 		// 如果失败，返回-2,成功返回0
-		if (DataPool.getInstance().db.newContact(currentUser.getUserName(),
+		if (DataPool.getInstance().getDb().newContact(currentUser.getUserName(),
 				contactData) == -2) {
 			return -2;
 		}
@@ -229,7 +234,7 @@ public class DataPool {
 
 	public int editContact(PersonalContact contactData) {
 		// 如果失败，返回-2，成功返回0
-		if (DataPool.getInstance().db.editContact(currentUser, contactData) == -2) {
+		if (DataPool.getInstance().getDb().editContact(currentUser, contactData) == -2) {
 			return -2;
 		}
 		return 0;
@@ -237,7 +242,7 @@ public class DataPool {
 
 	public int deleteContact(PersonalContact contactData) {
 		// 如果失败，返回-2，成功返回0
-		if (DataPool.getInstance().db.deleteContact(currentUser, contactData) == -2) {
+		if (DataPool.getInstance().getDb().deleteContact(currentUser, contactData) == -2) {
 			return -2;
 		}
 		return 0;
@@ -273,7 +278,7 @@ public class DataPool {
 
 	public int newCommonLabel(CommonLabel commonLabel) {
 		// 添加普通标签失败，返回-2,成功返回0
-		if (DataPool.getInstance().db.newLabel(commonLabel.getLabelName(),
+		if (DataPool.getInstance().getDb().newLabel(commonLabel.getLabelName(),
 				currentUser.getUserName()) == -2) {
 			return -2;
 		}
@@ -281,7 +286,7 @@ public class DataPool {
 	}
 	public int editCommonLabel(CommonLabel commonLabel)
 	{
-		if(DataPool.getInstance().db.editCommonlabel(commonLabel.getLabelName())==-2)
+		if(DataPool.getInstance().getDb().editCommonlabel(commonLabel.getLabelName())==-2)
 		{
 			return -2;
 		}
@@ -289,10 +294,18 @@ public class DataPool {
 	}
 	public int deleteCommonLabel(CommonLabel commonLabel)
 	{
-		if(DataPool.getInstance().db.delCommonlabel(commonLabel.getLabelName())==-2)
+		if(DataPool.getInstance().getDb().delCommonlabel(commonLabel.getLabelName())==-2)
 		{
 			return -2;
 		}
 		return 0;
+	}
+
+	public void setDb(DatabaseManagerFacade db) {
+		this.db = db;
+	}
+
+	public DatabaseManagerFacade getDb() {
+		return db;
 	}
 }
