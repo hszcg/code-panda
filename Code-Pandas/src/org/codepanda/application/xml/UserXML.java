@@ -32,7 +32,7 @@ public class UserXML {
 	//从commandDetail中解析出用户信息
 	try
 	{
-		System.out.println("MMMMMMMMMMM");
+		//System.out.println("MMMMMMMMMMM");
 		if(commandDetail.contains("<com>")&&commandDetail.contains("</com"))
 		{
 			comStart=true;
@@ -110,6 +110,11 @@ public  void UserIterator(User currentUser,Element element)
 			{
 				System.out.println("Please input UserPassword!!!");
 			}
+		}
+		else if(str.equalsIgnoreCase("ContactName"))
+		{
+			String value=node.getTextContent();
+			currentUser.setContactName(value);
 		}
 		else if(str.equalsIgnoreCase("Telephone"))
 		{
