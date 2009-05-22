@@ -28,7 +28,7 @@ import com.google.common.collect.HashMultimap;
  */
 public class DataPool {
 	private int currentLowBound = Integer.MIN_VALUE;
-	
+	ArrayList<ContactOperations> allContactList;
 	private DataPool() {
 		
 		// my test of file lock
@@ -171,7 +171,7 @@ public class DataPool {
 		// TODO 把当前用户的联系人读入DataPool
 		DataPool.getInstance().getDb().getUser(userName, getCurrentUser());
 
-		ArrayList<ContactOperations> allContactList = new ArrayList<ContactOperations>();
+		 allContactList= new ArrayList<ContactOperations>();
 		this.getDb().getContactData(userName, allContactList);
 
 		for (ContactOperations t : allContactList) {
@@ -413,5 +413,15 @@ public class DataPool {
 
 	public User getCurrentUser() {
 		return currentUser;
+	}
+	public ArrayList<ContactOperations> getAllContactList()
+	{
+		return this.allContactList;
+	}
+	public Object searchContact()
+	{
+		ArrayList<Integer> ISNList=new ArrayList<Integer>();
+		
+		return ISNList;
 	}
 }
