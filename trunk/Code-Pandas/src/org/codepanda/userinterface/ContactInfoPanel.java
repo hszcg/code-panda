@@ -83,6 +83,7 @@ public class ContactInfoPanel extends JXPanel {
 	private JButton editContactAddressButton;
 	private JButton deleteContactAddressButton;
 	private PhoneMeField addressField;
+	private PhoneMeField workField;
 
 	// 联系人工作／学习单位
 	private JComboBox workingDepartmentBox;
@@ -409,7 +410,6 @@ public class ContactInfoPanel extends JXPanel {
 		addContactAddressButton.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-				System.out.println("asdadsad");
 				addressField.setVisible(true);
 				addressField.setState(0);
 				getParentWindow().repaint();
@@ -449,18 +449,46 @@ public class ContactInfoPanel extends JXPanel {
 		// 联系人工作／学习单位
 		workingDepartmentBox = new JComboBox();
 		addWorkingDepartmentButton = new JButton("添加");
+		addWorkingDepartmentButton.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				workField.setVisible(true);
+				workField.setState(0);
+				getParentWindow().repaint();
+			}
+		});
 		editWorkingDepartmentButton = new JButton("编辑");
+		editWorkingDepartmentButton.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				workField.setVisible(true);
+				workField.setState(1);
+				getParentWindow().repaint();
+			}
+		});
 		deleteWorkingDepartmentButton = new JButton("删除");
+		deleteWorkingDepartmentButton.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				workingDepartmentBox.removeItem
+				(workingDepartmentBox.getSelectedItem());
+			}
+		});
+		workField = new PhoneMeField(20);
+		workField.addActionListener(new FieldActionListener
+				(workingDepartmentBox, workField));
 
 		this.myButtonList.add(addWorkingDepartmentButton);
 		this.myButtonList.add(editWorkingDepartmentButton);
 		this.myButtonList.add(deleteWorkingDepartmentButton);
+		this.myTextFieldList.add(workField);
 
 		builder.addLabel("工作单位", cc.xy(1, 7));
 		builder.add(workingDepartmentBox, cc.xy(3, 7));
 		builder.add(addWorkingDepartmentButton, cc.xy(5, 7));
 		builder.add(editWorkingDepartmentButton, cc.xy(7, 7));
 		builder.add(deleteWorkingDepartmentButton, cc.xy(9, 7));
+		builder.add(workField, cc.xy(11, 7));
 
 		// 联系人即时联系方式
 		imContactInformationBox = new JComboBox();
@@ -480,7 +508,7 @@ public class ContactInfoPanel extends JXPanel {
 
 		// 联系人生日部分
 		contactBirthdayField = new JTextField(30);
-		contactBirthdayField.setVisible(false);
+		contactBirthdayField.setEditable(false);
 		contactBirthdayPicker = new JXDatePicker(this.getContactBirthday());
 		contactBirthdayPicker.setFormats(birthdayDateFormat);
 		contactBirthdayPicker.setVisible(false);
