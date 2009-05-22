@@ -12,6 +12,7 @@ import javax.swing.JRadioButton;
 import javax.swing.JTextField;
 
 import org.codepanda.userinterface.xml.MyXMLMaker;
+import org.codepanda.utility.data.PhoneMeConstants;
 import org.jdesktop.swingx.JXDatePicker;
 
 import com.jgoodies.forms.builder.PanelBuilder;
@@ -93,7 +94,9 @@ public class SearchPanel extends JPanel{
 		builder.add(groupBox, cc.xy(9, 11));
 		
 		builder.addLabel("πÿœµ±Í«©", cc.xy(3, 13));
-		relationBox = new JComboBox();
+		relationBox = new JComboBox((String[])PhoneMeConstants.
+				getInstance().getAllRelationLabelName().
+				toArray(new String[0]));
 		contactBox = new JComboBox();
 		builder.add(relationBox, cc.xy(5, 13));
 		builder.add(contactBox, cc.xy(7, 13));
