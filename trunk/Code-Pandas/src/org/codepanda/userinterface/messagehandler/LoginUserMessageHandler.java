@@ -12,7 +12,7 @@ public class LoginUserMessageHandler implements MessageHandler {
 	@Override
 	
 	public Object executeCommand(CommandVisitor commandVistor) {
-		int result = commandVistor.getCommandActor().executeCommand();
+		int result = (Integer) commandVistor.getCommandActor().executeCommand();
 		
 		if(result == LoginUserActor.USERNAME_NOT_EXIST)
 			return LoginResultType.USERNAME_NOT_EXIST;

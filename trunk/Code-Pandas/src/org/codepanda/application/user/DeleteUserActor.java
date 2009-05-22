@@ -13,7 +13,7 @@ public class DeleteUserActor implements CommandActor {
 	public static final int INVAILD_PASSWORD = -2;
 	public static final int SUCCEED = 0;
 	private User user = null;
-	public int executeCommand() {
+	public Object executeCommand() {
 		// TODO Auto-generated method stub
 		if(getUser()==null)
 		{

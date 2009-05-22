@@ -27,6 +27,7 @@ public class PhoneMeEditUserPanel extends JXPanel {
 	private JButton cancel;
 	
 	public PhoneMeEditUserPanel(PhoneMeFrame parentFrame){
+		super();
 		localParentFrame = parentFrame;
 		
 		setUserData(parentFrame);
@@ -75,7 +76,7 @@ public class PhoneMeEditUserPanel extends JXPanel {
 					"pref, 50dlu, pref", // columns
 					"p"); // rows
 			
-			PanelBuilder downbuilder = new PanelBuilder(upperlayout);
+			PanelBuilder downbuilder = new PanelBuilder(downlayout);
 			downbuilder.setDefaultDialogBorder();
 
 			CellConstraints downcc = new CellConstraints();

@@ -210,7 +210,7 @@ public class PhoneMeMajorPanel extends JPanel {
 	 * @param p
 	 * @return
 	 */
-	public boolean addNewTab(String tabName, JPanel p) {
+	public boolean addNewTab(String tabName, Component p) {
 		if (p instanceof ContactInfoPanel) {
 			ContactOperations newContact = ((ContactInfoPanel) p)
 					.getMyContact();
@@ -260,15 +260,19 @@ public class PhoneMeMajorPanel extends JPanel {
 		ArrayList<Integer> myISNList = new ArrayList<Integer>();
 		myISNList.addAll(DataPool.getInstance().getAllContactISNMap().keySet());
 
-		centerPanel.addTab("Search Result", new SearchResult(
-				this.mainFrame, myISNList).getMainPanel());
+		centerPanel.addTab("Search Result", new SearchResult(this.mainFrame,
+				myISNList).getMainPanel());
 
 		centerPanel.addTab("CommonLabel Show", new CommonLabelShow(
 				this.mainFrame).getMainPanel());
-		
-		centerPanel.addTab("Search", new SearchPanel());
-		
-		centerPanel.addTab("Edit User", new PhoneMeEditUserPanel(this.mainFrame));
+
+		centerPanel.addTab("Search", new SearchPanel(this.mainFrame));
+
+		// PhoneMeEditUserPanel p = new PhoneMeEditUserPanel(this.mainFrame);
+		// Rectangle r = GraphicsEnvironment.getLocalGraphicsEnvironment()
+		// .getMaximumWindowBounds();
+		// p.setPreferredSize(new Dimension(r.width, r.height));
+		// centerPanel.addTab("Edit User", new JScrollPane(p));
 	}
 
 }

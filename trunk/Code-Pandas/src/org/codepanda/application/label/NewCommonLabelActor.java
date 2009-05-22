@@ -10,7 +10,7 @@ public class NewCommonLabelActor implements CommandActor {
 	public static final int SUCCEED = 0;
 	private CommonLabel commonLabel;
 	@Override
-	public int executeCommand() {
+	public Object executeCommand() {
 		// TODO Auto-generated method stub
 		if(this.getLabel()==null)
 		{

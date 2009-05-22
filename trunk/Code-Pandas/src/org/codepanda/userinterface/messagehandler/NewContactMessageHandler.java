@@ -7,9 +7,7 @@ public class NewContactMessageHandler implements MessageHandler {
 	@Override
 	public Object executeCommand(CommandVisitor commandVistor) {
 		// TODO Auto-generated method stub
-		int iSN = commandVistor.getCommandActor().executeCommand();
-		
-		return iSN;
+		return commandVistor.getCommandActor().executeCommand();
 	}
 
 }
