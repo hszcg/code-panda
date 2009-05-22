@@ -256,12 +256,14 @@ public  void ContactIterator(PersonalContact currentContact,Element element)
 			{
 				String value=node.getTextContent();
 				relationLabel.setLabelName(value);
+				System.out.println("LabelName---"+value);
 			}
 			else if(str.equalsIgnoreCase("DestISN"))
 			{
 				String value=node.getTextContent();
 				int DestISN=Integer.parseInt(value);
 				relationLabel.setRelationObjectISN(DestISN);
+				System.out.println("DestISN---"+value);
 			}
 	}
 		relationLabelList.add(relationLabel);
