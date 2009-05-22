@@ -139,6 +139,7 @@ public class DatabaseMagager implements DatabaseManagerFacade {
 	public int newContact(String userName, final PersonalContact contact) {
 		this.updateC("INSERT INTO contactList(username,contact) VALUES(?,?)",
 				userName, contact);
+		System.out.println("ISN_______"+contact.getISN());
 		return 1;
 	}
 
