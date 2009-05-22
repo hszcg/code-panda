@@ -480,6 +480,7 @@ public class ContactInfoPanel extends JXPanel {
 
 		// 联系人生日部分
 		contactBirthdayField = new JTextField(30);
+		contactBirthdayField.setVisible(false);
 		contactBirthdayPicker = new JXDatePicker(this.getContactBirthday());
 		contactBirthdayPicker.setFormats(birthdayDateFormat);
 		contactBirthdayPicker.setVisible(false);
