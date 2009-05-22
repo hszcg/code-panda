@@ -19,9 +19,7 @@ import org.codepanda.application.CommandType;
 import org.codepanda.application.CommandVisitor;
 import org.codepanda.userinterface.listener.*;
 import org.codepanda.userinterface.messagehandler.EditContactMessageHandler;
-import org.codepanda.userinterface.messagehandler.LoginUserMessageHandler;
 import org.codepanda.userinterface.messagehandler.NewContactMessageHandler;
-import org.codepanda.userinterface.utility.LoginResultType;
 import org.codepanda.userinterface.xml.MyXMLMaker;
 import org.codepanda.utility.contact.ContactOperations;
 import org.codepanda.utility.data.DataPool;
@@ -567,7 +565,6 @@ public class ContactInfoPanel extends JXPanel {
 		confirmButton.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-				// TODO
 				// makeMainMessageXML
 				if (myContact == null) {
 					// 新建联系人
@@ -577,7 +574,6 @@ public class ContactInfoPanel extends JXPanel {
 
 					System.out.println("NEW_CONTACT\n" + xml);
 
-					// TODO Login
 					CommandVisitor newContactCommandVisitor = new CommandVisitor(
 							CommandType.NEW_CONTACT, xml);
 					NewContactMessageHandler newContactMessageHandler = new NewContactMessageHandler();
@@ -596,7 +592,6 @@ public class ContactInfoPanel extends JXPanel {
 
 					System.out.println("EDIT_CONTACT\n" + xml);
 
-					// TODO Login
 					CommandVisitor editContactCommandVisitor = new CommandVisitor(
 							CommandType.EDIT_CONTACT, xml);
 					EditContactMessageHandler editContactMessageHandler = new EditContactMessageHandler();
@@ -791,7 +786,7 @@ public class ContactInfoPanel extends JXPanel {
 		phoneNumberBox.setModel(new DefaultComboBoxModel((String[]) (temp
 				.toArray(new String[0]))));
 
-		// TODO set Contact Information
+		// set Contact Information
 
 		if (myContact.getContactName() != null) {
 			/*if(!nameField.isEditable())
@@ -821,7 +816,7 @@ public class ContactInfoPanel extends JXPanel {
 				.getAllContactISNMap();
 
 		if (localRelationLabelList != null) {
-			// TODO init relationLabelList / relationLabelNameList
+			// init relationLabelList / relationLabelNameList
 			relationLabelList = new HashMap<String, ArrayList<Integer>>();
 			relationLabelNameList = new HashMap<String, ArrayList<String>>();
 
@@ -845,7 +840,7 @@ public class ContactInfoPanel extends JXPanel {
 
 			if (relationLabelList.size() != 0
 					&& relationLabelNameList.size() != 0) {
-				// TODO init relationLabelListBox / objectContactListBox;
+				// init relationLabelListBox / objectContactListBox;
 				relationLabelListBox.setModel(new DefaultComboBoxModel(
 						(String[]) (relationLabelList.keySet())
 								.toArray(new String[0])));

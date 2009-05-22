@@ -9,7 +9,7 @@ public class NewUserActor implements CommandActor {
 	public static final int NULL_USER = -1;
 	public static final int USER_EXIST = -2;
 	public static final int SUCCEED = 0;
-	public int executeCommand() {
+	public Object executeCommand() {
 		// TODO Auto-generated method stub
 		if( this.newUser == null ) {
 			System.out.println("this.newUser == null");

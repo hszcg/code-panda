@@ -10,7 +10,7 @@ public class EditContactActor implements CommandActor {
 	public static final int FAILED= -2;
 	public static final int SUCCEED = 0;
 	@Override
-	public int executeCommand() {
+	public Object executeCommand() {
 		// TODO Auto-generated method stub
 		if(this.getContact()==null)
 		{

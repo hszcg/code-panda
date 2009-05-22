@@ -13,7 +13,7 @@ public class LoginUserActor implements CommandActor {
 	private User user = null;
 
 	@Override
-	public int executeCommand() {
+	public Object executeCommand() {
 		if (this.user == null) {
 			System.out.println("User Null!!!");
 			return LoginUserActor.NULL_USER;

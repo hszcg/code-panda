@@ -2,11 +2,13 @@ package org.codepanda.userinterface;
 
 import java.awt.Component;
 import java.awt.Dimension;
+import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
 
 import javax.imageio.ImageIO;
+import javax.swing.JDialog;
 import javax.swing.JOptionPane;
 
 import org.jvnet.flamingo.common.JCommandButton;
@@ -92,6 +94,15 @@ public class PhoneMeRibbon {
 		editUserButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				System.out.println("修改用户信息");
+				JDialog test = new JDialog(mainFrame);
+				test.add(new PhoneMeEditUserPanel(mainFrame));
+				test.pack();
+				Dimension screenSize = Toolkit.getDefaultToolkit()
+						.getScreenSize();
+				test.setLocation((screenSize.width - test.getWidth()) / 2,
+						(screenSize.height - test.getHeight()) / 2);
+				test.setResizable(false);
+				test.setVisible(true);
 			}
 		});
 

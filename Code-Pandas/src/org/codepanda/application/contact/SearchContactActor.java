@@ -5,7 +5,7 @@ import org.codepanda.application.CommandActor;
 public class SearchContactActor implements CommandActor {
 	
 	@Override
-	public int executeCommand() {
+	public Object executeCommand() {
 		// TODO Auto-generated method stub
 		return 0;
 	}

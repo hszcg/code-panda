@@ -29,7 +29,7 @@ public class TestMessageHandler implements MessageHandler {
 	}
 	@Override
 	public Object executeCommand(CommandVisitor commandVistor) {
-		int result = commandVistor.getCommandActor().executeCommand();
+		int result = (Integer) commandVistor.getCommandActor().executeCommand();
 		
 		if(result == DeleteUserActor.NULL_USER)
 			return DeleteUserResultType.NULL_USER;

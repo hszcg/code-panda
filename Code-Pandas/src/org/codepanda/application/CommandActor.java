@@ -12,6 +12,6 @@ public interface CommandActor {
 	 * @return
 	 * 
 	 */
-	public int executeCommand();
+	public Object executeCommand();
 
 }
