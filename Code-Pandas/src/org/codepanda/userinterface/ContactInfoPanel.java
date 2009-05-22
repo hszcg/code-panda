@@ -30,7 +30,7 @@ public class ContactInfoPanel extends JXPanel {
 	private static final long serialVersionUID = 7578999178358931661L;
 	public static final int USER_INFO_PANEL = 1;
 	public static final int CONTACT_INFO_PANEL = 2;
-	
+
 	//
 	private PhoneMeFrame parentFrame;
 	private JDialog parentDialog;
@@ -120,7 +120,7 @@ public class ContactInfoPanel extends JXPanel {
 	private JButton addRelationLabelListButton;
 	private JButton editRelationLabelListButton;
 	private JButton deleteRelationLabelListButton;
-	
+
 	private JButton confirmButton;
 	private JButton cancelButton;
 
@@ -143,7 +143,7 @@ public class ContactInfoPanel extends JXPanel {
 		add(upperPanel, "North");
 		setMainPanel();
 		add(mainPanel, "Center");
-		
+
 		this.setMyContact(myContact);
 
 		if (isEditable == false) {
@@ -165,12 +165,12 @@ public class ContactInfoPanel extends JXPanel {
 		this.myContact = null;
 		this.isEditable = true;
 		this.myButtonList = new ArrayList<JButton>();
+		this.myTextFieldList = new ArrayList<JTextField>();
 		setUpperPanel();
 		setLayout(new BorderLayout());
 		add(upperPanel, "North");
 		setMainPanel();
 		add(mainPanel, "Center");
-
 
 		this.setMyContact(myContact);
 
@@ -229,24 +229,24 @@ public class ContactInfoPanel extends JXPanel {
 			}
 		});
 		phoneNumberField = new PhoneMeField(20);
-		phoneNumberField.addActionListener
-		(new FieldActionListener(phoneNumberBox, phoneNumberField));
-		
-		ActionListener phoneNumberListener = new
-		ComboBoxButtonListener(phoneNumberBox, phoneNumberField);
-		//addPhoneNumberButton.addActionListener(phoneNumberListener);
-		//editPhoneNumberButton.addActionListener(phoneNumberListener);
-		//deletePhoneNumberButton.addActionListener(phoneNumberListener);
+		phoneNumberField.addActionListener(new FieldActionListener(
+				phoneNumberBox, phoneNumberField));
+
+		ActionListener phoneNumberListener = new ComboBoxButtonListener(
+				phoneNumberBox, phoneNumberField);
+		// addPhoneNumberButton.addActionListener(phoneNumberListener);
+		// editPhoneNumberButton.addActionListener(phoneNumberListener);
+		// deletePhoneNumberButton.addActionListener(phoneNumberListener);
 		this.myButtonList.add(addPhoneNumberButton);
 		this.myButtonList.add(editPhoneNumberButton);
 		this.myButtonList.add(deletePhoneNumberButton);
 		this.myTextFieldList.add(phoneNumberField);
 
 		FormLayout upperRightlayout = new FormLayout(
-			    "pref, 3dlu, pref, 15dlu, pref, 3dlu, pref, " +
-			    "3dlu, pref, 3dlu, pref", // columns
-			    "p, 8dlu, p, 5dlu, p");      // rows
-		upperRightlayout.setColumnGroups(new int[][]{{5, 7, 9}});
+				"pref, 3dlu, pref, 15dlu, pref, 3dlu, pref, "
+						+ "3dlu, pref, 3dlu, pref", // columns
+				"p, 8dlu, p, 5dlu, p"); // rows
+		upperRightlayout.setColumnGroups(new int[][] { { 5, 7, 9 } });
 
 		PanelBuilder builder = new PanelBuilder(upperRightlayout);
 		builder.setDefaultDialogBorder();
@@ -284,8 +284,8 @@ public class ContactInfoPanel extends JXPanel {
 		this.myButtonList.add(editHeadImageButton);
 		this.myButtonList.add(deleteHeadImageButton);
 
-		editHeadImageButton.addActionListener(
-				new ContactHeadImageEditListener(this));
+		editHeadImageButton.addActionListener(new ContactHeadImageEditListener(
+				this));
 		deleteHeadImageButton.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -298,29 +298,29 @@ public class ContactInfoPanel extends JXPanel {
 		editHeadImageButton.setPreferredSize(new Dimension(50, 20));
 		deleteHeadImageButton.setPreferredSize(new Dimension(50, 20));
 
-		//leftBuilder.add(headImageLabel, leftcc.xyw(1, 1, 3));
-		//leftBuilder.add(editHeadImageButton, leftcc.xy(1, 3));
-		//leftBuilder.add(deleteHeadImageButton, leftcc.xy(3, 3));
+		// leftBuilder.add(headImageLabel, leftcc.xyw(1, 1, 3));
+		// leftBuilder.add(editHeadImageButton, leftcc.xy(1, 3));
+		// leftBuilder.add(deleteHeadImageButton, leftcc.xy(3, 3));
 
 		FormLayout upperLeftDownlayout = new FormLayout("pref, 3dlu, pref", // columns
-		"p"); // rows
+				"p"); // rows
 		upperLeftDownlayout.setColumnGroups(new int[][] { { 1, 3 } });
 
 		PanelBuilder leftDownBuilder = new PanelBuilder(upperLeftDownlayout);
 		leftDownBuilder.setDefaultDialogBorder();
-		
+
 		CellConstraints leftDowncc = new CellConstraints();
 		leftDownBuilder.add(editHeadImageButton, leftDowncc.xy(1, 1));
 		leftDownBuilder.add(deleteHeadImageButton, leftDowncc.xy(3, 1));
-		
+
 		upperLeftPanel = new JPanel();
 		upperLeftPanel.setLayout(new BorderLayout());
 		upperLeftPanel.add(headImageLabel, "Center");
 		upperLeftPanel.add(leftDownBuilder.getPanel(), "South");
-		//upperLeftPanel.add(editHeadImageButton, "South");
-		//upperLeftPanel.add(deleteHeadImageButton, "South");
+		// upperLeftPanel.add(editHeadImageButton, "South");
+		// upperLeftPanel.add(deleteHeadImageButton, "South");
 		upperLeftPanel.setVisible(true);
-		//upperPanel.add(leftBuilder.getPanel(), "West");
+		// upperPanel.add(leftBuilder.getPanel(), "West");
 		upperPanel.add(upperLeftPanel, "West");
 		upperPanel.add(builder.getPanel(), "Center");
 	}
@@ -328,8 +328,8 @@ public class ContactInfoPanel extends JXPanel {
 	private void setMainPanel() {
 		mainPanel = new JPanel();
 		FormLayout mainAreaLayout = new FormLayout(
-		"pref, 3dlu, pref, 15dlu, pref, 3dlu, pref, 3dlu, pref, 3dlu, pref",// column
-		"p, 8dlu, p, 5dlu, p, 5dlu, p, 5dlu, p, 5dlu, p, 5dlu, p, 5dlu, p,"
+				"pref, 3dlu, pref, 15dlu, pref, 3dlu, pref, 3dlu, pref, 3dlu, pref",// column
+				"p, 8dlu, p, 5dlu, p, 5dlu, p, 5dlu, p, 5dlu, p, 5dlu, p, 5dlu, p,"
 						+ " 5dlu, p, 5dlu, p");// row
 		// mainAreaLayout.setColumnGroups(new int[][]{{7, 9, 11}});
 		mainAreaLayout.setColumnGroups(new int[][] { { 5, 7, 9 } });
@@ -371,8 +371,8 @@ public class ContactInfoPanel extends JXPanel {
 			}
 		});
 		emailField = new PhoneMeField(20);
-		emailField.addActionListener
-		(new FieldActionListener(emailAddressBox, emailField));
+		emailField.addActionListener(new FieldActionListener(emailAddressBox,
+				emailField));
 		this.myButtonList.add(addEmailAddressButton);
 		this.myButtonList.add(editEmailAddressButton);
 		this.myButtonList.add(deleteEmailAddressButton);
@@ -477,9 +477,9 @@ public class ContactInfoPanel extends JXPanel {
 
 		// 标签以及分组的显示区域
 		FormLayout mainSouthAreaLayout = new FormLayout(
-		"pref, 3dlu, pref, 2dlu, pref, 15dlu, pref, 3dlu, pref, 3dlu, pref, " +
-		"5dlu, pref, 10dlu, pref, 5dlu, pref",// column
-		"p, 8dlu, p, 5dlu, p, 5dlu, p, 5dlu, p, 5dlu, p");// row
+				"pref, 3dlu, pref, 2dlu, pref, 15dlu, pref, 3dlu, pref, 3dlu, pref, "
+						+ "5dlu, pref, 10dlu, pref, 5dlu, pref",// column
+				"p, 8dlu, p, 5dlu, p, 5dlu, p, 5dlu, p, 5dlu, p");// row
 
 		mainSouthAreaLayout.setColumnGroups(new int[][] { { 7, 9, 11 } });
 
@@ -543,14 +543,14 @@ public class ContactInfoPanel extends JXPanel {
 		downbuilder.add(objectContactListBox, downcc.xy(5, 7));
 		downbuilder.add(addRelationLabelListButton, downcc.xy(7, 7));
 		downbuilder.add(deleteRelationLabelListButton, downcc.xy(9, 7));
-		
+
 		confirmButton = new JButton("确认");
 		cancelButton = new JButton("取消");
 		this.myButtonList.add(confirmButton);
 		this.myButtonList.add(cancelButton);
 		downbuilder.add(confirmButton, downcc.xy(15, 9));
 		downbuilder.add(cancelButton, downcc.xy(17, 9));
-		
+
 		setTextFieldInVisible();
 
 		mainPanel.setLayout(new BorderLayout());
@@ -646,11 +646,11 @@ public class ContactInfoPanel extends JXPanel {
 			p.setVisible(isEditable);
 		}
 	}
-	
+
 	/**
 	 * Set all of the text fields invisible
 	 */
-	public void setTextFieldInVisible(){
+	public void setTextFieldInVisible() {
 		for (JTextField p : myTextFieldList) {
 			p.setVisible(false);
 		}
@@ -670,33 +670,29 @@ public class ContactInfoPanel extends JXPanel {
 	public void setMyContact(ContactOperations myContact) {
 		if (this.myContact == myContact || myContact == null)
 			return;
-		System.out.println("zzzzzzzz");
 		ArrayList<String> temp = new ArrayList<String>();
 		temp.add("asd");
 		temp.add("asdasd");
 		temp.add("asdasdasd");
-		phoneNumberBox.setModel
-		(new DefaultComboBoxModel
-				((String [])(temp.toArray(new String[0]))));
-		
-		if(myContact.getContactName() != null){
+		phoneNumberBox.setModel(new DefaultComboBoxModel((String[]) (temp
+				.toArray(new String[0]))));
+
+		if (myContact.getContactName() != null) {
 			nameField.setText(myContact.getContactName());
 		}
-		
-		if(myContact.getPhoneNumberList() != null){
-			phoneNumberBox.setModel
-			(new DefaultComboBoxModel
-		((String []) ((myContact.getPhoneNumberList())).toArray
-				(new String[0])));
+
+		if (myContact.getPhoneNumberList() != null) {
+			phoneNumberBox.setModel(new DefaultComboBoxModel(
+					(String[]) ((myContact.getPhoneNumberList()))
+							.toArray(new String[0])));
 		}
-		
-		if(myContact.getGroupList() != null){
-			groupListBox.setModel
-			(new DefaultComboBoxModel
-		((String []) ((myContact.getGroupList())).toArray
-				(new String[0])));
+
+		if (myContact.getGroupList() != null) {
+			groupListBox.setModel(new DefaultComboBoxModel(
+					(String[]) ((myContact.getGroupList()))
+							.toArray(new String[0])));
 		}
-		
+
 		this.myContact = myContact;
 	}
 

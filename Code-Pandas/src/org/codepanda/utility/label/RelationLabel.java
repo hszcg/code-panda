@@ -20,7 +20,7 @@ public class RelationLabel {
 	/**
 	 * 
 	 */
-	private ContactOperations relationObject;
+	private Integer relationObjectISN;
 	
 	/**
 	 * @param labelName the labelName to set
@@ -35,19 +35,20 @@ public class RelationLabel {
 	public String getLabelName() {
 		return labelName;
 	}
-	
+
 	/**
-	 * @param relationObject the relationObject to set
+	 * @param relationObjectISN the relationObjectISN to set
 	 */
-	public void setRelationObject(ContactOperations relationObject) {
-		this.relationObject = relationObject;
+	public void setRelationObjectISN(Integer relationObjectISN) {
+		this.relationObjectISN = relationObjectISN;
+	}
+
+	/**
+	 * @return the relationObjectISN
+	 */
+	public Integer getRelationObjectISN() {
+		return relationObjectISN;
 	}
 	
-	/**
-	 * @return the relationObject
-	 */
-	public ContactOperations getRelationObject() {
-		return relationObject;
-	}
 	
 }
