@@ -8,6 +8,7 @@ import javax.xml.parsers.DocumentBuilderFactory;
 
 import org.codepanda.utility.contact.Birthday;
 import org.codepanda.utility.contact.PersonalContact;
+import org.codepanda.utility.data.DataPool;
 import org.codepanda.utility.label.RelationLabel;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -30,12 +31,14 @@ public class SearchContactXML {
 	String comSubStr=null;
 	String infoStr=null;
 	boolean blur=false;
+	boolean continueFlag=false;
+	int loopFlag=0;
 	/**
 	 * @param match1   //<SearchContact>
 	 * @param match2   //</SearchContact>
 	 * @param commandDetail  //传入的字符串
 	 */
-	public void SearchContact(PersonalContact contactData,String match1,String match2,String commandDetail)
+	public void SearchContact(ArrayList<Integer> iSNList,PersonalContact contactData,String match1,String match2,String commandDetail)
 	{
 		try
 		{
@@ -67,15 +70,19 @@ public class SearchContactXML {
 			Document document=db.parse(new InputSource(new StringReader(commandDetail)));
 			//System.out.println("File Path"+document.getDocumentURI());
 			Element root=document.getDocumentElement();
-			SearchContactIterator(contactData,root);	
+			SearchContactIterator(iSNList,contactData,root);	
 		}
 		catch(Exception e)
 		{
 			e.printStackTrace();
 		}
 	}
-		public  boolean SearchContactIterator(PersonalContact contactData,Element element)
+		public  void SearchContactIterator(ArrayList<Integer>iSNList,PersonalContact contactData,Element element)
 		{
+			if(iSNList.isEmpty())
+			{
+				iSNList=new ArrayList<Integer>();
+			}
 			NodeList nodelist=element.getChildNodes();
 //			System.out.println(element.getNodeName());
 			for(int i=0;i<nodelist.getLength();i++)
@@ -93,12 +100,12 @@ public class SearchContactXML {
 						if(blur)
 						{
 							if(contactData.getContactName().contains(value))
-								return true;
+								iSNList.add(contactData.getISN());
 						}
 						else
 						{
 								if(contactData.getContactName().equalsIgnoreCase(value))
-									return true;
+									iSNList.add(contactData.getISN());
 						}
 					}				
 					else if(str.equalsIgnoreCase("Telephone"))
@@ -108,13 +115,13 @@ public class SearchContactXML {
 						{
 							for(int j=0;j<contactData.getPhoneNumberList().size();j++)
 							if(contactData.getPhoneNumberList().get(j).contains(value))
-								return true;
+								iSNList.add(contactData.getISN());
 						}
 						else
 						{
 							for(int j=0;j<contactData.getPhoneNumberList().size();j++)
 								if(contactData.getPhoneNumberList().get(j).equalsIgnoreCase(value))
-									return true;
+									iSNList.add(contactData.getISN());
 						}
 						
 					}
@@ -125,13 +132,13 @@ public class SearchContactXML {
 						{
 							for(int j=0;j<contactData.getEmailAddresseList().size();j++)
 							if(contactData.getEmailAddresseList().get(j).contains(value))
-								return true;
+								iSNList.add(contactData.getISN());
 						}
 						else
 						{
 							for(int j=0;j<contactData.getEmailAddresseList().size();j++)
 								if(contactData.getEmailAddresseList().get(j).equalsIgnoreCase(value))
-									return true;
+									iSNList.add(contactData.getISN());
 						}	
 					}
 					else if(str.equalsIgnoreCase("Address"))
@@ -141,13 +148,13 @@ public class SearchContactXML {
 						{
 							for(int j=0;j<contactData.getContactAddressList().size();j++)
 							if(contactData.getContactAddressList().get(j).contains(value))
-								return true;
+								iSNList.add(contactData.getISN());
 						}
 						else
 						{
 							for(int j=0;j<contactData.getContactAddressList().size();j++)
 								if(contactData.getContactAddressList().get(j).equalsIgnoreCase(value))
-									return true;
+									iSNList.add(contactData.getISN());
 						}	
 					}
 					else if(str.equalsIgnoreCase("Office"))
@@ -157,13 +164,13 @@ public class SearchContactXML {
 						{
 							for(int j=0;j<contactData.getWorkingDepartmentList().size();j++)
 							if(contactData.getWorkingDepartmentList().get(j).contains(value))
-								return true;
+								iSNList.add(contactData.getISN());
 						}
 						else
 						{
 							for(int j=0;j<contactData.getWorkingDepartmentList().size();j++)
 								if(contactData.getWorkingDepartmentList().get(j).equalsIgnoreCase(value))
-									return true;
+									iSNList.add(contactData.getISN());
 						}	
 					}
 					else if(str.equalsIgnoreCase("IMContact"))
@@ -173,13 +180,13 @@ public class SearchContactXML {
 						{
 							for(int j=0;j<contactData.getImContactInformationList().size();j++)
 							if(contactData.getImContactInformationList().get(j).contains(value))
-								return true;
+								iSNList.add(contactData.getISN());
 						}
 						else
 						{
 							for(int j=0;j<contactData.getImContactInformationList().size();j++)
 								if(contactData.getImContactInformationList().get(j).equalsIgnoreCase(value))
-									return true;
+									iSNList.add(contactData.getISN());
 						}	
 					}
 					//生日查询有问题
@@ -190,13 +197,13 @@ public class SearchContactXML {
 						{
 							for(int j=0;j<contactData.getImContactInformationList().size();j++)
 							if(contactData.getImContactInformationList().get(j).contains(value))
-								return true;
+								iSNList.add(contactData.getISN());
 						}
 						else
 						{
 							for(int j=0;j<contactData.getImContactInformationList().size();j++)
 								if(contactData.getImContactInformationList().get(j).equalsIgnoreCase(value))
-									return true;
+									iSNList.add(contactData.getISN());
 						}	
 					}
 					else if(str.equalsIgnoreCase("url"))
@@ -206,13 +213,13 @@ public class SearchContactXML {
 						{
 							for(int j=0;j<contactData.getUrlList().size();j++)
 							if(contactData.getUrlList().get(j).contains(value))
-								return true;
+								iSNList.add(contactData.getISN());
 						}
 						else
 						{
 							for(int j=0;j<contactData.getUrlList().size();j++)
 								if(contactData.getUrlList().get(j).equalsIgnoreCase(value))
-									return true;
+									iSNList.add(contactData.getISN());
 						}	
 					}
 					else if(str.equalsIgnoreCase("CommonLabel"))
@@ -222,13 +229,13 @@ public class SearchContactXML {
 						{
 							for(int j=0;j<contactData.getCommonLabelList().size();j++)
 							if(contactData.getCommonLabelList().get(j).contains(value))
-								return true;
+								iSNList.add(contactData.getISN());
 						}
 						else
 						{
 							for(int j=0;j<contactData.getCommonLabelList().size();j++)
 								if(contactData.getCommonLabelList().get(j).equalsIgnoreCase(value))
-									return true;
+									iSNList.add(contactData.getISN());
 						}	
 					}
 					else if(str.equalsIgnoreCase("Group"))
@@ -238,30 +245,29 @@ public class SearchContactXML {
 						{
 							for(int j=0;j<contactData.getGroupList().size();j++)
 							if(contactData.getGroupList().get(j).contains(value))
-								return true;
+								iSNList.add(contactData.getISN());
 						}
 						else
 						{
 							for(int j=0;j<contactData.getGroupList().size();j++)
 								if(contactData.getGroupList().get(j).equalsIgnoreCase(value))
-									return true;
+									iSNList.add(contactData.getISN());
 						}
 					}
 					//关于由于关系标签的表示方法，所以这里可能有问题
 					//关系标签的相关处理
 					if(node instanceof Element && node.getNodeName().equalsIgnoreCase("RelationLabel"))
 					{
-						RelationLabelIterator(contactData,(Element)node);
+						RelationLabelIterator(iSNList,contactData,(Element)node);
 					}	
 					if(node instanceof Element && !node.getNodeName().equalsIgnoreCase("RelationLabel"))
 					{
 					
-						SearchContactIterator(contactData,(Element)node);
+						SearchContactIterator(iSNList,contactData,(Element)node);
 					}
 			}
-		return false;	
 		}
-		public boolean  RelationLabelIterator(PersonalContact contactData,Element  element)
+		public void  RelationLabelIterator(ArrayList<Integer>iSNList,PersonalContact contactData,Element  element)
 			{
 				
 				NodeList nodelist=element.getChildNodes();
@@ -274,31 +280,36 @@ public class SearchContactXML {
 					if(str.equalsIgnoreCase("LabelName"))
 					{
 						String value=node.getTextContent();
-						if(blur)
+						
+						for (loopFlag=0;loopFlag<contactData.getRelationLabelList().size();loopFlag++)
 						{
-							for(int j=0;j<contactData.getRelationLabelList().size();j++)
-							if(contactData.getRelationLabelList().get(j).getLabelName().contains(value))
-								return true;
+							if(contactData.getRelationLabelList().get(loopFlag).getLabelName().equalsIgnoreCase(value))
+							{
+								continueFlag=true;
+							}
 						}
-						else
-						{
-							for(int j=0;j<contactData.getRelationLabelList().size();j++)
-								if(contactData.getRelationLabelList().get(j).getLabelName().equalsIgnoreCase(value))
-									return true;
-						}	
 					}
-					else if(str.equalsIgnoreCase("DestISN"))
+					else if(str.equalsIgnoreCase("DestName"))
 					{
-						String value=node.getTextContent();
-						int DestISN=Integer.parseInt(value);
-						for(int j=0;j<contactData.getRelationLabelList().size();j++)
-						if(contactData.getRelationLabelList().get(j).getRelationObjectISN()==DestISN)
+						if(continueFlag)
 						{
-							return true;
+							String value=node.getTextContent();
+							
+							int temp=contactData.getRelationLabelList().get(loopFlag).getRelationObjectISN();
+							PersonalContact tempData=(PersonalContact)DataPool.getInstance().getAllContactISNMap().get(temp);
+							if(blur)
+							{
+								if(tempData.getContactName().contains(value))
+								iSNList.add(tempData.getISN());
+							}
+							else
+							{
+								if(tempData.getContactName().equalsIgnoreCase(value))
+									iSNList.add(tempData.getISN());
+							}	
 						}
 					}
 			}
-		return false;
-		}
+			}
 
 	}

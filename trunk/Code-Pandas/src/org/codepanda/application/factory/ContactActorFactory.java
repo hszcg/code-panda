@@ -1,16 +1,22 @@
 package org.codepanda.application.factory;
 
+import java.util.ArrayList;
+
 import org.codepanda.application.CommandActor;
 import org.codepanda.application.CommandType;
 import org.codepanda.application.contact.DeleteContactActor;
 import org.codepanda.application.contact.EditContactActor;
 import org.codepanda.application.contact.ImportContactActor;
 import org.codepanda.application.contact.NewContactActor;
+import org.codepanda.application.contact.SearchContactActor;
 import org.codepanda.application.contact.StatContactActor;
 import org.codepanda.application.xml.ContactXML;
 import org.codepanda.application.xml.DeleteContactXML;
+import org.codepanda.application.xml.SearchContactXML;
 import org.codepanda.utility.contact.ContactData;
+import org.codepanda.utility.contact.ContactOperations;
 import org.codepanda.utility.contact.PersonalContact;
+import org.codepanda.utility.data.DataPool;
 
 /**
  * @author xdq
@@ -71,6 +77,18 @@ public class ContactActorFactory extends CommandActorFactory {
 			 StatContactActor StatContactActor=new StatContactActor();
 			//TODO  
 			 
+		 }
+		 //进行联系人的查询
+		 if(commandType==CommandType.SEARCH_CONTACT)
+		 {
+			 ArrayList<Integer> ISNList=new ArrayList<Integer>();
+			 SearchContactActor searchContactActor=new SearchContactActor();
+			 SearchContactXML searchContactXML=new SearchContactXML();
+			 for (ContactOperations t : DataPool.getInstance().getAllContactList()) {
+				 searchContactXML.SearchContact(ISNList,(PersonalContact)t, "SearchContact", "/SearchContact", commandDetail);
+			 }
+			 searchContactActor.setISNList(ISNList);
+			 return searchContactActor;
 		 }
 		return null;
 	}
