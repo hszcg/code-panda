@@ -231,6 +231,7 @@ public class DataPool {
 		//		contactData) == -2) {
 			int result=DataPool.getInstance().getDb().newContact(getCurrentUser().getUserName(), contactData);
 			int temp=currentLowBound;
+			contactData.setISN(temp);
 			int j=0;
 			for(j=currentLowBound+1;j<Integer.MAX_VALUE;j++)
 			{
@@ -243,6 +244,7 @@ public class DataPool {
 		System.out.println("ContactName---"+contactData.getContactName());
 		for(int i=0;i<contactData.getPhoneNumberList().size();i++)
 		System.out.println("ContactTelephone----"+contactData.getPhoneNumberList().get(i));
+		
 		//return 0;
 		return temp;
 	}
