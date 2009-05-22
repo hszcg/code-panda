@@ -25,9 +25,9 @@ public interface DatabaseManagerFacade {
 	public int editContact(final User user, final PersonalContact contact);		
 	public int deleteContact(final User user, final PersonalContact contact);	
 	// label
-	public int newLabel(String labelname, String username);						//
-	public int editCommonlabel(String labelname);								//
-	public int delCommonlabel(String labelname);								//
+//	public int newLabel(String labelname, String username);						
+//	public int editCommonlabel(String labelname);								
+//	public int delCommonlabel(String labelname);								
 	// operation
 	public int open(String dbName) throws SQLException;
 	public int close() throws SQLException;
