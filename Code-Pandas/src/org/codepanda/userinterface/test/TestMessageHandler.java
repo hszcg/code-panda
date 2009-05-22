@@ -2,7 +2,13 @@ package org.codepanda.userinterface.test;
 
 import org.codepanda.application.CommandType;
 import org.codepanda.application.CommandVisitor;
+import org.codepanda.application.user.DeleteUserActor;
+import org.codepanda.application.user.LoginUserActor;
+import org.codepanda.application.user.NewUserActor;
 import org.codepanda.userinterface.messagehandler.MessageHandler;
+import org.codepanda.userinterface.utility.DeleteUserResultType;
+import org.codepanda.userinterface.utility.LoginResultType;
+import org.codepanda.userinterface.utility.NewUserResultType;
 
 /**
  * 仅供测试
@@ -12,14 +18,30 @@ import org.codepanda.userinterface.messagehandler.MessageHandler;
  */
 public class TestMessageHandler implements MessageHandler {
 	public void testFunc(String xml){
-		CommandVisitor c = new CommandVisitor(CommandType.LOGIN_USER, xml);
+	/*	CommandVisitor c = new CommandVisitor(CommandType.NEW_USER, xml);*/
+		CommandVisitor c = new CommandVisitor(CommandType.DELETE_USER, xml);
 		this.executeCommand(c);		
 	}
-
 	@Override
 	public Object executeCommand(CommandVisitor commandVistor) {
-		// TODO 返回结果
-		return null;
+		int result = commandVistor.getCommandActor().executeCommand();
+		
+		if(result == DeleteUserActor.NULL_USER)
+			return DeleteUserResultType.NULL_USER;
+		else if(result == DeleteUserActor.INVAILD_PASSWORD)
+			return DeleteUserResultType.INVAILD_PASSWORD;
+			
+		return DeleteUserResultType.SUCCEED;
 	}
-
+	public static void main(String argv[])
+	{
+		String xml="<com>"+
+		"<DeleteUser>"+
+		"<UserName>"+"zcg"+"</UserName>"+
+		"<UserPassword>"+"fdjk"+"</UserPassword>"+
+		"</DeleteUser>"+
+		"</com>";
+		TestMessageHandler tmh=new TestMessageHandler();
+		tmh.testFunc(xml);
+	}
 }

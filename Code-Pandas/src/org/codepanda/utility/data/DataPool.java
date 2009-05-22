@@ -118,13 +118,17 @@ public class DataPool {
 		// TODO Auto-generated method stub
 		// 剩下的事情就是Utility向数据库检查合法性checkExistUser()，和更新数据库 createNewUserData()
 		// 最后Utility更新DataPool并返回结果即可
+		System.out.println(newUser.getUserName());
 		currentUser = newUser;
 		if (DataPool.getInstance().db.checkExistUser(currentUser.getUserName()) != 1) {
 			System.out.println("newUser-begin");
 			DataPool.getInstance().db.newUser(newUser);
+			//System.out.println("createNewUser"+newUser.getUserName());
 			System.out.println("newUser-end");
 		} else {
+			
 			System.out.println("Already Exist  Same User!!!");
+			return -2;
 		}
 
 		return 0;
