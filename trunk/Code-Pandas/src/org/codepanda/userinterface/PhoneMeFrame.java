@@ -80,7 +80,7 @@ public class PhoneMeFrame extends JRibbonFrame {
 		this.pack();
 		this.setLocation(r.x, r.y);
 		this.setVisible(false);
-		this.setResizable(false);
+		this.setResizable(true);
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	}
 
@@ -162,7 +162,6 @@ public class PhoneMeFrame extends JRibbonFrame {
 				phoneMeFrame.configureLogin();
 
 				phoneMeFrame.setVisible(true);
-				phoneMeFrame.setResizable(false);
 			}
 		});
 	}
