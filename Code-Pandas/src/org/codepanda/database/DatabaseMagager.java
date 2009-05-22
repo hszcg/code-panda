@@ -279,6 +279,8 @@ public class DatabaseMagager implements DatabaseManagerFacade {
 //			this.getUser(user.getUserName(), tempuser);
 			this.updateD(
 					"DELETE FROM UserTable WHERE username = '"+user.getUserName()+"'", user);
+			this.updateD(
+					"DELETE FROM contactList WHERE username = '"+user.getUserName()+"'", user);
 			return 1;
 		} catch (SQLException e) {
 			e.printStackTrace();
