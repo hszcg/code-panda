@@ -28,13 +28,14 @@ public class SearchContactXML {
 	boolean funcEnd=false;
 	String  funcSubStr=null;
 	String comSubStr=null;
-	String InputInfomation=null;
+	String infoStr=null;
+	boolean blur=false;
 	/**
 	 * @param match1   //<SearchContact>
 	 * @param match2   //</SearchContact>
 	 * @param commandDetail  //传入的字符串
 	 */
-	public void SearchContact(PersonalContact currentContact,String match1,String match2,String commandDetail)
+	public void SearchContact(PersonalContact contactData,String match1,String match2,String commandDetail)
 	{
 		try
 		{
@@ -66,14 +67,14 @@ public class SearchContactXML {
 			Document document=db.parse(new InputSource(new StringReader(commandDetail)));
 			//System.out.println("File Path"+document.getDocumentURI());
 			Element root=document.getDocumentElement();
-			SearchContactIterator(currentContact,root);	
+			SearchContactIterator(contactData,root);	
 		}
 		catch(Exception e)
 		{
 			e.printStackTrace();
 		}
 	}
-		public  void SearchContactIterator(PersonalContact currentContact,Element element)
+		public  boolean SearchContactIterator(PersonalContact contactData,Element element)
 		{
 			NodeList nodelist=element.getChildNodes();
 //			System.out.println(element.getNodeName());
@@ -82,176 +83,185 @@ public class SearchContactXML {
 				
 				Node node=nodelist.item(i);
 				String str=node.getNodeName();
+				if(str.equalsIgnoreCase("BlurSearch"))
+				{
+					blur=true;
+				}
 					if(str.equalsIgnoreCase("ContactName"))
 					{
-					//System.out.println(i);
-					String value=node.getTextContent();
-					currentContact.setContactName(value);
-					System.out.println("ContactName--"+value);
-					}
-					else if(str.equalsIgnoreCase("ISN"))
-					{
 						String value=node.getTextContent();
-						currentContact.setISN(Integer.parseInt(value));
-						System.out.println("ISN----"+value);
-					}
+						if(blur)
+						{
+							if(contactData.getContactName().contains(value))
+								return true;
+						}
+						else
+						{
+								if(contactData.getContactName().equalsIgnoreCase(value))
+									return true;
+						}
+					}				
 					else if(str.equalsIgnoreCase("Telephone"))
 					{
 						String value=node.getTextContent();
-						ArrayList<String> myphoneNumberList=currentContact.getPhoneNumberList();
-						if(myphoneNumberList==null)
+						if(blur)
 						{
-							myphoneNumberList=new ArrayList<String>();
+							for(int j=0;j<contactData.getPhoneNumberList().size();j++)
+							if(contactData.getPhoneNumberList().get(j).contains(value))
+								return true;
 						}
-						myphoneNumberList.add(value);
-						currentContact.setPhoneNumberList(myphoneNumberList);
-						for(int l=0;l<myphoneNumberList.size();l++)
+						else
 						{
-							System.out.println("Telephone"+l+myphoneNumberList.get(l));
+							for(int j=0;j<contactData.getPhoneNumberList().size();j++)
+								if(contactData.getPhoneNumberList().get(j).equalsIgnoreCase(value))
+									return true;
 						}
+						
 					}
 					else if(str.equalsIgnoreCase("Email"))
 					{
 						String value=node.getTextContent();
-						ArrayList<String> myEmailList=currentContact.getEmailAddresseList();
-						if(myEmailList==null)
+						if(blur)
 						{
-							myEmailList=new ArrayList<String>();
+							for(int j=0;j<contactData.getEmailAddresseList().size();j++)
+							if(contactData.getEmailAddresseList().get(j).contains(value))
+								return true;
 						}
-					
-						myEmailList.add(value);
-						currentContact.setEmailAddresseList(myEmailList);
-						for(int l=0;l<myEmailList.size();l++)
+						else
 						{
-							System.out.println("Email"+l+":"+myEmailList.get(l));
-						}
+							for(int j=0;j<contactData.getEmailAddresseList().size();j++)
+								if(contactData.getEmailAddresseList().get(j).equalsIgnoreCase(value))
+									return true;
+						}	
 					}
 					else if(str.equalsIgnoreCase("Address"))
 					{
 						String value=node.getTextContent();
-						ArrayList<String> myAddressList=currentContact.getContactAddressList();
-						if(myAddressList==null)
+						if(blur)
 						{
-							myAddressList=new ArrayList<String>();
+							for(int j=0;j<contactData.getContactAddressList().size();j++)
+							if(contactData.getContactAddressList().get(j).contains(value))
+								return true;
 						}
-					
-						myAddressList.add(value);
-						currentContact.setContactAddressList(myAddressList);
-						for(int l=0;l<myAddressList.size();l++)
+						else
 						{
-							System.out.println("Address"+l+myAddressList.get(l));
-						}
+							for(int j=0;j<contactData.getContactAddressList().size();j++)
+								if(contactData.getContactAddressList().get(j).equalsIgnoreCase(value))
+									return true;
+						}	
 					}
 					else if(str.equalsIgnoreCase("Office"))
 					{
 						String value=node.getTextContent();
-						ArrayList<String> myOfficeList=currentContact.getWorkingDepartmentList();
-						if(myOfficeList==null)
+						if(blur)
 						{
-							myOfficeList=new ArrayList<String>();
+							for(int j=0;j<contactData.getWorkingDepartmentList().size();j++)
+							if(contactData.getWorkingDepartmentList().get(j).contains(value))
+								return true;
 						}
-					
-						myOfficeList.add(value);
-						currentContact.setWorkingDepartmentList(myOfficeList);
-						for(int l=0;l<myOfficeList.size();l++)
+						else
 						{
-							System.out.println("Office"+l+myOfficeList.get(l));
-						}
+							for(int j=0;j<contactData.getWorkingDepartmentList().size();j++)
+								if(contactData.getWorkingDepartmentList().get(j).equalsIgnoreCase(value))
+									return true;
+						}	
 					}
 					else if(str.equalsIgnoreCase("IMContact"))
 					{
 						String value=node.getTextContent();
-						ArrayList<String> myimContactList=currentContact.getImContactInformationList();
-						if(myimContactList==null)
+						if(blur)
 						{
-							myimContactList=new ArrayList<String>();
+							for(int j=0;j<contactData.getImContactInformationList().size();j++)
+							if(contactData.getImContactInformationList().get(j).contains(value))
+								return true;
 						}
-					
-						myimContactList.add(value);
-						currentContact.setImContactInformationList(myimContactList);
-						for(int l=0;l<myimContactList.size();l++)
+						else
 						{
-							System.out.println("IMContact"+l+myimContactList.get(l));
-						}
+							for(int j=0;j<contactData.getImContactInformationList().size();j++)
+								if(contactData.getImContactInformationList().get(j).equalsIgnoreCase(value))
+									return true;
+						}	
 					}
+					//生日查询有问题
 					else if(str.equalsIgnoreCase("Birthday"))
 					{
 						String value=node.getTextContent();
-						String str1[]= new String[3];
-						str1=value.split("-");
-						Birthday  birth=new Birthday();
-						birth.setYear(Integer.parseInt(str1[0]));
-						birth.setMonth(Integer.parseInt(str1[1]));
-						birth.setDay(Integer.parseInt(str1[2]));
-						currentContact.setContactBirthday(birth);
-						System.out.println("Birthday--"+value);
+						if(blur)
+						{
+							for(int j=0;j<contactData.getImContactInformationList().size();j++)
+							if(contactData.getImContactInformationList().get(j).contains(value))
+								return true;
+						}
+						else
+						{
+							for(int j=0;j<contactData.getImContactInformationList().size();j++)
+								if(contactData.getImContactInformationList().get(j).equalsIgnoreCase(value))
+									return true;
+						}	
 					}
 					else if(str.equalsIgnoreCase("url"))
 					{
 						String value=node.getTextContent();
-						ArrayList<String> myurlList=currentContact.getUrlList();
-						if(myurlList==null)
+						if(blur)
 						{
-							myurlList=new ArrayList<String>();
-						}			
-						myurlList.add(value);
-						currentContact.setUrlList(myurlList);
-						for(int l=0;l<currentContact.getUrlList().size();l++)
-						{
-							System.out.println("URL--"+l+currentContact.getUrlList().get(l));
+							for(int j=0;j<contactData.getUrlList().size();j++)
+							if(contactData.getUrlList().get(j).contains(value))
+								return true;
 						}
+						else
+						{
+							for(int j=0;j<contactData.getUrlList().size();j++)
+								if(contactData.getUrlList().get(j).equalsIgnoreCase(value))
+									return true;
+						}	
 					}
 					else if(str.equalsIgnoreCase("CommonLabel"))
 					{
 						String value=node.getTextContent();
-						ArrayList<String> myCommonLabelList=currentContact.getCommonLabelList();
-						if(myCommonLabelList==null)
+						if(blur)
 						{
-							myCommonLabelList=new ArrayList<String>();
-						}			
-						myCommonLabelList.add(value);
-						currentContact.setUrlList(myCommonLabelList);
-						for(int l=0;l<currentContact.getCommonLabelList().size();l++)
-						{
-							System.out.println("CommonLabel--"+l+currentContact.getCommonLabelList().get(l));
+							for(int j=0;j<contactData.getCommonLabelList().size();j++)
+							if(contactData.getCommonLabelList().get(j).contains(value))
+								return true;
 						}
+						else
+						{
+							for(int j=0;j<contactData.getCommonLabelList().size();j++)
+								if(contactData.getCommonLabelList().get(j).equalsIgnoreCase(value))
+									return true;
+						}	
 					}
 					else if(str.equalsIgnoreCase("Group"))
 					{
 						String value=node.getTextContent();
-						ArrayList<String> myGroupList=currentContact.getGroupList();
-						if(myGroupList==null)
+						if(blur)
 						{
-							myGroupList=new ArrayList<String>();
-						}			
-						myGroupList.add(value);
-						currentContact.setUrlList(myGroupList);
-						for(int l=0;l<currentContact.getGroupList().size();l++)
+							for(int j=0;j<contactData.getGroupList().size();j++)
+							if(contactData.getGroupList().get(j).contains(value))
+								return true;
+						}
+						else
 						{
-							System.out.println("CommonLabel--"+l+currentContact.getGroupList().get(l));
+							for(int j=0;j<contactData.getGroupList().size();j++)
+								if(contactData.getGroupList().get(j).equalsIgnoreCase(value))
+									return true;
 						}
 					}
 					//关于由于关系标签的表示方法，所以这里可能有问题
 					//关系标签的相关处理
 					if(node instanceof Element && node.getNodeName().equalsIgnoreCase("RelationLabel"))
 					{
-						ArrayList<RelationLabel>relationLabelList = currentContact.getRelationLabelList();
-						RelationLabel relationLabel=new RelationLabel();
-						RelationLabelIterator(relationLabel,(Element)node);
-						relationLabelList.add(relationLabel);
-						System.out.println("LabelName----"+relationLabel.getLabelName());
-						currentContact.setRelationLabelList(relationLabelList);
-						System.out.println("Size----"+currentContact.getRelationLabelList().size());
-					}
+						RelationLabelIterator(contactData,(Element)node);
+					}	
 					if(node instanceof Element && !node.getNodeName().equalsIgnoreCase("RelationLabel"))
 					{
 					
-						SearchContactIterator(currentContact,(Element)node);
+						SearchContactIterator(contactData,(Element)node);
 					}
 			}
-			
+		return false;	
 		}
-			public void  RelationLabelIterator(RelationLabel  relationLabel,Element  element)
+		public boolean  RelationLabelIterator(PersonalContact contactData,Element  element)
 			{
 				
 				NodeList nodelist=element.getChildNodes();
@@ -264,17 +274,31 @@ public class SearchContactXML {
 					if(str.equalsIgnoreCase("LabelName"))
 					{
 						String value=node.getTextContent();
-						relationLabel.setLabelName(value);
-						//System.out.println("fjsdkl---"+value);
+						if(blur)
+						{
+							for(int j=0;j<contactData.getRelationLabelList().size();j++)
+							if(contactData.getRelationLabelList().get(j).getLabelName().contains(value))
+								return true;
+						}
+						else
+						{
+							for(int j=0;j<contactData.getRelationLabelList().size();j++)
+								if(contactData.getRelationLabelList().get(j).getLabelName().equalsIgnoreCase(value))
+									return true;
+						}	
 					}
 					else if(str.equalsIgnoreCase("DestISN"))
 					{
 						String value=node.getTextContent();
 						int DestISN=Integer.parseInt(value);
-						relationLabel.setRelationObjectISN(DestISN);
+						for(int j=0;j<contactData.getRelationLabelList().size();j++)
+						if(contactData.getRelationLabelList().get(j).getRelationObjectISN()==DestISN)
+						{
+							return true;
+						}
 					}
 			}
-				
+		return false;
 		}
 
 	}
