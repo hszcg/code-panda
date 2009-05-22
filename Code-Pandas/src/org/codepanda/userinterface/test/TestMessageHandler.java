@@ -1,5 +1,7 @@
 package org.codepanda.userinterface.test;
 
+import java.sql.SQLException;
+
 import org.codepanda.application.CommandType;
 import org.codepanda.application.CommandVisitor;
 import org.codepanda.application.user.DeleteUserActor;
@@ -9,6 +11,7 @@ import org.codepanda.userinterface.messagehandler.MessageHandler;
 import org.codepanda.userinterface.utility.DeleteUserResultType;
 import org.codepanda.userinterface.utility.LoginResultType;
 import org.codepanda.userinterface.utility.NewUserResultType;
+import org.codepanda.utility.data.DataPool;
 
 /**
  * ½ö¹©²âÊÔ
@@ -43,5 +46,11 @@ public class TestMessageHandler implements MessageHandler {
 		"</com>";
 		TestMessageHandler tmh=new TestMessageHandler();
 		tmh.testFunc(xml);
+		try {
+			DataPool.getInstance().getDb().close();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 }
