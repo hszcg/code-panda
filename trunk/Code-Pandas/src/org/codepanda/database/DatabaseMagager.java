@@ -35,95 +35,25 @@ public class DatabaseMagager implements DatabaseManagerFacade {
 		System.out.println("Database Connected! Con!");
 	}
 
-	public DatabaseMagager() {
-		// TODO Auto-generated constructor stub
-	}
+	public DatabaseMagager() {}
 
-	// use for SQL commands CREATE TABLE, DROP, INSERT and UPDATE
-	public synchronized void update(String expression) throws SQLException {
+	
 
-		Statement st = null;
 
-		st = conn.createStatement(); // statements
-		System.out.println(conn.toString());
-		int i = 0; // run the query
-		try {
-			i = st.executeUpdate(expression);
-		} catch (Exception e) {
-		}
 
-		if (i == -1) {
-			System.out.println("db error : " + expression);
-		}
 
-		st.close();
-	} // void update()
 
-	// use for SHUTDOWN
-	public void shutdown() throws SQLException {
 
-		Statement st = conn.createStatement();
-
-		// db writes out to files and performs clean shuts down
-		// otherwise there will be an unclean shutdown
-		// when program ends
-		st.execute("SHUTDOWN");
-		conn.close(); // if there are no other open connection
-	}
-
-	// use for a query that return a User object
-	public synchronized void queryUserObject(String name, User user) throws SQLException {
-		Statement st = null;
-		ResultSet rs = null;
-	//	User temp_user = null;
-		st = conn.createStatement();
-		System.out.println(conn.toString());
-//		rs = st.executeQuery("SELECT * FROM UserTable WHERE username = "+ name);
-//		rs = st.executeQuery("SELECT * FROM UserTable WHERE username > 0    ");
-		rs = st.executeQuery("SELECT * FROM UserTable WHERE username = '"+name+"'");
-//		rs = st.executeQuery("SELECT * FROM UserTable WHERE UserTable.COL1=leilei");
-//		rs = st.executeQuery("SELECT username = "+name+" FROM UserTable");
-//		rs = st.executeQuery("SELECT * FROM UserTable WHERE username=username");
-		System.out.println(rs.toString());
-		rs.next();
-		User tempuser = (User) rs.getObject(2); // 2 or 3
-		user.setPassword(tempuser.getPassword());
-		user.setUserName(tempuser.getUserName());
-		user.setUserContactData(tempuser.getUserContactData());
-		st.close();
-	//	return temp_user;
-	}
-
-	// use for a query that return a list of Contact
-	public synchronized void queryContactData(String name, ArrayList<ContactOperations> contactList)
-			throws SQLException {
-		Statement st = null;
-		ResultSet rs = null;
-//		ArrayList<ContactOperations> acd = null;	
-		st = conn.createStatement();
-		System.out.println(conn.toString());
-		rs = st.executeQuery("SELECT * FROM contactList WHERE username = '" + name+"'");
-//		rs.next();
-		for (; rs.next();) {
-			contactList.add((ContactOperations) rs.getObject(2));
-//			acd.add((ContactOperations) rs.getObject(2));
-		}
-		
-		st.close();
-	}
 
 	@Override
 	public int newUser(final User user) {
 		try {
-			this
-					.updateS(
-							"INSERT INTO UserTable(username,user) VALUES(?,?)",
-							user);
+			this.updateS(
+					"INSERT INTO UserTable(username,user) VALUES(?,?)",user);
 		} catch (SQLException e) {
 			return 0;
 		}
 		return 1;
-
 	}
 
 	@Override
@@ -134,7 +64,17 @@ public class DatabaseMagager implements DatabaseManagerFacade {
 			e.printStackTrace();
 		}
 		return 0;
+	}
+	// use for SHUTDOWN
+	public void shutdown() throws SQLException {
 
+		Statement st = conn.createStatement();
+
+		// db writes out to files and performs clean shuts down
+		// otherwise there will be an unclean shutdown
+		// when program ends
+		st.execute("SHUTDOWN");
+		conn.close(); // if there are no other open connection
 	}
 
 	@Override
@@ -155,8 +95,26 @@ public class DatabaseMagager implements DatabaseManagerFacade {
 //			e.printStackTrace();
 //		}
 		return 0;
-
 	}
+	// use for SQL commands CREATE TABLE, DROP, INSERT and UPDATE
+	public synchronized void update(String expression) throws SQLException {
+
+		Statement st = null;
+
+		st = conn.createStatement(); // statements
+		System.out.println(conn.toString());
+		int i = 0; // run the query
+		try {
+			i = st.executeUpdate(expression);
+		} catch (Exception e) {
+		}
+
+		if (i == -1) {
+			System.out.println("db error : " + expression);
+		}
+
+		st.close();
+	} // void update()
 
 	@Override
 	public int checkExistUser(String userName) {
@@ -177,35 +135,7 @@ public class DatabaseMagager implements DatabaseManagerFacade {
 		return 1;
 	}
 
-	@Override
-	public int delUser(final User user) {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
-	@Override
-	public int deleteContact(final User user, final  PersonalContact contact) {
-		return 0;
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public int editUser(String userName, final User user) {
-		// TODO Auto-generated method stub
-		return 1;
-	}
-
-	@Override
-	public int editContact(final User user, final PersonalContact contact){
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
-	public ContactData getContactData(final User user, final ContactData contact) {
-		// TODO Auto-generated method stub
-		return null;
-	}
+	
 
 	@Override
 	public int newContact(String userName, final PersonalContact contact) {
@@ -254,6 +184,23 @@ public class DatabaseMagager implements DatabaseManagerFacade {
 		}
 		return 0;
 	}
+	// use for a query that return a list of Contact
+	public synchronized void queryContactData(String name, ArrayList<ContactOperations> contactList)
+			throws SQLException {
+		Statement st = null;
+		ResultSet rs = null;
+//		ArrayList<ContactOperations> acd = null;	
+		st = conn.createStatement();
+		System.out.println(conn.toString());
+		rs = st.executeQuery("SELECT * FROM contactList WHERE username = '" + name+"'");
+//		rs.next();
+		for (; rs.next();) {
+			contactList.add((ContactOperations) rs.getObject(2));
+//			acd.add((ContactOperations) rs.getObject(2));
+		}
+		
+		st.close();
+	}
 
 	@Override
 	public int getUser(String userName, User user) {
@@ -264,6 +211,28 @@ public class DatabaseMagager implements DatabaseManagerFacade {
 			e.printStackTrace();
 		}
 		return 0;
+	}
+	// use for a query that return a User object
+	public synchronized void queryUserObject(String name, User user) throws SQLException {
+		Statement st = null;
+		ResultSet rs = null;
+	//	User temp_user = null;
+		st = conn.createStatement();
+		System.out.println(conn.toString());
+//		rs = st.executeQuery("SELECT * FROM UserTable WHERE username = "+ name);
+//		rs = st.executeQuery("SELECT * FROM UserTable WHERE username > 0    ");
+		rs = st.executeQuery("SELECT * FROM UserTable WHERE username = '"+name+"'");
+//		rs = st.executeQuery("SELECT * FROM UserTable WHERE UserTable.COL1=leilei");
+//		rs = st.executeQuery("SELECT username = "+name+" FROM UserTable");
+//		rs = st.executeQuery("SELECT * FROM UserTable WHERE username=username");
+		System.out.println(rs.toString());
+		rs.next();
+		User tempuser = (User) rs.getObject(2); // 2 or 3
+		user.setPassword(tempuser.getPassword());
+		user.setUserName(tempuser.getUserName());
+		user.setUserContactData(tempuser.getUserContactData());
+		st.close();
+	//	return temp_user;
 	}
 
 	@Override
@@ -297,6 +266,36 @@ public class DatabaseMagager implements DatabaseManagerFacade {
 		return 0;
 	}
 
+	
+	@Override
+	public int delUser(final User user) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public int deleteContact(final User user, final  PersonalContact contact) {
+		return 0;
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public int editUser(String userName, final User user) {
+		// TODO Auto-generated method stub
+		return 1;
+	}
+
+	@Override
+	public int editContact(final User user, final PersonalContact contact){
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	public ContactData getContactData(final User user, final ContactData contact) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 	@Override
 	public int newLabel(String labelname, String username) {
 		// TODO Auto-generated method stub
@@ -309,6 +308,5 @@ public class DatabaseMagager implements DatabaseManagerFacade {
 	public int delCommonlabel(String labelname)
 	{
 		return 0;
-		
 	}
 }
