@@ -324,4 +324,22 @@ public class DatabaseMagager implements DatabaseManagerFacade {
 		this.newContact(user.getUserName(), contact);
 		return 0;
 	}
+
+	@Override
+	public int delCommonlabel(String labelname) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public int editCommonlabel(String labelname) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public int newLabel(String labelname, String username) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
 }
