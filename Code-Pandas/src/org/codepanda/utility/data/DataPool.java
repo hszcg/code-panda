@@ -252,8 +252,32 @@ public class DataPool {
 		System.out.println("ContactName---"+contactData.getContactName());
 		for(int i=0;i<contactData.getPhoneNumberList().size();i++)
 		System.out.println("ContactTelephone----"+contactData.getPhoneNumberList().get(i));
-		
-		//return 0;
+		//对所维护的HashMap进行修改
+		allContactISNMap.put(temp, contactData);
+		allContactNameMultimap.put(contactData.getContactName(), temp);
+		for (String groupName : contactData.getGroupList()) {
+			if (allContactGroupMap.containsKey(groupName)) {
+				allContactGroupMap.get(groupName).addGroupMember(temp);
+			} else {
+				ContactGroup newContactGroup = new ContactGroup(
+						GroupType.NORMAL_GROUP, groupName);
+				newContactGroup.addGroupMember(temp);
+				allContactGroupMap.put(groupName, newContactGroup);
+			}
+		}
+
+		for (String commonLabelName : contactData.getCommonLabelList()) {
+			if (allCommonLabelDataMap.containsKey(commonLabelName)) {
+				allCommonLabelDataMap.get(commonLabelName).addGroupMember(
+						temp);
+			} else {
+				ContactGroup newContactGroup = new ContactGroup(
+						GroupType.LABEL_GROUP, commonLabelName);
+				newContactGroup.addGroupMember(temp);
+				allCommonLabelDataMap.put(commonLabelName, newContactGroup);
+			}
+		}
+
 		return temp;
 	}
 
@@ -262,6 +286,33 @@ public class DataPool {
 		if (DataPool.getInstance().getDb().editContact(getCurrentUser(), contactData) == -2) {
 			return -2;
 		}
+		//对所维护的HashMap进行修改
+	//	allContactISNMap.remove(contactData.getISN());
+		allContactISNMap.put(contactData.getISN(), contactData);
+		allContactNameMultimap.put(contactData.getContactName(), contactData.getISN());
+		for (String groupName : contactData.getGroupList()) {
+			if (allContactGroupMap.containsKey(groupName)) {
+				allContactGroupMap.get(groupName).addGroupMember(contactData.getISN());
+			} else {
+				ContactGroup newContactGroup = new ContactGroup(
+						GroupType.NORMAL_GROUP, groupName);
+				newContactGroup.addGroupMember(contactData.getISN());
+				allContactGroupMap.put(groupName, newContactGroup);
+			}
+		}
+
+		for (String commonLabelName : contactData.getCommonLabelList()) {
+			if (allCommonLabelDataMap.containsKey(commonLabelName)) {
+				allCommonLabelDataMap.get(commonLabelName).addGroupMember(
+						contactData.getISN());
+			} else {
+				ContactGroup newContactGroup = new ContactGroup(
+						GroupType.LABEL_GROUP, commonLabelName);
+				newContactGroup.addGroupMember(contactData.getISN());
+				allCommonLabelDataMap.put(commonLabelName, newContactGroup);
+			}
+		}
+
 		return 0;
 	}
 //返回当前的currentLowBound
@@ -271,7 +322,24 @@ public class DataPool {
 		{
 			currentLowBound=contactData.getISN();
 		}
+		//对所有的hashMap进行维护
+		allContactISNMap.remove(contactData.getISN());
+		allContactNameMultimap.remove(contactData.getContactName(), contactData.getISN());
+		for (String groupName : contactData.getGroupList()) {
+			if (allContactGroupMap.containsKey(groupName)) {
+				allContactGroupMap.get(groupName).deleteGroupMember(contactData.getISN());
+			}
+		}
+
+		for (String groupName : contactData.getGroupList()) {
+			if (allCommonLabelDataMap.containsKey(groupName)) {
+				allCommonLabelDataMap.get(groupName).deleteGroupMember(contactData.getISN());
+			}
+		}
+
 		return currentLowBound;
+		
+		
 	}
 
 	/**

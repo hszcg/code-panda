@@ -28,8 +28,12 @@ public class ContactGroup {
 	 */
 	public void addGroupMember(Integer ISN){
 		groupMembers.add(ISN);
+		
 	}
-
+	public void deleteGroupMember(Integer ISN)
+	{
+		groupMembers.remove(ISN);
+	}
 	/**
 	 * @return the groupMembers
 	 */
@@ -60,7 +64,6 @@ public class ContactGroup {
 	public void setGroupName(String groupName) {
 		this.groupName = groupName;
 	}
-
 
 	/**
 	 * @return the groupName
