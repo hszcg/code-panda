@@ -8,7 +8,6 @@ import org.codepanda.application.CommandVisitor;
 import org.codepanda.userinterface.PhoneMeCreateNewUserDialog;
 import org.codepanda.userinterface.messagehandler.NewUserMessageHandler;
 import org.codepanda.userinterface.xml.MyXMLMaker;
-import org.codepanda.utility.user.User;
 
 /**
  * @author hszcg
@@ -37,20 +36,19 @@ public class PhoneMeCreateNewUserDialogListener implements ActionListener {
 		} else if (e.getActionCommand().equals("OK")) {
 			System.out.println("PhoneMeCreateNewUserDialog Action Comfirmed.");
 
-			User myUser = myPhoneMeCreateNewUserDialog.getMyUser();
-			if (myUser.getUserName().length() == 0) {
+			if (myPhoneMeCreateNewUserDialog.getNewUserName().length() == 0) {
 				this.myPhoneMeCreateNewUserDialog
 						.updateErrorMessageLabel("User Name is Empty!");
 				return;
 			}
 
-			if (myUser.getPassword() == null) {
+			if (myPhoneMeCreateNewUserDialog.getPassword() == null) {
 				this.myPhoneMeCreateNewUserDialog
 						.updateErrorMessageLabel("Password is not Comfirmed Right!");
 				return;
 			}
 
-			if (myUser.getPassword().length() == 0) {
+			if (myPhoneMeCreateNewUserDialog.getPassword().length() == 0) {
 				this.myPhoneMeCreateNewUserDialog
 						.updateErrorMessageLabel("Password is Empty!");
 				return;
@@ -75,9 +73,13 @@ public class PhoneMeCreateNewUserDialogListener implements ActionListener {
 
 			if (result == 0) {
 				// 成功场景
+
 				this.myPhoneMeCreateNewUserDialog.setVisible(false);
-				this.myPhoneMeCreateNewUserDialog.getMyPhoneMeLoginDialog()
-						.setVisible(true);
+				
+				if (this.myPhoneMeCreateNewUserDialog.getMyPhoneMeLoginDialog() != null) {
+					this.myPhoneMeCreateNewUserDialog.getMyPhoneMeLoginDialog()
+							.setVisible(true);
+				}
 			} else {
 				// 失败场景
 				this.myPhoneMeCreateNewUserDialog
@@ -85,8 +87,12 @@ public class PhoneMeCreateNewUserDialogListener implements ActionListener {
 			}
 
 		} else if (e.getActionCommand().equals("Cancel")) {
-			System.out.println("PhoneMeCreateNewUserDialog Action Canceled.");
-			myPhoneMeCreateNewUserDialog.getParentFrame().exitProgram();
+			if (this.myPhoneMeCreateNewUserDialog.getMyPhoneMeLoginDialog() != null) {
+				System.out.println("PhoneMeCreateNewUserDialog Action Canceled.");
+				myPhoneMeCreateNewUserDialog.getParentFrame().exitProgram();
+			} else {
+				this.myPhoneMeCreateNewUserDialog.setVisible(false);
+			}
 		}
 	}
 }

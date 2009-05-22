@@ -66,6 +66,10 @@ public class PhoneMeRibbon {
 		newUserButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				System.out.println("新建用户");
+
+				PhoneMeCreateNewUserDialog dialog = new PhoneMeCreateNewUserDialog(
+						mainFrame, null);
+				dialog.setVisible(true);
 			}
 		});
 
@@ -94,9 +98,9 @@ public class PhoneMeRibbon {
 		editUserButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				System.out.println("修改用户信息");
-				
-				JDialog dialog = new PhoneMeEditUserPanel
-				(mainFrame).getDialog();
+
+				JDialog dialog = new PhoneMeEditUserPanel(mainFrame)
+						.getDialog();
 				dialog.pack();
 				Dimension screenSize = Toolkit.getDefaultToolkit()
 						.getScreenSize();
@@ -196,6 +200,9 @@ public class PhoneMeRibbon {
 		searchContactButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				System.out.println("联系人搜索");
+				mainFrame.getMyPhoneMeMajorPanel().addNewTab(
+						"Search",
+						new SearchPanel(mainFrame));
 			}
 		});
 

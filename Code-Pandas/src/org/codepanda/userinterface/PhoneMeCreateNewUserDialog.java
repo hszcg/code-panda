@@ -21,10 +21,11 @@ import javax.swing.border.SoftBevelBorder;
 
 import org.codepanda.userinterface.listener.PhoneMeCreateNewUserDialogListener;
 import org.codepanda.userinterface.xml.MyXMLMaker;
-import org.codepanda.utility.user.User;
 
 public class PhoneMeCreateNewUserDialog {
 	private PhoneMeFrame parentFrame;
+	// 如果myPhoneMeLoginDialog不是null，代表是Login操作之前
+	// 如果myPhoneMeLoginDialog是null，代表是Login操作之后
 	private PhoneMeLoginDialog myPhoneMeLoginDialog;
 	private JDialog newUserDialog;
 	private ContactInfoPanel userContactInfoPanel;
@@ -32,27 +33,28 @@ public class PhoneMeCreateNewUserDialog {
 	private JTextField userNameField;
 	private JPasswordField userPasswordField;
 	private JPasswordField userComfirmPasswordField;
-	private JButton newUserButton;
-	private JButton loginUserButton;
+	private JButton backButton;
+	private JButton createNewUserButton;
 	private JButton cancelButton;
 	private JLabel errorMessageLabel;
-	private User myUser;
 
 	public PhoneMeCreateNewUserDialog(PhoneMeFrame parentFrame,
 			PhoneMeLoginDialog myPhoneMeLoginDialog) {
 		this.parentFrame = parentFrame;
 		this.myPhoneMeLoginDialog = myPhoneMeLoginDialog;
-		this.setMyUser(new User());
 
 		this.newUserDialog = new JDialog(parentFrame, "Create New User Dialog",
 				true);
 		newUserDialog.setLayout(new BorderLayout());
-		this.newUserDialog.addWindowListener(new WindowAdapter() {
-			public void windowClosing(WindowEvent e) {
-				System.out.println("PhoneMeCreateNewUserDialog Closed.");
-				System.exit(0);
-			}
-		});
+		
+		if (this.myPhoneMeLoginDialog != null) {
+			this.newUserDialog.addWindowListener(new WindowAdapter() {
+				public void windowClosing(WindowEvent e) {
+					System.out.println("PhoneMeCreateNewUserDialog Closed.");
+					System.exit(0);
+				}
+			});
+		}
 		// **************************************************
 		// 用户名
 		JPanel userNamePanel = new JPanel();
@@ -110,8 +112,8 @@ public class PhoneMeCreateNewUserDialog {
 		// **************************************************
 
 		// TODO 如何让头像显示正常
-		userContactInfoPanel = new ContactInfoPanel(this.newUserDialog, null, true,
-				ContactInfoPanel.USER_INFO_PANEL);
+		userContactInfoPanel = new ContactInfoPanel(this.newUserDialog, null,
+				true, ContactInfoPanel.USER_INFO_PANEL);
 		this.newUserDialog.add(userContactInfoPanel, BorderLayout.CENTER);
 
 		// **************************************************
@@ -120,26 +122,31 @@ public class PhoneMeCreateNewUserDialog {
 
 		JPanel bottom = new JPanel();
 		bottom.setLayout(new BoxLayout(bottom, BoxLayout.X_AXIS));
+		
+		if (this.myPhoneMeLoginDialog != null) {
+			backButton = new JButton("Return To Login");
+			backButton.setActionCommand("Return");
+			backButton.setMnemonic('r');
+			backButton.addActionListener(myPhoneMeCreateNewUserDialogListener);
 
-		newUserButton = new JButton("Return To Login");
-		newUserButton.setActionCommand("Return");
-		newUserButton.setMnemonic('r');
-		newUserButton.addActionListener(myPhoneMeCreateNewUserDialogListener);
-
-		loginUserButton = new JButton("OK");
-		loginUserButton.setActionCommand("OK");
-		loginUserButton.setMnemonic('o');
-		loginUserButton.addActionListener(myPhoneMeCreateNewUserDialogListener);
-
+			bottom.add(Box.createGlue());
+			bottom.add(backButton);
+		}
+		
+		createNewUserButton = new JButton("OK");
+		createNewUserButton.setActionCommand("OK");
+		createNewUserButton.setMnemonic('o');
+		createNewUserButton
+				.addActionListener(myPhoneMeCreateNewUserDialogListener);
+		
 		cancelButton = new JButton("Cancel");
 		cancelButton.setActionCommand("Cancel");
 		cancelButton.setMnemonic('c');
-		cancelButton.addActionListener(myPhoneMeCreateNewUserDialogListener);
-
+		cancelButton
+				.addActionListener(myPhoneMeCreateNewUserDialogListener);
+		
 		bottom.add(Box.createGlue());
-		bottom.add(newUserButton);
-		bottom.add(Box.createGlue());
-		bottom.add(loginUserButton);
+		bottom.add(createNewUserButton);
 		bottom.add(Box.createGlue());
 		bottom.add(cancelButton);
 		bottom.add(Box.createGlue());
@@ -156,17 +163,15 @@ public class PhoneMeCreateNewUserDialog {
 		this.newUserDialog.setVisible(false);
 		// **************************************************
 	}
-	
+
 	/**
 	 * @return
 	 */
-	public StringBuffer makeUserOnlyMessageXML(){
+	public StringBuffer makeUserOnlyMessageXML() {
 		StringBuffer message = new StringBuffer();
-		message.append(MyXMLMaker.addTag("UserName",
-				userNameField.getText()));
-		message.append(MyXMLMaker.addTag("UserPassword",
-				String.valueOf(this.userPasswordField
-						.getPassword())));
+		message.append(MyXMLMaker.addTag("UserName", userNameField.getText()));
+		message.append(MyXMLMaker.addTag("UserPassword", String
+				.valueOf(this.userPasswordField.getPassword())));
 		return message;
 	}
 
@@ -192,14 +197,6 @@ public class PhoneMeCreateNewUserDialog {
 	}
 
 	/**
-	 * @param myUser
-	 *            the myUser to set
-	 */
-	public void setMyUser(User myUser) {
-		this.myUser = myUser;
-	}
-
-	/**
 	 * @param errorMessage
 	 */
 	public void updateErrorMessageLabel(String errorMessage) {
@@ -208,21 +205,25 @@ public class PhoneMeCreateNewUserDialog {
 	}
 
 	/**
-	 * @return the myUser
+	 * @return
 	 */
-	public User getMyUser() {
-		myUser.setUserName(this.userNameField.getText().trim());
+	public String getNewUserName() {
+		return this.userNameField.getText().trim();
+	}
+
+	/**
+	 * @return
+	 */
+	public String getPassword() {
 		String passwordInput = String.valueOf(this.userPasswordField
 				.getPassword());
 		String passwordComfirm = String.valueOf(this.userComfirmPasswordField
 				.getPassword());
 
 		if (passwordInput.equals(passwordComfirm))
-			myUser.setPassword(passwordInput);
+			return passwordInput;
 		else
-			myUser.setPassword(null);
-
-		return myUser;
+			return null;
 	}
 
 	/**
