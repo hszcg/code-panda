@@ -229,6 +229,11 @@ public class DataPool {
 				contactData) == -2) {
 			return -2;
 		}
+		System.out.println("User----"+currentUser.getUserName());
+		System.out.println("Contact----");
+		System.out.println("ContactName---"+contactData.getContactName());
+		for(int i=0;i<contactData.getPhoneNumberList().size();i++)
+		System.out.println("ContactTelephone----"+contactData.getPhoneNumberList().get(i));
 		return 0;
 	}
 
