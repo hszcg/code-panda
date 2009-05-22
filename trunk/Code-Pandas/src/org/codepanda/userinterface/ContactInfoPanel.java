@@ -505,7 +505,8 @@ public class ContactInfoPanel extends JXPanel {
 		CellConstraints downcc = new CellConstraints();
 
 		downbuilder.addSeparator("标签及分组信息", downcc.xyw(1, 1, 11));
-		downbuilder.addLabel("                        ", downcc.xy(13, 1));
+		downbuilder.addLabel
+		("                        					", downcc.xy(13, 1));
 
 		// 联系人普通标签
 		commonLabelListBox = new JComboBox();

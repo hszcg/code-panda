@@ -94,15 +94,16 @@ public class PhoneMeRibbon {
 		editUserButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				System.out.println("修改用户信息");
-				JDialog test = new JDialog(mainFrame);
-				test.add(new PhoneMeEditUserPanel(mainFrame));
-				test.pack();
+				
+				JDialog dialog = new PhoneMeEditUserPanel
+				(mainFrame).getDialog();
+				dialog.pack();
 				Dimension screenSize = Toolkit.getDefaultToolkit()
 						.getScreenSize();
-				test.setLocation((screenSize.width - test.getWidth()) / 2,
-						(screenSize.height - test.getHeight()) / 2);
-				test.setResizable(false);
-				test.setVisible(true);
+				dialog.setLocation((screenSize.width - dialog.getWidth()) / 2,
+						(screenSize.height - dialog.getHeight()) / 2);
+				dialog.setResizable(false);
+				dialog.setVisible(true);
 			}
 		});
 
