@@ -265,6 +265,8 @@ public class PhoneMeMajorPanel extends JPanel {
 
 		centerPanel.addTab("CommonLabel Show", new CommonLabelShow(
 				this.mainFrame).getMainPanel());
+		
+		centerPanel.addTab("Search", new SearchPanel());
 	}
 
 }

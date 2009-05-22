@@ -581,8 +581,11 @@ public class ContactInfoPanel extends JXPanel {
 					CommandVisitor newContactCommandVisitor = new CommandVisitor(
 							CommandType.NEW_CONTACT, xml);
 					NewContactMessageHandler newContactMessageHandler = new NewContactMessageHandler();
-					newContactMessageHandler
+					int iSN = (Integer) newContactMessageHandler
 							.executeCommand(newContactCommandVisitor);
+
+					setMyContact(DataPool.getInstance().getAllContactISNMap()
+							.get(iSN));
 
 					setEditable(false);
 				} else {
@@ -609,6 +612,7 @@ public class ContactInfoPanel extends JXPanel {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				setMyContact(myContact);
+				setEditable(false);
 			}
 		});
 		this.myButtonList.add(confirmButton);
