@@ -19,13 +19,9 @@ public class NewContactActor implements CommandActor {
 			System.out.println("New Contact Null!!!!");
 			return NewContactActor.NULL_CONTACT;
 		}
+		//·µ»ØµÄÊÇISN
 		int result=DataPool.getInstance().newContact(myContact);
-		if(result==-2)
-		{
-			System.out.println("New Contact Failed!!!!");
-			return NewContactActor.FAILED;
-		}
-		return NewContactActor.SUCCEED;
+		return result;
 	}
 	public void setContact(PersonalContact contact)
 	{
