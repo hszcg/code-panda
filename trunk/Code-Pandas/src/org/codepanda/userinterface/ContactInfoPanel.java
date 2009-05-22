@@ -150,6 +150,12 @@ public class ContactInfoPanel extends JXPanel {
 			// TODO initialize Editable
 			this.setEditable(isEditable);
 		}
+		else{
+			if(panelType == USER_INFO_PANEL){
+				confirmButton.setVisible(false);
+				cancelButton.setVisible(false);
+			}
+		}
 	}
 
 	/**
@@ -177,6 +183,10 @@ public class ContactInfoPanel extends JXPanel {
 		if (isEditable == false) {
 			// TODO initialize Editable
 			this.setEditable(isEditable);
+		}
+		else{
+			confirmButton.setVisible(false);
+			cancelButton.setVisible(false);
 		}
 	}
 
