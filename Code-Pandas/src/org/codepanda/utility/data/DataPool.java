@@ -26,6 +26,8 @@ import com.google.common.collect.HashMultimap;
  * 
  */
 public class DataPool {
+	private int currentLowBound = Integer.MIN_VALUE;
+	
 	private DataPool() {
 		// TODO Initialize all data except for dataPoolInstance
 		setCurrentUser(new User());
@@ -222,19 +224,27 @@ public class DataPool {
 		}
 		return 0;
 	}
-
+	//返回的是联系人对应的ISN
 	public int newContact(PersonalContact contactData) {
 		// 如果失败，返回-2,成功返回0
-		if (DataPool.getInstance().getDb().newContact(getCurrentUser().getUserName(),
-				contactData) == -2) {
-			return -2;
-		}
+		//if (DataPool.getInstance().getDb().newContact(getCurrentUser().getUserName(),
+		//		contactData) == -2) {
+			int result=DataPool.getInstance().getDb().newContact(getCurrentUser().getUserName(), contactData);
+			int temp=currentLowBound;
+			int j=0;
+			for(j=currentLowBound+1;j<Integer.MAX_VALUE;j++)
+			{
+				if(allContactISNMap.containsKey(j))
+					j++;
+			}
+			currentLowBound=j;
 		System.out.println("User----"+currentUser.getUserName());
 		System.out.println("Contact----");
 		System.out.println("ContactName---"+contactData.getContactName());
 		for(int i=0;i<contactData.getPhoneNumberList().size();i++)
 		System.out.println("ContactTelephone----"+contactData.getPhoneNumberList().get(i));
-		return 0;
+		//return 0;
+		return temp;
 	}
 
 	public int editContact(PersonalContact contactData) {
@@ -244,13 +254,14 @@ public class DataPool {
 		}
 		return 0;
 	}
-
+//返回当前的currentLowBound
 	public int deleteContact(PersonalContact contactData) {
 		// 如果失败，返回-2，成功返回0
-		if (DataPool.getInstance().getDb().deleteContact(getCurrentUser(), contactData) == -2) {
-			return -2;
+		if(contactData.getISN()<currentLowBound)
+		{
+			currentLowBound=contactData.getISN();
 		}
-		return 0;
+		return currentLowBound;
 	}
 
 	/**
