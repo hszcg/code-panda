@@ -186,7 +186,7 @@ public class SearchPanel extends JPanel {
 			message.append(MyXMLMaker.addTag("CommonLabel", commonLabelField
 					.getText()));
 
-		if (!groupBox.getSelectedItem().toString().equals("(任意)"))
+		/*if (!groupBox.getSelectedItem().toString().equals("(任意)"))
 			message.append(MyXMLMaker.addTag("Group", groupBox
 					.getSelectedItem().toString()));
 
@@ -199,7 +199,7 @@ public class SearchPanel extends JPanel {
 					.getSelectedItem().toString()));
 			message.append(MyXMLMaker.addTag("RelationLabel", relation
 					.toString()));
-		}
+		}*/
 		return message;
 	}
 }
