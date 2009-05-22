@@ -107,7 +107,7 @@ public class PhoneMeTaskPane extends JXTaskPaneContainer implements
 				ContactOperations c = allContactISN.get(newIt.next());
 				contact = new DefaultMutableTreeNode(new TreeNodeItem(c
 						.getContactName(), c.getISN()));
-				root.add(contact);
+				group.add(contact);
 			}
 		}
 	}

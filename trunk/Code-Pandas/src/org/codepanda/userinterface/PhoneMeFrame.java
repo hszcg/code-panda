@@ -176,6 +176,7 @@ public class PhoneMeFrame extends JRibbonFrame {
 				phoneMeFrame.configureLogin();
 
 				phoneMeFrame.setVisible(true);
+				phoneMeFrame.setResizable(false);
 			}
 		});
 	}

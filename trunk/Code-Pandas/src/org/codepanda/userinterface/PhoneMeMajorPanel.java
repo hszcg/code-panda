@@ -21,6 +21,8 @@ public class PhoneMeMajorPanel extends JPanel {
 	private PhoneMeFrame mainFrame;
 	private JTabbedPane centerPanel;
 
+	private final static int MAX_TAB_NUMBER = 16;
+
 	public PhoneMeMajorPanel(PhoneMeFrame mainFrame) {
 		super();
 		setLayout(new BorderLayout());
@@ -113,7 +115,7 @@ public class PhoneMeMajorPanel extends JPanel {
 		// highlight with foreground color
 		tree.addHighlighter(new ColorHighlighter(predicate, null, Color.RED));
 		tree.updateUI();
-		
+
 		treePanel.add(tree);
 		centerPanel.addTab("Tree Tab", treePanel);
 
@@ -184,20 +186,36 @@ public class PhoneMeMajorPanel extends JPanel {
 		// contactInfoScrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
 		// contactInfoScrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
 
-		centerPanel.addTab("Contact Info", new ContactInfoPanel(this.mainFrame, null, false));
+		centerPanel.addTab("Contact Info", new ContactInfoPanel(this.mainFrame,
+				null, false));
 		
-		centerPanel.addTab("Search Result", new SearchResultPanel(this.mainFrame));
-		
-		centerPanel.addTab("CommonLabel Show", new CommonLabelShowPanel(this.mainFrame));
+		//
+		centerPanel.addTab("Search Result", new SearchResultPanel(
+				this.mainFrame, null));
+
+		centerPanel.addTab("CommonLabel Show", new CommonLabelShowPanel(
+				this.mainFrame));
 
 		return centerPanel;
 	}
-	
+
 	/**
 	 * @return Component CurrentTab
 	 */
 	public Component getCurrentTab() {
 		return centerPanel.getSelectedComponent();
+	}
+
+	/**
+	 * @param p
+	 * @return
+	 */
+	public boolean addNewTab(String tabName, JPanel p) {
+		if (centerPanel.getTabCount() > MAX_TAB_NUMBER - 1)
+			return false;
+
+		centerPanel.addTab(tabName, p);
+		return true;
 	}
 
 }
