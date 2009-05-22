@@ -206,9 +206,12 @@ public class DatabaseMagager implements DatabaseManagerFacade {
 			contactList.add((ContactOperations) rs.getObject(2));
 //			acd.add((ContactOperations) rs.getObject(2));
 		}
-		
 		st.close();
 	}
+	
+	
+	
+	
 
 	@Override
 	public int getUser(String userName, User user) {
@@ -277,10 +280,10 @@ public class DatabaseMagager implements DatabaseManagerFacade {
 	
 	@Override
 	public int delUser(final User user) {
-							// TODO 		check the password.....
-		User tempuser=new User();
+		// the process of checking process is outside the DataBase
+//		User tempuser=new User();
 		try {
-			this.getUser(user.getUserName(), tempuser);
+//			this.getUser(user.getUserName(), tempuser);
 			this.updateD(
 					"DELETE FROM UserTable WHERE username = '"+user.getUserName()+"'", user);
 			return 1;
@@ -292,9 +295,27 @@ public class DatabaseMagager implements DatabaseManagerFacade {
 
 	@Override
 	public int deleteContact(final User user, final  PersonalContact contact) {
+		int isn = contact.getISN();
+		try {
+			if(queryContact(user.getUserName(), isn)==1){
+				return 1;
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
 		return 0;
-		// TODO Auto-generated method stub
-
+	}
+	public synchronized int queryContact(String name, int isn) throws SQLException{
+		Statement st = null;
+		ResultSet rs = null;
+		st = conn.createStatement();
+		rs = st.executeQuery("SELECT * FROM contactList WHERE username = '"+name+"'");
+		for (; rs.next();){
+			if(((PersonalContact)rs.getObject(2)).getISN() == isn){
+				return 1;
+			}
+		}
+		return 0;
 	}
 
 	@Override
@@ -307,6 +328,8 @@ public class DatabaseMagager implements DatabaseManagerFacade {
 	@Override
 	public int editContact(final User user, final PersonalContact contact){
 		// TODO Auto-generated method stub
+		this.deleteContact(user, contact);
+		this.newContact(user.getUserName(), contact);
 		return 0;
 	}
 
