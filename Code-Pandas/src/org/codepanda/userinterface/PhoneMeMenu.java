@@ -141,7 +141,7 @@ public class PhoneMeMenu extends RibbonApplicationMenu {
 						new Dimension(32, 32)), "Exit", new ActionListener() {
 					@Override
 					public void actionPerformed(ActionEvent e) {
-						System.exit(0);
+						getMainFrame().exitProgram();
 					}
 				}, CommandButtonKind.ACTION_ONLY);
 		addMenuEntry(userManager);

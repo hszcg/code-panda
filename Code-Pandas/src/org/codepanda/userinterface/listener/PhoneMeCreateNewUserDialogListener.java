@@ -86,8 +86,7 @@ public class PhoneMeCreateNewUserDialogListener implements ActionListener {
 
 		} else if (e.getActionCommand().equals("Cancel")) {
 			System.out.println("PhoneMeCreateNewUserDialog Action Canceled.");
-			System.exit(0);
+			myPhoneMeCreateNewUserDialog.getParentFrame().exitProgram();
 		}
-		;
 	}
 }
