@@ -336,6 +336,7 @@ public class PhoneMeRibbon {
 				playerHeadChooser.setDialogTitle("Contact Export Chooser");
 
 				File dir = new File("./");
+				URL url = null;
 				if (dir.isDirectory())
 					playerHeadChooser.setCurrentDirectory(dir);
 
@@ -351,11 +352,24 @@ public class PhoneMeRibbon {
 
 				File selectedFile = playerHeadChooser.getSelectedFile();
 				try {
-					URL url = selectedFile.toURI().toURL();
+					url = selectedFile.toURI().toURL();
 					System.out.println("EXPORT\n" + url.toString());
 				} catch (Exception error) {
 					error.printStackTrace();
 				}
+				
+				StringBuffer tempMessage = new StringBuffer();
+				if(url.toString().endsWith("csv"))
+					tempMessage.append(MyXMLMaker.addTag("Type", "csv"));
+				else
+					tempMessage.append(MyXMLMaker.addTag("Type", "xls"));
+				
+				tempMessage.append(MyXMLMaker.addTag("Url", url.toString()));
+				String finalMessage = new String();
+				finalMessage = MyXMLMaker.addTag
+				("ExportContact", tempMessage.toString());
+				finalMessage = MyXMLMaker.addTag
+				("com", finalMessage);
 			}
 		});
 
