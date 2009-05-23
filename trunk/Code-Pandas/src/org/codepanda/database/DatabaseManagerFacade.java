@@ -13,7 +13,8 @@ public interface DatabaseManagerFacade {
 	public int newUser(final User user);
 	public int getUser(String userName, final User user);
 	public int editUser(String userName, final User user);	
-	public int delUser(final User user);					
+//	public int delUser(final User user);	
+	public int delUser(String userName);
 	public int checkExistUser(String userName);				
 	public int loginUser(String userName, String password);
 	
@@ -22,12 +23,14 @@ public interface DatabaseManagerFacade {
 	public int getContactData(String userName,final ArrayList<ContactOperations> contactList);
 	//这里有名字的小错误，我帮你改了
 	//public int editUser(final User user, final ContactData contact);
-	public int editContact(final User user, final PersonalContact contact);		
-	public int deleteContact(final User user, final PersonalContact contact);	
+//	public int editContact(final User user, final PersonalContact contact);
+	public int editContact(String userName, final PersonalContact contact);
+//	public int deleteContact(final User user, final PersonalContact contact);	
+	public int deleteContact(String userName, int ISN);
 	// label
-	public int newLabel(String labelname, String username);						
-	public int editCommonlabel(String labelname);								
-	public int delCommonlabel(String labelname);								
+//	public int newLabel(String labelname, String username);						
+//	public int editCommonlabel(String labelname);								
+//	public int delCommonlabel(String labelname);								
 	// operation
 	public int open(String dbName) throws SQLException;
 	public int close() throws SQLException;
