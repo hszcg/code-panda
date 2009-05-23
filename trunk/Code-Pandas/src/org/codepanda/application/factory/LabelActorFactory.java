@@ -7,6 +7,7 @@ import org.codepanda.application.label.EditCommonLabelActor;
 import org.codepanda.application.label.NewCommonLabelActor;
 import org.codepanda.application.xml.CommonLabelXML;
 import org.codepanda.application.xml.DeleteCommonLabelXML;
+import org.codepanda.application.xml.EditCommonLabelXML;
 import org.codepanda.utility.label.CommonLabel;
 
 public class LabelActorFactory extends CommandActorFactory {
@@ -21,6 +22,14 @@ public class LabelActorFactory extends CommandActorFactory {
 			String result=deleteCommonLabelXML.labelParserXML("<DeleteCommonLabel>", "</DeleteCommonLabel>", commandDetail);
 			deleteCommonLabelActor.setInfo(result);
 			return deleteCommonLabelActor;
+		}
+		if(commandType==CommandType.EDIT_COMMON_LABEL)
+		{
+			EditCommonLabelActor editCommonLabelActor=new EditCommonLabelActor();
+			EditCommonLabelXML editCommonLabelXML=new EditCommonLabelXML();
+			String result=editCommonLabelXML.labelParserXML("<EditCommonLabel>", "</EditCommonLabel>", commandDetail);
+			editCommonLabelActor.setInfo(result);
+			return editCommonLabelActor;
 		}
 		return null;
 	}
