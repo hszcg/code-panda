@@ -42,8 +42,8 @@ public class PhoneMeConstants {
 		contactSectionList.put(ContactSectionType.PHONE_NUMBER, "联系电话");
 		contactSectionList.put(ContactSectionType.EMAIL_ADDR, "电子邮箱");
 		contactSectionList.put(ContactSectionType.HOME_ADDR, "家庭住址");
-		contactSectionList.put(ContactSectionType.WORK_ADDR, "工作单位");
-		contactSectionList.put(ContactSectionType.IM_ADDR, "即时联系方式");
+		contactSectionList.put(ContactSectionType.WORK_OFFICE, "工作单位");
+		contactSectionList.put(ContactSectionType.IM, "即时联系方式");
 		contactSectionList.put(ContactSectionType.BIRTHDAY, "联系人生日");
 		contactSectionList.put(ContactSectionType.WEB_URL, "Web地址");
 		contactSectionList.put(ContactSectionType.COMMON_LABEL, "普通标签");
