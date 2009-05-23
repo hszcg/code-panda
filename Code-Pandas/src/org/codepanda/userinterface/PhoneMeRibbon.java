@@ -40,7 +40,6 @@ public class PhoneMeRibbon {
 					contactSyncBand, otherFunctionBand);
 			advancedTask.setKeyTip("A");
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
@@ -84,6 +83,7 @@ public class PhoneMeRibbon {
 		deleteUserButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				System.out.println("É¾³ýÓÃ»§");
+				// TODO delete current user
 			}
 		});
 
