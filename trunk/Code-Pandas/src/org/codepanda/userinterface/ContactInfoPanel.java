@@ -3,10 +3,14 @@ package org.codepanda.userinterface;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.image.BufferedImage;
+import java.awt.image.DataBufferByte;
+import java.awt.image.MemoryImageSource;
 import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.HashMap;
 
@@ -231,43 +235,40 @@ public class ContactInfoPanel extends JXPanel {
 		String temp[] = { "010-51534419", "13810013188", "029-85367800" };
 		phoneNumberBox = new JComboBox(temp);
 		addPhoneNumberButton = new JButton("Ìí¼Ó");
-		/*addPhoneNumberButton.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent arg0) {
-				phoneNumberField.setVisible(true);
-				phoneNumberField.setState(0);
-				paintComponents(getGraphics());
-			}
-		});*/
-		
+		/*
+		 * addPhoneNumberButton.addActionListener(new ActionListener() {
+		 * 
+		 * @Override public void actionPerformed(ActionEvent arg0) {
+		 * phoneNumberField.setVisible(true); phoneNumberField.setState(0);
+		 * paintComponents(getGraphics()); } });
+		 */
+
 		editPhoneNumberButton = new JButton("±à¼­");
-		/*editPhoneNumberButton.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent arg0) {
-				phoneNumberField.setVisible(true);
-				if(phoneNumberBox.getItemCount() != 0)
-					phoneNumberField.setText
-					(phoneNumberBox.getItemAt(0).toString());
-				phoneNumberField.setState(1);
-				paintComponents(getGraphics());
-			}
-		});*/
+		/*
+		 * editPhoneNumberButton.addActionListener(new ActionListener() {
+		 * 
+		 * @Override public void actionPerformed(ActionEvent arg0) {
+		 * phoneNumberField.setVisible(true); if(phoneNumberBox.getItemCount()
+		 * != 0) phoneNumberField.setText
+		 * (phoneNumberBox.getItemAt(0).toString());
+		 * phoneNumberField.setState(1); paintComponents(getGraphics()); } });
+		 */
 		deletePhoneNumberButton = new JButton("É¾³ý");
-		/*deletePhoneNumberButton.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent arg0) {
-				phoneNumberBox.removeItem(phoneNumberBox.getSelectedItem());
-			}
-		});*/
+		/*
+		 * deletePhoneNumberButton.addActionListener(new ActionListener() {
+		 * 
+		 * @Override public void actionPerformed(ActionEvent arg0) {
+		 * phoneNumberBox.removeItem(phoneNumberBox.getSelectedItem()); } });
+		 */
 		phoneNumberField = new PhoneMeField(20);
 		phoneNumberField.addActionListener(new FieldActionListener(
 				phoneNumberBox, phoneNumberField));
-		
-		phoneNumberBox.addItemListener
-		(new ComboBoxSetTextListener(phoneNumberField, phoneNumberBox));
 
-		ActionListener phoneNumberListener = new
-		ComboBoxButtonListener(this, phoneNumberBox, phoneNumberField);
+		phoneNumberBox.addItemListener(new ComboBoxSetTextListener(
+				phoneNumberField, phoneNumberBox));
+
+		ActionListener phoneNumberListener = new ComboBoxButtonListener(this,
+				phoneNumberBox, phoneNumberField);
 		addPhoneNumberButton.addActionListener(phoneNumberListener);
 		editPhoneNumberButton.addActionListener(phoneNumberListener);
 		deletePhoneNumberButton.addActionListener(phoneNumberListener);
@@ -381,20 +382,20 @@ public class ContactInfoPanel extends JXPanel {
 		addEmailAddressButton = new JButton("Ìí¼Ó");
 		editEmailAddressButton = new JButton("±à¼­");
 		deleteEmailAddressButton = new JButton("É¾³ý");
-		
+
 		emailField = new PhoneMeField(20);
 		emailField.addActionListener(new FieldActionListener(emailAddressBox,
 				emailField));
-		
-		emailAddressBox.addItemListener
-		(new ComboBoxSetTextListener(emailField, emailAddressBox));
-		
-		ActionListener emailListener = new
-		ComboBoxButtonListener(this, emailAddressBox, emailField);
+
+		emailAddressBox.addItemListener(new ComboBoxSetTextListener(emailField,
+				emailAddressBox));
+
+		ActionListener emailListener = new ComboBoxButtonListener(this,
+				emailAddressBox, emailField);
 		addEmailAddressButton.addActionListener(emailListener);
 		editEmailAddressButton.addActionListener(emailListener);
 		deleteEmailAddressButton.addActionListener(emailListener);
-		
+
 		this.myButtonList.add(addEmailAddressButton);
 		this.myButtonList.add(editEmailAddressButton);
 		this.myButtonList.add(deleteEmailAddressButton);
@@ -413,18 +414,18 @@ public class ContactInfoPanel extends JXPanel {
 		editContactAddressButton = new JButton("±à¼­");
 		deleteContactAddressButton = new JButton("É¾³ý");
 		addressField = new PhoneMeField(20);
-		addressField.addActionListener(new FieldActionListener
-				(contactAddressBox, addressField));
-		
-		contactAddressBox.addItemListener
-		(new ComboBoxSetTextListener(addressField, contactAddressBox));
-		
-		ActionListener addressListener = new
-		ComboBoxButtonListener(this, contactAddressBox, addressField);
+		addressField.addActionListener(new FieldActionListener(
+				contactAddressBox, addressField));
+
+		contactAddressBox.addItemListener(new ComboBoxSetTextListener(
+				addressField, contactAddressBox));
+
+		ActionListener addressListener = new ComboBoxButtonListener(this,
+				contactAddressBox, addressField);
 		addContactAddressButton.addActionListener(addressListener);
 		editContactAddressButton.addActionListener(addressListener);
 		deleteContactAddressButton.addActionListener(addressListener);
-		
+
 		this.myButtonList.add(addContactAddressButton);
 		this.myButtonList.add(editContactAddressButton);
 		this.myButtonList.add(deleteContactAddressButton);
@@ -442,16 +443,16 @@ public class ContactInfoPanel extends JXPanel {
 		addWorkingDepartmentButton = new JButton("Ìí¼Ó");
 		editWorkingDepartmentButton = new JButton("±à¼­");
 		deleteWorkingDepartmentButton = new JButton("É¾³ý");
-		
+
 		workField = new PhoneMeField(20);
-		workField.addActionListener(new FieldActionListener
-				(workingDepartmentBox, workField));
-		
-		workingDepartmentBox.addItemListener
-		(new ComboBoxSetTextListener(workField, workingDepartmentBox));
-		
-		ActionListener workListener = new
-		ComboBoxButtonListener(this, workingDepartmentBox, workField);
+		workField.addActionListener(new FieldActionListener(
+				workingDepartmentBox, workField));
+
+		workingDepartmentBox.addItemListener(new ComboBoxSetTextListener(
+				workField, workingDepartmentBox));
+
+		ActionListener workListener = new ComboBoxButtonListener(this,
+				workingDepartmentBox, workField);
 		addWorkingDepartmentButton.addActionListener(workListener);
 		editWorkingDepartmentButton.addActionListener(workListener);
 		deleteWorkingDepartmentButton.addActionListener(workListener);
@@ -473,16 +474,16 @@ public class ContactInfoPanel extends JXPanel {
 		addImContactInformationButton = new JButton("Ìí¼Ó");
 		editImContactInformationButton = new JButton("±à¼­");
 		deleteImContactInformationButton = new JButton("É¾³ý");
-		
+
 		IMField = new PhoneMeField(20);
-		IMField.addActionListener(new FieldActionListener
-				(imContactInformationBox, IMField));
-		
-		imContactInformationBox.addItemListener
-		(new ComboBoxSetTextListener(IMField, imContactInformationBox));
-		
-		ActionListener IMListener = new
-		ComboBoxButtonListener(this, imContactInformationBox, IMField);
+		IMField.addActionListener(new FieldActionListener(
+				imContactInformationBox, IMField));
+
+		imContactInformationBox.addItemListener(new ComboBoxSetTextListener(
+				IMField, imContactInformationBox));
+
+		ActionListener IMListener = new ComboBoxButtonListener(this,
+				imContactInformationBox, IMField);
 		addImContactInformationButton.addActionListener(IMListener);
 		editImContactInformationButton.addActionListener(IMListener);
 		deleteImContactInformationButton.addActionListener(IMListener);
@@ -532,16 +533,16 @@ public class ContactInfoPanel extends JXPanel {
 		addUrlListButton = new JButton("Ìí¼Ó");
 		editUrlListButton = new JButton("±à¼­");
 		deleteUrlListButton = new JButton("É¾³ý");
-		
+
 		urlField = new PhoneMeField(20);
-		urlField.addActionListener(new FieldActionListener
-				(urlListBox, urlField));
-		
-		urlListBox.addItemListener
-		(new ComboBoxSetTextListener(urlField, urlListBox));
-		
-		ActionListener urlListener = new
-		ComboBoxButtonListener(this, urlListBox, urlField);
+		urlField
+				.addActionListener(new FieldActionListener(urlListBox, urlField));
+
+		urlListBox.addItemListener(new ComboBoxSetTextListener(urlField,
+				urlListBox));
+
+		ActionListener urlListener = new ComboBoxButtonListener(this,
+				urlListBox, urlField);
 		addUrlListButton.addActionListener(urlListener);
 		editUrlListButton.addActionListener(urlListener);
 		deleteUrlListButton.addActionListener(urlListener);
@@ -579,16 +580,16 @@ public class ContactInfoPanel extends JXPanel {
 		addCommonLabelListButton = new JButton("Ìí¼Ó");
 		editCommonLabelListButton = new JButton("±à¼­");
 		deleteCommonLabelListButton = new JButton("É¾³ý");
-		
+
 		commonLabelField = new PhoneMeField(20);
-		commonLabelField.addActionListener(new FieldActionListener
-				(commonLabelListBox, commonLabelField));
-		
-		commonLabelListBox.addItemListener
-		(new ComboBoxSetTextListener(commonLabelField, commonLabelListBox));
-		
-		ActionListener commanLanelListener = new
-		ComboBoxButtonListener(this, commonLabelListBox, commonLabelField);
+		commonLabelField.addActionListener(new FieldActionListener(
+				commonLabelListBox, commonLabelField));
+
+		commonLabelListBox.addItemListener(new ComboBoxSetTextListener(
+				commonLabelField, commonLabelListBox));
+
+		ActionListener commanLanelListener = new ComboBoxButtonListener(this,
+				commonLabelListBox, commonLabelField);
 		addCommonLabelListButton.addActionListener(commanLanelListener);
 		editCommonLabelListButton.addActionListener(commanLanelListener);
 		deleteCommonLabelListButton.addActionListener(commanLanelListener);
@@ -611,35 +612,33 @@ public class ContactInfoPanel extends JXPanel {
 		addGroupListButton.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-				for(int index = 0;index < groupListBox.getItemCount(); index ++){
-					if(groupListBox.getItemAt(index).
-							toString().equals
-							(selectGroupBox.getSelectedItem().toString())){
+				for (int index = 0; index < groupListBox.getItemCount(); index++) {
+					if (groupListBox.getItemAt(index).toString().equals(
+							selectGroupBox.getSelectedItem().toString())) {
 						return;
 					}
 				}
 				groupListBox.addItem(selectGroupBox.getSelectedItem());
-				groupListBox.setSelectedIndex(groupListBox.getItemCount()-1);
+				groupListBox.setSelectedIndex(groupListBox.getItemCount() - 1);
 			}
 		});
 		editGroupListButton = new JButton("±à¼­");
 		editGroupListButton.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-				if(groupListBox.getItemCount() == 0)
+				if (groupListBox.getItemCount() == 0)
 					return;
-				for(int index = 0;index < groupListBox.getItemCount(); index ++){
-					if(groupListBox.getItemAt(index).
-							toString().equals
-							(selectGroupBox.getSelectedItem().toString())){
+				for (int index = 0; index < groupListBox.getItemCount(); index++) {
+					if (groupListBox.getItemAt(index).toString().equals(
+							selectGroupBox.getSelectedItem().toString())) {
 						return;
 					}
 				}
 				groupListBox.setEditable(true);
 				int index = groupListBox.getSelectedIndex();
 				groupListBox.removeItem(groupListBox.getSelectedItem());
-				groupListBox.insertItemAt
-				(selectGroupBox.getSelectedItem(), index);
+				groupListBox.insertItemAt(selectGroupBox.getSelectedItem(),
+						index);
 				groupListBox.setSelectedIndex(index);
 				groupListBox.setEditable(false);
 			}
@@ -651,9 +650,8 @@ public class ContactInfoPanel extends JXPanel {
 				groupListBox.removeItem(groupListBox.getSelectedItem());
 			}
 		});
-		selectGroupBox = new JComboBox
-		((String[]) PhoneMeConstants.getInstance()
-				.getAllRelationLabelName().toArray(new String[0]));
+		selectGroupBox = new JComboBox((String[]) PhoneMeConstants
+				.getInstance().getAllRelationLabelName().toArray(new String[0]));
 
 		this.myButtonList.add(addGroupListButton);
 		this.myButtonList.add(editGroupListButton);
@@ -710,7 +708,7 @@ public class ContactInfoPanel extends JXPanel {
 
 					setEditable(false);
 					nameField.setEditable(false);
-					
+
 					parentFrame.updateTaskPane(iSN);
 				} else {
 					// ÐÞ¸ÄÁªÏµÈË
@@ -728,7 +726,7 @@ public class ContactInfoPanel extends JXPanel {
 
 					setEditable(false);
 					nameField.setEditable(false);
-					
+
 					parentFrame.updateTaskPane(myContact.getISN());
 				}
 			}
@@ -778,11 +776,12 @@ public class ContactInfoPanel extends JXPanel {
 	/**
 	 * @param pic
 	 */
-	public void setContactHeadImage(Image pic) {
+	public void setContactHeadImage(BufferedImage pic) {
 		if (pic == null)
 			return;
 
 		Image tempImage = pic.getScaledInstance(130, 115, Image.SCALE_DEFAULT);
+
 		ImageIcon imageIcon = new ImageIcon(tempImage);
 		headImageLabel.setIcon(imageIcon);
 	}
@@ -921,13 +920,12 @@ public class ContactInfoPanel extends JXPanel {
 		// set Contact Information
 
 		if (myContact.getContactName() != null) {
-			/*if(!nameField.isEditable())
-			{
-				nameField.setVisible(true);
-				nameField.setText(myContact.getContactName());
-				nameField.setVisible(false);
-			}*/
-			//else
+			/*
+			 * if(!nameField.isEditable()) { nameField.setVisible(true);
+			 * nameField.setText(myContact.getContactName());
+			 * nameField.setVisible(false); }
+			 */
+			// else
 			nameField.setText(myContact.getContactName());
 		}
 

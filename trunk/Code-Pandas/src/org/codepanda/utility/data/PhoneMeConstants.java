@@ -7,6 +7,9 @@ public class PhoneMeConstants {
 	private HashSet<String> allRelationLabelName;
 	private HashSet<String> allGroupList;
 	private HashMap<ContactSectionType, String> contactSectionList;
+	
+	public static final int HEAD_IMAGE_HEIGHT = 115;
+	public static int HEAD_IMAGE_WIDTH = 130;
 
 	private static PhoneMeConstants instance = new PhoneMeConstants();
 
