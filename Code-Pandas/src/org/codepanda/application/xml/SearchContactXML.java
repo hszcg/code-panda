@@ -107,7 +107,7 @@ public class SearchContactXML {
 					System.out.println("SearchText____" + value);
 					System.out.println("Name____"
 							+ contactData.getContactName());
-					if (contactData.getContactName().indexOf(value) != -1) {
+					if (contactData.getContactName().contains(value)) {
 						goFlag = true;
 						System.out.println("BlurSearch___MM"
 								+ contactData.getContactName() + "MMMMMMMM"
