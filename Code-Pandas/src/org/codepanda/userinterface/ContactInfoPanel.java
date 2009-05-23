@@ -618,8 +618,7 @@ public class ContactInfoPanel extends JXPanel {
 		downbuilder.add(commonLabelField, downcc.xy(13, 3));
 
 		// 联系人所属分组
-		groupListBox = new JComboBox((String[]) PhoneMeConstants.getInstance()
-				.getAllGroupList().toArray(new String[0]));
+		groupListBox = new JComboBox();
 		addGroupListButton = new JButton("添加");
 		addGroupListButton.addActionListener(new ActionListener() {
 			@Override
@@ -696,16 +695,28 @@ public class ContactInfoPanel extends JXPanel {
 				Integer addISN = allISN.get(selectIndex);
 				boolean contain = false;
 				int labelIndex;
-				for(labelIndex = 0;labelIndex < relationLabelListBox.getItemCount();
+				for(labelIndex = 0;
+				labelIndex < relationLabelListBox.getItemCount();
 				labelIndex ++){
 					if(relationLabelListBox.getItemAt(labelIndex).
-							toString().equals
-							(selectRelationContactBox.getSelectedItem().toString())){
+					toString().equals
+					(selectRelationContactBox.getSelectedItem().toString())){
 						contain = true;
 						break;
 					}
 				}
 				if(contain){
+					for(int contactIndex = 0; 
+					contactIndex < objectContactListBox.getItemCount();
+					contactIndex ++){
+						if(objectContactListBox.getItemAt(contactIndex).
+								toString().equals
+								(selectRelationContactBox.
+										getSelectedItem().toString())){
+							// TODO already exist display message?
+							return;
+						}
+					}
 					relationLabelListBox.setSelectedIndex(labelIndex);
 					// TODO update second combobox
 					objectContactListBox.addItem
@@ -749,12 +760,18 @@ public class ContactInfoPanel extends JXPanel {
 				
 			}
 		});
-		//editRelationLabelListButton = new JButton("编辑");
+		
 		deleteRelationLabelListButton = new JButton("删除");
+		deleteRelationLabelListButton.
+		addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				nameField.setEditable(false);
+			}
+		});
 		localRelationLabelList = new ArrayList<RelationLabel>();
 
 		this.myButtonList.add(addRelationLabelListButton);
-		//this.myButtonList.add(editRelationLabelListButton);
 		this.myButtonList.add(deleteRelationLabelListButton);
 
 		downbuilder.addLabel("关系标签", downcc.xy(1, 7));
