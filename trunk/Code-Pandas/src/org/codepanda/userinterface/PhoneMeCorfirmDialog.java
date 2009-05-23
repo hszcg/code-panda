@@ -90,7 +90,7 @@ public class PhoneMeCorfirmDialog extends JDialog implements ActionListener {
 		setLocation((screenSize.width - getWidth()) / 2, 
 			(screenSize.height - getHeight()) / 2);
 		setResizable(false);
-		setVisible(true);
+		setVisible(false);
 		
 		System.out.println("rrrrr");
 	}
@@ -110,7 +110,7 @@ public class PhoneMeCorfirmDialog extends JDialog implements ActionListener {
 				return;
 			}
 			
-			if(userPassword.equals(DataPool.getInstance().getCurrentUser().getPassword())) {
+			if( !userPassword.equals(DataPool.getInstance().getCurrentUser().getPassword())) {
 				updateErrorMessageLabel("User Password Error!");
 				return;
 			}
