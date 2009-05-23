@@ -169,9 +169,11 @@ public class PhoneMeTaskPane extends JXTaskPaneContainer implements
 
 		if (p == null) {
 			// 删除联系人之后的更新
+			System.out.println("DELETE");
 			deleteISNNode(updateISN);
 		} else {
 			// 修改/新建 联系人之后的更新
+			System.out.println("UPDATE");
 			updateNodes(p);
 		}
 
@@ -199,6 +201,8 @@ public class PhoneMeTaskPane extends JXTaskPaneContainer implements
 		// TODO Auto-generated method stub
 		boolean hasFindISN = false;
 		Object nodeInfo = ((DefaultMutableTreeNode) node).getUserObject();
+		
+		System.out.println("UPDATE CON" + p.getContactName());
 
 		for (Enumeration e = node.children(); e.hasMoreElements();) {
 			DefaultMutableTreeNode n = (DefaultMutableTreeNode) e.nextElement();

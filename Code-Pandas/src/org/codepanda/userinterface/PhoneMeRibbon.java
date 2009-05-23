@@ -5,15 +5,20 @@ import java.awt.Dimension;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
 import java.io.IOException;
+import java.net.URL;
 
 import javax.imageio.ImageIO;
 import javax.swing.JDialog;
+import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
+import javax.swing.filechooser.FileFilter;
 
 import org.codepanda.application.CommandType;
 import org.codepanda.application.CommandVisitor;
 import org.codepanda.userinterface.messagehandler.DeleteContactMessageHandler;
+import org.codepanda.userinterface.utility.ExtensionFileFilter;
 import org.codepanda.userinterface.xml.MyXMLMaker;
 import org.codepanda.utility.contact.ContactOperations;
 import org.jvnet.flamingo.common.JCommandButton;
@@ -89,9 +94,9 @@ public class PhoneMeRibbon {
 			public void actionPerformed(ActionEvent e) {
 				System.out.println("删除用户");
 				// TODO delete current user
-				
-				PhoneMeCorfirmDialog deleteUserDialog = 
-					new PhoneMeCorfirmDialog(mainFrame);
+
+				PhoneMeCorfirmDialog deleteUserDialog = new PhoneMeCorfirmDialog(
+						mainFrame);
 				deleteUserDialog.setVisible(true);
 			}
 		});
@@ -181,7 +186,7 @@ public class PhoneMeRibbon {
 						DeleteContactMessageHandler deleteContactMessageHandler = new DeleteContactMessageHandler();
 						deleteContactMessageHandler
 								.executeCommand(deleteContactCommandVisitor);
-						
+
 						mainFrame.updateTaskPane(p.getISN());
 						mainFrame.getMyPhoneMeMajorPanel().closeTab(currentTab);
 					}
@@ -326,6 +331,31 @@ public class PhoneMeRibbon {
 		exportContactButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				System.out.println("联系人导出");
+
+				JFileChooser playerHeadChooser = new JFileChooser();
+				playerHeadChooser.setDialogTitle("Contact Export Chooser");
+
+				File dir = new File("./");
+				if (dir.isDirectory())
+					playerHeadChooser.setCurrentDirectory(dir);
+
+				FileFilter playerHeadFileFilter = new ExtensionFileFilter(
+						"Support Files (*.csv, *.xls)",
+						new String[] { ".csv", ".xls" });
+				playerHeadChooser.addChoosableFileFilter(playerHeadFileFilter);
+
+				int result = playerHeadChooser.showOpenDialog(mainFrame);
+
+				if (result == JFileChooser.CANCEL_OPTION)
+					return;
+
+				File selectedFile = playerHeadChooser.getSelectedFile();
+				try {
+					URL url = selectedFile.toURI().toURL();
+					System.out.println("EXPORT\n" + url.toString());
+				} catch (Exception error) {
+					error.printStackTrace();
+				}
 			}
 		});
 
