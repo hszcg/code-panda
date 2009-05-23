@@ -508,6 +508,7 @@ public class ContactInfoPanel extends JXPanel {
 		contactBirthdayPicker.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				setContactBirthday(contactBirthdayPicker.getDate());
+				contactBirthdayPicker.setVisible(false);
 			}
 		});
 

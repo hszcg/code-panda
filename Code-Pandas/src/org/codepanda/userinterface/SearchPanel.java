@@ -93,6 +93,7 @@ public class SearchPanel extends JPanel {
 
 		builder.addLabel("联系人生日", cc.xy(3, 9));
 		birthdayField = new JXDatePicker();
+		birthdayField.setFormats(birthdayDateFormat);
 		builder.add(birthdayField, cc.xy(5, 9));
 		builder.addLabel("Web地址", cc.xy(7, 9));
 		webField = new JTextField(15);
