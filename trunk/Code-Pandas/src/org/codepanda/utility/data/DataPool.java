@@ -28,7 +28,7 @@ import com.google.common.collect.HashMultimap;
  * 
  */
 public class DataPool {
-	private int currentLowBound = Integer.MIN_VALUE;
+	private  static int currentLowBound = Integer.MIN_VALUE;
 	ArrayList<ContactOperations> allContactList;
 	private DataPool() {
 		
@@ -425,6 +425,7 @@ public class DataPool {
 		 SearchContactXML searchContactXML=new SearchContactXML();
 		 for (ContactOperations t : DataPool.getInstance().getAllContactList()) 
 		 {
+			 System.out.println("DataPool----Name"+t.getContactName());
 			 if(searchContactXML.SearchContact((PersonalContact)t, "<SearchContact>", "</SearchContact>", commandDetail))
 			 ISNList.add(t.getISN());
 		 }

@@ -12,8 +12,10 @@ public class SearchContactActor implements CommandActor {
 	public Object executeCommand() {
 		// TODO Auto-generated method stub
 		ArrayList<Integer> resultList=(ArrayList<Integer>) DataPool.getInstance().searchContact(SearchInfo);
-
+		for(int i=0;i<resultList.size();i++)
+			System.out.println(resultList.get(i));
 		return resultList;
+		
 	}
 
 	public void setISNList(ArrayList<Integer> isn) {
@@ -22,5 +24,6 @@ public class SearchContactActor implements CommandActor {
 	public void setSearchInfo(String searchInfo)
 	{
 		this.SearchInfo=searchInfo;
+	
 	}
 }

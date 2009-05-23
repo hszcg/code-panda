@@ -32,7 +32,7 @@ public class SearchContactXML {
 	String infoStr=null;
 	boolean blur=false;
 	boolean continueFlag=false;
-	boolean goFlag=true;   //继续向下进行匹配的标志
+	boolean goFlag=false;   //继续向下进行匹配的标志
 	int loopFlag=0;
 	/**
 	 * @param match1   //<SearchContact>
@@ -41,6 +41,7 @@ public class SearchContactXML {
 	 */
 	public boolean SearchContact(PersonalContact contactData,String match1,String match2,String commandDetail)
 	{
+		goFlag=false;
 		try
 		{
 			if(commandDetail.contains("<com>")&&commandDetail.contains("</com"))
@@ -89,11 +90,15 @@ public class SearchContactXML {
 				String str=node.getNodeName();
 				if(str.equalsIgnoreCase("BlurSearch"))
 				{
+					String value=node.getTextContent();
+					int temp=Integer.parseInt(value);
+					if(temp==0)
 					blur=true;
 				}
 			}
 				if(blur)
 				{
+					System.out.println("Blur________");
 					for(int i=0;i<nodelist.getLength();i++)
 					{
 						Node node=nodelist.item(i);
@@ -103,7 +108,12 @@ public class SearchContactXML {
 							String value=node.getTextContent();
 							System.out.println("SearchText____"+value);
 							if(contactData.getContactName().contains(value))
+							{
 								goFlag=true;
+								System.out.println("BlurSearch___MM"+contactData.getContactName()+"MMMMMMMM"+value);
+								System.out.println(goFlag);
+								//return true;
+							}
 							else 
 							{
 								goFlag=false;
