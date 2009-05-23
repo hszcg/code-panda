@@ -497,6 +497,7 @@ public class ContactInfoPanel extends JXPanel {
 		builder.add(addImContactInformationButton, cc.xy(5, 9));
 		builder.add(editImContactInformationButton, cc.xy(7, 9));
 		builder.add(deleteImContactInformationButton, cc.xy(9, 9));
+		builder.add(IMField, cc.xy(11, 9));
 
 		// 联系人生日部分
 		contactBirthdayField = new JTextField(30);
@@ -554,6 +555,7 @@ public class ContactInfoPanel extends JXPanel {
 		builder.add(addUrlListButton, cc.xy(5, 13));
 		builder.add(editUrlListButton, cc.xy(7, 13));
 		builder.add(deleteUrlListButton, cc.xy(9, 13));
+		builder.add(urlField, cc.xy(11, 13));
 
 		// 标签以及分组的显示区域
 		FormLayout mainSouthAreaLayout = new FormLayout(
