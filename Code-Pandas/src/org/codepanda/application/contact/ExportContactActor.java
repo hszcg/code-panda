@@ -1,12 +1,8 @@
 package org.codepanda.application.contact;
 
 import org.codepanda.application.CommandActor;
-import org.codepanda.application.export.CsvConvertor;
+import org.codepanda.application.export.CsvExport;
 import org.codepanda.application.export.XlsConvert;
-
-import org.codepanda.utility.contact.ContactOperations;
-import org.codepanda.utility.data.DataPool;
-import org.codepanda.utility.data.PhoneMeConstants;
 
 
 public class ExportContactActor implements CommandActor {
@@ -18,7 +14,7 @@ public class ExportContactActor implements CommandActor {
 	{
 		if(this.getType().equals("csv"))
 		{
-			CsvConvertor csvConvertor=new CsvConvertor();
+			CsvExport csvConvertor=new CsvExport();
 			csvConvertor.convert(getPath());
 		}
 		else
