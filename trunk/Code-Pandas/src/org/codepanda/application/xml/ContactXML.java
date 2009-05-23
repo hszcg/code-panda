@@ -238,7 +238,7 @@ public  void ContactIterator(PersonalContact currentContact,Element element) thr
 					myGroupList=new ArrayList<String>();
 				}			
 				myGroupList.add(value);
-				currentContact.setUrlList(myGroupList);
+				currentContact.setGroupList(myGroupList);
 				for(int l=0;l<currentContact.getGroupList().size();l++)
 				{
 					System.out.println("CommonLabel--"+l+currentContact.getGroupList().get(l));

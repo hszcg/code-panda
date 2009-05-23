@@ -5,19 +5,16 @@ import org.codepanda.utility.contact.PersonalContact;
 import org.codepanda.utility.data.DataPool;
 
 public class DeleteContactActor implements CommandActor {
-	private PersonalContact myContact;
+	//private PersonalContact myContact;
+	private int currentISN;
 	public static final int NULL_CONTACT = -1;
 	public static final int FAILED= -2;
 	public static final int SUCCEED = 0;
 	@Override
 	public Object executeCommand() {
 		// TODO Auto-generated method stub
-		if(this.getContact()==null)
-		{
-			System.out.println("Delete Contact NULL!!!");
-			return DeleteContactActor.NULL_CONTACT;
-		}
-		int result=DataPool.getInstance().deleteContact(getContact().getISN());
+		//删除一定成功
+		int result=DataPool.getInstance().deleteContact(this.getISN());
 		if(result==-2)
 		{
 			System.out.println("Delete Contact Failed!!!");
@@ -25,12 +22,13 @@ public class DeleteContactActor implements CommandActor {
 		}
 		return DeleteContactActor.SUCCEED;
 	}
-	public void setContact(PersonalContact contact)
+	public void setISN(int ISN)
 	{
-		this.myContact=contact;
+		this.currentISN=ISN;
 	}
-	public PersonalContact getContact()
+	public int getISN()
 	{
-		return this.myContact;
+		return this.currentISN;
 	}
+	
 }

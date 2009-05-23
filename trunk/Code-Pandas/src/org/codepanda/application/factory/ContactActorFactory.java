@@ -67,12 +67,11 @@ public class ContactActorFactory extends CommandActorFactory {
 		 if(commandType==CommandType.DELETE_CONTACT)
 		 {
 			 DeleteContactActor deleteContactActor=new DeleteContactActor();
-			 currentContact=new PersonalContact();
+			 int currentISN=0;
 			 DeleteContactXML deleteContactXML=new DeleteContactXML();
-			 deleteContactXML.DeleteConXML(currentContact, "<DeleteContact>", "</DeleteContact>", commandDetail);
-			 deleteContactActor.setContact(currentContact);
-			 return deleteContactActor;
-			 
+			 deleteContactXML.DeleteConXML(currentISN, "<DeleteContact>", "</DeleteContact>", commandDetail);
+			 deleteContactActor.setISN(currentISN);
+			 return deleteContactActor;			 
 		 }
 		 //进行联系人的生日统计
 		 if(commandType==CommandType.STAT_CONTACT)
