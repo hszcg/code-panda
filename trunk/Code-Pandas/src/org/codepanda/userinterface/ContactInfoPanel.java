@@ -920,26 +920,23 @@ public class ContactInfoPanel extends JXPanel {
 	 *            the myContact to set
 	 */
 	public void setMyContact(ContactOperations myContact) {
-		if (myContact == null)
-			return;
-
-		ArrayList<String> temp = new ArrayList<String>();
-		temp.add("asd");
-		temp.add("asdasd");
-		temp.add("asdasdasd");
-		phoneNumberBox.setModel(new DefaultComboBoxModel((String[]) (temp
-				.toArray(new String[0]))));
-
-		// set Contact Information
-
 		// TODO set Image
-		if (myContact.getHeadImage() != null) {
+		if ( myContact != null && myContact.getHeadImage() != null) {
 			this.setContactHeadImage(myContact.getHeadImage().getMyImageIcon()
 					.getImage(), null);
 		} else {
 			this.setContactHeadImage(PhoneMeConstants.DEFAULT_IMAGE_URL);
 			this.currentImagetURL = PhoneMeConstants.DEFAULT_IMAGE_URL;
 		}
+
+		if (myContact == null)
+			return;
+
+		ArrayList<String> temp = new ArrayList<String>();
+		phoneNumberBox.setModel(new DefaultComboBoxModel((String[]) (temp
+				.toArray(new String[0]))));
+
+		// set Contact Information
 
 		if (myContact.getContactName() != null) {
 			/*

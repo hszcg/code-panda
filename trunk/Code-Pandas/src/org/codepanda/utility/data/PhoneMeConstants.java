@@ -7,11 +7,11 @@ public class PhoneMeConstants {
 	private HashSet<String> allRelationLabelName;
 	private HashSet<String> allGroupList;
 	private HashMap<ContactSectionType, String> contactSectionList;
-	
+
 	public static final int HEAD_IMAGE_HEIGHT = 115;
 	public static int HEAD_IMAGE_WIDTH = 130;
-	
-	public static final String DEFAULT_IMAGE_URL = "/userpic/user1.jpg";
+
+	public static final String DEFAULT_IMAGE_URL = "/userpic/null.png";
 
 	private static PhoneMeConstants instance = new PhoneMeConstants();
 
@@ -20,7 +20,7 @@ public class PhoneMeConstants {
 	 */
 	private PhoneMeConstants() {
 		// TODO 通过XML来初始化
-		
+
 		// 关系标签
 		allRelationLabelName = new HashSet<String>(10);
 		allRelationLabelName.add("老师");
