@@ -3,6 +3,8 @@ package org.codepanda.userinterface;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.text.ParseException;
@@ -151,6 +153,7 @@ public class ContactInfoPanel extends JXPanel {
 	private HashMap<String, ArrayList<String>> relationLabelNameList;
 	private ArrayList<Integer> allISN;
 	private ArrayList<String> allContactName;
+	private boolean getComboBox = false;
 
 	private JButton confirmButton;
 	private JButton cancelButton;
@@ -678,6 +681,16 @@ public class ContactInfoPanel extends JXPanel {
 		// πÿœµ±Í«©
 		// TODO add and delete
 		relationLabelListBox = new JComboBox();
+		relationLabelListBox.addItemListener(new ItemListener(){
+
+			@Override
+			public void itemStateChanged(ItemEvent e) {
+				// TODO Auto-generated method stub
+				if(getComboBox == false)
+				    setDestContactBox
+				    (relationLabelListBox.getSelectedItem().toString());
+			}
+		});
 		objectContactListBox = new JComboBox();
 		selectRelationLabelBox = new JComboBox((String[]) 
 				PhoneMeConstants.getInstance()
@@ -741,10 +754,12 @@ public class ContactInfoPanel extends JXPanel {
 					
 				}
 				else{
+					getComboBox = true;
 					relationLabelListBox.addItem
 					(selectRelationLabelBox.getSelectedItem());
 					relationLabelListBox.setSelectedIndex
 					(relationLabelListBox.getItemCount()-1);
+					getComboBox = false;
 					objectContactListBox.addItem
 					(selectRelationContactBox.getSelectedItem());
 					objectContactListBox.setSelectedIndex
@@ -801,7 +816,9 @@ public class ContactInfoPanel extends JXPanel {
 					System.out.println("no in");
 					relationLabelList.remove(deleteLabel);
 					relationLabelNameList.remove(deleteLabel);
+					getComboBox = true;
 					relationLabelListBox.removeItem(deleteLabel);
+					getComboBox = false;
 					// TODO update two boxes
 					objectContactListBox.removeItem
 					(objectContactListBox.getSelectedItem());
@@ -921,6 +938,14 @@ public class ContactInfoPanel extends JXPanel {
 		mainPanel.add(downbuilder.getPanel(), "South");
 	}
 
+	public void setDestContactBox(String label){
+		ArrayList<String> destContact = relationLabelNameList.get(label);
+		objectContactListBox.setModel
+		(new DefaultComboBoxModel((String[]) (destContact
+				.toArray(new String[0]))));
+		
+	}
+	
 	public void getContactNameAndISNInformation(){
 		allISN = new ArrayList<Integer>();
 		allContactName = new ArrayList<String>();
