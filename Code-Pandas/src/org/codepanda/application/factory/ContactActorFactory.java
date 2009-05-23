@@ -85,6 +85,7 @@ public class ContactActorFactory extends CommandActorFactory {
 			 ExportContactXML exportContactXML=new ExportContactXML();
 			 result=exportContactXML.ContactParserXML("<ExportContact>", "</ExportContact>", commandDetail);
 			 exportContactActor.setallStr(result);
+			 System.out.println("Export String____"+result);
 			 return exportContactActor;
 		 }
 		 //进行联系人的导入

@@ -17,6 +17,9 @@ public class ExportContactActor implements CommandActor {
 	}
 	public Object executeCommand() 
 	{
+		this.setType(temp[0]);
+		this.setPath(temp[1]);
+		System.out.println("ExportActor___Type"+this.getType());
 		if(this.getType().equals("csv"))
 		{
 			CsvExport csvConvertor=new CsvExport();
