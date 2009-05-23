@@ -177,8 +177,8 @@ public class SearchPanel extends JPanel {
 			message.append(MyXMLMaker.addTag("IMContact", imField.getText()));
 
 		// TODO birthday message
-		if (imField.getText().length() != 0)
-			message.append(MyXMLMaker.addTag("IMContact", birthdayDateFormat
+		if (birthdayField.getDate() != null)
+			message.append(MyXMLMaker.addTag("Birthday", birthdayDateFormat
 					.format(birthdayField.getDate())));
 
 		if (workField.getText().length() != 0)
@@ -195,16 +195,17 @@ public class SearchPanel extends JPanel {
 			message.append(MyXMLMaker.addTag("Group", groupBox
 					.getSelectedItem().toString()));
 
-		/*if (!relationBox.getSelectedItem().toString().equals("(任意)")
-				&& contactBox.getSelectedItem().toString().equals("(任意)")) {
-			StringBuffer relation = new StringBuffer();
-			relation.append(MyXMLMaker.addTag("LabelName", relationBox
-					.getSelectedItem().toString()));
-			relation.append(MyXMLMaker.addTag("DestName", contactBox
-					.getSelectedItem().toString()));
-			message.append(MyXMLMaker.addTag("RelationLabel", relation
-					.toString()));
-		}*/
+		/*
+		 * if (!relationBox.getSelectedItem().toString().equals("(任意)") &&
+		 * contactBox.getSelectedItem().toString().equals("(任意)")) {
+		 * StringBuffer relation = new StringBuffer();
+		 * relation.append(MyXMLMaker.addTag("LabelName", relationBox
+		 * .getSelectedItem().toString()));
+		 * relation.append(MyXMLMaker.addTag("DestName", contactBox
+		 * .getSelectedItem().toString()));
+		 * message.append(MyXMLMaker.addTag("RelationLabel", relation
+		 * .toString())); }
+		 */
 		return message;
 	}
 }
