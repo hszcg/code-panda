@@ -124,7 +124,9 @@ public class TestMessageHandler implements MessageHandler {
 		tmh.testFunc(CommandType.NEW_CONTACT, NewContactxml1);
 		tmh.testFunc(CommandType.NEW_CONTACT, NewContactxml3);
 		tmh.testFunc(CommandType.NEW_CONTACT, NewContactxml2);
-		tmh.testFunc(CommandType.STAT_CONTACT, StatContactxml);
+		//tmh.testFunc(CommandType.STAT_CONTACT, StatContactxml);
+		System.out.println(Integer.MIN_VALUE);
+		System.out.println(Integer.MIN_VALUE+1);
 		//tmh.testFunc(CommandType.DELETE_USER, DeleteUserxml);
 		try {
 			DataPool.getInstance().getDb().close();

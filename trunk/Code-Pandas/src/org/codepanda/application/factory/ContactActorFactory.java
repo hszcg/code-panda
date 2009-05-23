@@ -67,9 +67,9 @@ public class ContactActorFactory extends CommandActorFactory {
 		 if(commandType==CommandType.DELETE_CONTACT)
 		 {
 			 DeleteContactActor deleteContactActor=new DeleteContactActor();
-			 int currentISN=0;
+			 int currentISN;
 			 DeleteContactXML deleteContactXML=new DeleteContactXML();
-			 deleteContactXML.DeleteConXML(currentISN, "<DeleteContact>", "</DeleteContact>", commandDetail);
+			 currentISN=deleteContactXML.DeleteConXML("<DeleteContact>", "</DeleteContact>", commandDetail);
 			 deleteContactActor.setISN(currentISN);
 			 return deleteContactActor;			 
 		 }

@@ -24,7 +24,7 @@ import com.google.common.collect.HashMultimap;
  * 
  */
 public class DataPool {
-	private static int currentLowBound = Integer.MIN_VALUE;
+	private static int currentLowBound = Integer.MIN_VALUE+1;
 	private HashMap<Integer, ContactOperations> allContactISNMap;
 	private HashMap<String, ContactGroup> allContactGroupMap;
 	private HashMap<String, ContactGroup> allCommonLabelDataMap;
@@ -266,6 +266,7 @@ public class DataPool {
 		// contactData) == -2) {
 		int temp = currentLowBound;
 		contactData.setISN(temp);
+		System.out.println("Name_____"+contactData.getContactName());
 		System.out.println("ISN----" + contactData.getISN());
 		DataPool.getInstance().getDb().newContact(
 				getCurrentUser().getUserName(), contactData);
@@ -360,11 +361,25 @@ public class DataPool {
 			currentLowBound = ISN;
 		}
 		// 对所有的hashMap进行维护
-		allContactISNMap.remove(ISN);
 		//System.out.println()
+		if(allContactISNMap.isEmpty())
+		{
+			System.out.println("Empty!!!!");
+		}
+		if(allContactISNMap==null)
+		{
+			System.out.println("Null!!!!");
+		}
+		if(allContactISNMap.get(ISN)!=null)
+		{
+			System.out.println("LLLLLL");
+			System.out.println(allContactISNMap.get(ISN).getContactName());
+		}
+		System.out.println(ISN);
+		allContactNameMultimap.remove(allContactISNMap.get(ISN).getContactName(),ISN);
 	//	System.out.println("Here----"+this.getAllContactISNMap().get(ISN).getContactName());
-		allContactNameMultimap.remove(this.getAllContactISNMap().get(ISN)
-				.getContactName(), ISN);
+	//	allContactNameMultimap.remove(this.getAllContactISNMap().get(ISN)
+		//		.getContactName(), ISN);
 		for (String groupName : getAllContactISNMap().get(ISN).getGroupList()) {
 			if (allContactGroupMap.containsKey(groupName)) {
 				allContactGroupMap.get(groupName).deleteGroupMember(ISN);
@@ -376,7 +391,7 @@ public class DataPool {
 				allCommonLabelDataMap.get(groupName).deleteGroupMember(ISN);
 			}
 		}
-
+		allContactISNMap.remove(ISN);
 		return currentLowBound;
 
 	}
