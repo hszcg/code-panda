@@ -1094,6 +1094,27 @@ public class ContactInfoPanel extends JXPanel {
 			message.append(MyXMLMaker.addTag("Group", groupListBox.getItemAt(
 					index).toString()));
 		}
+		
+		StringBuffer tempForRL = new StringBuffer();
+		Iterator<Entry<String, ArrayList<Integer>>> it = 
+			relationLabelList.entrySet().iterator();
+		while(it.hasNext()){
+			Entry<String, ArrayList<Integer>> entry = 
+				(Entry<String, ArrayList<Integer>>) it.next();
+			ArrayList<Integer> tempISNSet = entry.getValue();
+			for(int tempIndex = 0; 
+			tempIndex<tempISNSet.size(); tempIndex++){
+				tempForRL.append(MyXMLMaker.addTag
+					("LabelName", entry.getKey()));
+				tempForRL.append(MyXMLMaker.addTag
+					("DestISN", tempISNSet.get(tempIndex).toString()));
+				tempForRL = new StringBuffer(MyXMLMaker.addTag
+						("RelationLabel", tempForRL.toString()));
+				message.append(tempForRL);
+				tempForRL = new StringBuffer();
+			}
+		}
+		System.out.println(message);
 		return message;
 	}
 
