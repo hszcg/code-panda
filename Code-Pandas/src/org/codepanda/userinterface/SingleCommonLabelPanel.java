@@ -15,7 +15,6 @@ import javax.swing.border.SoftBevelBorder;
 import org.codepanda.application.CommandType;
 import org.codepanda.application.CommandVisitor;
 import org.codepanda.userinterface.messagehandler.EditCommonLabelMessageHandler;
-import org.codepanda.userinterface.messagehandler.ImportContactMessageHandler;
 import org.codepanda.userinterface.xml.MyXMLMaker;
 import org.codepanda.utility.data.DataPool;
 
@@ -81,6 +80,9 @@ public class SingleCommonLabelPanel extends JPanel {
 					EditCommonLabelMessageHandler editCommonLabelMessageHandler = new EditCommonLabelMessageHandler();
 					editCommonLabelMessageHandler
 							.executeCommand(editCommonLabelCommandVisitor);
+					
+					setEditable(false);
+					selectBox.setSelected(false);
 				}
 			}
 
@@ -104,6 +106,21 @@ public class SingleCommonLabelPanel extends JPanel {
 		selectBox.setVisible(isEditable);
 		labelNameField.setEditable(isEditable);
 		comfirmButton.setVisible(isEditable);
+	}
+	
+	/**
+	 * @return
+	 */
+	public boolean isSelected(){
+		return selectBox.isSelected();
+	}
+
+	/**
+	 * @return
+	 */
+	public String getLabelName() {
+		// TODO Auto-generated method stub
+		return oldLabelName;
 	}
 
 }

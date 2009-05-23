@@ -13,6 +13,11 @@ import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 import javax.swing.border.BevelBorder;
 import javax.swing.border.SoftBevelBorder;
+
+import org.codepanda.application.CommandType;
+import org.codepanda.application.CommandVisitor;
+import org.codepanda.userinterface.messagehandler.DeleteCommonLabelMessageHandler;
+import org.codepanda.userinterface.xml.MyXMLMaker;
 import org.codepanda.utility.data.DataPool;
 
 public class CommonLabelShowPanel extends JPanel {
@@ -96,7 +101,24 @@ public class CommonLabelShowPanel extends JPanel {
 	 */
 	public void deleteAllSelectedCommonLabel() {
 		// TODO Auto-generated method stub
+		StringBuffer buffer = new StringBuffer(50);
+		for (SingleCommonLabelPanel t : allCommonLabelPanel) {
+			if (t.isSelected() == true) {
+				t.setVisible(false);
+				buffer.append(MyXMLMaker.addTag("LabelName", t.getLabelName()));
+			}
+		}
+		
+		String xml = MyXMLMaker.addTag("DeleteCommonLabel", buffer.toString());
+		xml = MyXMLMaker.addTag("com", xml);
+		
+		System.out.println("DELETE_COMMON_LABEL\n" + xml);
 
+		CommandVisitor deleteCommonLabelCommandVisitor = new CommandVisitor(
+				CommandType.DELETE_COMMON_LABEL, xml);
+		DeleteCommonLabelMessageHandler deleteCommonLabelMessageHandler = new DeleteCommonLabelMessageHandler();
+		deleteCommonLabelMessageHandler
+				.executeCommand(deleteCommonLabelCommandVisitor);
 	}
 
 	/**
