@@ -251,10 +251,10 @@ public class DataPool {
 		return 0;
 	}
 
-	public int deleteUser(User user) {
+	public int deleteUser(String userName) {
 		// TODO 删除用户时假定这个用户名已经存在，需要验证密码
 		// 检查密码是否正确，return -2;
-		if (DataPool.getInstance().getDb().delUser(user) == 0) {
+		if (DataPool.getInstance().getDb().delUser(userName) == 0) {
 			System.out.println("Wrong  User Password ");
 			return -2;
 		}
@@ -327,7 +327,7 @@ public class DataPool {
 
 	public int editContact(PersonalContact contactData) {
 		// 如果失败，返回-2，成功返回0
-		if (DataPool.getInstance().getDb().editContact(getCurrentUser(),
+		if (DataPool.getInstance().getDb().editContact(getCurrentUser().getUserName(),
 				contactData) == -2) {
 			return -2;
 		}
@@ -364,26 +364,27 @@ public class DataPool {
 	}
 
 	// 返回当前的currentLowBound
-	public int deleteContact(PersonalContact contactData) {
+	public int deleteContact(int ISN) {
 		// 如果失败，返回-2，成功返回0
-		if (contactData.getISN() < currentLowBound) {
-			currentLowBound = contactData.getISN();
+		if(DataPool.getInstance().getDb().deleteContact(currentUser.getUserName(), ISN)==-2)
+			return -2;
+		if (ISN < currentLowBound) {
+			currentLowBound = ISN;
 		}
 		// 对所有的hashMap进行维护
-		allContactISNMap.remove(contactData.getISN());
-		allContactNameMultimap.remove(contactData.getContactName(), contactData
-				.getISN());
-		for (String groupName : contactData.getGroupList()) {
+		allContactISNMap.remove(ISN);
+		allContactNameMultimap.remove(this.getAllContactISNMap().get(ISN).getContactName(),ISN);
+		for (String groupName : getAllContactISNMap().get(ISN).getGroupList()) {
 			if (allContactGroupMap.containsKey(groupName)) {
 				allContactGroupMap.get(groupName).deleteGroupMember(
-						contactData.getISN());
+						ISN);
 			}
 		}
 
-		for (String groupName : contactData.getGroupList()) {
+		for (String groupName :getAllContactISNMap().get(ISN).getGroupList()) {
 			if (allCommonLabelDataMap.containsKey(groupName)) {
 				allCommonLabelDataMap.get(groupName).deleteGroupMember(
-						contactData.getISN());
+						ISN);
 			}
 		}
 

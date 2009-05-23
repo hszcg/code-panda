@@ -17,7 +17,7 @@ public class DeleteContactActor implements CommandActor {
 			System.out.println("Delete Contact NULL!!!");
 			return DeleteContactActor.NULL_CONTACT;
 		}
-		int result=DataPool.getInstance().deleteContact(getContact());
+		int result=DataPool.getInstance().deleteContact(getContact().getISN());
 		if(result==-2)
 		{
 			System.out.println("Delete Contact Failed!!!");
