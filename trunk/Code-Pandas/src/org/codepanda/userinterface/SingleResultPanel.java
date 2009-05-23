@@ -17,6 +17,7 @@ import javax.swing.JPanel;
 import javax.swing.border.BevelBorder;
 
 import org.codepanda.utility.contact.ContactOperations;
+import org.codepanda.utility.data.PhoneMeConstants;
 
 public class SingleResultPanel extends JPanel {
 	/**
@@ -36,8 +37,10 @@ public class SingleResultPanel extends JPanel {
 
 		try {
 			if (SingleResultPanel.defaultImage == null)
-				SingleResultPanel.defaultImage = ImageIO.read(getClass()
-						.getResource("/userpic/user1.jpg"));
+				SingleResultPanel.defaultImage = ImageIO
+						.read(getClass()
+								.getResource(
+										PhoneMeConstants.getInstance().DEFAULT_IMAGE_URL));
 
 			configurePanel();
 		} catch (IOException e) {
