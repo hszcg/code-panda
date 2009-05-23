@@ -5,6 +5,8 @@ import java.awt.event.ActionListener;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.Iterator;
+import java.util.Map.Entry;
 
 import javax.swing.ButtonGroup;
 import javax.swing.JButton;
@@ -17,6 +19,8 @@ import org.codepanda.application.CommandType;
 import org.codepanda.application.CommandVisitor;
 import org.codepanda.userinterface.messagehandler.SearchContactMessageHandler;
 import org.codepanda.userinterface.xml.MyXMLMaker;
+import org.codepanda.utility.contact.ContactOperations;
+import org.codepanda.utility.data.DataPool;
 import org.codepanda.utility.data.PhoneMeConstants;
 import org.jdesktop.swingx.JXDatePicker;
 
@@ -50,6 +54,7 @@ public class SearchPanel extends JPanel {
 
 	private JComboBox relationBox;
 	private JComboBox contactBox;
+	private ArrayList<String> allContactName;
 
 	private ButtonGroup selectionGroup;
 	private JRadioButton muohu;
@@ -112,7 +117,19 @@ public class SearchPanel extends JPanel {
 		builder.addLabel("πÿœµ±Í«©", cc.xy(3, 13));
 		relationBox = new JComboBox((String[]) PhoneMeConstants.getInstance()
 				.getAllRelationLabelName().toArray(new String[0]));
-		contactBox = new JComboBox();
+		
+		allContactName = new ArrayList<String>();
+		
+		Iterator<Entry<Integer, ContactOperations>> it = DataPool.
+		getInstance().getAllContactISNMap().entrySet().iterator();
+		while(it.hasNext()){
+			Entry<Integer, ContactOperations> entry = 
+				(Entry<Integer, ContactOperations>) it.next();
+			allContactName.add(entry.getValue().getContactName());
+		}
+		contactBox = new JComboBox((String[]) 
+				allContactName.toArray(new String[0]));
+		
 		builder.add(relationBox, cc.xy(5, 13));
 		builder.add(contactBox, cc.xy(7, 13));
 
