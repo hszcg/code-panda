@@ -212,10 +212,13 @@ public class PhoneMeFrame extends JRibbonFrame {
 	 */
 	public void exitProgram(){
 		try {
+//			DataPool.getInstance().fl.release();
+//			DataPool.getInstance().raf.close();
 			DataPool.getInstance().getDb().close();
+//			Thread.sleep(1000);
 			System.out.println("Normal Exit!");
 			System.exit(0);
-		} catch (SQLException e) {
+		} catch (Exception e) {
 			e.printStackTrace();
 			System.out.println("Failed Exit!");
 			System.exit(-1);
