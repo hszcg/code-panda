@@ -4,6 +4,11 @@
 package org.codepanda.utility.data;
 
 import java.io.File;
+import java.io.IOException;
+import java.io.RandomAccessFile;
+import java.nio.channels.FileChannel;
+import java.nio.channels.FileLock;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -37,17 +42,36 @@ public class DataPool {
 	private HashMultimap<String, Integer> allContactNameMultimap;
 
 	private DataPool() {
-
-		// my test of file lock
-		File f = new File("D:/javawork/four pandas/test.script");
-		f.setReadOnly();
-		// end of my file lock
-
 		// TODO Initialize all data except for dataPoolInstance
 		setCurrentUser(new User());
 		try {
 			setDb(new DatabaseMagager("test"));
 			getDb().open("test");
+			
+			
+			
+			
+			
+			// my test of file lock
+				//	File   theFile   =   new   File("test.script");  
+				theFile   =   new   File("test.script");
+				//    RandomAccessFile   raf=new   RandomAccessFile(theFile,"rw");  
+				raf=new   RandomAccessFile(theFile,"rw");
+				//	System.in.read();			//锁住程序，真实程序中不需要
+				//    FileChannel   fc   =   raf.getChannel();  
+				fc   =   raf.getChannel();
+				//     FileLock   fl   =   fc.tryLock();
+				fl   =   fc.tryLock();
+				//		fl.release();
+				//		raf.close();
+			// end of my file lock
+			
+			
+			
+			
+			
+			
+			
 		} catch (Exception e1) {
 			e1.printStackTrace();
 		}
@@ -124,6 +148,12 @@ public class DataPool {
 	 */
 	private DatabaseManagerFacade db;
 
+	// add for locking file
+	public RandomAccessFile   raf;
+	File   theFile;
+	FileChannel   fc;
+	public FileLock   fl;
+	
 	/**
 	 * @return
 	 */
@@ -389,30 +419,30 @@ public class DataPool {
 		return allContactISNMap;
 	}
 
-	public int newCommonLabel(CommonLabel commonLabel) {
-		// 添加普通标签失败，返回-2,成功返回0
-		if (DataPool.getInstance().getDb().newLabel(commonLabel.getLabelName(),
-				getCurrentUser().getUserName()) == -2) {
-			return -2;
-		}
-		return 0;
-	}
-
-	public int editCommonLabel(CommonLabel commonLabel) {
-		if (DataPool.getInstance().getDb().editCommonlabel(
-				commonLabel.getLabelName()) == -2) {
-			return -2;
-		}
-		return 0;
-	}
-
-	public int deleteCommonLabel(CommonLabel commonLabel) {
-		if (DataPool.getInstance().getDb().delCommonlabel(
-				commonLabel.getLabelName()) == -2) {
-			return -2;
-		}
-		return 0;
-	}
+//	public int newCommonLabel(CommonLabel commonLabel) {
+//		// 添加普通标签失败，返回-2,成功返回0
+//		if (DataPool.getInstance().getDb().newLabel(commonLabel.getLabelName(),
+//				getCurrentUser().getUserName()) == -2) {
+//			return -2;
+//		}
+//		return 0;
+//	}
+//
+//	public int editCommonLabel(CommonLabel commonLabel) {
+//		if (DataPool.getInstance().getDb().editCommonlabel(
+//				commonLabel.getLabelName()) == -2) {
+//			return -2;
+//		}
+//		return 0;
+//	}
+//
+//	public int deleteCommonLabel(CommonLabel commonLabel) {
+//		if (DataPool.getInstance().getDb().delCommonlabel(
+//				commonLabel.getLabelName()) == -2) {
+//			return -2;
+//		}
+//		return 0;
+//	}
 
 	public void setDb(DatabaseManagerFacade db) {
 		this.db = db;
