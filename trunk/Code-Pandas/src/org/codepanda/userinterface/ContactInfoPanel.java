@@ -642,6 +642,7 @@ public class ContactInfoPanel extends JXPanel {
 							.get(iSN));
 
 					setEditable(false);
+					nameField.setVisible(false);
 				} else {
 					// 修改联系人
 					String xml = makeMainMessageXML().toString();
@@ -657,6 +658,7 @@ public class ContactInfoPanel extends JXPanel {
 							.executeCommand(editContactCommandVisitor);
 
 					setEditable(false);
+					nameField.setVisible(false);
 				}
 			}
 		});

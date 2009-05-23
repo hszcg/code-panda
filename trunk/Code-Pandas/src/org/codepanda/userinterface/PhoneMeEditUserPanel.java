@@ -1,11 +1,13 @@
 package org.codepanda.userinterface;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
 import javax.swing.JDialog;
+import javax.swing.JLabel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 
@@ -17,13 +19,12 @@ import com.jgoodies.forms.layout.FormLayout;
 import com.jgoodies.forms.builder.PanelBuilder;
 import com.jgoodies.forms.layout.CellConstraints;
 
-public class PhoneMeEditUserPanel{
+public class PhoneMeEditUserPanel implements ActionListener{
 	private PhoneMeFrame localParentFrame;
 	private JDialog editUserDialog;
-	private User localUser;
-	private JTextField userNameField;
 	private JPasswordField userNewPasswordField;
 	private JPasswordField userNewComfirmPasswordField;
+	private JLabel errorMessageLabel;
 	private ContactInfoPanel mainPanel;
 	private JButton confirm;
 	private JButton cancel;
@@ -35,7 +36,7 @@ public class PhoneMeEditUserPanel{
 		editUserDialog = new JDialog(parentFrame, "当前用户" +
 				(DataPool.getInstance().getCurrentUser().getUserName()) , true);
 		FormLayout upperlayout = new FormLayout(
-				"86dlu, pref, 50dlu, pref", // columns
+				"86dlu, pref, 50dlu, pref, 100dlu, pref", // columns
 				"p, 8dlu, p, 5dlu, p"); // rows
 			
 			PanelBuilder builder = new PanelBuilder(upperlayout);
@@ -43,13 +44,8 @@ public class PhoneMeEditUserPanel{
 
 			CellConstraints cc = new CellConstraints();
 			
-			//builder.addLabel("当前用户", cc.xy(2, 1));
-			//userNameField = new JTextField();
 			builder.addLabel("新密码", cc.xy(2, 3));
 			builder.addLabel("确认新密码", cc.xy(2, 5));
-			//userNameField.setText
-			//(DataPool.getInstance().getCurrentUser().getUserName());
-			//userNameField.setEditable(false);
 			
 			builder.addLabel("如果需要修改密码，请在此填写", cc.xy(4, 1));
 			userNewPasswordField = new JPasswordField();
@@ -57,6 +53,9 @@ public class PhoneMeEditUserPanel{
 			
 			userNewComfirmPasswordField = new JPasswordField();
 			builder.add(userNewComfirmPasswordField, cc.xy(4, 5));
+			
+			errorMessageLabel = new JLabel();
+			builder.add(errorMessageLabel, cc.xy(6, 5));
 			
 			editUserDialog.setLayout(new BorderLayout());
 			editUserDialog.add(builder.getPanel(), "North");
@@ -82,22 +81,34 @@ public class PhoneMeEditUserPanel{
 			downbuilder.add(cancel, downcc.xy(4, 1));
 		
 			editUserDialog.add(downbuilder.getPanel(), "South");
-			cancel.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				editUserDialog.dispose();
-			}
-		});
+			
+			confirm.addActionListener(this);
+			cancel.addActionListener(this);
 	}
 	
 	public JDialog getDialog(){
 		return editUserDialog;
 	}
 	
+	public void updateErrorMessageLabel(String errorMessage) {
+		this.errorMessageLabel.setText(errorMessage);
+		this.errorMessageLabel.setForeground(Color.RED);
+	}
+	
+	public String getPassword() {
+		String passwordInput = String.valueOf(this.userNewPasswordField
+				.getPassword());
+		String passwordComfirm = String.valueOf
+		(this.userNewComfirmPasswordField.getPassword());
+
+		if (passwordInput.equals(passwordComfirm))
+			return passwordInput;
+		else
+			return null;
+	}
+	
 	public StringBuffer makeEditUserMessageXML(){
 		StringBuffer message = new StringBuffer();
-		message.append(MyXMLMaker.
-			addTag("UserName", userNameField.getText()));
 		if(String.valueOf(this.userNewPasswordField
 				.getPassword()).length() != 0)
 			message.append(MyXMLMaker.
@@ -106,6 +117,21 @@ public class PhoneMeEditUserPanel{
 							.getPassword())));
 		message.append(mainPanel.makeMainMessageXML());
 		return message;
+	}
+
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		if(e.getSource() == cancel){
+			editUserDialog.dispose();
+		}
+		
+		if(e.getSource() == confirm){
+			if(getPassword() == null){
+				updateErrorMessageLabel("新密码输入不正确");
+			}
+		}
+		// TODO make commandActor
+		
 	}
 	
 }
