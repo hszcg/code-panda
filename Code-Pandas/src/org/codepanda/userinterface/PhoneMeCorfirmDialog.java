@@ -2,6 +2,8 @@ package org.codepanda.userinterface;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -40,7 +42,8 @@ public class PhoneMeCorfirmDialog extends JDialog implements ActionListener {
 	public PhoneMeCorfirmDialog(PhoneMeFrame frame) {
 		super(frame, "Confirm", true);
 		this.parentFrame = frame;
-		FormLayout layout = new FormLayout("1dlu, pref, 50dlu, pref, 1dlu", // columns
+		FormLayout layout = new FormLayout
+		("1dlu, pref, 5dlu, pref, 1dlu", // columns
 				"p, 10dlu, p, 10dlu, p, 10dlu, p"); // rows
 
 		PanelBuilder builder = new PanelBuilder(layout);
@@ -48,22 +51,23 @@ public class PhoneMeCorfirmDialog extends JDialog implements ActionListener {
 
 		CellConstraints cc = new CellConstraints();
 
-		builder.addLabel("需要进行密码确认", cc.xy(1, 1));
+		//builder.addLabel("需要进行密码确认", cc.xy(1, 1));
 
-		builder.addLabel("用户名", cc.xy(1, 3));
+		builder.addLabel("用户名", cc.xy(2, 3));
 		userNameField = new JTextField(20);
-		builder.add(userNameField, cc.xy(3, 3));
+		builder.add(userNameField, cc.xy(4, 3));
 
-		builder.addLabel("密码", cc.xy(1, 5));
+		builder.addLabel("密码", cc.xy(2, 5));
 		userPasswordField = new JPasswordField(20);
-		builder.add(userPasswordField, cc.xy(3, 5));
+		builder.add(userPasswordField, cc.xy(4, 5));
 
-		builder.add(errorMessageLabel, cc.xy(1, 5));
+		errorMessageLabel = new JLabel();
+		builder.add(errorMessageLabel, cc.xy(2, 7));
 
 		setLayout(new BorderLayout());
 		add(builder.getPanel(), "Center");
 
-		FormLayout downlayout = new FormLayout("170dlu, pref, 50dlu, pref", // columns
+		FormLayout downlayout = new FormLayout("1dlu, pref, 10dlu, pref", // columns
 				"p"); // rows
 
 		PanelBuilder downbuilder = new PanelBuilder(downlayout);
@@ -71,15 +75,24 @@ public class PhoneMeCorfirmDialog extends JDialog implements ActionListener {
 
 		CellConstraints downcc = new CellConstraints();
 
-		confirm = new JButton("确认删除用户");
+		confirm = new JButton("确认删除");
 		downbuilder.add(confirm, downcc.xy(2, 1));
 		confirm.addActionListener(this);
 
-		cancel = new JButton("取消删除用户");
+		cancel = new JButton("取消删除");
 		downbuilder.add(cancel, downcc.xy(4, 1));
 		cancel.addActionListener(this);
 
 		add(downbuilder.getPanel(), "South");
+		
+		pack();
+		Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+		setLocation((screenSize.width - getWidth()) / 2, 
+			(screenSize.height - getHeight()) / 2);
+		setResizable(false);
+		setVisible(true);
+		
+		System.out.println("rrrrr");
 	}
 
 	public void actionPerformed(ActionEvent e) {
