@@ -19,7 +19,7 @@ public class FieldActionListener implements ActionListener{
 	@Override
 	public void actionPerformed(ActionEvent arg0) {
 		// TODO Auto-generated method stub
-		if(field.getState() == 0){
+		if(field.getState() == PhoneMeField.ADD_STATE){
 			if(field.getText().length() != 0){
 				manageBox.addItem(field.getText());
 				manageBox.setSelectedIndex(manageBox.getItemCount()-1);
@@ -27,7 +27,7 @@ public class FieldActionListener implements ActionListener{
 			field.setVisible(false);
 			field.setText("");
 		}
-		if(field.getState() == 1){
+		if(field.getState() == PhoneMeField.EDIT_STATE){
 			if(field.getText().length() != 0){
 				manageBox.setEditable(true);
 				int index = manageBox.getSelectedIndex();
