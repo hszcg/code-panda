@@ -3,24 +3,15 @@
  */
 package org.codepanda.utility.data;
 
-import java.io.File;
-import java.io.IOException;
-import java.io.RandomAccessFile;
-import java.nio.channels.FileChannel;
-import java.nio.channels.FileLock;
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-import org.codepanda.application.export.CsvExport;
-import org.codepanda.application.export.CsvImport;
 import org.codepanda.database.DatabaseMagager;
 import org.codepanda.database.DatabaseManagerFacade;
 import org.codepanda.utility.contact.ContactOperations;
 import org.codepanda.utility.contact.PersonalContact;
 import org.codepanda.utility.group.ContactGroup;
 import org.codepanda.utility.group.GroupType;
-import org.codepanda.utility.label.CommonLabel;
 import org.codepanda.utility.user.User;
 
 import com.google.common.collect.HashMultimap;
@@ -49,31 +40,21 @@ public class DataPool {
 		try {
 			setDb(new DatabaseMagager("test"));
 			getDb().open("test");
-			
-			
-			
-			
-			
-//			// my test of file lock
-//				//	File   theFile   =   new   File("test.script");  
-//				theFile   =   new   File("test.script");
-//				//    RandomAccessFile   raf=new   RandomAccessFile(theFile,"rw");  
-//				raf=new   RandomAccessFile(theFile,"rw");
-//				//	System.in.read();			//锁住程序，真实程序中不需要
-//				//    FileChannel   fc   =   raf.getChannel();  
-//				fc   =   raf.getChannel();
-//				//     FileLock   fl   =   fc.tryLock();
-//				fl   =   fc.tryLock();
-//				//		fl.release();
-//				//		raf.close();
-//			// end of my file lock
-			
-			
-			
-			
-			
-			
-			
+
+			// // my test of file lock
+			// // File theFile = new File("test.script");
+			// theFile = new File("test.script");
+			// // RandomAccessFile raf=new RandomAccessFile(theFile,"rw");
+			// raf=new RandomAccessFile(theFile,"rw");
+			// // System.in.read(); //锁住程序，真实程序中不需要
+			// // FileChannel fc = raf.getChannel();
+			// fc = raf.getChannel();
+			// // FileLock fl = fc.tryLock();
+			// fl = fc.tryLock();
+			// // fl.release();
+			// // raf.close();
+			// // end of my file lock
+
 		} catch (Exception e1) {
 			e1.printStackTrace();
 		}
@@ -150,11 +131,11 @@ public class DataPool {
 	private DatabaseManagerFacade db;
 
 	// add for locking file
-//	public RandomAccessFile   raf;
-//	File   theFile;
-//	FileChannel   fc;
-//	public FileLock   fl;
-	
+	// public RandomAccessFile raf;
+	// File theFile;
+	// FileChannel fc;
+	// public FileLock fl;
+
 	/**
 	 * @return
 	 */
@@ -205,40 +186,29 @@ public class DataPool {
 		// TODO 把当前用户的联系人读入DataPool
 		DataPool.getInstance().getDb().getUser(userName, getCurrentUser());
 		
-		
-		// test of CSV-Export
-		CsvExport cc = new CsvExport();
-		cc.convert("abc.csv");
-		
-		// test of CSV-Import
-		CsvImport ci = new CsvImport();
-		ci.convert("abc.csv");
-		
-		// test of CSV-Export
-		CsvExport ccc = new CsvExport();
-		ccc.convert("cba.csv");
-		
-		
-
 		ArrayList<ContactOperations> allContactList = new ArrayList<ContactOperations>();
 		this.getDb().getContactData(userName, allContactList);
 
 		for (ContactOperations t : allContactList) {
 			Integer iSN = t.getISN();
-			
+
 			allContactISNMap.put(iSN, t);
 
 			allContactNameMultimap.put(t.getContactName(), iSN);
-			//TODO 更新group的信息
+
+			// TODO 更新group的信息
+			// 加载分组信息
+			for (String str : PhoneMeConstants.getInstance().getAllGroupList()) {
+				ContactGroup newContactGroup = new ContactGroup(
+						GroupType.NORMAL_GROUP, str);
+				newContactGroup.addGroupMember(iSN);
+				allContactGroupMap.put(str, newContactGroup);
+			}
+
+			// 添加联系人到分组
 			for (String groupName : t.getGroupList()) {
-				
 				if (allContactGroupMap.containsKey(groupName)) {
 					allContactGroupMap.get(groupName).addGroupMember(iSN);
-				} else {
-					ContactGroup newContactGroup = new ContactGroup(
-							GroupType.NORMAL_GROUP, groupName);
-					newContactGroup.addGroupMember(iSN);
-					allContactGroupMap.put(groupName, newContactGroup);
 				}
 			}
 
@@ -259,9 +229,9 @@ public class DataPool {
 		}
 
 		// System.out.println(allContactNameMultimap.toString());
-		
+
 		// 初始化currentLowBound
-		while(allContactISNMap.containsKey(currentLowBound)){
+		while (allContactISNMap.containsKey(currentLowBound)) {
 			currentLowBound++;
 		}
 
@@ -297,7 +267,7 @@ public class DataPool {
 		int temp = currentLowBound;
 		contactData.setISN(temp);
 		System.out.println("ISN----" + contactData.getISN());
-		int result = DataPool.getInstance().getDb().newContact(
+		DataPool.getInstance().getDb().newContact(
 				getCurrentUser().getUserName(), contactData);
 		int j = 0;
 		System.out.println("ISNtjk----" + contactData.getISN());
@@ -344,8 +314,8 @@ public class DataPool {
 
 	public int editContact(PersonalContact contactData) {
 		// 如果失败，返回-2，成功返回0
-		if (DataPool.getInstance().getDb().editContact(getCurrentUser().getUserName(),
-				contactData) == -2) {
+		if (DataPool.getInstance().getDb().editContact(
+				getCurrentUser().getUserName(), contactData) == -2) {
 			return -2;
 		}
 		// 对所维护的HashMap进行修改
@@ -383,25 +353,25 @@ public class DataPool {
 	// 返回当前的currentLowBound
 	public int deleteContact(int ISN) {
 		// 如果失败，返回-2，成功返回0
-		if(DataPool.getInstance().getDb().deleteContact(currentUser.getUserName(), ISN)==-2)
+		if (DataPool.getInstance().getDb().deleteContact(
+				currentUser.getUserName(), ISN) == -2)
 			return -2;
 		if (ISN < currentLowBound) {
 			currentLowBound = ISN;
 		}
 		// 对所有的hashMap进行维护
 		allContactISNMap.remove(ISN);
-		allContactNameMultimap.remove(this.getAllContactISNMap().get(ISN).getContactName(),ISN);
+		allContactNameMultimap.remove(this.getAllContactISNMap().get(ISN)
+				.getContactName(), ISN);
 		for (String groupName : getAllContactISNMap().get(ISN).getGroupList()) {
 			if (allContactGroupMap.containsKey(groupName)) {
-				allContactGroupMap.get(groupName).deleteGroupMember(
-						ISN);
+				allContactGroupMap.get(groupName).deleteGroupMember(ISN);
 			}
 		}
 
-		for (String groupName :getAllContactISNMap().get(ISN).getGroupList()) {
+		for (String groupName : getAllContactISNMap().get(ISN).getGroupList()) {
 			if (allCommonLabelDataMap.containsKey(groupName)) {
-				allCommonLabelDataMap.get(groupName).deleteGroupMember(
-						ISN);
+				allCommonLabelDataMap.get(groupName).deleteGroupMember(ISN);
 			}
 		}
 
@@ -437,30 +407,30 @@ public class DataPool {
 		return allContactISNMap;
 	}
 
-//	public int newCommonLabel(CommonLabel commonLabel) {
-//		// 添加普通标签失败，返回-2,成功返回0
-//		if (DataPool.getInstance().getDb().newLabel(commonLabel.getLabelName(),
-//				getCurrentUser().getUserName()) == -2) {
-//			return -2;
-//		}
-//		return 0;
-//	}
-//
-//	public int editCommonLabel(CommonLabel commonLabel) {
-//		if (DataPool.getInstance().getDb().editCommonlabel(
-//				commonLabel.getLabelName()) == -2) {
-//			return -2;
-//		}
-//		return 0;
-//	}
-//
-//	public int deleteCommonLabel(CommonLabel commonLabel) {
-//		if (DataPool.getInstance().getDb().delCommonlabel(
-//				commonLabel.getLabelName()) == -2) {
-//			return -2;
-//		}
-//		return 0;
-//	}
+	// public int newCommonLabel(CommonLabel commonLabel) {
+	// // 添加普通标签失败，返回-2,成功返回0
+	// if (DataPool.getInstance().getDb().newLabel(commonLabel.getLabelName(),
+	// getCurrentUser().getUserName()) == -2) {
+	// return -2;
+	// }
+	// return 0;
+	// }
+	//
+	// public int editCommonLabel(CommonLabel commonLabel) {
+	// if (DataPool.getInstance().getDb().editCommonlabel(
+	// commonLabel.getLabelName()) == -2) {
+	// return -2;
+	// }
+	// return 0;
+	// }
+	//
+	// public int deleteCommonLabel(CommonLabel commonLabel) {
+	// if (DataPool.getInstance().getDb().delCommonlabel(
+	// commonLabel.getLabelName()) == -2) {
+	// return -2;
+	// }
+	// return 0;
+	// }
 
 	public void setDb(DatabaseManagerFacade db) {
 		this.db = db;

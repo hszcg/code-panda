@@ -4,7 +4,6 @@ import java.awt.*;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.io.IOException;
-import java.sql.SQLException;
 import java.util.*;
 
 import javax.imageio.ImageIO;
@@ -191,7 +190,7 @@ public class PhoneMeFrame extends JRibbonFrame {
 	
 	
 	/**
-	 * 
+	 * After Login to Initialize Data
 	 */
 	public void initializeData() {
 		this.myPhoneMeTaskPane.initializeData();
