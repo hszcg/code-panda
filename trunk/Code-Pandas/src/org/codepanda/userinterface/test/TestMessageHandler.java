@@ -56,6 +56,7 @@ public class TestMessageHandler implements MessageHandler {
 		String NewContactxml="<com>"+
 		"<NewContact>"+
 		"<ContactName>"+"zhang xin yu"+"</ContactName>"+
+		"<HeadImage>"+"/userpic/user1.jpg"+"</HeadImage>"+
 		"<Telephone>"+"122489389"+"</Telephone>"+
 		"<Email>"+"jdksd@dfjk"+"</Email>"+
 		"<Email>"+"fsdf@fdjk"+"</Email>"+
