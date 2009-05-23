@@ -49,10 +49,6 @@ public class UserActorFactory extends CommandActorFactory {
 		if (commandType == CommandType.DELETE_USER) {
 			System.out.println("Delete User");
 			DeleteUserActor deleteUserActor = new DeleteUserActor();
-			currentUser=new User();
-			UserXML myParserXML=new UserXML();
-			myParserXML.userParserXML(currentUser,"<DeleteUser>","</DeleteUser>", commandDetail);
-			 deleteUserActor.setUser(currentUser);
 			return deleteUserActor;
 		}
 		if (commandType == CommandType.EDIT_USER) {

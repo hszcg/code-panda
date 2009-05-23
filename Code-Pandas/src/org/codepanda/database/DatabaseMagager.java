@@ -275,6 +275,7 @@ public class DatabaseMagager implements DatabaseManagerFacade {
 	public int delUser(String userName) {
 		// the process of checking process is outside the DataBase
 //		User tempuser=new User();
+		System.out.println("DELETE_USER in DB ::" + userName);
 		try {
 //			this.getUser(user.getUserName(), tempuser);
 			this.updateD(
