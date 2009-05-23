@@ -149,10 +149,10 @@ public class DataPool {
 	private DatabaseManagerFacade db;
 
 	// add for locking file
-	public RandomAccessFile   raf;
-	File   theFile;
-	FileChannel   fc;
-	public FileLock   fl;
+//	public RandomAccessFile   raf;
+//	File   theFile;
+//	FileChannel   fc;
+//	public FileLock   fl;
 	
 	/**
 	 * @return
