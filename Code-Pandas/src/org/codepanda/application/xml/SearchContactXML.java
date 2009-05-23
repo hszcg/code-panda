@@ -78,6 +78,8 @@ public class SearchContactXML {
 			Element element) {
 		NodeList nodelist = element.getChildNodes();
 		// System.out.println(element.getNodeName());
+		boolean blur = true;
+
 		for (int i = 0; i < nodelist.getLength(); i++) {
 			Node node = nodelist.item(i);
 			String str = node.getNodeName();
@@ -87,8 +89,7 @@ public class SearchContactXML {
 					blur = true;
 			}
 		}
-		if (blur) 
-		{
+		if (blur) {
 			// Ä£ºýÆ¥Åä
 			System.out.println("Blur________");
 			for (int i = 0; i < nodelist.getLength(); i++) {
@@ -97,18 +98,20 @@ public class SearchContactXML {
 				if (str.equalsIgnoreCase("ContactName")) {
 					String value = node.getTextContent();
 					System.out.println("SearchText____" + value);
-					System.out.println("Name____"+contactData.getContactName());
-					if (contactData.getContactName().indexOf(value)!=-1) {
+					System.out.println("Name____"
+							+ contactData.getContactName());
+					if (contactData.getContactName().indexOf(value) != -1) {
 						goFlag = true;
 						System.out.println("BlurSearch___MM"
 								+ contactData.getContactName() + "MMMMMMMM"
 								+ value);
 						System.out.println(goFlag);
-						
+
 					} else {
-						System.out.println("Pos____"+contactData.getContactName().indexOf(value));
+						System.out.println("Pos____"
+								+ contactData.getContactName().indexOf(value));
 						System.out.println("Error Here!!!");
-						goFlag=false;
+						goFlag = false;
 						return false;
 					}
 				} else if (str.equalsIgnoreCase("Telephone")) {
@@ -117,7 +120,7 @@ public class SearchContactXML {
 						if (contactData.getPhoneNumberList().get(j).contains(
 								value)) {
 							goFlag = true;
-							
+
 							break;
 						} else {
 							goFlag = false;
@@ -247,8 +250,7 @@ public class SearchContactXML {
 				}
 			}
 			return goFlag;
-		}
-		if (!blur) {
+		} else {
 			// ¾«È·ËÑË÷
 			for (int i = 0; i < nodelist.getLength(); i++) {
 				Node node = nodelist.item(i);
