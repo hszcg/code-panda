@@ -117,19 +117,19 @@ public class SearchPanel extends JPanel {
 		builder.addLabel("关系标签", cc.xy(3, 13));
 		relationBox = new JComboBox((String[]) PhoneMeConstants.getInstance()
 				.getAllRelationLabelName().toArray(new String[0]));
-		
+
 		allContactName = new ArrayList<String>();
-		
-		Iterator<Entry<Integer, ContactOperations>> it = DataPool.
-		getInstance().getAllContactISNMap().entrySet().iterator();
-		while(it.hasNext()){
-			Entry<Integer, ContactOperations> entry = 
-				(Entry<Integer, ContactOperations>) it.next();
+
+		Iterator<Entry<Integer, ContactOperations>> it = DataPool.getInstance()
+				.getAllContactISNMap().entrySet().iterator();
+		while (it.hasNext()) {
+			Entry<Integer, ContactOperations> entry = (Entry<Integer, ContactOperations>) it
+					.next();
 			allContactName.add(entry.getValue().getContactName());
 		}
-		contactBox = new JComboBox((String[]) 
-				allContactName.toArray(new String[0]));
-		
+		contactBox = new JComboBox((String[]) allContactName
+				.toArray(new String[0]));
+
 		builder.add(relationBox, cc.xy(5, 13));
 		builder.add(contactBox, cc.xy(7, 13));
 
@@ -212,17 +212,17 @@ public class SearchPanel extends JPanel {
 			message.append(MyXMLMaker.addTag("Group", groupBox
 					.getSelectedItem().toString()));
 
-		/*
-		 * if (!relationBox.getSelectedItem().toString().equals("(任意)") &&
-		 * contactBox.getSelectedItem().toString().equals("(任意)")) {
-		 * StringBuffer relation = new StringBuffer();
-		 * relation.append(MyXMLMaker.addTag("LabelName", relationBox
-		 * .getSelectedItem().toString()));
-		 * relation.append(MyXMLMaker.addTag("DestName", contactBox
-		 * .getSelectedItem().toString()));
-		 * message.append(MyXMLMaker.addTag("RelationLabel", relation
-		 * .toString())); }
-		 */
+		if (!relationBox.getSelectedItem().toString().equals("(任意)")
+				&& contactBox.getSelectedItem().toString().equals("(任意)")) {
+			StringBuffer relation = new StringBuffer();
+			relation.append(MyXMLMaker.addTag("LabelName", relationBox
+					.getSelectedItem().toString()));
+			relation.append(MyXMLMaker.addTag("DestName", contactBox
+					.getSelectedItem().toString()));
+			message.append(MyXMLMaker.addTag("RelationLabel", relation
+					.toString()));
+		}
+
 		return message;
 	}
 }
