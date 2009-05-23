@@ -31,6 +31,7 @@ public class ContactXML {
 	String  funcSubStr=null;
 	String comSubStr=null;
 	ArrayList<RelationLabel> relationLabelList;
+	//为了修改的方便，需要得到之前的currentContact
 	public void contactParserXML(PersonalContact currentContact,String match1,String match2,String commandDetail)
 	{
 	//从commandDetail中解析出用户信息
