@@ -1,5 +1,6 @@
 package org.codepanda.userinterface;
 
+import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
@@ -158,8 +159,126 @@ public class PhoneMeTaskPane extends JXTaskPaneContainer implements
 		configureContactList();
 	}
 
+	/**
+	 * @param updateISN
+	 */
 	public void updateGroupList(int updateISN) {
 		// TODO Auto-generated method stub
-		
+		ContactOperations p = DataPool.getInstance().getAllContactISNMap().get(
+				updateISN);
+
+		if (p == null) {
+			// 删除联系人之后的更新
+			deleteISNNode(updateISN);
+		} else {
+			// 修改/新建 联系人之后的更新
+			updateNodes(p);
+		}
+
+		// model.insertNodeInto(cNode, pNode, 0);
 	}
+
+	/**
+	 * @param p
+	 */
+	private void updateNodes(ContactOperations p) {
+		DefaultMutableTreeNode root = (DefaultMutableTreeNode) this.contactListTree
+				.getModel().getRoot();
+		DefaultTreeModel model = (DefaultTreeModel) this.contactListTree
+				.getModel();
+		visitAndUpdateAllNodes(root, model, p);
+	}
+
+	/**
+	 * @param node
+	 * @param model
+	 * @param p
+	 */
+	private boolean visitAndUpdateAllNodes(DefaultMutableTreeNode node,
+			DefaultTreeModel model, ContactOperations p) {
+		// TODO Auto-generated method stub
+		boolean hasFindISN = false;
+		Object nodeInfo = ((DefaultMutableTreeNode) node).getUserObject();
+
+		for (Enumeration e = node.children(); e.hasMoreElements();) {
+			DefaultMutableTreeNode n = (DefaultMutableTreeNode) e.nextElement();
+			Object nInfo = ((DefaultMutableTreeNode) n).getUserObject();
+			if (!n.isLeaf()) {
+				if (visitAndUpdateAllNodes(n, model, p) == false) {
+					// 原来没有，可能需要新加
+					if (nInfo instanceof String) {
+						// 可能的新加节点处理
+						String groupName = (String) nodeInfo;
+
+						for (String str : p.getGroupList()) {
+							if (str.equals(groupName)) {
+								model.insertNodeInto(
+										new DefaultMutableTreeNode(
+												new TreeNodeItem(p
+														.getContactName(), p
+														.getISN())), node, node
+												.getChildCount() + 1);
+								break;
+							}
+						}
+					}
+				}
+			} else if (nInfo instanceof TreeNodeItem
+					&& ((TreeNodeItem) nInfo).iSN == p.getISN()) {
+				// 原来的节点处理
+				hasFindISN = true;
+
+				boolean isStillInList = false;
+				String groupName = (String) nodeInfo;
+				for (String str : p.getGroupList()) {
+					if (str.equals(groupName))
+						isStillInList = true;
+				}
+
+				if (isStillInList == false) {
+					model.removeNodeFromParent(n);
+				}
+			}
+
+		}
+		return hasFindISN;
+
+	}
+
+	/**
+	 * @param deleteISN
+	 */
+	private void deleteISNNode(int deleteISN) {
+		DefaultMutableTreeNode root = (DefaultMutableTreeNode) this.contactListTree
+				.getModel().getRoot();
+		DefaultTreeModel model = (DefaultTreeModel) this.contactListTree
+				.getModel();
+		visitAndDeleteAllNodes(root, model, deleteISN);
+	}
+
+	/**
+	 * @param node
+	 * @param model
+	 * @param deleteISN
+	 */
+	private void visitAndDeleteAllNodes(DefaultMutableTreeNode node,
+			DefaultTreeModel model, int deleteISN) {
+		Object nodeInfo = ((DefaultMutableTreeNode) node).getUserObject();
+
+		if (node.isLeaf() && nodeInfo instanceof TreeNodeItem) {
+			if (((TreeNodeItem) nodeInfo).iSN == deleteISN) {
+				model.removeNodeFromParent(node);
+			}
+		} else {
+
+			for (Enumeration e = node.children(); e.hasMoreElements();) {
+				DefaultMutableTreeNode n = (DefaultMutableTreeNode) e
+						.nextElement();
+				visitAndDeleteAllNodes(n, model, deleteISN);
+			}
+
+		}
+
+	}
+
 }
