@@ -754,7 +754,7 @@ public class ContactInfoPanel extends JXPanel {
 		localRelationLabelList = new ArrayList<RelationLabel>();
 
 		this.myButtonList.add(addRelationLabelListButton);
-		this.myButtonList.add(editRelationLabelListButton);
+		//this.myButtonList.add(editRelationLabelListButton);
 		this.myButtonList.add(deleteRelationLabelListButton);
 
 		downbuilder.addLabel("πÿœµ±Í«©", downcc.xy(1, 7));
