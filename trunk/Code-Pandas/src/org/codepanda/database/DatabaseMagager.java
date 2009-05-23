@@ -89,7 +89,7 @@ public class DatabaseMagager implements DatabaseManagerFacade {
 			// create user-table
 	//		this.update("CREATE TABLE UserTable (username VARCHAR(256), user OTHER)");
 			this.update("CREATE TABLE UserTable (username VARCHAR(256), user OTHER)");
-			this.update("CREATE TABLE contactList (username VARCHAR(256), contact OTHER)");
+			this.update("CREATE TABLE contactList (username VARCHAR(256), isn INTEGER, contact OTHER)");
 //		} catch (SQLException e) {
 //			e.printStackTrace();
 //		}
@@ -137,7 +137,7 @@ public class DatabaseMagager implements DatabaseManagerFacade {
 
 	@Override
 	public int newContact(String userName, final PersonalContact contact) {
-		this.updateC("INSERT INTO contactList(username,contact) VALUES(?,?)",
+		this.updateC("INSERT INTO contactList(username,isn,contact) VALUES(?,?,?)",
 				userName, contact);
 		System.out.println("ISN_______"+contact.getISN());
 		return 1;
@@ -147,7 +147,8 @@ public class DatabaseMagager implements DatabaseManagerFacade {
 		try {
 			PreparedStatement ps = conn.prepareStatement(expression);
 			ps.setString(1, username);
-			ps.setObject(2, contact);
+			ps.setInt(2, contact.getISN());
+			ps.setObject(3, contact);
 
 			ps.executeUpdate();
 			ps.close();
@@ -200,7 +201,7 @@ public class DatabaseMagager implements DatabaseManagerFacade {
 		rs = st.executeQuery("SELECT * FROM contactList WHERE username = '" + name+"'");
 //		rs.next();
 		for (; rs.next();) {
-			contactList.add((ContactOperations) rs.getObject(2));
+			contactList.add((ContactOperations) rs.getObject(3));
 //			acd.add((ContactOperations) rs.getObject(2));
 		}
 		st.close();
@@ -294,7 +295,7 @@ public class DatabaseMagager implements DatabaseManagerFacade {
 	public int deleteContact(String userName, int ISN) {
 	//	int isn = contact.getISN();
 		try {
-			if(queryContact(userName, ISN)==1){
+			if(queryContact(userName, ISN)==1){				
 				return 1;
 			}
 		} catch (SQLException e) {
@@ -303,16 +304,20 @@ public class DatabaseMagager implements DatabaseManagerFacade {
 		return 0;
 	}
 	public synchronized int queryContact(String name, int isn) throws SQLException{
-		Statement st = null;
-		ResultSet rs = null;
-		st = conn.createStatement();
-		rs = st.executeQuery("SELECT * FROM contactList WHERE username = '"+name+"'");
-		for (; rs.next();){
-			if(((PersonalContact)rs.getObject(2)).getISN() == isn){
-				return 1;
-			}
-		}
-		return 0;
+//		Statement st = null;
+//		ResultSet rs = null;
+//		st = conn.createStatement();
+//		rs = st.executeQuery("SELECT * FROM contactList WHERE username = '"+name+"'");
+//		for (; rs.next();){
+//			if(((PersonalContact)rs.getObject(2)).getISN() == isn){
+//				return 1;
+//			}
+//		}
+		PreparedStatement ps = conn.prepareStatement("DELETE FROM contactList WHERE isn = "+String.valueOf(isn));
+		
+		ps.executeUpdate();
+		ps.close();
+		return 1;
 	}
 
 	@Override
