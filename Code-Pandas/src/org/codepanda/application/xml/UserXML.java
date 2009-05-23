@@ -1,11 +1,17 @@
 package org.codepanda.application.xml;
+import java.awt.Image;
+import java.awt.image.BufferedImage;
+import java.io.IOException;
 import java.io.StringReader;
 import java.util.ArrayList;
 
+import javax.imageio.ImageIO;
+import javax.swing.ImageIcon;
 import javax.xml.parsers.*;
 
 import org.codepanda.utility.contact.Birthday;
 import org.codepanda.utility.contact.ContactData;
+import org.codepanda.utility.contact.HeadImage;
 import org.w3c.dom.*;
 import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
@@ -72,8 +78,9 @@ public class UserXML {
 /**
  * @param currentUser
  * @param element
+ * @throws IOException 
  */
-public  void UserIterator(User currentUser,Element element)
+public  void UserIterator(User currentUser,Element element) throws IOException
 {
 	NodeList nodelist=element.getChildNodes();
 //	System.out.println(element.getNodeName());
@@ -115,6 +122,19 @@ public  void UserIterator(User currentUser,Element element)
 		{
 			String value=node.getTextContent();
 			currentUser.setContactName(value);
+		}
+		//头像的解析，头像是通过url得到的
+		else if(str.equals("HeadImage"))
+		{
+			String value=node.getTextContent();
+			BufferedImage headBufferedImage=ImageIO.read(this.getClass().getResource(value));
+			HeadImage currentImage=new HeadImage();
+			Image tempImage = headBufferedImage.getScaledInstance(130, 115, Image.SCALE_DEFAULT);
+			ImageIcon imageIcon = new ImageIcon(tempImage);
+			currentImage.setMyImageIcon(imageIcon);
+			currentUser.setHeadImage(currentImage);
+			System.out.println(tempImage.toString());
+			System.out.println("HeadImage"+currentImage.toString());
 		}
 		else if(str.equalsIgnoreCase("Telephone"))
 		{
