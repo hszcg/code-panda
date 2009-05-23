@@ -9,7 +9,7 @@ import org.codepanda.utility.data.DataPool;
 
 public class SearchContactActor implements CommandActor {
 	private String SearchInfo;
-
+	private boolean Blur=false;
 	@Override
 	public Object executeCommand() {
 		// TODO Auto-generated method stub
@@ -37,4 +37,13 @@ public class SearchContactActor implements CommandActor {
 		}
 		return ISNList;
 	}
+	public void setBlur(Boolean b)
+	{
+		this.Blur=b;
+	}
+	public Boolean getBlur()
+	{
+		 return this.Blur;
+	}
+	
 }

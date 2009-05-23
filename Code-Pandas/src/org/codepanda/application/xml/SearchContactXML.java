@@ -24,7 +24,6 @@ public class SearchContactXML {
 	String funcSubStr = null;
 	String comSubStr = null;
 	String infoStr = null;
-	boolean blur = false;
 	boolean continueFlag = false;
 	boolean goFlag = false; // 继续向下进行匹配的标志
 	int loopFlag = 0;
@@ -88,7 +87,8 @@ public class SearchContactXML {
 					blur = true;
 			}
 		}
-		if (blur) {
+		if (blur) 
+		{
 			// 模糊匹配
 			System.out.println("Blur________");
 			for (int i = 0; i < nodelist.getLength(); i++) {
@@ -104,8 +104,7 @@ public class SearchContactXML {
 								+ contactData.getContactName() + "MMMMMMMM"
 								+ value);
 						System.out.println(goFlag);
-						return true;
-						// return true;
+						
 					} else {
 						System.out.println("Pos____"+contactData.getContactName().indexOf(value));
 						System.out.println("Error Here!!!");
