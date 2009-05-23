@@ -73,7 +73,7 @@ public class User implements UserOperations,ContactOperations,Serializable {
 	}
 
 	@Override
-	public Birthday getContactBirthday() {
+	public String getContactBirthday() {
 		// TODO Auto-generated method stub
 		return userContactData.contactBirthday;
 	}
@@ -151,9 +151,10 @@ public class User implements UserOperations,ContactOperations,Serializable {
 	}
 
 	@Override
-	public void setContactBirthday(Birthday contactBirthday) {
+	public void setContactBirthday(String contactBirthday) {
 		// TODO Auto-generated method stub
 		userContactData.contactBirthday=contactBirthday;
+		System.out.println("Set_____"+contactBirthday.toString());
 	}
 
 	@Override

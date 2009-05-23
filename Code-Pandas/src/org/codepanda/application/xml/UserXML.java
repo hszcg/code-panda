@@ -192,7 +192,7 @@ public  void UserIterator(User currentUser,Element element)
 			birth.setYear(Integer.parseInt(str1[0]));
 			birth.setMonth(Integer.parseInt(str1[1]));
 			birth.setDay(Integer.parseInt(str1[2]));
-			currentUser.setContactBirthday(birth);
+			currentUser.setContactBirthday(value);
 			System.out.println("Birthday--"+value);
 		}
 		else if(str.equalsIgnoreCase("url"))

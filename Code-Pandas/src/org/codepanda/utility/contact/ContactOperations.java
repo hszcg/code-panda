@@ -77,12 +77,12 @@ public interface ContactOperations {
 	/**
 	 * @param contactBirthday the contactBirthday to set
 	 */
-	public void setContactBirthday(Birthday contactBirthday);
+	public void setContactBirthday(String contactBirthday);
 	
 	/**
 	 * @return the contactBirthday
 	 */
-	public Birthday getContactBirthday();
+	public String getContactBirthday();
 	
 	/**
 	 * @param headImage the headImage to set
