@@ -213,7 +213,7 @@ public class SearchPanel extends JPanel {
 					.getSelectedItem().toString()));
 
 		if (!relationBox.getSelectedItem().toString().equals("(任意)")
-				&& contactBox.getSelectedItem().toString().equals("(任意)")) {
+				&& !contactBox.getSelectedItem().toString().equals("(任意)")) {
 			StringBuffer relation = new StringBuffer();
 			relation.append(MyXMLMaker.addTag("LabelName", relationBox
 					.getSelectedItem().toString()));
