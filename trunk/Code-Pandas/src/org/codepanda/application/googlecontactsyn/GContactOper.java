@@ -1,14 +1,12 @@
 package org.codepanda.application.googlecontactsyn;
 
-import com.google.gdata.client.calendar.*;
 import com.google.gdata.client.contacts.ContactsService;
 import com.google.gdata.data.*;
-import com.google.gdata.data.calendar.*;
 import com.google.gdata.data.extensions.*;
 import com.google.gdata.util.*;
-import com.google.gdata.data.contacts.*;
 import com.google.gdata.data.contacts.ContactEntry;
 import com.google.gdata.data.contacts.ContactFeed;
+
 import java.io.IOException;
 
 import java.net.*;
