@@ -207,6 +207,13 @@ public class PhoneMeMajorPanel extends JPanel {
 	}
 
 	/**
+	 * 
+	 */
+	public void closeTab(Component p) {
+		centerPanel.remove(p);
+	}
+
+	/**
 	 * @param p
 	 * @return
 	 */

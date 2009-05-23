@@ -1,7 +1,5 @@
 package org.codepanda.userinterface.xml;
 
-import org.codepanda.utility.user.User;
-
 /**
  * @author hszcg
  * 
@@ -17,20 +15,6 @@ public class MyXMLMaker {
 				+ addTag("UserPassword", password));
 		return addTag("com", loginUserXML);
 	}
-
-//	/**
-//	 * @param myUser
-//	 * @return
-//	 */
-//	public static String getNewUserXML(User myUser) {
-//		StringBuffer newUserXML = new StringBuffer();
-//		newUserXML.append(addTag("UserName", myUser.getUserName()));
-//		newUserXML.append(addTag("UserPassword", myUser.getPassword()));
-//
-//		// TODO Add Other User Info
-//
-//		return addTag("com", addTag("NewUser", newUserXML.toString()));
-//	}
 
 	/**
 	 * @param String

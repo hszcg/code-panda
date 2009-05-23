@@ -78,7 +78,7 @@ public class PhoneMeLoginDialogListener implements ActionListener {
 
 		String xml = MyXMLMaker.getLoginUserXML(userNameInput, password);
 
-		System.out.println(xml);
+		System.out.println("LOGIN_USER\n" + xml);
 
 		// TODO Login
 		CommandVisitor loginCommandVisitor = new CommandVisitor(

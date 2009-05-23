@@ -11,6 +11,11 @@ import javax.imageio.ImageIO;
 import javax.swing.JDialog;
 import javax.swing.JOptionPane;
 
+import org.codepanda.application.CommandType;
+import org.codepanda.application.CommandVisitor;
+import org.codepanda.userinterface.messagehandler.DeleteContactMessageHandler;
+import org.codepanda.userinterface.xml.MyXMLMaker;
+import org.codepanda.utility.contact.ContactOperations;
 import org.jvnet.flamingo.common.JCommandButton;
 import org.jvnet.flamingo.common.icon.ImageWrapperResizableIcon;
 import org.jvnet.flamingo.ribbon.*;
@@ -153,6 +158,28 @@ public class PhoneMeRibbon {
 		deleteContactButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				System.out.println("删除联系人");
+				Component currentTab = mainFrame.getMyPhoneMeMajorPanel()
+						.getCurrentTab();
+				if (currentTab instanceof ContactInfoPanel) {
+					ContactOperations p = ((ContactInfoPanel) currentTab)
+							.getMyContact();
+					if (p != null) {
+						// 非新建联系人
+						String xml = MyXMLMaker.addTag("ISN", p.getISN()
+								.toString());
+						xml = MyXMLMaker.addTag("DeleteContact", xml);
+						xml = MyXMLMaker.addTag("com", xml);
+
+						System.out.println("DELETE_CONTACT\n" + xml);
+
+						CommandVisitor deleteContactCommandVisitor = new CommandVisitor(
+								CommandType.DELETE_CONTACT, xml);
+						DeleteContactMessageHandler deleteContactMessageHandler = new DeleteContactMessageHandler();
+						deleteContactMessageHandler
+								.executeCommand(deleteContactCommandVisitor);
+						mainFrame.getMyPhoneMeMajorPanel().closeTab(currentTab);
+					}
+				}
 			}
 		});
 
@@ -200,8 +227,7 @@ public class PhoneMeRibbon {
 		searchContactButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				System.out.println("联系人搜索");
-				mainFrame.getMyPhoneMeMajorPanel().addNewTab(
-						"Search",
+				mainFrame.getMyPhoneMeMajorPanel().addNewTab("Search",
 						new SearchPanel(mainFrame));
 			}
 		});
