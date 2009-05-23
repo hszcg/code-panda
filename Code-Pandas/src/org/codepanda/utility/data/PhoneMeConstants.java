@@ -4,6 +4,7 @@ import java.util.HashSet;
 
 public class PhoneMeConstants {
 	private HashSet<String> allRelationLabelName;
+	private HashSet<String> allGroupList;
 
 	private static PhoneMeConstants instance = new PhoneMeConstants();
 
@@ -12,7 +13,7 @@ public class PhoneMeConstants {
 	 */
 	private PhoneMeConstants() {
 		// TODO 通过XML来初始化
-		allRelationLabelName = new HashSet<String>();
+		allRelationLabelName = new HashSet<String>(10);
 		allRelationLabelName.add("老师");
 		allRelationLabelName.add("学生");
 		allRelationLabelName.add("父母");
@@ -20,6 +21,12 @@ public class PhoneMeConstants {
 		allRelationLabelName.add("部下");
 		allRelationLabelName.add("家属");
 		allRelationLabelName.add("兄弟姐妹");
+		
+		allGroupList = new HashSet<String>(10);
+		allGroupList.add("好友");
+		allGroupList.add("家人");
+		allGroupList.add("同事");
+		allGroupList.add("同学");
 	}
 
 	/**
@@ -34,5 +41,12 @@ public class PhoneMeConstants {
 	 */
 	public final HashSet<String> getAllRelationLabelName() {
 		return allRelationLabelName;
+	}
+
+	/**
+	 * @return the allGroupList
+	 */
+	public final HashSet<String> getAllGroupList() {
+		return allGroupList;
 	}
 }

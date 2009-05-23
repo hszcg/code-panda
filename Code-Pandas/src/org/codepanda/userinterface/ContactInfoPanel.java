@@ -710,6 +710,8 @@ public class ContactInfoPanel extends JXPanel {
 
 					setEditable(false);
 					nameField.setEditable(false);
+					
+					parentFrame.updateTaskPane(iSN);
 				} else {
 					// 修改联系人
 					String xml = makeMainMessageXML().toString();
@@ -726,6 +728,8 @@ public class ContactInfoPanel extends JXPanel {
 
 					setEditable(false);
 					nameField.setEditable(false);
+					
+					parentFrame.updateTaskPane(myContact.getISN());
 				}
 			}
 		});
