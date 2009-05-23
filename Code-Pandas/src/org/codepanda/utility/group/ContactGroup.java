@@ -21,7 +21,10 @@ public class ContactGroup {
 		this.setGroupType(type);
 		this.setGroupName(name);
 	}
-	
+	public int size()
+	{
+		return this.size();
+	}
 	
 	/**
 	 * @param ISN

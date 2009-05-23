@@ -224,7 +224,7 @@ public  void ContactIterator(PersonalContact currentContact,Element element) thr
 					myCommonLabelList=new ArrayList<String>();
 				}			
 				myCommonLabelList.add(value);
-				currentContact.setUrlList(myCommonLabelList);
+				currentContact.setCommonLabelList(myCommonLabelList);
 				for(int l=0;l<currentContact.getCommonLabelList().size();l++)
 				{
 					System.out.println("CommonLabel--"+l+currentContact.getCommonLabelList().get(l));
