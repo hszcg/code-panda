@@ -161,8 +161,6 @@ public class ContactInfoPanel extends JXPanel {
 		localPanelType = panelType;
 		this.myButtonList = new ArrayList<JButton>();
 		this.myTextFieldList = new ArrayList<JTextField>();
-		newImageURL = PhoneMeConstants.DEFAULT_IMAGE_URL;
-		currentImagetURL = PhoneMeConstants.DEFAULT_IMAGE_URL;
 
 		setUpperPanel();
 		setLayout(new BorderLayout());
@@ -171,8 +169,6 @@ public class ContactInfoPanel extends JXPanel {
 		add(mainPanel, "Center");
 
 		this.setMyContact(myContact);
-
-		setContactHeadImage(currentImagetURL);
 
 		if (isEditable == false) {
 			this.setEditable(isEditable);
@@ -199,8 +195,6 @@ public class ContactInfoPanel extends JXPanel {
 		this.isEditable = true;
 		this.myButtonList = new ArrayList<JButton>();
 		this.myTextFieldList = new ArrayList<JTextField>();
-		newImageURL = PhoneMeConstants.DEFAULT_IMAGE_URL;
-		currentImagetURL = PhoneMeConstants.DEFAULT_IMAGE_URL;
 
 		setUpperPanel();
 		setLayout(new BorderLayout());
@@ -209,8 +203,6 @@ public class ContactInfoPanel extends JXPanel {
 		add(mainPanel, "Center");
 
 		this.setMyContact(myContact);
-
-		setContactHeadImage(currentImagetURL);
 
 		if (isEditable == false) {
 			this.setEditable(isEditable);
@@ -745,6 +737,7 @@ public class ContactInfoPanel extends JXPanel {
 			public void actionPerformed(ActionEvent arg0) {
 				setMyContact(myContact);
 				setEditable(false);
+				newImageURL = currentImagetURL;
 			}
 		});
 		this.myButtonList.add(confirmButton);
@@ -782,13 +775,14 @@ public class ContactInfoPanel extends JXPanel {
 	}
 
 	/**
-	 * @param pic
+	 * @param image
 	 */
-	private void setContactHeadImage(BufferedImage pic) {
-		if (pic == null)
+	private void setContactHeadImage(Image image) {
+		if (image == null)
 			return;
 
-		Image tempImage = pic.getScaledInstance(130, 115, Image.SCALE_DEFAULT);
+		Image tempImage = image
+				.getScaledInstance(130, 115, Image.SCALE_DEFAULT);
 
 		ImageIcon imageIcon = new ImageIcon(tempImage);
 		headImageLabel.setIcon(imageIcon);
@@ -871,6 +865,13 @@ public class ContactInfoPanel extends JXPanel {
 		if (myContact != null && localPanelType == CONTACT_INFO_PANEL)
 			message.append(MyXMLMaker.addTag("ISN", myContact.getISN()
 					.toString()));
+		
+		// TODO add image url
+		if(this.newImageURL != null && this.newImageURL.equals(this.currentImagetURL) == false){
+			message.append(MyXMLMaker.addTag("HeadImage", this.newImageURL.toString()));
+			this.currentImagetURL = this.newImageURL;
+		}
+		
 		for (int index = 0; index < phoneNumberBox.getItemCount(); index++) {
 			message.append(MyXMLMaker.addTag("TelePhone", phoneNumberBox
 					.getItemAt(index).toString()));
@@ -925,10 +926,14 @@ public class ContactInfoPanel extends JXPanel {
 				.toArray(new String[0]))));
 
 		// set Contact Information
+		
+		// TODO set Image
 		if (myContact.getHeadImage() != null) {
-
+			this.setContactHeadImage(myContact.getHeadImage().getMyImageIcon()
+					.getImage());
 		} else {
-
+			this.setContactHeadImage(PhoneMeConstants.DEFAULT_IMAGE_URL);
+			this.currentImagetURL = PhoneMeConstants.DEFAULT_IMAGE_URL;
 		}
 
 		if (myContact.getContactName() != null) {
