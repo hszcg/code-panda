@@ -90,7 +90,8 @@ public class SingleResultPanel extends JPanel {
 		ImageIcon imageIcon = new ImageIcon(SingleResultPanel.defaultImage
 				.getScaledInstance(64, 64, Image.SCALE_DEFAULT));
 
-		if (myContact.getHeadImage().getMyImageIcon() != null) {
+		if (myContact.getHeadImage() != null
+				&& myContact.getHeadImage().getMyImageIcon() != null) {
 			imageIcon = new ImageIcon(myContact.getHeadImage().getMyImageIcon()
 					.getImage().getScaledInstance(64, 64, Image.SCALE_DEFAULT));
 		}
