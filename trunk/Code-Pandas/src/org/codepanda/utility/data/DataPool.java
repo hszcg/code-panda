@@ -383,7 +383,12 @@ public class DataPool {
 			if(this.getAllCommonLabelDataMap().containsKey(temp[i]))
 			{
 				this.getAllCommonLabelDataMap().remove(temp[i]);
+				//for(int i=0;i<this.getAllCommonLabelDataMap().get(temp[i]).size();i++)
+				//{
+					//this.getDb().e
+				//}
 			}
+			
 			
 		}
 		return 0;
