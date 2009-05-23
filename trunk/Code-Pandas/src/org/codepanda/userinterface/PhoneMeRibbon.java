@@ -92,6 +92,7 @@ public class PhoneMeRibbon {
 				
 				PhoneMeCorfirmDialog deleteUserDialog = 
 					new PhoneMeCorfirmDialog(mainFrame);
+				deleteUserDialog.setVisible(true);
 			}
 		});
 
