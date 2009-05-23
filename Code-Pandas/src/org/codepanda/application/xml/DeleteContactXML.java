@@ -31,9 +31,10 @@ public class DeleteContactXML {
 	 * @param commandDetail
 	 * @return
 	 */
-	public void DeleteConXML(int currentISN, String match1,
+	public int DeleteConXML(String match1,
 			String match2, String commandDetail) {
 		// 从commandDetail中解析出用户信息
+		int tempISN;
 		try {
 			if (commandDetail.contains("<com>")
 					&& commandDetail.contains("</com")) {
@@ -66,11 +67,15 @@ public class DeleteContactXML {
 			String str = node.getNodeName();
 			if (str.equalsIgnoreCase("ISN")) {
 				String value = node.getTextContent();
-				Integer tempISN=Integer.parseInt(value);
-				currentISN=tempISN;
+				 tempISN=Integer.parseInt(value);
+				System.out.println("Value____"+value);
+				System.out.println("Temp___"+tempISN);
+				return tempISN;
 			}
+			
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+		return Integer.MIN_VALUE;
 	}
 }
