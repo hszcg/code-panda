@@ -777,28 +777,31 @@ public class ContactInfoPanel extends JXPanel {
 	/**
 	 * @param image
 	 */
-	private void setContactHeadImage(Image image) {
+	public void setContactHeadImage(Image image, String url) {
 		if (image == null)
 			return;
 
-		Image tempImage = image
-				.getScaledInstance(130, 115, Image.SCALE_DEFAULT);
+		Image tempImage = image.getScaledInstance(
+				PhoneMeConstants.HEAD_IMAGE_WIDTH,
+				PhoneMeConstants.HEAD_IMAGE_HEIGHT, Image.SCALE_DEFAULT);
 
 		ImageIcon imageIcon = new ImageIcon(tempImage);
 		headImageLabel.setIcon(imageIcon);
+
+		this.newImageURL = url;
 	}
 
 	/**
 	 * @param url
 	 */
-	public void setContactHeadImage(String url) {
+	private void setContactHeadImage(String url) {
 		if (url == null)
 			return;
 
+		System.out.println("IMAGE URL\n" + url);
 		try {
 			this.setContactHeadImage(ImageIO.read(this.getClass().getResource(
-					url)));
-			this.newImageURL = url;
+					url)), null);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -865,13 +868,15 @@ public class ContactInfoPanel extends JXPanel {
 		if (myContact != null && localPanelType == CONTACT_INFO_PANEL)
 			message.append(MyXMLMaker.addTag("ISN", myContact.getISN()
 					.toString()));
-		
+
 		// TODO add image url
-		if(this.newImageURL != null && this.newImageURL.equals(this.currentImagetURL) == false){
-			message.append(MyXMLMaker.addTag("HeadImage", this.newImageURL.toString()));
+		if (this.newImageURL != null
+				&& this.newImageURL.equals(this.currentImagetURL) == false) {
+			message.append(MyXMLMaker.addTag("HeadImage", this.newImageURL
+					.toString()));
 			this.currentImagetURL = this.newImageURL;
 		}
-		
+
 		for (int index = 0; index < phoneNumberBox.getItemCount(); index++) {
 			message.append(MyXMLMaker.addTag("TelePhone", phoneNumberBox
 					.getItemAt(index).toString()));
@@ -926,11 +931,11 @@ public class ContactInfoPanel extends JXPanel {
 				.toArray(new String[0]))));
 
 		// set Contact Information
-		
+
 		// TODO set Image
 		if (myContact.getHeadImage() != null) {
 			this.setContactHeadImage(myContact.getHeadImage().getMyImageIcon()
-					.getImage());
+					.getImage(), null);
 		} else {
 			this.setContactHeadImage(PhoneMeConstants.DEFAULT_IMAGE_URL);
 			this.currentImagetURL = PhoneMeConstants.DEFAULT_IMAGE_URL;

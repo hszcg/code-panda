@@ -3,6 +3,7 @@ package org.codepanda.userinterface.listener;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
+import java.net.URL;
 
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
@@ -47,7 +48,8 @@ public class ContactHeadImageEditListener implements ActionListener {
 
 		File selectedFile = playerHeadChooser.getSelectedFile();
 		try {
-			myContactInfoPanel.setContactHeadImage(selectedFile.toURI().toURL()
+			URL url = selectedFile.toURI().toURL();
+			myContactInfoPanel.setContactHeadImage(ImageIO.read(url), url
 					.toString());
 		} catch (Exception error) {
 			error.printStackTrace();
