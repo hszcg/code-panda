@@ -18,6 +18,7 @@ import org.codepanda.application.CommandType;
 import org.codepanda.application.CommandVisitor;
 import org.codepanda.userinterface.messagehandler.DeleteContactMessageHandler;
 import org.codepanda.userinterface.messagehandler.ExportContactMessageHandler;
+import org.codepanda.userinterface.messagehandler.ImportContactMessageHandler;
 import org.codepanda.userinterface.utility.ExtensionFileFilter;
 import org.codepanda.userinterface.xml.MyXMLMaker;
 import org.codepanda.utility.contact.ContactOperations;
@@ -317,6 +318,56 @@ public class PhoneMeRibbon {
 		importContactButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				System.out.println("联系人导入");
+
+				JFileChooser playerHeadChooser = new JFileChooser();
+				playerHeadChooser.setDialogTitle("Contact Import Chooser");
+
+				File dir = new File("./");
+				String url = null;
+				if (dir.isDirectory())
+					playerHeadChooser.setCurrentDirectory(dir);
+
+				FileFilter playerHeadFileFilter = new ExtensionFileFilter(
+						"Support Files (*.csv, *.xls)", new String[] { ".csv",
+								".xls" });
+				playerHeadChooser.addChoosableFileFilter(playerHeadFileFilter);
+
+				int result = playerHeadChooser.showOpenDialog(mainFrame);
+
+				if (result == JFileChooser.CANCEL_OPTION)
+					return;
+
+				File selectedFile = playerHeadChooser.getSelectedFile();
+				if (!selectedFile.isFile()) {
+					return;
+				}
+				try {
+					url = selectedFile.getAbsolutePath();
+					System.out.println("IMPORT\n" + url);
+				} catch (Exception error) {
+					error.printStackTrace();
+				}
+
+				// TODO url == null
+				StringBuffer tempMessage = new StringBuffer();
+				if (url.toString().endsWith("csv"))
+					tempMessage.append(MyXMLMaker.addTag("Type", "csv"));
+				else
+					tempMessage.append(MyXMLMaker.addTag("Type", "xls"));
+
+				tempMessage.append(MyXMLMaker.addTag("Url", url.toString()));
+
+				String xml = MyXMLMaker.addTag("ImportContact", tempMessage
+						.toString());
+				xml = MyXMLMaker.addTag("com", xml);
+
+				System.out.println("IMPORT_CONTACT\n" + xml);
+
+				CommandVisitor importContactCommandVisitor = new CommandVisitor(
+						CommandType.IMPORT_CONTACT, xml);
+				ImportContactMessageHandler importContactMessageHandler = new ImportContactMessageHandler();
+				importContactMessageHandler
+						.executeCommand(importContactCommandVisitor);
 			}
 		});
 
@@ -341,8 +392,8 @@ public class PhoneMeRibbon {
 					playerHeadChooser.setCurrentDirectory(dir);
 
 				FileFilter playerHeadFileFilter = new ExtensionFileFilter(
-						"Support Files (*.csv, *.xls)",
-						new String[] { ".csv", ".xls" });
+						"Support Files (*.csv, *.xls)", new String[] { ".csv",
+								".xls" });
 				playerHeadChooser.addChoosableFileFilter(playerHeadFileFilter);
 
 				int result = playerHeadChooser.showOpenDialog(mainFrame);
@@ -357,21 +408,20 @@ public class PhoneMeRibbon {
 				} catch (Exception error) {
 					error.printStackTrace();
 				}
-				
+
 				// TODO url == null
 				StringBuffer tempMessage = new StringBuffer();
-				if(url.toString().endsWith("csv"))
+				if (url.toString().endsWith("csv"))
 					tempMessage.append(MyXMLMaker.addTag("Type", "csv"));
 				else
 					tempMessage.append(MyXMLMaker.addTag("Type", "xls"));
-				
+
 				tempMessage.append(MyXMLMaker.addTag("Url", url.toString()));
-				
-				String xml = MyXMLMaker.addTag
-				("ExportContact", tempMessage.toString());
-				xml = MyXMLMaker.addTag
-				("com", xml);
-				
+
+				String xml = MyXMLMaker.addTag("ExportContact", tempMessage
+						.toString());
+				xml = MyXMLMaker.addTag("com", xml);
+
 				System.out.println("EXPORT_CONTACT\n" + xml);
 
 				CommandVisitor exportContactCommandVisitor = new CommandVisitor(
