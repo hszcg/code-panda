@@ -12,7 +12,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-import org.codepanda.application.export.CsvConvertor;
+import org.codepanda.application.export.CsvExport;
 import org.codepanda.database.DatabaseMagager;
 import org.codepanda.database.DatabaseManagerFacade;
 import org.codepanda.utility.contact.ContactOperations;
@@ -206,7 +206,7 @@ public class DataPool {
 		
 		
 		// test of CSV-convertor
-		CsvConvertor cc = new CsvConvertor();
+		CsvExport cc = new CsvExport();
 		cc.convert("abc.csv");
 		
 		
