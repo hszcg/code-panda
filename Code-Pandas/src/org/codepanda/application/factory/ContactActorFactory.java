@@ -6,12 +6,14 @@ import org.codepanda.application.CommandActor;
 import org.codepanda.application.CommandType;
 import org.codepanda.application.contact.DeleteContactActor;
 import org.codepanda.application.contact.EditContactActor;
+import org.codepanda.application.contact.ExportContactActor;
 import org.codepanda.application.contact.ImportContactActor;
 import org.codepanda.application.contact.NewContactActor;
 import org.codepanda.application.contact.SearchContactActor;
 import org.codepanda.application.contact.StatContactActor;
 import org.codepanda.application.xml.ContactXML;
 import org.codepanda.application.xml.DeleteContactXML;
+import org.codepanda.application.xml.ExportContactXML;
 import org.codepanda.application.xml.SearchContactXML;
 import org.codepanda.utility.contact.ContactData;
 import org.codepanda.utility.contact.ContactOperations;
@@ -85,6 +87,18 @@ public class ContactActorFactory extends CommandActorFactory {
 			 SearchContactActor searchContactActor=new SearchContactActor();
 			 searchContactActor.setSearchInfo(commandDetail);
 			 return searchContactActor;
+		 }
+		 //进行联系人的导出
+		 if(commandType==CommandType.EXPORT_CONTACT)
+		 {
+			 String type=null;
+			 String path=null;
+			 ExportContactActor exportContactActor=new ExportContactActor();
+			 ExportContactXML exportContactXML=new ExportContactXML();
+			 exportContactXML.ContactParserXML(type,path,"<ExportContact>", "</ExportContact>", commandDetail);
+			 exportContactActor.setType(type);
+			 exportContactActor.setPath(path);
+			 return exportContactActor;
 		 }
 		return null;
 	}

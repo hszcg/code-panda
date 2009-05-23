@@ -38,7 +38,7 @@ public class ContactData implements Serializable {
 		workingDepartmentList=new ArrayList<String>();
 		imContactInformationList=new ArrayList<String>();
 		contactBirthday=new String();
-		headImage=new HeadImage();
+		headImage=null;
 		urlList=new ArrayList<String>();
 		commonLabelList=new ArrayList<String>();
 		groupList=new ArrayList<String>();
