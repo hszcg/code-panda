@@ -182,6 +182,14 @@ public class DataPool {
 			System.out.println("Login User Password Invaild");
 			return -2;
 		}
+		
+		// 加载分组信息
+		for (String str : PhoneMeConstants.getInstance().getAllGroupList()) {
+			System.out.println("ADD GROUP\n" + str);
+			ContactGroup newContactGroup = new ContactGroup(
+					GroupType.NORMAL_GROUP, str);
+			allContactGroupMap.put(str, newContactGroup);
+		}
 
 		// TODO 把当前用户的联系人读入DataPool
 		DataPool.getInstance().getDb().getUser(userName, getCurrentUser());
@@ -197,14 +205,6 @@ public class DataPool {
 			allContactNameMultimap.put(t.getContactName(), iSN);
 
 			// TODO 更新group的信息
-			// 加载分组信息
-			for (String str : PhoneMeConstants.getInstance().getAllGroupList()) {
-				ContactGroup newContactGroup = new ContactGroup(
-						GroupType.NORMAL_GROUP, str);
-				newContactGroup.addGroupMember(iSN);
-				allContactGroupMap.put(str, newContactGroup);
-			}
-
 			// 添加联系人到分组
 			for (String groupName : t.getGroupList()) {
 				if (allContactGroupMap.containsKey(groupName)) {
