@@ -29,7 +29,7 @@ public class DepartmentContact implements ContactOperations {
 	}
 
 	@Override
-	public Birthday getContactBirthday() {
+	public String getContactBirthday() {
 		// TODO Auto-generated method stub
 		return null;
 	}
@@ -107,7 +107,7 @@ public class DepartmentContact implements ContactOperations {
 	}
 
 	@Override
-	public void setContactBirthday(Birthday contactBirthday) {
+	public void setContactBirthday(String contactBirthday) {
 		// TODO Auto-generated method stub
 		
 	}

@@ -110,23 +110,37 @@ public class StatContactXML {
 						}
 						if(startDay==endDay)
 						{
-							if(currentContact.getContactBirthday().getDay()==startDay)
+							if(!currentContact.getContactBirthday().isEmpty())
 							{
-								return true;
+								String temp=currentContact.getContactBirthday().substring(8,9);
+								int tempDay=Integer.parseInt(temp);
+								if(tempDay==startDay)
+								{
+									return true;
+								}
 							}
 						}
 						if(startDay<endDay)
 						{
-							if(currentContact.getContactBirthday().getDay()>=startDay&&currentContact.getContactBirthday().getDay()<=endDay)
-								return true;
+							if(!currentContact.getContactBirthday().isEmpty())
+							{
+								String temp=currentContact.getContactBirthday().substring(8,9);
+								int tempDay=Integer.parseInt(temp);
+								if(tempDay>=startDay&&tempDay<=endDay)
+								{
+									return true;
+								}
+							}
 						}
 					}
 					if(startMonth<endMonth)
 					{
-						boolean startTemp1=(currentContact.getContactBirthday().getMonth()>startMonth);
-						boolean startTemp2=(currentContact.getContactBirthday().getMonth()==startMonth)&&(currentContact.getContactBirthday().getDay()>=startDay);
-						boolean endTemp1=(currentContact.getContactBirthday().getMonth()<endMonth);
-						boolean endTemp2=(currentContact.getContactBirthday().getMonth()==endMonth)&&(currentContact.getContactBirthday().getDay()<=endDay);
+						String temp=currentContact.getContactBirthday().substring(5,6);
+						int tempMonth=Integer.parseInt(temp);
+						boolean startTemp1=(tempMonth>startMonth);
+						boolean startTemp2=(tempMonth==startMonth)&&(tempMonth>=startDay);
+						boolean endTemp1=(tempMonth<endMonth);
+						boolean endTemp2=(tempMonth==endMonth)&&(tempMonth<=endDay);
 						//上述情况的任意两种情况进行组合，即可
 						if((startTemp1||startTemp2)&&(endTemp1||endTemp2))
 							return true;
@@ -134,12 +148,20 @@ public class StatContactXML {
 				}
 				if(startYear<endYear)
 				{
-					boolean startTemp1=(currentContact.getContactBirthday().getYear()>startYear);
-					boolean startTemp2=(currentContact.getContactBirthday().getYear()==startYear)&&(currentContact.getContactBirthday().getMonth()>startMonth);
-					boolean startTemp3=(currentContact.getContactBirthday().getYear()==startYear)&&(currentContact.getContactBirthday().getMonth()==startMonth)&&(currentContact.getContactBirthday().getDay()>=startDay);
-					boolean endTemp1=(currentContact.getContactBirthday().getYear()<endYear);
-					boolean endTemp2=(currentContact.getContactBirthday().getYear()==endYear)&&(currentContact.getContactBirthday().getMonth()<endMonth);
-					boolean endTemp3=(currentContact.getContactBirthday().getYear()==endYear)&&(currentContact.getContactBirthday().getMonth()==endMonth)&&(currentContact.getContactBirthday().getDay()<=endDay);
+					String temp=currentContact.getContactBirthday().substring(0,3);
+					int tempYear=Integer.parseInt(temp);
+					 temp=currentContact.getContactBirthday().substring(5,6);
+					int tempMonth=Integer.parseInt(temp);
+					 temp=currentContact.getContactBirthday().substring(8,9);
+					int tempDay=Integer.parseInt(temp);
+					
+					
+					boolean startTemp1=(tempYear>startYear);
+					boolean startTemp2=(tempYear==startYear)&&(tempMonth>startMonth);
+					boolean startTemp3=(tempYear==startYear)&&(tempMonth==startMonth)&&(tempDay>=startDay);
+					boolean endTemp1=(tempYear<endYear);
+					boolean endTemp2=(tempYear==endYear)&&(tempMonth<endMonth);
+					boolean endTemp3=(tempYear==endYear)&&(tempMonth==endMonth)&&(tempDay<=endDay);
 					if((startTemp1||startTemp2||startTemp3)&&(endTemp1||endTemp2||endTemp3))
 						return true;
 					

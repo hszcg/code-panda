@@ -77,11 +77,12 @@ public class PersonalContact implements ContactOperations,Serializable {
 	{
 		return personalContactData.imContactInformationList;
 	}
-	public void setContactBirthday(Birthday contactBirthday)
+	public void setContactBirthday(String contactBirthday)
 	{
 		personalContactData.contactBirthday=contactBirthday;
+		System.out.println("Contact____Set"+contactBirthday.toString());
 	}
-	public  Birthday getContactBirthday()
+	public  String getContactBirthday()
 	{
 		return personalContactData.contactBirthday;
 	}

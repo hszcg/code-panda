@@ -22,7 +22,7 @@ public class ContactData implements Serializable {
 	public ArrayList<String> contactAddressList;
 	public ArrayList<String> workingDepartmentList;
 	public ArrayList<String> imContactInformationList;
-	public Birthday contactBirthday;
+	public String contactBirthday;
 	public HeadImage headImage;
 	public ArrayList<String> urlList;
 	public ArrayList<String> commonLabelList;
@@ -37,7 +37,7 @@ public class ContactData implements Serializable {
 		contactAddressList=new ArrayList<String>();
 		workingDepartmentList=new ArrayList<String>();
 		imContactInformationList=new ArrayList<String>();
-		contactBirthday=new Birthday();
+		contactBirthday=new String();
 		headImage=new HeadImage();
 		urlList=new ArrayList<String>();
 		commonLabelList=new ArrayList<String>();
