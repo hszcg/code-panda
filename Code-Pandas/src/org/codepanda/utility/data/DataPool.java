@@ -373,30 +373,21 @@ public class DataPool {
 		return allContactISNMap;
 	}
 
-	// public int newCommonLabel(CommonLabel commonLabel) {
-	// // 添加普通标签失败，返回-2,成功返回0
-	// if (DataPool.getInstance().getDb().newLabel(commonLabel.getLabelName(),
-	// getCurrentUser().getUserName()) == -2) {
-	// return -2;
-	// }
-	// return 0;
-	// }
-	//
-	// public int editCommonLabel(CommonLabel commonLabel) {
-	// if (DataPool.getInstance().getDb().editCommonlabel(
-	// commonLabel.getLabelName()) == -2) {
-	// return -2;
-	// }
-	// return 0;
-	// }
-	//
-	// public int deleteCommonLabel(CommonLabel commonLabel) {
-	// if (DataPool.getInstance().getDb().delCommonlabel(
-	// commonLabel.getLabelName()) == -2) {
-	// return -2;
-	// }
-	// return 0;
-	// }
+	public int deleteCommonLabel(String paramStr)
+	{
+		String temp[]=paramStr.split("--");
+		//0对应的应该是空
+		for(int i=1;i<temp.length;i++)
+		{
+			//TODO 需要调用数据库的函数，调用其接口即可
+			if(this.getAllCommonLabelDataMap().containsKey(temp[i]))
+			{
+				this.getAllCommonLabelDataMap().remove(temp[i]);
+			}
+			
+		}
+		return 0;
+	}
 
 	public void setDb(DatabaseManagerFacade db) {
 		this.db = db;
