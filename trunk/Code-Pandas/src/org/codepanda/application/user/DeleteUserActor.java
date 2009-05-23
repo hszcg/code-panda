@@ -20,7 +20,8 @@ public class DeleteUserActor implements CommandActor {
 			System.out.println("User Null!!!");
 			return DeleteUserActor.NULL_USER;
 		}
-		int result=DataPool.getInstance().deleteUser(getUser());
+		String userName=this.getUser().getUserName();
+		int result=DataPool.getInstance().deleteUser(userName);
 		if(result==DeleteUserActor.INVAILD_PASSWORD)
 		{
 			System.out.println("Wrong  User Password ");

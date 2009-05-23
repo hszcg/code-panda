@@ -361,6 +361,8 @@ public class SearchContactXML {
 					}
 				} else if (str.equalsIgnoreCase("Birthday")) {
 					String value = node.getTextContent();
+					System.out.println("Contact----"+contactData.getContactName().toString());
+					System.out.println("value---"+value);
 					if (contactData.getContactBirthday().toString()
 							.equalsIgnoreCase(value)) {
 						goFlag = true;
