@@ -13,6 +13,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 import org.codepanda.application.export.CsvExport;
+import org.codepanda.application.export.CsvImport;
 import org.codepanda.database.DatabaseMagager;
 import org.codepanda.database.DatabaseManagerFacade;
 import org.codepanda.utility.contact.ContactOperations;
@@ -205,9 +206,17 @@ public class DataPool {
 		DataPool.getInstance().getDb().getUser(userName, getCurrentUser());
 		
 		
-		// test of CSV-convertor
+		// test of CSV-Export
 		CsvExport cc = new CsvExport();
 		cc.convert("abc.csv");
+		
+		// test of CSV-Import
+		CsvImport ci = new CsvImport();
+		ci.convert("abc.csv");
+		
+		// test of CSV-Export
+		CsvExport ccc = new CsvExport();
+		ccc.convert("cba.csv");
 		
 		
 
