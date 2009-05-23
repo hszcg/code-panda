@@ -435,7 +435,8 @@ public class SearchContactXML {
 						&& node.getNodeName()
 								.equalsIgnoreCase("RelationLabel"))	
 				{
-					RelationLabel(contactData,(Element)element);
+					System.out.println("RelationLabel Search");
+					return RelationLabel(contactData,(Element)node);
 				}
 			}
 		}
@@ -454,10 +455,12 @@ public class SearchContactXML {
 			if(str.equals("LabelName"))
 			{
 				labelName=node.getTextContent();
+				System.out.println("SearchContact____LabelName"+labelName);
 			}
-			else if(str.equals("ContactName"))
+			else if(str.equals("DestName"))
 			{
 				contactName=node.getTextContent();
+				System.out.println("SearchContact____DestName"+labelName);
 			}
 		}
 		for(int i=0;i<contactData.getRelationLabelList().size();i++)
@@ -465,21 +468,6 @@ public class SearchContactXML {
 			if(contactData.getRelationLabelList().get(i).getLabelName().equals(labelName))
 			{
 				//这里如果仅仅按照名字进行查询
-				if(blur)
-				{
-					int tempISN=contactData.getRelationLabelList().get(i).getRelationObjectISN();
-					if(DataPool.getInstance().getAllContactISNMap().get(tempISN).getContactName().contains(contactName))
-					{
-						goFlag=true;
-					}
-					else
-					{
-						goFlag=false;
-						continue;
-					}
-				}
-				if(!blur)
-				{
 					int tempISN=contactData.getRelationLabelList().get(i).getRelationObjectISN();
 					if(DataPool.getInstance().getAllContactISNMap().get(tempISN).getContactName().equals(contactName))
 					{
@@ -493,7 +481,6 @@ public class SearchContactXML {
 				}
 			}
 				
-		}
 		return goFlag;
 	}
 }
