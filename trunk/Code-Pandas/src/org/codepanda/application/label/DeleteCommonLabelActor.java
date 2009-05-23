@@ -9,22 +9,13 @@ public class DeleteCommonLabelActor implements CommandActor {
 	public static final int FAILED = -2;
 	public static final int SUCCEED = 0;
 	private CommonLabel commonLabel;
+	private String StrInfo;
 	@Override
 	public Object executeCommand() {
 		// TODO TODO!!!!
+		DataPool.getInstance().deleteCommonLabel(getInfo());
+		return 0;
 		
-		
-//		if(this.getLabel()==null)
-//		{
-//			return DeleteCommonLabelActor.NULL_LABEL;
-//		}
-//		int result=DataPool.getInstance().deleteCommonLabel(getLabel());
-//		if(result==-2)
-//		{
-//			return DeleteCommonLabelActor.FAILED;
-//		}
-		
-		return DeleteCommonLabelActor.SUCCEED;
 	}
 	public void setLabel(CommonLabel label)
 	{
@@ -33,6 +24,14 @@ public class DeleteCommonLabelActor implements CommandActor {
 	public CommonLabel getLabel()
 	{
 		return this.commonLabel;
+	}
+	public void setInfo(String str)
+	{
+		this.StrInfo=str;
+	}
+	public String getInfo()
+	{
+		return this.StrInfo;
 	}
 
 }
