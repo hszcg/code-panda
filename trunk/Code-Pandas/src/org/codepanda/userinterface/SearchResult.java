@@ -45,8 +45,8 @@ public class SearchResult {
 		JLabel searchResultLabel = new JLabel(
 				myISNList.size() + " Items Found", SwingConstants.CENTER);
 		searchResultLabel.setForeground(Color.BLUE);
-		searchResultLabel.setFont(searchResultLabel.getFont().deriveFont(Font.BOLD,
-				(float) 14.0));
+		searchResultLabel.setFont(searchResultLabel.getFont().deriveFont(
+				Font.BOLD, (float) 14.0));
 		searchResultLabel.setBorder(new SoftBevelBorder(BevelBorder.RAISED));
 
 		content.add(searchResultLabel, BorderLayout.NORTH);
@@ -60,23 +60,24 @@ public class SearchResult {
 		JPanel resultPanel = new JPanel();
 
 		GridLayout layout = null;
-		if( myISNList.size() < 5 )
+		int numberInOneRow = 5;
+		if (myISNList.size() < numberInOneRow)
 			layout = new GridLayout(1, myISNList.size());
 		else
-			layout = new GridLayout((int) Math.ceil( myISNList.size()/5.0), 5);
-		
-		System.out.println("ALL DATA:"+myISNList.size());
-		
+			layout = new GridLayout((int) Math.ceil(myISNList.size()
+					/ (double) numberInOneRow), numberInOneRow);
+
+		System.out.println("ALL DATA:" + myISNList.size());
+
 		layout.setHgap(5);
 		layout.setVgap(5);
 		resultPanel.setLayout(layout);
-		
 
 		for (int t : myISNList) {
 			resultPanel
 					.add(new SingleResultPanel(this.parentFrame, temp.get(t)));
 		}
-		
+
 		center.add(resultPanel);
 
 		content.add(center, BorderLayout.CENTER);

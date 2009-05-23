@@ -259,14 +259,17 @@ public class PhoneMeRibbon {
 						.getResource("/icon/plateIcon/clipboard.png")),
 						new Dimension(32, 32)), new ExpandActionListener());
 
-		JCommandButton newCommonLabelButton = new JCommandButton("新建普通标签",
+		JCommandButton newCommonLabelButton = new JCommandButton("普通标签管理",
 				ImageWrapperResizableIcon.getIcon(ImageIO.read(this.getClass()
-						.getResource("/icon/plateIcon/new document.png")),
+						.getResource("/icon/plateIcon/clipboard.png")),
 						new Dimension(32, 32)));
 
 		newCommonLabelButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				System.out.println("新建普通标签");
+				System.out.println("普通标签管理");
+				mainFrame.getMyPhoneMeMajorPanel().addNewTab(
+						"Common Label Show",
+						new CommonLabelShowPanel(mainFrame));
 			}
 		});
 
@@ -281,6 +284,11 @@ public class PhoneMeRibbon {
 		deleteCommonLabelButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				System.out.println("删除普通标签");
+				Component currentTab = mainFrame.getMyPhoneMeMajorPanel()
+						.getCurrentTab();
+				if (currentTab instanceof CommonLabelShowPanel) {
+					((CommonLabelShowPanel)currentTab).deleteAllSelectedCommonLabel();
+				}
 			}
 		});
 
@@ -289,12 +297,17 @@ public class PhoneMeRibbon {
 
 		JCommandButton editCommonLabelButton = new JCommandButton("修改普通标签",
 				ImageWrapperResizableIcon.getIcon(ImageIO.read(this.getClass()
-						.getResource("/icon/plateIcon/clipboard.png")),
+						.getResource("/icon/plateIcon/document rtf.png")),
 						new Dimension(32, 32)));
 
 		editCommonLabelButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				System.out.println("修改普通标签");
+				Component currentTab = mainFrame.getMyPhoneMeMajorPanel()
+						.getCurrentTab();
+				if (currentTab instanceof CommonLabelShowPanel) {
+					((CommonLabelShowPanel)currentTab).setEditable(true);
+				}
 			}
 		});
 
