@@ -104,7 +104,7 @@ public class SearchPanel extends JPanel {
 		builder.add(commonLabelField, cc.xy(5, 11));
 		builder.addLabel("所属分组", cc.xy(7, 11));
 		groupBox = new JComboBox((String[]) PhoneMeConstants.getInstance()
-				.getAllRelationLabelName().toArray(new String[0]));
+				.getAllGroupList().toArray(new String[0]));
 		groupBox.insertItemAt("(任意)", 0);
 		groupBox.setSelectedIndex(0);
 		builder.add(groupBox, cc.xy(9, 11));
