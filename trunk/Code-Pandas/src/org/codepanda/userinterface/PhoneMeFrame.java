@@ -202,8 +202,8 @@ public class PhoneMeFrame extends JRibbonFrame {
 		CsvExport ce = new CsvExport();
 		ce.convert("abc.csv");
 		
-		CsvImport ci = new CsvImport();
-		ci.convert("abc.csv");
+		//CsvImport ci = new CsvImport();
+		//ci.convert("abc.csv");
 		
 		CsvExport cee = new CsvExport();
 		cee.convert("cba.csv");

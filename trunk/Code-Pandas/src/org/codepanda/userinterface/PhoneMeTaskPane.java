@@ -164,18 +164,19 @@ public class PhoneMeTaskPane extends JXTaskPaneContainer implements
 	 */
 	public void updateGroupList(int updateISN) {
 		// TODO Auto-generated method stub
-		ContactOperations p = DataPool.getInstance().getAllContactISNMap().get(
-				updateISN);
-
-		if (p == null) {
-			// 删除联系人之后的更新
-			System.out.println("DELETE");
-			deleteISNNode(updateISN);
-		} else {
-			// 修改/新建 联系人之后的更新
-			System.out.println("UPDATE");
-			updateNodes(p);
-		}
+		configureContactList();
+//		ContactOperations p = DataPool.getInstance().getAllContactISNMap().get(
+//				updateISN);
+//
+//		if (p == null) {
+//			// 删除联系人之后的更新
+//			System.out.println("DELETE");
+//			deleteISNNode(updateISN);
+//		} else {
+//			// 修改/新建 联系人之后的更新
+//			System.out.println("UPDATE");
+//			updateNodes(p);
+//		}
 
 		// model.insertNodeInto(cNode, pNode, 0);
 	}
@@ -189,6 +190,8 @@ public class PhoneMeTaskPane extends JXTaskPaneContainer implements
 		DefaultTreeModel model = (DefaultTreeModel) this.contactListTree
 				.getModel();
 		visitAndUpdateAllNodes(root, model, p);
+		// TODO update
+		//model.nodeStructureChanged(root);
 	}
 
 	/**
@@ -201,27 +204,34 @@ public class PhoneMeTaskPane extends JXTaskPaneContainer implements
 		// TODO Auto-generated method stub
 		boolean hasFindISN = false;
 		Object nodeInfo = ((DefaultMutableTreeNode) node).getUserObject();
-		
-		System.out.println("UPDATE CON" + p.getContactName());
+
+		System.out.println("UPDATE CON++" + p.getContactName());
 
 		for (Enumeration e = node.children(); e.hasMoreElements();) {
 			DefaultMutableTreeNode n = (DefaultMutableTreeNode) e.nextElement();
 			Object nInfo = ((DefaultMutableTreeNode) n).getUserObject();
+
+			System.out.println("UPDATE NODE++" + nInfo.toString());
+
 			if (!n.isLeaf()) {
+				System.out.println("NOT LEAF++" + nInfo.toString());
 				if (visitAndUpdateAllNodes(n, model, p) == false) {
 					// 原来没有，可能需要新加
 					if (nInfo instanceof String) {
 						// 可能的新加节点处理
-						String groupName = (String) nodeInfo;
+						String groupName = (String) nInfo;
+						System.out.println("CURRENT GROUP+++" + groupName);
 
 						for (String str : p.getGroupList()) {
+							System.out.println("GET NAME+++" + str);
 							if (str.equals(groupName)) {
+								System.out.println("ADD TO GROUP+++" + groupName);
 								model.insertNodeInto(
 										new DefaultMutableTreeNode(
 												new TreeNodeItem(p
 														.getContactName(), p
 														.getISN())), node, node
-												.getChildCount() + 1);
+												.getChildCount());
 								break;
 							}
 						}
@@ -235,11 +245,14 @@ public class PhoneMeTaskPane extends JXTaskPaneContainer implements
 				boolean isStillInList = false;
 				String groupName = (String) nodeInfo;
 				for (String str : p.getGroupList()) {
-					if (str.equals(groupName))
+					if (str.equals(groupName)) {
 						isStillInList = true;
+						((TreeNodeItem) nInfo).name = p.getContactName();
+					}
 				}
 
 				if (isStillInList == false) {
+					System.out.println("Remove++" + n.toString());
 					model.removeNodeFromParent(n);
 				}
 			}
