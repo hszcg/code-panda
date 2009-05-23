@@ -8,12 +8,15 @@ import jxl.write.WritableSheet;
 import jxl.write.WritableWorkbook;
 
 import org.codepanda.utility.contact.ContactOperations;
+import org.codepanda.utility.data.ContactSectionType;
 import org.codepanda.utility.data.DataPool;
 import org.codepanda.utility.data.PhoneMeConstants;
 
 public class XlsConvert {
 	public void convert(String url){
 		try {
+			
+			// TODO delete  [ and ]
 			ContactOperations[] contactList = 
 				(ContactOperations[]) DataPool.getInstance()
 			.getAllContactISNMap().values().toArray(new ContactOperations[0]);
@@ -29,12 +32,87 @@ public class XlsConvert {
 			WritableSheet sheet = 
         		workbook.createSheet("First Sheet", 0);
 			
-			for(int index=0;index<labelList.length;index++){
-        		Label tempLabel = new Label(index, 0, labelList[index]); 
-        		sheet.addCell(tempLabel);
-        	}
+			Label label;
+			int firstLineIndex = 0;
 			
-			int column = 0;
+        	label = new Label
+        	(firstLineIndex, 0, 
+        			PhoneMeConstants.getInstance().getContactSectionList().
+        			get(ContactSectionType.CONTACT_NAME)); 
+        	sheet.addCell(label);
+        	firstLineIndex++;
+        	
+        	label = new Label
+        	(firstLineIndex, 0, 
+        			PhoneMeConstants.getInstance().getContactSectionList().
+        			get(ContactSectionType.PHONE_NUMBER)); 
+        	sheet.addCell(label);
+        	firstLineIndex++;
+        	
+        	label = new Label
+        	(firstLineIndex, 0, 
+        			PhoneMeConstants.getInstance().getContactSectionList().
+        			get(ContactSectionType.EMAIL_ADDR)); 
+        	sheet.addCell(label);
+        	firstLineIndex++;
+        	
+        	label = new Label
+        	(firstLineIndex, 0, 
+        			PhoneMeConstants.getInstance().getContactSectionList().
+        			get(ContactSectionType.HOME_ADDR)); 
+        	sheet.addCell(label);
+        	firstLineIndex++;
+        	
+        	label = new Label
+        	(firstLineIndex, 0, 
+        			PhoneMeConstants.getInstance().getContactSectionList().
+        			get(ContactSectionType.WORK_OFFICE)); 
+        	sheet.addCell(label);
+        	firstLineIndex++;
+        	
+        	label = new Label
+        	(firstLineIndex, 0, 
+        			PhoneMeConstants.getInstance().getContactSectionList().
+        			get(ContactSectionType.IM)); 
+        	sheet.addCell(label);
+        	firstLineIndex++;
+        	
+        	label = new Label
+        	(firstLineIndex, 0, 
+        			PhoneMeConstants.getInstance().getContactSectionList().
+        			get(ContactSectionType.BIRTHDAY)); 
+        	sheet.addCell(label);
+        	firstLineIndex++;
+        	
+        	label = new Label
+        	(firstLineIndex, 0, 
+        			PhoneMeConstants.getInstance().getContactSectionList().
+        			get(ContactSectionType.WEB_URL)); 
+        	sheet.addCell(label);
+        	firstLineIndex++;
+        	
+        	label = new Label
+        	(firstLineIndex, 0, 
+        			PhoneMeConstants.getInstance().getContactSectionList().
+        			get(ContactSectionType.COMMON_LABEL)); 
+        	sheet.addCell(label);
+        	firstLineIndex++;
+        	
+        	label = new Label
+        	(firstLineIndex, 0, 
+        			PhoneMeConstants.getInstance().getContactSectionList().
+        			get(ContactSectionType.GROUP_LABEL)); 
+        	sheet.addCell(label);
+        	firstLineIndex++;
+        	
+        	label = new Label
+        	(firstLineIndex, 0, 
+        			PhoneMeConstants.getInstance().getContactSectionList().
+        			get(ContactSectionType.RELATION_LABEL)); 
+        	sheet.addCell(label);
+        	firstLineIndex++;
+			
+        	int column = 0;
 			for(int index=0;index<contactList.length;index++){
 				Label tempLabel = new Label
 				(column, index + 1, contactList[index].getContactName()); 
@@ -134,6 +212,9 @@ public class XlsConvert {
 				(column, index + 1, relationLabel.toString());
 				sheet.addCell(tempLabel);
 			}
+			
+			workbook.write(); 
+        	workbook.close();
 		}catch (Exception e) {   
             e.printStackTrace();   
         }
