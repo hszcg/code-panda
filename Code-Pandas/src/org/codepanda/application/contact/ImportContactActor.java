@@ -4,6 +4,7 @@ import org.codepanda.application.CommandActor;
 import org.codepanda.application.export.CsvExport;
 import org.codepanda.application.export.CsvImport;
 import org.codepanda.application.export.XlsConvert;
+import org.codepanda.application.export.XlsImport;
 import org.codepanda.utility.contact.PersonalContact;
 import org.codepanda.utility.data.DataPool;
 
@@ -25,11 +26,11 @@ public class ImportContactActor implements CommandActor {
 			CsvImport csvConvertor=new CsvImport();
 			csvConvertor.convert(getPath());
 		}
-	//	else
-		//{
-			//XlsConvert xlsConvert=new XlsConvert();
-			//xlsConvert.convert(getPath());
-	//	}
+		else
+		{
+			XlsImport xlsConvert=new XlsImport();
+			xlsConvert.convert(getPath());
+		}
 	return 0;
 	}
 	public void setType(String type)
