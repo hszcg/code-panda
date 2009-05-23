@@ -3,6 +3,7 @@ import java.awt.Image;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.io.StringReader;
+import java.net.URL;
 import java.util.ArrayList;
 
 import javax.imageio.ImageIO;
@@ -127,7 +128,8 @@ public  void UserIterator(User currentUser,Element element) throws IOException
 		else if(str.equals("HeadImage"))
 		{
 			String value=node.getTextContent();
-			BufferedImage headBufferedImage=ImageIO.read(this.getClass().getResource(value));
+			//BufferedImage headBufferedImage=ImageIO.read(this.getClass().getResource(value));
+			BufferedImage headBufferedImage=ImageIO.read(new URL(value));
 			HeadImage currentImage=new HeadImage();
 			Image tempImage = headBufferedImage.getScaledInstance(130, 115, Image.SCALE_DEFAULT);
 			ImageIcon imageIcon = new ImageIcon(tempImage);
