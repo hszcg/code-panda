@@ -13,7 +13,7 @@ public class SearchContactActor implements CommandActor {
 	@Override
 	public Object executeCommand() {
 		// TODO Auto-generated method stub
-		ArrayList<Integer> resultList = (ArrayList<Integer>) searchContact(SearchInfo);
+		ArrayList<Integer> resultList = (ArrayList<Integer>) searchContact();
 		for (int i = 0; i < resultList.size(); i++)
 			System.out.println(resultList.get(i));
 		return resultList;
@@ -25,14 +25,15 @@ public class SearchContactActor implements CommandActor {
 
 	}
 
-	private Object searchContact(String commandDetail) {
+	private Object searchContact() {
 		ArrayList<Integer> ISNList = new ArrayList<Integer>();
 		SearchContactXML searchContactXML = new SearchContactXML();
 		for (ContactOperations t : DataPool.getInstance().getAllContactISNMap()
 				.values()) {
+			System.out.println("SearchInfo____"+SearchInfo);
 			System.out.println("DataPool----Name" + t.getContactName());
 			if (searchContactXML.SearchContact(t, "<SearchContact>",
-					"</SearchContact>", commandDetail))
+					"</SearchContact>", SearchInfo))
 				ISNList.add(t.getISN());
 		}
 		return ISNList;

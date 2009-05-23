@@ -52,4 +52,14 @@ public class Birthday implements Serializable{
 	public Integer getDay() {
 		return day;
 	}
+	public String toString()
+	{
+		String str=null;
+		str=String.valueOf(this.getYear());
+		str=str+"-";
+		str=str+String.valueOf(this.getMonth());
+		str=str+"-";
+		str=str+String.valueOf(this.getDay());
+		return str;
+	}
 }
