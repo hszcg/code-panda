@@ -246,6 +246,15 @@ public class PhoneMeMajorPanel extends JPanel {
 				}
 			}
 		}
+		if (p instanceof CommonLabelShowPanel) {
+			// CommonLabelShowPanel Single
+			for (int i = 0; i < centerPanel.getTabCount(); i++) {
+				if (centerPanel.getComponentAt(i) instanceof CommonLabelShowPanel) {
+					centerPanel.setSelectedIndex(i);
+					return true;
+				}
+			}
+		}
 
 		if (centerPanel.getTabCount() > MAX_TAB_NUMBER - 1) {
 			this.mainFrame.getMyPhoneMeStatusBar().setStatus(
@@ -268,11 +277,8 @@ public class PhoneMeMajorPanel extends JPanel {
 		ArrayList<Integer> myISNList = new ArrayList<Integer>();
 		myISNList.addAll(DataPool.getInstance().getAllContactISNMap().keySet());
 
-		centerPanel.addTab("Search Result", new SearchResult(this.mainFrame,
+		centerPanel.addTab("All Contact", new SearchResult(this.mainFrame,
 				myISNList).getMainPanel());
-
-		centerPanel.addTab("CommonLabel Show", new CommonLabelShow(
-				this.mainFrame).getMainPanel());
 
 		centerPanel.addTab("Search", new SearchPanel(this.mainFrame));
 
