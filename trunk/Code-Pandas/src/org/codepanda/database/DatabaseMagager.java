@@ -181,6 +181,7 @@ public class DatabaseMagager implements DatabaseManagerFacade {
 	public int getContactData(String userName,
 			ArrayList<ContactOperations> contactList) {
 		// TODO 你这里修改了contactList指向的内存地址区域，应该用contactList.add(XXX)
+		System.out.println("&&&&&&&&&&&"+userName);
 		try {
 			queryContactData(userName,contactList);
 			return 1;
