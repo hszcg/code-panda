@@ -691,6 +691,7 @@ public class ContactInfoPanel extends JXPanel {
 		addRelationLabelListButton.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
+				System.out.println("add relation label");
 				int selectIndex = selectRelationContactBox.getSelectedIndex();
 				Integer addISN = allISN.get(selectIndex);
 				boolean contain = false;
@@ -698,13 +699,20 @@ public class ContactInfoPanel extends JXPanel {
 				for(labelIndex = 0;
 				labelIndex < relationLabelListBox.getItemCount();
 				labelIndex ++){
+					System.out.println("in loop");
+					System.out.println
+					(relationLabelListBox.getItemAt(labelIndex).
+					toString());
+					System.out.println
+					(selectRelationLabelBox.getSelectedItem().toString());
 					if(relationLabelListBox.getItemAt(labelIndex).
 					toString().equals
-					(selectRelationContactBox.getSelectedItem().toString())){
+					(selectRelationLabelBox.getSelectedItem().toString())){
 						contain = true;
 						break;
 					}
 				}
+				System.out.println("left box contains the label "+contain);
 				if(contain){
 					for(int contactIndex = 0; 
 					contactIndex < objectContactListBox.getItemCount();
@@ -714,6 +722,7 @@ public class ContactInfoPanel extends JXPanel {
 								(selectRelationContactBox.
 										getSelectedItem().toString())){
 							// TODO already exist display message?
+							System.out.println("already exist");
 							return;
 						}
 					}
@@ -744,7 +753,8 @@ public class ContactInfoPanel extends JXPanel {
 						new ArrayList<Integer>();
 					tempIntegerList.add
 					(new Integer
-							(selectRelationContactBox.getSelectedIndex()));
+						(allISN.get
+								(selectRelationContactBox.getSelectedIndex())));
 					relationLabelList.put
 					(selectRelationLabelBox.getSelectedItem().toString(), 
 							tempIntegerList);
@@ -757,7 +767,9 @@ public class ContactInfoPanel extends JXPanel {
 					(selectRelationLabelBox.getSelectedItem().toString(), 
 							tempStringList);
 				}
-				
+				System.out.println("add Result");
+				System.out.println(relationLabelList.toString());
+				System.out.println(relationLabelNameList.toString());
 			}
 		});
 		
@@ -766,10 +778,67 @@ public class ContactInfoPanel extends JXPanel {
 		addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-				nameField.setEditable(false);
+				System.out.println("delete relation label");
+				// TODO delete common label
+				if(relationLabelListBox.getItemCount() == 0)
+					return;
+				
+				String deleteLabel = 
+					relationLabelListBox.getSelectedItem().toString();
+				System.out.println("deleteLabel:" + deleteLabel);
+				
+				ArrayList<String> tempContactList = 
+					relationLabelNameList.get(deleteLabel);
+				System.out.println("contact under label" + deleteLabel);
+				System.out.println(tempContactList.toString());
+				if(!tempContactList.remove
+						(objectContactListBox.getSelectedItem().toString()))
+					System.out.println("delete a common label whose"
+							+ "dest contact does not exist");
+				System.out.println(tempContactList);
+				System.out.println("pass second");
+				if(tempContactList.size() == 0){
+					System.out.println("no in");
+					relationLabelList.remove(deleteLabel);
+					relationLabelNameList.remove(deleteLabel);
+					relationLabelListBox.removeItem(deleteLabel);
+					// TODO update two boxes
+					objectContactListBox.removeItem
+					(objectContactListBox.getSelectedItem());
+					return;
+				}
+				relationLabelNameList.put(deleteLabel, tempContactList);
+				ArrayList<Integer> tempISNList = relationLabelList.
+				get(deleteLabel);
+				System.out.println(tempISNList);
+				int ISNIndex = 0;
+				for(ISNIndex = 0;ISNIndex<tempISNList.size();ISNIndex++){
+					System.out.println("in loop second");
+					System.out.println(DataPool.getInstance().
+					getAllContactISNMap());
+					System.out.println(DataPool.getInstance().
+							getAllContactISNMap().
+							get(tempISNList.get(ISNIndex)));
+					if(DataPool.getInstance().
+					getAllContactISNMap().
+					get(tempISNList.get(ISNIndex)).
+					getContactName().equals
+					(selectRelationContactBox.getSelectedItem().toString())){
+						break;
+					}
+				}
+				tempISNList.remove(ISNIndex);
+				relationLabelList.put(deleteLabel, tempISNList);
+				objectContactListBox.removeItem
+				(objectContactListBox.getSelectedItem());
+				System.out.println("delete result");
+				System.out.println(relationLabelList.toString());
+				System.out.println(relationLabelNameList.toString());
 			}
 		});
 		localRelationLabelList = new ArrayList<RelationLabel>();
+		relationLabelList = new HashMap<String, ArrayList<Integer>>();
+		relationLabelNameList = new HashMap<String, ArrayList<String>>();
 
 		this.myButtonList.add(addRelationLabelListButton);
 		this.myButtonList.add(deleteRelationLabelListButton);
