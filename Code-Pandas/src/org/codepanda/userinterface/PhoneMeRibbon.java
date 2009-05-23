@@ -183,7 +183,7 @@ public class PhoneMeRibbon {
 						System.out.println("DELETE_CONTACT\n" + xml);
 
 						CommandVisitor deleteContactCommandVisitor = new CommandVisitor(
-								CommandType.DELETE_CONTACT, xml);
+								CommandType.EXPORT_CONTACT, xml);
 						DeleteContactMessageHandler deleteContactMessageHandler = new DeleteContactMessageHandler();
 						deleteContactMessageHandler
 								.executeCommand(deleteContactCommandVisitor);
