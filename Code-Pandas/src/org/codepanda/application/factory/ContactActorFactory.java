@@ -83,11 +83,7 @@ public class ContactActorFactory extends CommandActorFactory {
 		 {
 			 ArrayList<Integer> ISNList=new ArrayList<Integer>();
 			 SearchContactActor searchContactActor=new SearchContactActor();
-			 SearchContactXML searchContactXML=new SearchContactXML();
-			 for (ContactOperations t : DataPool.getInstance().getAllContactList()) {
-				 searchContactXML.SearchContact(ISNList,(PersonalContact)t, "SearchContact", "/SearchContact", commandDetail);
-			 }
-			 searchContactActor.setISNList(ISNList);
+			 searchContactActor.setSearchInfo(commandDetail);
 			 return searchContactActor;
 		 }
 		return null;

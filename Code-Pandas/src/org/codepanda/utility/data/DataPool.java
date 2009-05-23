@@ -8,6 +8,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import org.codepanda.application.xml.SearchContactXML;
 import org.codepanda.database.DatabaseMagager;
 import org.codepanda.database.DatabaseManagerFacade;
 import org.codepanda.utility.contact.ContactOperations;
@@ -418,10 +419,15 @@ public class DataPool {
 	{
 		return this.allContactList;
 	}
-	public Object searchContact()
+	public Object searchContact(String commandDetail)
 	{
-		ArrayList<Integer> ISNList=new ArrayList<Integer>();
-		
-		return ISNList;
+		ArrayList<Integer>ISNList=new ArrayList<Integer>();
+		 SearchContactXML searchContactXML=new SearchContactXML();
+		 for (ContactOperations t : DataPool.getInstance().getAllContactList()) 
+		 {
+			 if(searchContactXML.SearchContact((PersonalContact)t, "<SearchContact>", "</SearchContact>", commandDetail))
+			 ISNList.add(t.getISN());
+		 }
+		 return ISNList;
 	}
 }
