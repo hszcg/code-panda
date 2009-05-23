@@ -6,6 +6,8 @@ package org.codepanda.utility.data;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import javax.swing.text.html.HTMLDocument.Iterator;
+
 import org.codepanda.database.DatabaseMagager;
 import org.codepanda.database.DatabaseManagerFacade;
 import org.codepanda.utility.contact.ContactOperations;
@@ -396,6 +398,8 @@ public class DataPool {
 	public int editCommandLabel(String paramStr)
 	{
 		String temp[]=paramStr.split("--");
+		System.out.println("Temp___1__"+temp[1]);
+		System.out.println("Temp___2__"+temp[2]);
 		if(this.getAllCommonLabelDataMap().containsKey(temp[1]))
 		{
 			//需要调用数据库函数，实现真正的修改
@@ -403,6 +407,15 @@ public class DataPool {
 			ContactGroup contactGroup=this.getAllCommonLabelDataMap().get(temp[1]);
 			this.getAllCommonLabelDataMap().remove(temp[1]);
 			this.getAllCommonLabelDataMap().put(temp[2], contactGroup);
+			ArrayList<String> newCommonLabel=new ArrayList<String>();
+			newCommonLabel.add(temp[2]);
+				for(Integer inte : contactGroup.getGroupMembers())
+				{
+					if(this.getAllContactISNMap().containsKey(inte))
+						this.getAllContactISNMap().get(inte).setCommonLabelList(newCommonLabel);
+				}
+			
+			
 		}
 		return 0;
 		

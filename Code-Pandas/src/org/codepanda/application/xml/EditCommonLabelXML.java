@@ -12,6 +12,7 @@ import org.w3c.dom.NodeList;
 import org.xml.sax.InputSource;
 
 public class EditCommonLabelXML {
+	String tempstr=new String();
 	boolean comStart=false;
 	boolean  comEnd=false;
 	boolean funcStart=false;
@@ -57,7 +58,7 @@ public class EditCommonLabelXML {
 	}
 	public String CommonLabelParser(Element element)
 	{
-		String tempstr=null;
+		System.out.println("CommonLabelPraser");
 		NodeList nodeList=element.getChildNodes();
 		for(int i=0;i<nodeList.getLength();i++)
 		{
@@ -79,6 +80,7 @@ public class EditCommonLabelXML {
 				CommonLabelParser((Element)node);
 			}
 		}
+		System.out.println("Tempstr"+tempstr);
 		return tempstr;
 		
 	}
