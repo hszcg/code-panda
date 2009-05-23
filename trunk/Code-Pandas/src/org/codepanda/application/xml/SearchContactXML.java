@@ -32,13 +32,14 @@ public class SearchContactXML {
 	String infoStr=null;
 	boolean blur=false;
 	boolean continueFlag=false;
+	boolean goFlag=true;   //继续向下进行匹配的标志
 	int loopFlag=0;
 	/**
 	 * @param match1   //<SearchContact>
 	 * @param match2   //</SearchContact>
 	 * @param commandDetail  //传入的字符串
 	 */
-	public void SearchContact(ArrayList<Integer> iSNList,PersonalContact contactData,String match1,String match2,String commandDetail)
+	public boolean SearchContact(PersonalContact contactData,String match1,String match2,String commandDetail)
 	{
 		try
 		{
@@ -70,14 +71,15 @@ public class SearchContactXML {
 			Document document=db.parse(new InputSource(new StringReader(commandDetail)));
 			//System.out.println("File Path"+document.getDocumentURI());
 			Element root=document.getDocumentElement();
-			SearchContactIterator(iSNList,contactData,root);	
+			return SearchContactIterator(contactData,root);	
 		}
 		catch(Exception e)
 		{
 			e.printStackTrace();
 		}
+		return false;
 	}
-		public  void SearchContactIterator(ArrayList<Integer>iSNList,PersonalContact contactData,Element element)
+		public  boolean SearchContactIterator(PersonalContact contactData,Element element)
 		{
 			NodeList nodelist=element.getChildNodes();
 //			System.out.println(element.getNodeName());
@@ -89,180 +91,432 @@ public class SearchContactXML {
 				{
 					blur=true;
 				}
+			}
+				if(blur)
+				{
+					for(int i=0;i<nodelist.getLength();i++)
+					{
+						Node node=nodelist.item(i);
+						String str=node.getNodeName();
+						if(str.equalsIgnoreCase("ContactName"))
+						{
+							String value=node.getTextContent();
+							System.out.println("SearchText____"+value);
+							if(contactData.getContactName().contains(value))
+								goFlag=true;
+							else 
+							{
+								goFlag=false;
+								return false;
+							}
+						}
+						else if(str.equalsIgnoreCase("Telephone"))
+						{
+							String value=node.getTextContent();
+							for(int j=0;j<contactData.getPhoneNumberList().size();j++)
+							{
+								if(contactData.getPhoneNumberList().get(j).contains(value))
+								{
+									goFlag=true;
+									break;
+								}
+								else 
+								{
+									goFlag=false;
+									continue;
+								}
+							}
+							if(!goFlag)
+							{
+								return false;
+							}
+						}
+						else if(str.equalsIgnoreCase("Email"))
+						{
+							String value=node.getTextContent();
+							for(int j=0;j<contactData.getEmailAddresseList().size();j++)
+							{
+								if(contactData.getEmailAddresseList().get(j).contains(value))
+								{
+									goFlag=true;
+									break;
+								}
+								else 
+								{
+									goFlag=false;
+									continue;
+								}
+							}
+								if(!goFlag)
+								{
+									return false;
+								}
+					}
+						else if(str.equalsIgnoreCase("Address"))
+						{
+							String value=node.getTextContent();
+							for(int j=0;j<contactData.getContactAddressList().size();j++)
+							{
+								if(contactData.getContactAddressList().get(j).contains(value))
+								{
+									goFlag=true;
+									break;
+								}
+								else
+								{
+									goFlag=false;
+									continue ;
+								}
+							}
+							if(!goFlag)
+							{
+								return false;
+							}
+						}
+							else if(str.equalsIgnoreCase("Office"))
+							{
+								String value=node.getTextContent();
+								for(int j=0;j<contactData.getWorkingDepartmentList().size();j++)
+								{
+									
+									if(contactData.getWorkingDepartmentList().get(j).contains(value))
+									{
+										goFlag=true;
+										break;
+									}
+									else
+									{
+										goFlag=false;
+										continue ;
+									}
+								}
+								if(!goFlag)
+								{
+									return false;
+								}
+							}
+							else if(str.equalsIgnoreCase("IMContact"))
+							{
+								String value=node.getTextContent();
+								for(int j=0;j<contactData.getImContactInformationList().size();j++)
+								{
+									if(contactData.getImContactInformationList().get(j).contains(value))
+									{
+										goFlag=true;
+										break;
+									}
+									else
+									{
+										goFlag=false;
+										continue;
+									}
+								}
+								if(!goFlag)
+								{
+									return false;
+								}
+							}
+							else if(str.equalsIgnoreCase("Birthday"))
+							{
+								String value=node.getTextContent();
+									if(contactData.getContactBirthday().toString().contains(value))
+									{
+										goFlag=true;
+										break;
+									}
+									else
+									{
+										goFlag=false;
+									}
+							}
+							else if(str.equalsIgnoreCase("url"))
+							{
+								String value=node.getTextContent();
+								for(int j=0;j<contactData.getUrlList().size();j++)
+								{
+									if(contactData.getUrlList().get(j).contains(value))
+									{
+										goFlag=true;
+										break;
+									}
+									else
+									{
+										goFlag=false;
+										continue;
+									}
+								}
+								if(!goFlag)
+								{
+									return false;
+								}
+							}
+						else if(str.equalsIgnoreCase("CommonLabel"))
+							{
+								String value=node.getTextContent();
+								for(int j=0;j<contactData.getCommonLabelList().size();j++)
+								{
+									if(contactData.getCommonLabelList().get(j).contains(value))
+									{
+										goFlag=true;
+										break;
+									}
+									else
+									{
+										goFlag=false;
+										continue;
+									}
+								}
+									if(!goFlag)
+									{
+										return false;
+									}
+							}
+						else if(str.equalsIgnoreCase("Group"))
+						{
+							String value=node.getTextContent();
+							for(int j=0;j<contactData.getGroupList().size();j++)
+								{
+									if(contactData.getGroupList().get(j).contains(value))
+									{
+										goFlag=true;
+										break;
+									}
+									else
+									{
+										goFlag=false;
+										continue ;
+									}
+								}
+									if(!goFlag)
+									{
+										return false;
+									}
+							}
+				}
+				}
+			if(!blur)
+				{
+				for(int i=0;i<nodelist.getLength();i++)
+				{
+					Node node=nodelist.item(i);
+					String str=node.getNodeName();
 					if(str.equalsIgnoreCase("ContactName"))
 					{
 						String value=node.getTextContent();
-						if(blur)
+						System.out.println("SearchText____"+value);
+						if(contactData.getContactName().equalsIgnoreCase(value))
+							goFlag=true;
+						else 
 						{
-							if(contactData.getContactName().contains(value))
-								iSNList.add(contactData.getISN());
+							goFlag=false;
+							return false;
 						}
-						else
-						{
-								if(contactData.getContactName().equalsIgnoreCase(value))
-									iSNList.add(contactData.getISN());
-						}
-					}				
+					}
 					else if(str.equalsIgnoreCase("Telephone"))
 					{
 						String value=node.getTextContent();
-						if(blur)
+						for(int j=0;j<contactData.getPhoneNumberList().size();j++)
 						{
-							for(int j=0;j<contactData.getPhoneNumberList().size();j++)
-							if(contactData.getPhoneNumberList().get(j).contains(value))
-								iSNList.add(contactData.getISN());
+							if(contactData.getPhoneNumberList().get(j).equalsIgnoreCase(value))
+							{
+								goFlag=true;
+								break;
+							}
+							else 
+							{
+								goFlag=false;
+								continue;
+							}
 						}
-						else
+						if(!goFlag)
 						{
-							for(int j=0;j<contactData.getPhoneNumberList().size();j++)
-								if(contactData.getPhoneNumberList().get(j).equalsIgnoreCase(value))
-									iSNList.add(contactData.getISN());
+							return false;
 						}
-						
 					}
-					else if(str.equalsIgnoreCase("Email"))
+						else if(str.equalsIgnoreCase("Email"))
 					{
-						String value=node.getTextContent();
-						if(blur)
-						{
+							String value=node.getTextContent();
 							for(int j=0;j<contactData.getEmailAddresseList().size();j++)
-							if(contactData.getEmailAddresseList().get(j).contains(value))
-								iSNList.add(contactData.getISN());
-						}
-						else
-						{
-							for(int j=0;j<contactData.getEmailAddresseList().size();j++)
-								if(contactData.getEmailAddresseList().get(j).equalsIgnoreCase(value))
-									iSNList.add(contactData.getISN());
-						}	
+							{
+								if(contactData.getEmailAddresseList().get(j).equals(value))
+								{
+									goFlag=true;
+									break;
+								}
+								else 
+								{
+									goFlag=false;
+									continue;
+								}
+							}
+								if(!goFlag)
+								{
+									return false;
+								}
 					}
-					else if(str.equalsIgnoreCase("Address"))
-					{
-						String value=node.getTextContent();
-						if(blur)
+						else if(str.equalsIgnoreCase("Address"))
 						{
+							String value=node.getTextContent();
 							for(int j=0;j<contactData.getContactAddressList().size();j++)
-							if(contactData.getContactAddressList().get(j).contains(value))
-								iSNList.add(contactData.getISN());
-						}
-						else
-						{
-							for(int j=0;j<contactData.getContactAddressList().size();j++)
+							{
 								if(contactData.getContactAddressList().get(j).equalsIgnoreCase(value))
-									iSNList.add(contactData.getISN());
-						}	
-					}
-					else if(str.equalsIgnoreCase("Office"))
-					{
-						String value=node.getTextContent();
-						if(blur)
-						{
-							for(int j=0;j<contactData.getWorkingDepartmentList().size();j++)
-							if(contactData.getWorkingDepartmentList().get(j).contains(value))
-								iSNList.add(contactData.getISN());
+								{
+									goFlag=true;
+									break;
+								}
+								else
+								{
+									goFlag=false;
+									continue ;
+								}
+							}
+							if(!goFlag)
+							{
+								return false;
+							}
 						}
-						else
-						{
-							for(int j=0;j<contactData.getWorkingDepartmentList().size();j++)
-								if(contactData.getWorkingDepartmentList().get(j).equalsIgnoreCase(value))
-									iSNList.add(contactData.getISN());
-						}	
-					}
-					else if(str.equalsIgnoreCase("IMContact"))
-					{
-						String value=node.getTextContent();
-						if(blur)
-						{
-							for(int j=0;j<contactData.getImContactInformationList().size();j++)
-							if(contactData.getImContactInformationList().get(j).contains(value))
-								iSNList.add(contactData.getISN());
-						}
-						else
-						{
-							for(int j=0;j<contactData.getImContactInformationList().size();j++)
-								if(contactData.getImContactInformationList().get(j).equalsIgnoreCase(value))
-									iSNList.add(contactData.getISN());
-						}	
-					}
-					//生日查询有问题
-					else if(str.equalsIgnoreCase("Birthday"))
-					{
-						String value=node.getTextContent();
-						if(blur)
-						{
-							for(int j=0;j<contactData.getImContactInformationList().size();j++)
-							if(contactData.getImContactInformationList().get(j).contains(value))
-								iSNList.add(contactData.getISN());
-						}
-						else
-						{
-							for(int j=0;j<contactData.getImContactInformationList().size();j++)
-								if(contactData.getImContactInformationList().get(j).equalsIgnoreCase(value))
-									iSNList.add(contactData.getISN());
-						}	
-					}
-					else if(str.equalsIgnoreCase("url"))
-					{
-						String value=node.getTextContent();
-						if(blur)
-						{
-							for(int j=0;j<contactData.getUrlList().size();j++)
-							if(contactData.getUrlList().get(j).contains(value))
-								iSNList.add(contactData.getISN());
-						}
-						else
-						{
-							for(int j=0;j<contactData.getUrlList().size();j++)
-								if(contactData.getUrlList().get(j).equalsIgnoreCase(value))
-									iSNList.add(contactData.getISN());
-						}	
-					}
-					else if(str.equalsIgnoreCase("CommonLabel"))
-					{
-						String value=node.getTextContent();
-						if(blur)
-						{
+							else if(str.equalsIgnoreCase("Office"))
+							{
+								String value=node.getTextContent();
+								for(int j=0;j<contactData.getWorkingDepartmentList().size();j++)
+								{
+									
+									if(contactData.getWorkingDepartmentList().get(j).equalsIgnoreCase(value))
+									{
+										goFlag=true;
+										break;
+									}
+									else
+									{
+										goFlag=false;
+										continue ;
+									}
+								}
+								if(!goFlag)
+								{
+									return false;
+								}
+							}
+							else if(str.equalsIgnoreCase("IMContact"))
+							{
+								String value=node.getTextContent();
+								for(int j=0;j<contactData.getImContactInformationList().size();j++)
+								{
+									if(contactData.getImContactInformationList().get(j).equalsIgnoreCase(value))
+									{
+										goFlag=true;
+										break;
+									}
+									else
+									{
+										goFlag=false;
+										continue;
+									}
+								}
+								if(!goFlag)
+								{
+									return false;
+								}
+							}
+							else if(str.equalsIgnoreCase("Birthday"))
+							{
+								String value=node.getTextContent();
+									if(contactData.getContactBirthday().toString().equalsIgnoreCase(value))
+									{
+										goFlag=true;
+										break;
+									}
+									else
+									{
+										goFlag=false;
+										return false;
+									}
+							}
+							else if(str.equalsIgnoreCase("url"))
+							{
+								String value=node.getTextContent();
+								for(int j=0;j<contactData.getUrlList().size();j++)
+								{
+									if(contactData.getUrlList().get(j).equalsIgnoreCase(value))
+									{
+										goFlag=true;
+										break;
+									}
+									else
+									{
+										goFlag=false;
+										continue;
+									}
+								}
+								if(!goFlag)
+								{
+									return false;
+								}
+							}
+						else if(str.equalsIgnoreCase("CommonLabel"))
+							{
+								String value=node.getTextContent();
 							for(int j=0;j<contactData.getCommonLabelList().size();j++)
-							if(contactData.getCommonLabelList().get(j).contains(value))
-								iSNList.add(contactData.getISN());
-						}
-						else
-						{
-							for(int j=0;j<contactData.getCommonLabelList().size();j++)
+							{
 								if(contactData.getCommonLabelList().get(j).equalsIgnoreCase(value))
-									iSNList.add(contactData.getISN());
-						}	
-					}
-					else if(str.equalsIgnoreCase("Group"))
-					{
-						String value=node.getTextContent();
-						if(blur)
+								{
+									goFlag=true;
+									break;
+								}
+								else
+								{
+									goFlag=false;
+									continue;
+								}
+							}
+								if(!goFlag)
+								{
+									return false;
+								}
+							}
+						else if(str.equalsIgnoreCase("Group"))
 						{
+							String value=node.getTextContent();
 							for(int j=0;j<contactData.getGroupList().size();j++)
-							if(contactData.getGroupList().get(j).contains(value))
-								iSNList.add(contactData.getISN());
-						}
-						else
-						{
-							for(int j=0;j<contactData.getGroupList().size();j++)
+							{
 								if(contactData.getGroupList().get(j).equalsIgnoreCase(value))
-									iSNList.add(contactData.getISN());
+								{
+									goFlag=true;
+									break;
+								}
+								else
+								{
+									goFlag=false;
+									continue ;
+								}
+							}
+								if(!goFlag)
+								{
+									return false;
+								}
 						}
-					}
 					//关于由于关系标签的表示方法，所以这里可能有问题
 					//关系标签的相关处理
-					if(node instanceof Element && node.getNodeName().equalsIgnoreCase("RelationLabel"))
-					{
-						RelationLabelIterator(iSNList,contactData,(Element)node);
-					}	
+					//if(node instanceof Element && node.getNodeName().equalsIgnoreCase("RelationLabel"))
+					//{
+					//	RelationLabelIterator(iSNList,contactData,(Element)node);
+					//}	
 					if(node instanceof Element && !node.getNodeName().equalsIgnoreCase("RelationLabel"))
 					{
 					
-						SearchContactIterator(iSNList,contactData,(Element)node);
+						SearchContactIterator(contactData,(Element)node);
+					}
+					else
+					{
+						//现在不能对关系标签进行搜索
 					}
 			}
+				}
+			return goFlag;
+			}
 		}
-		public void  RelationLabelIterator(ArrayList<Integer>iSNList,PersonalContact contactData,Element  element)
+		
+		/*public void  RelationLabelIterator(ArrayList<Integer>iSNList,PersonalContact contactData,Element  element)
 			{
 				
 				NodeList nodelist=element.getChildNodes();
@@ -295,7 +549,12 @@ public class SearchContactXML {
 							if(blur)
 							{
 								if(tempData.getContactName().contains(value))
-								iSNList.add(tempData.getISN());
+									goFlag=true;
+								else
+								{
+									goFlag=false;
+									return;
+								}
 							}
 							else
 							{
@@ -304,7 +563,4 @@ public class SearchContactXML {
 							}	
 						}
 					}
-			}
-			}
-
-	}
+			}*/
