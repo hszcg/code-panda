@@ -22,8 +22,10 @@ public class ExportContactXML {
 	boolean funcEnd=false;
 	String  funSubStr=null;
 	String comSubStr=null;
-	public void ContactParserXML(String type,String path,String match1,String match2,String commandDetail)
+	String tempStr=null;
+	public String ContactParserXML(String match1,String match2,String commandDetail)
 	{
+		String tempStr=null;
 		try
 		{
 			//System.out.println("MMMMMMMMMMM");
@@ -55,14 +57,16 @@ public class ExportContactXML {
 			Document document=db.parse(new InputSource(new StringReader(commandDetail)));
 			//System.out.println("File Path"+document.getDocumentURI());
 			Element root=document.getDocumentElement();
-			ExportIterator(type,path,root);}
+			return ExportIterator(root);}
 		catch(Exception e)
 		{
 			e.printStackTrace();
 		}
+		return null;
 	}
-	public void ExportIterator(String type,String path,Element element)
+	public String ExportIterator(Element element)
 	{
+		
 		NodeList nodelist=element.getChildNodes();
 		for(int i=0;i<nodelist.getLength();i++)
 		{
@@ -72,13 +76,18 @@ public class ExportContactXML {
 			if(str.equals("Type"))
 			{
 				String value=node.getTextContent();
-				type=value;
+				tempStr=value+"--";
 			}
 			else if(str.equals("Url"))
 			{
 				String value=node.getTextContent();
-				path=value;
+				tempStr=tempStr+value;
 			}
+		  if(node instanceof Element)
+		  {
+			  ExportIterator((Element)node);
+		  }
 		}
+		return tempStr;
 	}
 }
