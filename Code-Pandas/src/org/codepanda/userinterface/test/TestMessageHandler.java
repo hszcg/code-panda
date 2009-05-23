@@ -53,14 +53,42 @@ public class TestMessageHandler implements MessageHandler {
 		"<UserPassword>"+"fighting"+"</UserPassword>"+
 		"</DeleteUser>"+
 		"</com>";
-		String NewContactxml="<com>"+
+		String NewContactxml1="<com>"+
 		"<NewContact>"+
 		"<ContactName>"+"zhang xin yu"+"</ContactName>"+
-		"<HeadImage>"+"/userpic/user1.jpg"+"</HeadImage>"+
 		"<Telephone>"+"122489389"+"</Telephone>"+
 		"<Email>"+"jdksd@dfjk"+"</Email>"+
 		"<Email>"+"fsdf@fdjk"+"</Email>"+
 		"<Email>"+"fdk@fdjk"+"</Email>"+
+		"<Birthday>"+"1996-02-01"+"</Birthday>"+
+		"<RelationLabel>"+
+		"<LabelName>"+"friends"+"</LabelName>"+
+		"<DestISN>"+"1234"+"</DestISN>"+
+		"</RelationLabel>"+
+		"</NewContact>"+
+		"</com>";
+		String NewContactxml2="<com>"+
+		"<NewContact>"+
+		"<ContactName>"+"zhangchenguang"+"</ContactName>"+
+		"<Telephone>"+"122489389"+"</Telephone>"+
+		"<Email>"+"jdksd@dfjk"+"</Email>"+
+		"<Email>"+"fsdf@fdjk"+"</Email>"+
+		"<Email>"+"fdk@fdjk"+"</Email>"+
+		"<Birthday>"+"1997-03-01"+"</Birthday>"+
+		"<RelationLabel>"+
+		"<LabelName>"+"friends"+"</LabelName>"+
+		"<DestISN>"+"1234"+"</DestISN>"+
+		"</RelationLabel>"+
+		"</NewContact>"+
+		"</com>";
+		String NewContactxml3="<com>"+
+		"<NewContact>"+
+		"<ContactName>"+"xudanqing"+"</ContactName>"+
+		"<Telephone>"+"122489389"+"</Telephone>"+
+		"<Email>"+"jdksd@dfjk"+"</Email>"+
+		"<Email>"+"fsdf@fdjk"+"</Email>"+
+		"<Email>"+"fdk@fdjk"+"</Email>"+
+		"<Birthday>"+"1998-11-10"+"</Birthday>"+
 		"<RelationLabel>"+
 		"<LabelName>"+"friends"+"</LabelName>"+
 		"<DestISN>"+"1234"+"</DestISN>"+
@@ -83,12 +111,20 @@ public class TestMessageHandler implements MessageHandler {
 		"<Email>"+"zcg@fjd"+"</Email>"+
 		"</EditUser>"+
 		"</com>";
-		
+		String StatContactxml="<com>"+
+		"<StatContact>"+
+		"<Birthday>"+"1995-05-11"+"</Birthday>"+
+		"<Birthday>"+"1999-12-20"+"</Birthday>"+
+		"</StatContact>"+
+		"</com>";
 		TestMessageHandler tmh=new TestMessageHandler();
 		tmh.testFunc(CommandType.NEW_USER,NewUserxml);
 		tmh.testFunc(CommandType.LOGIN_USER, LoginUserxml);
-		System.out.println("LLLLLLLLLLLLLL"+DataPool.getInstance().getCurrentUser().getUserName());
-		tmh.testFunc(CommandType.NEW_CONTACT, NewContactxml);
+		//System.out.println("LLLLLLLLLLLLLL"+DataPool.getInstance().getCurrentUser().getUserName());
+		tmh.testFunc(CommandType.NEW_CONTACT, NewContactxml1);
+		tmh.testFunc(CommandType.NEW_CONTACT, NewContactxml3);
+		tmh.testFunc(CommandType.NEW_CONTACT, NewContactxml2);
+		tmh.testFunc(CommandType.STAT_CONTACT, StatContactxml);
 		//tmh.testFunc(CommandType.DELETE_USER, DeleteUserxml);
 		try {
 			DataPool.getInstance().getDb().close();
