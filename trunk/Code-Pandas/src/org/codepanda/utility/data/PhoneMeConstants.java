@@ -10,6 +10,8 @@ public class PhoneMeConstants {
 	
 	public static final int HEAD_IMAGE_HEIGHT = 115;
 	public static int HEAD_IMAGE_WIDTH = 130;
+	
+	public static final String DEFAULT_IMAGE_URL = "/userpic/user1.jpg";
 
 	private static PhoneMeConstants instance = new PhoneMeConstants();
 

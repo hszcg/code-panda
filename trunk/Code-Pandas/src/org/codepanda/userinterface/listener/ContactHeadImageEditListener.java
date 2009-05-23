@@ -14,7 +14,7 @@ import org.codepanda.userinterface.utility.ExtensionFileFilter;
 
 /**
  * @author hszcg
- *
+ * 
  */
 public class ContactHeadImageEditListener implements ActionListener {
 	private final ContactInfoPanel myContactInfoPanel;
@@ -47,9 +47,8 @@ public class ContactHeadImageEditListener implements ActionListener {
 
 		File selectedFile = playerHeadChooser.getSelectedFile();
 		try {
-			myContactInfoPanel
-					.setContactHeadImage(ImageIO.read(selectedFile.toURI()
-							.toURL()));
+			myContactInfoPanel.setContactHeadImage(selectedFile.toURI().toURL()
+					.toString());
 		} catch (Exception error) {
 			error.printStackTrace();
 		}
