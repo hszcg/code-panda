@@ -6,6 +6,8 @@ import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 
 import org.codepanda.utility.contact.ContactOperations;
+import org.codepanda.utility.contact.PersonalContact;
+import org.codepanda.utility.data.DataPool;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
@@ -27,7 +29,7 @@ public class SearchContactXML {
 	boolean continueFlag = false;
 	boolean goFlag = false; // 继续向下进行匹配的标志
 	int loopFlag = 0;
-
+	boolean blur=false;
 	/**
 	 * @param match1
 	 *            //<SearchContact>
@@ -67,6 +69,7 @@ public class SearchContactXML {
 					commandDetail)));
 			// System.out.println("File Path"+document.getDocumentURI());
 			Element root = document.getDocumentElement();
+			System.out.print("root___"+root.toString());
 			return SearchContactIterator(contactData, root);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -76,10 +79,9 @@ public class SearchContactXML {
 
 	public boolean SearchContactIterator(ContactOperations contactData,
 			Element element) {
+		System.out.println("Element____"+element.toString());
 		NodeList nodelist = element.getChildNodes();
 		// System.out.println(element.getNodeName());
-		boolean blur = true;
-
 		for (int i = 0; i < nodelist.getLength(); i++) {
 			Node node = nodelist.item(i);
 			String str = node.getNodeName();
@@ -91,10 +93,15 @@ public class SearchContactXML {
 		}
 		if (blur) {
 			// 模糊匹配
+			System.out.println(element.toString());
 			System.out.println("Blur________");
+			//System.out.println("Length____"+nodelist.getLength());
 			for (int i = 0; i < nodelist.getLength(); i++) {
+				System.out.println("LLLLLLLLL");
 				Node node = nodelist.item(i);
+				System.out.println(node.toString());
 				String str = node.getNodeName();
+				System.out.println(str);
 				if (str.equalsIgnoreCase("ContactName")) {
 					String value = node.getTextContent();
 					System.out.println("SearchText____" + value);
@@ -247,6 +254,14 @@ public class SearchContactXML {
 					if (!goFlag) {
 						return false;
 					}
+				}
+				if (node instanceof Element
+						&& !node.getNodeName()
+								.equalsIgnoreCase("RelationLabel")) {
+
+					SearchContactIterator(contactData, (Element) node);
+				} else {
+					// 现在不能对关系标签进行搜索
 				}
 			}
 			return goFlag;
@@ -412,38 +427,71 @@ public class SearchContactXML {
 								.equalsIgnoreCase("RelationLabel")) {
 
 					SearchContactIterator(contactData, (Element) node);
-				} else {
-					// 现在不能对关系标签进行搜索
+				} 
+				
+				if (node instanceof Element
+						&& node.getNodeName()
+								.equalsIgnoreCase("RelationLabel"))	
+				{
+					RelationLabel(contactData,(Element)element);
 				}
 			}
 		}
 		return goFlag;
 	}
+	//关系标签
+	public boolean RelationLabel(ContactOperations contactData,Element element)
+	{
+		String labelName=null;
+		String contactName=null;
+		NodeList nodeList=element.getChildNodes();
+		for(int i=0;i<nodeList.getLength();i++)
+		{
+			Node node=nodeList.item(i);
+			String str=node.getNodeName();
+			if(str.equals("LabelName"))
+			{
+				labelName=node.getTextContent();
+			}
+			else if(str.equals("ContactName"))
+			{
+				contactName=node.getTextContent();
+			}
+		}
+		for(int i=0;i<contactData.getRelationLabelList().size();i++)
+		{
+			if(contactData.getRelationLabelList().get(i).getLabelName().equals(labelName))
+			{
+				//这里如果仅仅按照名字进行查询
+				if(blur)
+				{
+					int tempISN=contactData.getRelationLabelList().get(i).getRelationObjectISN();
+					if(DataPool.getInstance().getAllContactISNMap().get(tempISN).getContactName().contains(contactName))
+					{
+						goFlag=true;
+					}
+					else
+					{
+						goFlag=false;
+						continue;
+					}
+				}
+				if(!blur)
+				{
+					int tempISN=contactData.getRelationLabelList().get(i).getRelationObjectISN();
+					if(DataPool.getInstance().getAllContactISNMap().get(tempISN).getContactName().equals(contactName))
+					{
+						goFlag=true;
+					}
+					else
+					{
+						goFlag=false;
+						continue;
+					}
+				}
+			}
+				
+		}
+		return goFlag;
+	}
 }
-
-/*
- * public void RelationLabelIterator(ArrayList<Integer>iSNList,PersonalContact
- * contactData,Element element) {
- * 
- * NodeList nodelist=element.getChildNodes(); // relationLabel=new
- * RelationLabel(); for(int i=0;i<nodelist.getLength();i++) {
- * 
- * Node node=nodelist.item(i); String str=node.getNodeName();
- * if(str.equalsIgnoreCase("LabelName")) { String value=node.getTextContent();
- * 
- * for
- * (loopFlag=0;loopFlag<contactData.getRelationLabelList().size();loopFlag++) {
- * if
- * (contactData.getRelationLabelList().get(loopFlag).getLabelName().equalsIgnoreCase
- * (value)) { continueFlag=true; } } } else if(str.equalsIgnoreCase("DestName"))
- * { if(continueFlag) { String value=node.getTextContent();
- * 
- * int
- * temp=contactData.getRelationLabelList().get(loopFlag).getRelationObjectISN();
- * PersonalContact
- * tempData=(PersonalContact)DataPool.getInstance().getAllContactISNMap
- * ().get(temp); if(blur) { if(tempData.getContactName().contains(value))
- * goFlag=true; else { goFlag=false; return; } } else {
- * if(tempData.getContactName().equalsIgnoreCase(value))
- * iSNList.add(tempData.getISN()); } } } }
- */
