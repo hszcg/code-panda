@@ -7,7 +7,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.IOException;
-import java.net.URL;
 
 import javax.imageio.ImageIO;
 import javax.swing.JDialog;
@@ -337,7 +336,7 @@ public class PhoneMeRibbon {
 				playerHeadChooser.setDialogTitle("Contact Export Chooser");
 
 				File dir = new File("./");
-				URL url = null;
+				String url = null;
 				if (dir.isDirectory())
 					playerHeadChooser.setCurrentDirectory(dir);
 
@@ -353,12 +352,13 @@ public class PhoneMeRibbon {
 
 				File selectedFile = playerHeadChooser.getSelectedFile();
 				try {
-					url = selectedFile.toURI().toURL();
-					System.out.println("EXPORT\n" + url.toString());
+					url = selectedFile.getAbsolutePath();
+					System.out.println("EXPORT\n" + url);
 				} catch (Exception error) {
 					error.printStackTrace();
 				}
 				
+				// TODO url == null
 				StringBuffer tempMessage = new StringBuffer();
 				if(url.toString().endsWith("csv"))
 					tempMessage.append(MyXMLMaker.addTag("Type", "csv"));
