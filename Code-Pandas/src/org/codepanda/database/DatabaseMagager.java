@@ -170,7 +170,7 @@ public class DatabaseMagager implements DatabaseManagerFacade {
 		ps.close();
 	}
 	
-	public synchronized void updateD(String expression, User user) throws SQLException{
+	public synchronized void updateD(String expression) throws SQLException{
 		PreparedStatement ps = conn.prepareStatement(expression);
 		
 		ps.executeUpdate();
@@ -272,15 +272,15 @@ public class DatabaseMagager implements DatabaseManagerFacade {
 
 	
 	@Override
-	public int delUser(final User user) {
+	public int delUser(String userName) {
 		// the process of checking process is outside the DataBase
 //		User tempuser=new User();
 		try {
 //			this.getUser(user.getUserName(), tempuser);
 			this.updateD(
-					"DELETE FROM UserTable WHERE username = '"+user.getUserName()+"'", user);
+					"DELETE FROM UserTable WHERE username = '"+userName+"'");
 			this.updateD(
-					"DELETE FROM contactList WHERE username = '"+user.getUserName()+"'", user);
+					"DELETE FROM contactList WHERE username = '"+userName+"'");
 			return 1;
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -289,10 +289,10 @@ public class DatabaseMagager implements DatabaseManagerFacade {
 	}
 
 	@Override
-	public int deleteContact(final User user, final  PersonalContact contact) {
-		int isn = contact.getISN();
+	public int deleteContact(String userName, int ISN) {
+	//	int isn = contact.getISN();
 		try {
-			if(queryContact(user.getUserName(), isn)==1){
+			if(queryContact(userName, ISN)==1){
 				return 1;
 			}
 		} catch (SQLException e) {
@@ -315,33 +315,33 @@ public class DatabaseMagager implements DatabaseManagerFacade {
 
 	@Override
 	public int editUser(String userName, final User user) {
-		this.delUser(user);
+		this.delUser(userName);
 		this.newUser(user);
 		return 1;
 	}
 
 	@Override
-	public int editContact(final User user, final PersonalContact contact){
-		this.deleteContact(user, contact);
-		this.newContact(user.getUserName(), contact);
+	public int editContact(String userName, final PersonalContact contact){
+		this.deleteContact(userName, contact.getISN());
+		this.newContact(userName, contact);
 		return 0;
 	}
 
-	@Override
-	public int delCommonlabel(String labelname) {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
-	@Override
-	public int editCommonlabel(String labelname) {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
-	@Override
-	public int newLabel(String labelname, String username) {
-		// TODO Auto-generated method stub
-		return 0;
-	}
+//	@Override
+//	public int delCommonlabel(String labelname) {
+//		// TODO Auto-generated method stub
+//		return 0;
+//	}
+//
+//	@Override
+//	public int editCommonlabel(String labelname) {
+//		// TODO Auto-generated method stub
+//		return 0;
+//	}
+//
+//	@Override
+//	public int newLabel(String labelname, String username) {
+//		// TODO Auto-generated method stub
+//		return 0;
+//	}
 }
