@@ -12,6 +12,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import org.codepanda.application.export.CsvConvertor;
 import org.codepanda.database.DatabaseMagager;
 import org.codepanda.database.DatabaseManagerFacade;
 import org.codepanda.utility.contact.ContactOperations;
@@ -137,8 +138,7 @@ public class DataPool {
 		// // TODO Auto-generated catch block
 		// e.printStackTrace();
 		// }
-
-		System.out.println("close database!");
+		System.out.println("Finish initing of DataPool!");
 	}
 
 	private static DataPool dataPoolInstance = new DataPool();
@@ -203,6 +203,13 @@ public class DataPool {
 
 		// TODO 把当前用户的联系人读入DataPool
 		DataPool.getInstance().getDb().getUser(userName, getCurrentUser());
+		
+		
+		// test of CSV-convertor
+		CsvConvertor cc = new CsvConvertor();
+		cc.convert("abc.csv");
+		
+		
 
 		ArrayList<ContactOperations> allContactList = new ArrayList<ContactOperations>();
 		this.getDb().getContactData(userName, allContactList);
