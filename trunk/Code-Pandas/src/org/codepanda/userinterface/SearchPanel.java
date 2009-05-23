@@ -117,6 +117,8 @@ public class SearchPanel extends JPanel {
 		builder.addLabel("关系标签", cc.xy(3, 13));
 		relationBox = new JComboBox((String[]) PhoneMeConstants.getInstance()
 				.getAllRelationLabelName().toArray(new String[0]));
+		relationBox.insertItemAt("(任意)", 0);
+		relationBox.setSelectedIndex(0);
 
 		allContactName = new ArrayList<String>();
 
@@ -129,6 +131,9 @@ public class SearchPanel extends JPanel {
 		}
 		contactBox = new JComboBox((String[]) allContactName
 				.toArray(new String[0]));
+		
+		contactBox.insertItemAt("(任意)", 0);
+		contactBox.setSelectedIndex(0);
 
 		builder.add(relationBox, cc.xy(5, 13));
 		builder.add(contactBox, cc.xy(7, 13));
@@ -185,9 +190,8 @@ public class SearchPanel extends JPanel {
 		if (emailField.getText().length() != 0)
 			message.append(MyXMLMaker.addTag("Email", emailField.getText()));
 		if (addressField.getText().length() != 0)
-			message
-					.append(MyXMLMaker
-							.addTag("Address", addressField.getText()));
+			message.append(MyXMLMaker
+						.addTag("Address", addressField.getText()));
 		if (workField.getText().length() != 0)
 			message.append(MyXMLMaker.addTag("Office", workField.getText()));
 		if (imField.getText().length() != 0)
