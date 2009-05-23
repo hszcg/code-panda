@@ -23,6 +23,7 @@ import org.codepanda.userinterface.messagehandler.NewContactMessageHandler;
 import org.codepanda.userinterface.xml.MyXMLMaker;
 import org.codepanda.utility.contact.ContactOperations;
 import org.codepanda.utility.data.DataPool;
+import org.codepanda.utility.data.PhoneMeConstants;
 import org.codepanda.utility.label.RelationLabel;
 
 import org.jdesktop.swingx.JXDatePicker;
@@ -84,19 +85,20 @@ public class ContactInfoPanel extends JXPanel {
 	private JButton editContactAddressButton;
 	private JButton deleteContactAddressButton;
 	private PhoneMeField addressField;
-	private PhoneMeField workField;
 
 	// 联系人工作／学习单位
 	private JComboBox workingDepartmentBox;
 	private JButton addWorkingDepartmentButton;
 	private JButton editWorkingDepartmentButton;
 	private JButton deleteWorkingDepartmentButton;
+	private PhoneMeField workField;
 
 	// 联系人即时联系方式部分
 	private JComboBox imContactInformationBox;
 	private JButton addImContactInformationButton;
 	private JButton editImContactInformationButton;
 	private JButton deleteImContactInformationButton;
+	private PhoneMeField IMField;
 
 	// 联系人生日部分
 	private JTextField contactBirthdayField;
@@ -110,6 +112,7 @@ public class ContactInfoPanel extends JXPanel {
 	private JButton addUrlListButton;
 	private JButton editUrlListButton;
 	private JButton deleteUrlListButton;
+	private PhoneMeField urlField;
 
 	// 联系人普通标签
 	private JComboBox commonLabelListBox;
@@ -123,6 +126,7 @@ public class ContactInfoPanel extends JXPanel {
 	private JButton addGroupListButton;
 	private JButton editGroupListButton;
 	private JButton deleteGroupListButton;
+	private JComboBox selectGroupBox;
 
 	// 联系人关系标签
 	private JComboBox relationLabelListBox;
@@ -227,39 +231,46 @@ public class ContactInfoPanel extends JXPanel {
 		String temp[] = { "010-51534419", "13810013188", "029-85367800" };
 		phoneNumberBox = new JComboBox(temp);
 		addPhoneNumberButton = new JButton("添加");
-		addPhoneNumberButton.addActionListener(new ActionListener() {
+		/*addPhoneNumberButton.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				phoneNumberField.setVisible(true);
 				phoneNumberField.setState(0);
 				paintComponents(getGraphics());
 			}
-		});
+		});*/
+		
 		editPhoneNumberButton = new JButton("编辑");
-		editPhoneNumberButton.addActionListener(new ActionListener() {
+		/*editPhoneNumberButton.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				phoneNumberField.setVisible(true);
+				if(phoneNumberBox.getItemCount() != 0)
+					phoneNumberField.setText
+					(phoneNumberBox.getItemAt(0).toString());
 				phoneNumberField.setState(1);
 				paintComponents(getGraphics());
 			}
-		});
+		});*/
 		deletePhoneNumberButton = new JButton("删除");
-		deletePhoneNumberButton.addActionListener(new ActionListener() {
+		/*deletePhoneNumberButton.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				phoneNumberBox.removeItem(phoneNumberBox.getSelectedItem());
 			}
-		});
+		});*/
 		phoneNumberField = new PhoneMeField(20);
 		phoneNumberField.addActionListener(new FieldActionListener(
 				phoneNumberBox, phoneNumberField));
+		
+		phoneNumberBox.addItemListener
+		(new ComboBoxSetTextListener(phoneNumberField, phoneNumberBox));
 
-		// ActionListener phoneNumberListener = new
-		// ComboBoxButtonListener(phoneNumberBox, phoneNumberField);
-		// addPhoneNumberButton.addActionListener(phoneNumberListener);
-		// editPhoneNumberButton.addActionListener(phoneNumberListener);
-		// deletePhoneNumberButton.addActionListener(phoneNumberListener);
+		ActionListener phoneNumberListener = new
+		ComboBoxButtonListener(this, phoneNumberBox, phoneNumberField);
+		addPhoneNumberButton.addActionListener(phoneNumberListener);
+		editPhoneNumberButton.addActionListener(phoneNumberListener);
+		deletePhoneNumberButton.addActionListener(phoneNumberListener);
 		this.myButtonList.add(addPhoneNumberButton);
 		this.myButtonList.add(editPhoneNumberButton);
 		this.myButtonList.add(deletePhoneNumberButton);
@@ -368,33 +379,22 @@ public class ContactInfoPanel extends JXPanel {
 		// e-mail
 		emailAddressBox = new JComboBox(temp);
 		addEmailAddressButton = new JButton("添加");
-		addEmailAddressButton.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent arg0) {
-				emailField.setVisible(true);
-				emailField.setState(0);
-				getParentWindow().repaint();
-			}
-		});
 		editEmailAddressButton = new JButton("编辑");
-		editEmailAddressButton.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent arg0) {
-				emailField.setVisible(true);
-				emailField.setState(1);
-				getParentWindow().repaint();
-			}
-		});
 		deleteEmailAddressButton = new JButton("删除");
-		deleteEmailAddressButton.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent arg0) {
-				emailAddressBox.removeItem(emailAddressBox.getSelectedItem());
-			}
-		});
+		
 		emailField = new PhoneMeField(20);
 		emailField.addActionListener(new FieldActionListener(emailAddressBox,
 				emailField));
+		
+		emailAddressBox.addItemListener
+		(new ComboBoxSetTextListener(emailField, emailAddressBox));
+		
+		ActionListener emailListener = new
+		ComboBoxButtonListener(this, emailAddressBox, emailField);
+		addEmailAddressButton.addActionListener(emailListener);
+		editEmailAddressButton.addActionListener(emailListener);
+		deleteEmailAddressButton.addActionListener(emailListener);
+		
 		this.myButtonList.add(addEmailAddressButton);
 		this.myButtonList.add(editEmailAddressButton);
 		this.myButtonList.add(deleteEmailAddressButton);
@@ -410,33 +410,21 @@ public class ContactInfoPanel extends JXPanel {
 		// 联系人住址
 		contactAddressBox = new JComboBox();
 		addContactAddressButton = new JButton("添加");
-		addContactAddressButton.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent arg0) {
-				addressField.setVisible(true);
-				addressField.setState(0);
-				getParentWindow().repaint();
-			}
-		});
 		editContactAddressButton = new JButton("编辑");
-		editContactAddressButton.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent arg0) {
-				addressField.setVisible(true);
-				addressField.setState(1);
-				getParentWindow().repaint();
-			}
-		});
 		deleteContactAddressButton = new JButton("删除");
-		deleteContactAddressButton.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent arg0) {
-				contactAddressBox.removeItem(contactAddressBox.getSelectedItem());
-			}
-		});
 		addressField = new PhoneMeField(20);
 		addressField.addActionListener(new FieldActionListener
 				(contactAddressBox, addressField));
+		
+		contactAddressBox.addItemListener
+		(new ComboBoxSetTextListener(addressField, contactAddressBox));
+		
+		ActionListener addressListener = new
+		ComboBoxButtonListener(this, contactAddressBox, addressField);
+		addContactAddressButton.addActionListener(addressListener);
+		editContactAddressButton.addActionListener(addressListener);
+		deleteContactAddressButton.addActionListener(addressListener);
+		
 		this.myButtonList.add(addContactAddressButton);
 		this.myButtonList.add(editContactAddressButton);
 		this.myButtonList.add(deleteContactAddressButton);
@@ -452,34 +440,21 @@ public class ContactInfoPanel extends JXPanel {
 		// 联系人工作／学习单位
 		workingDepartmentBox = new JComboBox();
 		addWorkingDepartmentButton = new JButton("添加");
-		addWorkingDepartmentButton.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent arg0) {
-				workField.setVisible(true);
-				workField.setState(0);
-				getParentWindow().repaint();
-			}
-		});
 		editWorkingDepartmentButton = new JButton("编辑");
-		editWorkingDepartmentButton.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent arg0) {
-				workField.setVisible(true);
-				workField.setState(1);
-				getParentWindow().repaint();
-			}
-		});
 		deleteWorkingDepartmentButton = new JButton("删除");
-		deleteWorkingDepartmentButton.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent arg0) {
-				workingDepartmentBox.removeItem
-				(workingDepartmentBox.getSelectedItem());
-			}
-		});
+		
 		workField = new PhoneMeField(20);
 		workField.addActionListener(new FieldActionListener
 				(workingDepartmentBox, workField));
+		
+		workingDepartmentBox.addItemListener
+		(new ComboBoxSetTextListener(workField, workingDepartmentBox));
+		
+		ActionListener workListener = new
+		ComboBoxButtonListener(this, workingDepartmentBox, workField);
+		addWorkingDepartmentButton.addActionListener(workListener);
+		editWorkingDepartmentButton.addActionListener(workListener);
+		deleteWorkingDepartmentButton.addActionListener(workListener);
 
 		this.myButtonList.add(addWorkingDepartmentButton);
 		this.myButtonList.add(editWorkingDepartmentButton);
@@ -498,10 +473,24 @@ public class ContactInfoPanel extends JXPanel {
 		addImContactInformationButton = new JButton("添加");
 		editImContactInformationButton = new JButton("编辑");
 		deleteImContactInformationButton = new JButton("删除");
+		
+		IMField = new PhoneMeField(20);
+		IMField.addActionListener(new FieldActionListener
+				(imContactInformationBox, IMField));
+		
+		imContactInformationBox.addItemListener
+		(new ComboBoxSetTextListener(IMField, imContactInformationBox));
+		
+		ActionListener IMListener = new
+		ComboBoxButtonListener(this, imContactInformationBox, IMField);
+		addImContactInformationButton.addActionListener(IMListener);
+		editImContactInformationButton.addActionListener(IMListener);
+		deleteImContactInformationButton.addActionListener(IMListener);
 
 		this.myButtonList.add(addImContactInformationButton);
 		this.myButtonList.add(editImContactInformationButton);
 		this.myButtonList.add(deleteImContactInformationButton);
+		this.myTextFieldList.add(IMField);
 
 		builder.addLabel("即时联系方式", cc.xy(1, 9));
 		builder.add(imContactInformationBox, cc.xy(3, 9));
@@ -541,10 +530,24 @@ public class ContactInfoPanel extends JXPanel {
 		addUrlListButton = new JButton("添加");
 		editUrlListButton = new JButton("编辑");
 		deleteUrlListButton = new JButton("删除");
+		
+		urlField = new PhoneMeField(20);
+		urlField.addActionListener(new FieldActionListener
+				(urlListBox, urlField));
+		
+		urlListBox.addItemListener
+		(new ComboBoxSetTextListener(urlField, urlListBox));
+		
+		ActionListener urlListener = new
+		ComboBoxButtonListener(this, urlListBox, urlField);
+		addUrlListButton.addActionListener(urlListener);
+		editUrlListButton.addActionListener(urlListener);
+		deleteUrlListButton.addActionListener(urlListener);
 
 		this.myButtonList.add(addUrlListButton);
 		this.myButtonList.add(editUrlListButton);
 		this.myButtonList.add(deleteUrlListButton);
+		this.myTextFieldList.add(urlField);
 
 		builder.addLabel("Web地址", cc.xy(1, 13));
 		builder.add(urlListBox, cc.xy(3, 13));
@@ -573,12 +576,24 @@ public class ContactInfoPanel extends JXPanel {
 		addCommonLabelListButton = new JButton("添加");
 		editCommonLabelListButton = new JButton("编辑");
 		deleteCommonLabelListButton = new JButton("删除");
+		
 		commonLabelField = new PhoneMeField(20);
-		commonLabelField.setVisible(false);
+		commonLabelField.addActionListener(new FieldActionListener
+				(commonLabelListBox, commonLabelField));
+		
+		commonLabelListBox.addItemListener
+		(new ComboBoxSetTextListener(commonLabelField, commonLabelListBox));
+		
+		ActionListener commanLanelListener = new
+		ComboBoxButtonListener(this, commonLabelListBox, commonLabelField);
+		addCommonLabelListButton.addActionListener(commanLanelListener);
+		editCommonLabelListButton.addActionListener(commanLanelListener);
+		deleteCommonLabelListButton.addActionListener(commanLanelListener);
 
 		this.myButtonList.add(addCommonLabelListButton);
 		this.myButtonList.add(editCommonLabelListButton);
 		this.myButtonList.add(deleteCommonLabelListButton);
+		this.myTextFieldList.add(commonLabelField);
 
 		downbuilder.addLabel("普通标签", downcc.xy(1, 3));
 		downbuilder.add(commonLabelListBox, downcc.xyw(3, 3, 3));
@@ -590,8 +605,52 @@ public class ContactInfoPanel extends JXPanel {
 		// 联系人所属分组
 		groupListBox = new JComboBox();
 		addGroupListButton = new JButton("添加");
+		addGroupListButton.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				for(int index = 0;index < groupListBox.getItemCount(); index ++){
+					if(groupListBox.getItemAt(index).
+							toString().equals
+							(selectGroupBox.getSelectedItem().toString())){
+						return;
+					}
+				}
+				groupListBox.addItem(selectGroupBox.getSelectedItem());
+				groupListBox.setSelectedIndex(groupListBox.getItemCount()-1);
+			}
+		});
 		editGroupListButton = new JButton("编辑");
+		editGroupListButton.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				if(groupListBox.getItemCount() == 0)
+					return;
+				for(int index = 0;index < groupListBox.getItemCount(); index ++){
+					if(groupListBox.getItemAt(index).
+							toString().equals
+							(selectGroupBox.getSelectedItem().toString())){
+						return;
+					}
+				}
+				groupListBox.setEditable(true);
+				int index = groupListBox.getSelectedIndex();
+				groupListBox.removeItem(groupListBox.getSelectedItem());
+				groupListBox.insertItemAt
+				(selectGroupBox.getSelectedItem(), index);
+				groupListBox.setSelectedIndex(index);
+				groupListBox.setEditable(false);
+			}
+		});
 		deleteGroupListButton = new JButton("删除");
+		deleteGroupListButton.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				groupListBox.removeItem(groupListBox.getSelectedItem());
+			}
+		});
+		selectGroupBox = new JComboBox
+		((String[]) PhoneMeConstants.getInstance()
+				.getAllRelationLabelName().toArray(new String[0]));
 
 		this.myButtonList.add(addGroupListButton);
 		this.myButtonList.add(editGroupListButton);
@@ -600,7 +659,9 @@ public class ContactInfoPanel extends JXPanel {
 		downbuilder.addLabel("所属分组", downcc.xy(1, 5));
 		downbuilder.add(groupListBox, downcc.xyw(3, 5, 3));
 		downbuilder.add(addGroupListButton, downcc.xy(7, 5));
-		downbuilder.add(deleteGroupListButton, downcc.xy(9, 5));
+		downbuilder.add(editGroupListButton, downcc.xy(9, 5));
+		downbuilder.add(deleteGroupListButton, downcc.xy(11, 5));
+		downbuilder.add(selectGroupBox, downcc.xy(13, 5));
 
 		// 关系标签
 		relationLabelListBox = new JComboBox();
@@ -645,7 +706,7 @@ public class ContactInfoPanel extends JXPanel {
 							.get(iSN));
 
 					setEditable(false);
-					nameField.setVisible(false);
+					nameField.setEditable(false);
 				} else {
 					// 修改联系人
 					String xml = makeMainMessageXML().toString();
@@ -661,7 +722,7 @@ public class ContactInfoPanel extends JXPanel {
 							.executeCommand(editContactCommandVisitor);
 
 					setEditable(false);
-					nameField.setVisible(false);
+					nameField.setEditable(false);
 				}
 			}
 		});
@@ -769,6 +830,7 @@ public class ContactInfoPanel extends JXPanel {
 		for (JButton p : myButtonList) {
 			p.setVisible(isEditable);
 		}
+		selectGroupBox.setVisible(isEditable);
 	}
 
 	/**
