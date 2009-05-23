@@ -216,12 +216,13 @@ public class DataPool {
 
 		for (ContactOperations t : allContactList) {
 			Integer iSN = t.getISN();
-
+			
 			allContactISNMap.put(iSN, t);
 
 			allContactNameMultimap.put(t.getContactName(), iSN);
-
+			//TODO 更新group的信息
 			for (String groupName : t.getGroupList()) {
+				
 				if (allContactGroupMap.containsKey(groupName)) {
 					allContactGroupMap.get(groupName).addGroupMember(iSN);
 				} else {
