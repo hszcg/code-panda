@@ -11,16 +11,19 @@ public class DeleteCommonLabelActor implements CommandActor {
 	private CommonLabel commonLabel;
 	@Override
 	public Object executeCommand() {
-		// TODO Auto-generated method stub
-		if(this.getLabel()==null)
-		{
-			return DeleteCommonLabelActor.NULL_LABEL;
-		}
-		int result=DataPool.getInstance().deleteCommonLabel(getLabel());
-		if(result==-2)
-		{
-			return DeleteCommonLabelActor.FAILED;
-		}
+		// TODO TODO!!!!
+		
+		
+//		if(this.getLabel()==null)
+//		{
+//			return DeleteCommonLabelActor.NULL_LABEL;
+//		}
+//		int result=DataPool.getInstance().deleteCommonLabel(getLabel());
+//		if(result==-2)
+//		{
+//			return DeleteCommonLabelActor.FAILED;
+//		}
+		
 		return DeleteCommonLabelActor.SUCCEED;
 	}
 	public void setLabel(CommonLabel label)

@@ -11,17 +11,19 @@ public class NewCommonLabelActor implements CommandActor {
 	private CommonLabel commonLabel;
 	@Override
 	public Object executeCommand() {
-		// TODO Auto-generated method stub
-		if(this.getLabel()==null)
-		{
-			System.out.println("New CommonLabel NULL!!!");
-			return NewCommonLabelActor.NULL_LABEL;
-		}
-		int result=DataPool.getInstance().newCommonLabel(getLabel());
-		if(result==-2)
-		{
-			return NewCommonLabelActor.FAILED;
-		}
+		// TODO TODO!!!
+		
+//		if(this.getLabel()==null)
+//		{
+//			System.out.println("New CommonLabel NULL!!!");
+//			return NewCommonLabelActor.NULL_LABEL;
+//		}
+//		int result=DataPool.getInstance().newCommonLabel(getLabel());
+//		if(result==-2)
+//		{
+//			return NewCommonLabelActor.FAILED;
+//		}
+		
 		return NewCommonLabelActor.SUCCEED;
 	}
 	public void setLabel(CommonLabel label)
