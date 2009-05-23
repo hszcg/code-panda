@@ -69,57 +69,6 @@ public class DataPool {
 		// 1个Key对应多个Value的HashMap
 		allContactNameMultimap = HashMultimap.create();
 
-		User user = new User();
-
-		user.setUserName("sa");
-		user.setPassword("sa");
-
-		// user.setUserName("Sa");
-		// user.setPassword("Sa");
-
-		System.out.println("DataPoolInit");
-		PersonalContact contact1 = new PersonalContact();
-		PersonalContact contact2 = new PersonalContact();
-		PersonalContact contact3 = new PersonalContact();
-		contact1.setContactName("汤则1");
-		contact2.setContactName("汤则2");
-		contact3.setContactName("汤则3");
-		ArrayList<String> cl1 = new ArrayList<String>();
-		ArrayList<String> cl2 = new ArrayList<String>();
-		ArrayList<String> cl3 = new ArrayList<String>();
-		cl1.add("同学");
-		cl1.add("朋友");
-		cl1.add("校友");
-		cl2.add("朋友");
-		cl2.add("老乡");
-		cl2.add("博士");
-		cl3.add("土鳖");
-		cl3.add("同学");
-		cl3.add("朋友");
-		// contact1.setCommonLabelList(cl1);
-		// contact2.setCommonLabelList(cl2);
-		// contact3.setCommonLabelList(cl3);
-		contact1.setGroupList(cl1);
-		contact2.setGroupList(cl2);
-		contact3.setGroupList(cl3);
-
-		contact1.setISN(1);
-		contact2.setISN(2);
-		contact3.setISN(3);
-
-		// db.delUser(user);
-
-		// db.newUser(user);
-		// db.newContact("sa", contact1);
-		// db.newContact("sa", contact2);
-		// db.newContact("sa", contact3);
-		//
-		// try {
-		// db.close();
-		// } catch (SQLException e) {
-		// // TODO Auto-generated catch block
-		// e.printStackTrace();
-		// }
 		System.out.println("Finish initing of DataPool!");
 	}
 

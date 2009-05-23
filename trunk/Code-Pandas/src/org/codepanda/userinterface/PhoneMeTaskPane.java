@@ -1,5 +1,6 @@
 package org.codepanda.userinterface;
 
+import java.awt.Dimension;
 import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -70,7 +71,7 @@ public class PhoneMeTaskPane extends JXTaskPaneContainer implements
 			ContactOperations myContact = DataPool.getInstance()
 					.getAllContactISNMap().get(iSN);
 			String name = myContact.getContactName();
-			if (name == null)
+			if (name == null || name.length() == 0)
 				name = "N/A";
 
 			parentFrame.getMyPhoneMeMajorPanel().addNewTab(
@@ -115,6 +116,7 @@ public class PhoneMeTaskPane extends JXTaskPaneContainer implements
 
 			while (newIt.hasNext()) {
 				ContactOperations c = allContactISN.get(newIt.next());
+				System.out.println(c.getContactName());
 				contact = new DefaultMutableTreeNode(new TreeNodeItem(c
 						.getContactName(), c.getISN()));
 				group.add(contact);
@@ -164,138 +166,144 @@ public class PhoneMeTaskPane extends JXTaskPaneContainer implements
 	 */
 	public void updateGroupList(int updateISN) {
 		// TODO Auto-generated method stub
+		this.remove(contactListTaskPane);
 		configureContactList();
-//		ContactOperations p = DataPool.getInstance().getAllContactISNMap().get(
-//				updateISN);
-//
-//		if (p == null) {
-//			// 删除联系人之后的更新
-//			System.out.println("DELETE");
-//			deleteISNNode(updateISN);
-//		} else {
-//			// 修改/新建 联系人之后的更新
-//			System.out.println("UPDATE");
-//			updateNodes(p);
-//		}
-
-		// model.insertNodeInto(cNode, pNode, 0);
 	}
 
-	/**
-	 * @param p
-	 */
-	private void updateNodes(ContactOperations p) {
-		DefaultMutableTreeNode root = (DefaultMutableTreeNode) this.contactListTree
-				.getModel().getRoot();
-		DefaultTreeModel model = (DefaultTreeModel) this.contactListTree
-				.getModel();
-		visitAndUpdateAllNodes(root, model, p);
-		// TODO update
-		//model.nodeStructureChanged(root);
-	}
+	// ContactOperations p = DataPool.getInstance().getAllContactISNMap().get(
+	// updateISN);
+	//
+	// if (p == null) {
+	// // 删除联系人之后的更新
+	// System.out.println("DELETE");
+	// deleteISNNode(updateISN);
+	// } else {
+	// // 修改/新建 联系人之后的更新
+	// System.out.println("UPDATE");
+	// updateNodes(p);
+	// }
 
-	/**
-	 * @param node
-	 * @param model
-	 * @param p
-	 */
-	private boolean visitAndUpdateAllNodes(DefaultMutableTreeNode node,
-			DefaultTreeModel model, ContactOperations p) {
-		// TODO Auto-generated method stub
-		boolean hasFindISN = false;
-		Object nodeInfo = ((DefaultMutableTreeNode) node).getUserObject();
+	// model.insertNodeInto(cNode, pNode, 0);
 
-		System.out.println("UPDATE CON++" + p.getContactName());
-
-		for (Enumeration e = node.children(); e.hasMoreElements();) {
-			DefaultMutableTreeNode n = (DefaultMutableTreeNode) e.nextElement();
-			Object nInfo = ((DefaultMutableTreeNode) n).getUserObject();
-
-			System.out.println("UPDATE NODE++" + nInfo.toString());
-
-			if (!n.isLeaf()) {
-				System.out.println("NOT LEAF++" + nInfo.toString());
-				if (visitAndUpdateAllNodes(n, model, p) == false) {
-					// 原来没有，可能需要新加
-					if (nInfo instanceof String) {
-						// 可能的新加节点处理
-						String groupName = (String) nInfo;
-						System.out.println("CURRENT GROUP+++" + groupName);
-
-						for (String str : p.getGroupList()) {
-							System.out.println("GET NAME+++" + str);
-							if (str.equals(groupName)) {
-								System.out.println("ADD TO GROUP+++" + groupName);
-								model.insertNodeInto(
-										new DefaultMutableTreeNode(
-												new TreeNodeItem(p
-														.getContactName(), p
-														.getISN())), node, node
-												.getChildCount());
-								break;
-							}
-						}
-					}
-				}
-			} else if (nInfo instanceof TreeNodeItem
-					&& ((TreeNodeItem) nInfo).iSN == p.getISN()) {
-				// 原来的节点处理
-				hasFindISN = true;
-
-				boolean isStillInList = false;
-				String groupName = (String) nodeInfo;
-				for (String str : p.getGroupList()) {
-					if (str.equals(groupName)) {
-						isStillInList = true;
-						((TreeNodeItem) nInfo).name = p.getContactName();
-					}
-				}
-
-				if (isStillInList == false) {
-					System.out.println("Remove++" + n.toString());
-					model.removeNodeFromParent(n);
-				}
-			}
-
-		}
-		return hasFindISN;
-
-	}
-
-	/**
-	 * @param deleteISN
-	 */
-	private void deleteISNNode(int deleteISN) {
-		DefaultMutableTreeNode root = (DefaultMutableTreeNode) this.contactListTree
-				.getModel().getRoot();
-		DefaultTreeModel model = (DefaultTreeModel) this.contactListTree
-				.getModel();
-		visitAndDeleteAllNodes(root, model, deleteISN);
-	}
-
-	/**
-	 * @param node
-	 * @param model
-	 * @param deleteISN
-	 */
-	private void visitAndDeleteAllNodes(DefaultMutableTreeNode node,
-			DefaultTreeModel model, int deleteISN) {
-		Object nodeInfo = ((DefaultMutableTreeNode) node).getUserObject();
-
-		if (node.isLeaf() && nodeInfo instanceof TreeNodeItem) {
-			if (((TreeNodeItem) nodeInfo).iSN == deleteISN) {
-				model.removeNodeFromParent(node);
-			}
-		} else {
-
-			for (Enumeration e = node.children(); e.hasMoreElements();) {
-				DefaultMutableTreeNode n = (DefaultMutableTreeNode) e
-						.nextElement();
-				visitAndDeleteAllNodes(n, model, deleteISN);
-			}
-
-		}
-
-	}
+	// /**
+	// * @param p
+	// */
+	// private void updateNodes(ContactOperations p) {
+	// DefaultMutableTreeNode root = (DefaultMutableTreeNode)
+	// this.contactListTree
+	// .getModel().getRoot();
+	// DefaultTreeModel model = (DefaultTreeModel) this.contactListTree
+	// .getModel();
+	// visitAndUpdateAllNodes(root, model, p);
+	// // TODO update
+	// // model.nodeStructureChanged(root);
+	// }
+	//
+	// /**
+	// * @param node
+	// * @param model
+	// * @param p
+	// */
+	// private boolean visitAndUpdateAllNodes(DefaultMutableTreeNode node,
+	// DefaultTreeModel model, ContactOperations p) {
+	// // TODO Auto-generated method stub
+	// boolean hasFindISN = false;
+	// Object nodeInfo = ((DefaultMutableTreeNode) node).getUserObject();
+	//
+	// System.out.println("UPDATE CON++" + p.getContactName());
+	//
+	// for (Enumeration e = node.children(); e.hasMoreElements();) {
+	// DefaultMutableTreeNode n = (DefaultMutableTreeNode) e.nextElement();
+	// Object nInfo = ((DefaultMutableTreeNode) n).getUserObject();
+	//
+	// System.out.println("UPDATE NODE++" + nInfo.toString());
+	//
+	// if (nInfo instanceof TreeNodeItem
+	// && ((TreeNodeItem) nInfo).iSN == p.getISN()) {
+	// // 原来的节点处理
+	// hasFindISN = true;
+	//
+	// boolean isStillInList = false;
+	// String groupName = (String) nodeInfo;
+	// for (String str : p.getGroupList()) {
+	// if (str.equals(groupName)) {
+	// isStillInList = true;
+	// ((TreeNodeItem) nInfo).name = p.getContactName();
+	// }
+	// }
+	//
+	// if (isStillInList == false) {
+	// System.out.println("Remove++" + n.toString());
+	// model.removeNodeFromParent(n);
+	// // model.nodesWereRemoved(node, childIndices,
+	// // removedChildren)
+	// }
+	// } else if (n.isLeaf()
+	// || visitAndUpdateAllNodes(n, model, p) == false) {
+	// // 原来没有，可能需要新加
+	// if (nInfo instanceof String) {
+	// // 可能的新加节点处理
+	// String groupName = (String) nInfo;
+	// System.out.println("CURRENT GROUP+++" + groupName);
+	//
+	// for (String str : p.getGroupList()) {
+	// System.out.println("GET NAME+++" + str);
+	// if (str.equals(groupName)) {
+	// System.out.println("ADD TO GROUP+++" + groupName);
+	//
+	// DefaultMutableTreeNode temp = new DefaultMutableTreeNode(
+	// new TreeNodeItem(p.getContactName(), p
+	// .getISN()));
+	//
+	// model.insertNodeInto(temp, node, node
+	// .getChildCount());
+	// int[] t = new int[] { node.getChildCount() - 1 };
+	//
+	// model.nodesWereInserted(node, t);
+	// break;
+	// }
+	// }
+	// }
+	// }
+	// }
+	// return hasFindISN;
+	// }
+	//
+	// /**
+	// * @param deleteISN
+	// */
+	// private void deleteISNNode(int deleteISN) {
+	// DefaultMutableTreeNode root = (DefaultMutableTreeNode)
+	// this.contactListTree
+	// .getModel().getRoot();
+	// DefaultTreeModel model = (DefaultTreeModel) this.contactListTree
+	// .getModel();
+	// visitAndDeleteAllNodes(root, model, deleteISN);
+	// }
+	//
+	// /**
+	// * @param node
+	// * @param model
+	// * @param deleteISN
+	// */
+	// private void visitAndDeleteAllNodes(DefaultMutableTreeNode node,
+	// DefaultTreeModel model, int deleteISN) {
+	// Object nodeInfo = ((DefaultMutableTreeNode) node).getUserObject();
+	//
+	// if (node.isLeaf() && nodeInfo instanceof TreeNodeItem) {
+	// if (((TreeNodeItem) nodeInfo).iSN == deleteISN) {
+	// model.removeNodeFromParent(node);
+	// }
+	// } else {
+	//
+	// for (Enumeration e = node.children(); e.hasMoreElements();) {
+	// DefaultMutableTreeNode n = (DefaultMutableTreeNode) e
+	// .nextElement();
+	// visitAndDeleteAllNodes(n, model, deleteISN);
+	// }
+	//
+	// }
+	//
+	// }
 
 }
