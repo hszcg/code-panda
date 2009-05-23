@@ -11,7 +11,9 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.Vector;
+import java.util.Map.Entry;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
@@ -27,6 +29,7 @@ import org.codepanda.userinterface.xml.MyXMLMaker;
 import org.codepanda.utility.contact.ContactOperations;
 import org.codepanda.utility.data.DataPool;
 import org.codepanda.utility.data.PhoneMeConstants;
+import org.codepanda.utility.group.ContactGroup;
 import org.codepanda.utility.label.RelationLabel;
 
 import org.jdesktop.swingx.JXDatePicker;
@@ -142,12 +145,12 @@ public class ContactInfoPanel extends JXPanel {
 	private JButton editRelationLabelListButton;
 	private JButton deleteRelationLabelListButton;
 	
-	//for relation label
+	//TODO for relation label
 	private ArrayList<RelationLabel> localRelationLabelList;
 	private HashMap<String, ArrayList<Integer>> relationLabelList;
 	private HashMap<String, ArrayList<String>> relationLabelNameList;
-	private HashSet<Integer> allISN;
-	private Vector<String> allContactName;
+	private ArrayList<Integer> allISN;
+	private ArrayList<String> allContactName;
 
 	private JButton confirmButton;
 	private JButton cancelButton;
@@ -660,7 +663,7 @@ public class ContactInfoPanel extends JXPanel {
 			}
 		});
 		selectGroupBox = new JComboBox((String[]) PhoneMeConstants
-				.getInstance().getAllRelationLabelName().toArray(new String[0]));
+				.getInstance().getAllGroupList().toArray(new String[0]));
 
 		this.myButtonList.add(addGroupListButton);
 		this.myButtonList.add(editGroupListButton);
@@ -680,11 +683,73 @@ public class ContactInfoPanel extends JXPanel {
 		selectRelationLabelBox = new JComboBox((String[]) 
 				PhoneMeConstants.getInstance()
 				.getAllRelationLabelName().toArray(new String[0]));
-		selectRelationContactBox = new JComboBox();
+		getContactNameAndISNInformation();
+		selectRelationContactBox = new JComboBox((String[]) 
+				allContactName.toArray(new String[0]));
 		relationLabelListBox.setPreferredSize(new Dimension(100, 20));
 		objectContactListBox.setPreferredSize(new Dimension(100, 20));
 		addRelationLabelListButton = new JButton("Ìí¼Ó");
-		editRelationLabelListButton = new JButton("±à¼­");
+		addRelationLabelListButton.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				int selectIndex = selectRelationContactBox.getSelectedIndex();
+				Integer addISN = allISN.get(selectIndex);
+				boolean contain = false;
+				int labelIndex;
+				for(labelIndex = 0;labelIndex < relationLabelListBox.getItemCount();
+				labelIndex ++){
+					if(relationLabelListBox.getItemAt(labelIndex).
+							toString().equals
+							(selectRelationContactBox.getSelectedItem().toString())){
+						contain = true;
+						break;
+					}
+				}
+				if(contain){
+					relationLabelListBox.setSelectedIndex(labelIndex);
+					// TODO update second combobox
+					objectContactListBox.addItem
+					(selectRelationContactBox.getSelectedItem());
+					objectContactListBox.setSelectedIndex
+					(objectContactListBox.getItemCount()-1);
+					relationLabelList.get
+					(selectRelationLabelBox.getSelectedItem().toString()).add
+					(allISN.get(selectRelationContactBox.getSelectedIndex()));
+					relationLabelNameList.get
+					(selectRelationLabelBox.getSelectedItem().toString()).add
+					(selectRelationContactBox.getSelectedItem().toString());
+					
+				}
+				else{
+					relationLabelListBox.addItem
+					(selectRelationLabelBox.getSelectedItem());
+					relationLabelListBox.setSelectedIndex
+					(relationLabelListBox.getItemCount()-1);
+					objectContactListBox.addItem
+					(selectRelationContactBox.getSelectedItem());
+					objectContactListBox.setSelectedIndex
+					(objectContactListBox.getItemCount()-1);
+					ArrayList<Integer> tempIntegerList = 
+						new ArrayList<Integer>();
+					tempIntegerList.add
+					(new Integer
+							(selectRelationContactBox.getSelectedIndex()));
+					relationLabelList.put
+					(selectRelationLabelBox.getSelectedItem().toString(), 
+							tempIntegerList);
+					
+					ArrayList<String> tempStringList = 
+						new ArrayList<String>();
+					tempStringList.add
+					((selectRelationContactBox.getSelectedItem()).toString());
+					relationLabelNameList.put
+					(selectRelationLabelBox.getSelectedItem().toString(), 
+							tempStringList);
+				}
+				
+			}
+		});
+		//editRelationLabelListButton = new JButton("±à¼­");
 		deleteRelationLabelListButton = new JButton("É¾³ý");
 		localRelationLabelList = new ArrayList<RelationLabel>();
 
@@ -768,6 +833,19 @@ public class ContactInfoPanel extends JXPanel {
 		mainPanel.add(downbuilder.getPanel(), "South");
 	}
 
+	public void getContactNameAndISNInformation(){
+		allISN = new ArrayList<Integer>();
+		allContactName = new ArrayList<String>();
+		Iterator<Entry<Integer, ContactOperations>> it = DataPool.
+		getInstance().getAllContactISNMap().entrySet().iterator();
+		while(it.hasNext()){
+			Entry<Integer, ContactOperations> entry = 
+				(Entry<Integer, ContactOperations>) it.next();
+			allISN.add(entry.getKey());
+			allContactName.add(entry.getValue().getContactName());
+		}
+	}
+	
 	/**
 	 * @return
 	 */
@@ -857,6 +935,8 @@ public class ContactInfoPanel extends JXPanel {
 			p.setVisible(isEditable);
 		}
 		selectGroupBox.setVisible(isEditable);
+		selectRelationLabelBox.setVisible(isEditable);
+		selectRelationContactBox.setVisible(isEditable);
 	}
 
 	/**
