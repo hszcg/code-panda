@@ -15,6 +15,7 @@ import org.codepanda.application.xml.ContactXML;
 import org.codepanda.application.xml.DeleteContactXML;
 import org.codepanda.application.xml.ExportContactXML;
 import org.codepanda.application.xml.SearchContactXML;
+import org.codepanda.application.xml.StatContactXML;
 import org.codepanda.utility.contact.ContactData;
 import org.codepanda.utility.contact.ContactOperations;
 import org.codepanda.utility.contact.PersonalContact;
@@ -99,6 +100,14 @@ public class ContactActorFactory extends CommandActorFactory {
 			 exportContactActor.setType(type);
 			 exportContactActor.setPath(path);
 			 return exportContactActor;
+		 }
+		 //进行联系人的生日统计
+		 if(commandType==CommandType.STAT_CONTACT)
+		 {
+			 StatContactActor statContactActor=new StatContactActor();
+			 StatContactXML statContactXML=new StatContactXML();
+			 statContactActor.setStatInfo(commandDetail);
+			 return statContactActor;
 		 }
 		return null;
 	}
