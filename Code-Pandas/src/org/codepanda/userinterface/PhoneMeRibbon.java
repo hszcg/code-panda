@@ -18,6 +18,7 @@ import javax.swing.filechooser.FileFilter;
 import org.codepanda.application.CommandType;
 import org.codepanda.application.CommandVisitor;
 import org.codepanda.userinterface.messagehandler.DeleteContactMessageHandler;
+import org.codepanda.userinterface.messagehandler.ExportContactMessageHandler;
 import org.codepanda.userinterface.utility.ExtensionFileFilter;
 import org.codepanda.userinterface.xml.MyXMLMaker;
 import org.codepanda.utility.contact.ContactOperations;
@@ -365,11 +366,21 @@ public class PhoneMeRibbon {
 					tempMessage.append(MyXMLMaker.addTag("Type", "xls"));
 				
 				tempMessage.append(MyXMLMaker.addTag("Url", url.toString()));
-				String finalMessage = new String();
-				finalMessage = MyXMLMaker.addTag
+				
+				String xml = MyXMLMaker.addTag
 				("ExportContact", tempMessage.toString());
-				finalMessage = MyXMLMaker.addTag
-				("com", finalMessage);
+				xml = MyXMLMaker.addTag
+				("com", xml);
+				
+				System.out.println("EXPORT_CONTACT\n" + xml);
+
+				CommandVisitor exportContactCommandVisitor = new CommandVisitor(
+						CommandType.DELETE_CONTACT, xml);
+				ExportContactMessageHandler exportContactMessageHandler = new ExportContactMessageHandler();
+				exportContactMessageHandler
+						.executeCommand(exportContactCommandVisitor);
+
+				// TODO After Export
 			}
 		});
 
