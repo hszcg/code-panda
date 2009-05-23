@@ -856,6 +856,8 @@ public class ContactInfoPanel extends JXPanel {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				// makeMainMessageXML
+				if(nameField.getText().trim().length() == 0)
+					return;
 				if (myContact == null) {
 					// 新建联系人
 					String xml = makeMainMessageXML().toString();
