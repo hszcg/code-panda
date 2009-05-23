@@ -22,67 +22,48 @@
 	<classpathentry kind="lib" path="lib-jar/Filters.jar"/>
 	<classpathentry kind="lib" path="lib-jar/prefuse.jar"/>
 	<classpathentry kind="lib" path="lib-jar/jxl.jar"/>
-	<classpathentry kind="lib" path="D:/javawork/four pandas/lib-jar/gdata-contacts-meta-2.0.jar"/>
-	<classpathentry kind="lib" path="D:/javawork/four pandas/lib-jar/gdata-contacts-2.0.jar"/>
-	<classpathentry kind="lib" path="D:/javawork/four pandas/lib-jar/smtp.jar"/>
-	<classpathentry kind="lib" path="D:/javawork/four pandas/lib-jar/pop3.jar"/>
-	<classpathentry kind="lib" path="D:/javawork/four pandas/lib-jar/mailapi.jar"/>
-	<classpathentry kind="lib" path="D:/javawork/four pandas/lib-jar/imap.jar"/>
-	<classpathentry kind="lib" path="D:/javawork/four pandas/lib-jar/dsn.jar"/>
-	<classpathentry kind="lib" path="D:/javawork/four pandas/lib-jar/mail.jar"/>
-	<classpathentry kind="lib" path="D:/javawork/four pandas/lib-jar/activation.jar"/>
-	<classpathentry kind="lib" path="D:/javawork/four pandas/lib-jar/gdata-webmastertools-meta-2.0.jar"/>
-	<classpathentry kind="lib" path="D:/javawork/four pandas/lib-jar/gdata-webmastertools-2.0.jar"/>
-	<classpathentry kind="lib" path="D:/javawork/four pandas/lib-jar/gdata-client-meta-1.0.jar"/>
-	<classpathentry kind="lib" path="D:/javawork/four pandas/lib-jar/gdata-client-1.0.jar"/>
-	<classpathentry kind="lib" path="D:/javawork/four pandas/lib-jar/gdata-calendar-meta-2.0.jar"/>
-	<classpathentry kind="lib" path="D:/javawork/four pandas/lib-jar/gdata-calendar-2.0.jar"/>
-	<classpathentry kind="lib" path="D:/javawork/four pandas/lib-jar/gdata-base-1.0.jar"/>
-	<classpathentry kind="lib" path="D:/javawork/four pandas/lib-jar/jxl.jar"/>
-	<classpathentry kind="lib" path="D:/javawork/four pandas/lib-jar/swingx-beaninfo-0.9.7.jar"/>
-	<classpathentry kind="lib" path="D:/javawork/four pandas/lib-jar/swingx-0.9.7.jar"/>
-	<classpathentry kind="lib" path="D:/javawork/four pandas/lib-jar/swing-worker.jar"/>
-	<classpathentry kind="lib" path="D:/javawork/four pandas/lib-jar/swing-layout.jar"/>
-	<classpathentry kind="lib" path="D:/javawork/four pandas/lib-jar/substance-swingx.jar"/>
-	<classpathentry kind="lib" path="D:/javawork/four pandas/lib-jar/substance-flamingo.jar"/>
-	<classpathentry kind="lib" path="D:/javawork/four pandas/lib-jar/substance-extras.jar"/>
-	<classpathentry kind="lib" path="D:/javawork/four pandas/lib-jar/substance.jar"/>
-	<classpathentry kind="lib" path="D:/javawork/four pandas/lib-jar/servlet.jar"/>
-	<classpathentry kind="lib" path="D:/javawork/four pandas/lib-jar/prefuse.jar"/>
-	<classpathentry kind="lib" path="D:/javawork/four pandas/lib-jar/MultipleGradientPaint.jar"/>
-	<classpathentry kind="lib" path="D:/javawork/four pandas/lib-jar/junit-4.5.jar"/>
-	<classpathentry kind="lib" path="D:/javawork/four pandas/lib-jar/jmock-1.1.0RC1.jar"/>
-	<classpathentry kind="lib" path="D:/javawork/four pandas/lib-jar/hsqldb.jar"/>
-	<classpathentry kind="lib" path="D:/javawork/four pandas/lib-jar/forms-1.2.1.jar"/>
-	<classpathentry kind="lib" path="D:/javawork/four pandas/lib-jar/flamingo.jar"/>
-	<classpathentry kind="lib" path="D:/javawork/four pandas/lib-jar/Filters.jar"/>
-	<classpathentry kind="lib" path="D:/javawork/four pandas/lib-jar/gdata-youtube-2.0.jar"/>
-	<classpathentry kind="lib" path="D:/javawork/four pandas/lib-jar/gdata-youtube-meta-2.0.jar"/>
-	<classpathentry kind="lib" path="D:/javawork/four pandas/lib-jar/gdata-photos-1.0.jar"/>
-	<classpathentry kind="lib" path="D:/javawork/four pandas/lib-jar/gdata-photos-meta-1.0.jar"/>
-	<classpathentry kind="lib" path="D:/javawork/four pandas/lib-jar/gdata-maps-2.0.jar"/>
-	<classpathentry kind="lib" path="D:/javawork/four pandas/lib-jar/gdata-maps-meta-2.0.jar"/>
-	<classpathentry kind="lib" path="D:/javawork/four pandas/lib-jar/gdata-health-meta-2.0.jar"/>
-	<classpathentry kind="lib" path="D:/javawork/four pandas/lib-jar/gdata-health-2.0.jar"/>
-	<classpathentry kind="lib" path="D:/javawork/four pandas/lib-jar/gdata-finance-2.0.jar"/>
-	<classpathentry kind="lib" path="D:/javawork/four pandas/lib-jar/gdata-finance-meta-2.0.jar"/>
-	<classpathentry kind="lib" path="D:/javawork/four pandas/lib-jar/gdata-docs-meta-2.0.jar"/>
-	<classpathentry kind="lib" path="D:/javawork/four pandas/lib-jar/gdata-docs-2.0.jar"/>
-	<classpathentry kind="lib" path="D:/javawork/four pandas/lib-jar/gdata-spreadsheet-2.0.jar"/>
-	<classpathentry kind="lib" path="D:/javawork/four pandas/lib-jar/gdata-spreadsheet-meta-2.0.jar"/>
-	<classpathentry kind="lib" path="D:/javawork/four pandas/lib-jar/gdata-codesearch-meta-2.0.jar"/>
-	<classpathentry kind="lib" path="D:/javawork/four pandas/lib-jar/gdata-codesearch-2.0.jar"/>
-	<classpathentry kind="lib" path="D:/javawork/four pandas/lib-jar/gdata-books-meta-1.0.jar"/>
-	<classpathentry kind="lib" path="D:/javawork/four pandas/lib-jar/gdata-books-1.0.jar"/>
-	<classpathentry kind="lib" path="D:/javawork/four pandas/lib-jar/gdata-blogger-meta-2.0.jar"/>
-	<classpathentry kind="lib" path="D:/javawork/four pandas/lib-jar/gdata-blogger-2.0.jar"/>
-	<classpathentry kind="lib" path="D:/javawork/four pandas/lib-jar/gdata-analytics-meta-1.0.jar"/>
-	<classpathentry kind="lib" path="D:/javawork/four pandas/lib-jar/gdata-analytics-1.0.jar"/>
-	<classpathentry kind="lib" path="D:/javawork/four pandas/lib-jar/gdata-appsforyourdomain-1.0.jar"/>
-	<classpathentry kind="lib" path="D:/javawork/four pandas/lib-jar/gdata-appsforyourdomain-meta-1.0.jar"/>
-	<classpathentry kind="lib" path="D:/javawork/four pandas/lib-jar/gdata-media-1.0.jar"/>
-	<classpathentry kind="lib" path="D:/javawork/four pandas/lib-jar/gdata-core-1.0.jar"/>
-	<classpathentry kind="lib" path="D:/javawork/four pandas/lib-jar/jsr305.jar"/>
-	<classpathentry kind="lib" path="D:/javawork/four pandas/lib-jar/google-collect-1.0-rc1.jar"/>
+	<classpathentry kind="lib" path="lib-jar/activation.jar"/>
+	<classpathentry kind="lib" path="lib-jar/dsn.jar"/>
+	<classpathentry kind="lib" path="lib-jar/gdata-analytics-1.0.jar"/>
+	<classpathentry kind="lib" path="lib-jar/gdata-analytics-meta-1.0.jar"/>
+	<classpathentry kind="lib" path="lib-jar/gdata-appsforyourdomain-1.0.jar"/>
+	<classpathentry kind="lib" path="lib-jar/gdata-appsforyourdomain-meta-1.0.jar"/>
+	<classpathentry kind="lib" path="lib-jar/gdata-base-1.0.jar"/>
+	<classpathentry kind="lib" path="lib-jar/gdata-blogger-2.0.jar"/>
+	<classpathentry kind="lib" path="lib-jar/gdata-blogger-meta-2.0.jar"/>
+	<classpathentry kind="lib" path="lib-jar/gdata-books-1.0.jar"/>
+	<classpathentry kind="lib" path="lib-jar/gdata-books-meta-1.0.jar"/>
+	<classpathentry kind="lib" path="lib-jar/gdata-calendar-2.0.jar"/>
+	<classpathentry kind="lib" path="lib-jar/gdata-calendar-meta-2.0.jar"/>
+	<classpathentry kind="lib" path="lib-jar/gdata-client-1.0.jar"/>
+	<classpathentry kind="lib" path="lib-jar/gdata-client-meta-1.0.jar"/>
+	<classpathentry kind="lib" path="lib-jar/gdata-codesearch-2.0.jar"/>
+	<classpathentry kind="lib" path="lib-jar/gdata-codesearch-meta-2.0.jar"/>
+	<classpathentry kind="lib" path="lib-jar/gdata-contacts-2.0.jar"/>
+	<classpathentry kind="lib" path="lib-jar/gdata-contacts-meta-2.0.jar"/>
+	<classpathentry kind="lib" path="lib-jar/gdata-core-1.0.jar"/>
+	<classpathentry kind="lib" path="lib-jar/gdata-docs-2.0.jar"/>
+	<classpathentry kind="lib" path="lib-jar/gdata-docs-meta-2.0.jar"/>
+	<classpathentry kind="lib" path="lib-jar/gdata-finance-2.0.jar"/>
+	<classpathentry kind="lib" path="lib-jar/gdata-finance-meta-2.0.jar"/>
+	<classpathentry kind="lib" path="lib-jar/gdata-health-2.0.jar"/>
+	<classpathentry kind="lib" path="lib-jar/gdata-health-meta-2.0.jar"/>
+	<classpathentry kind="lib" path="lib-jar/gdata-maps-2.0.jar"/>
+	<classpathentry kind="lib" path="lib-jar/gdata-maps-meta-2.0.jar"/>
+	<classpathentry kind="lib" path="lib-jar/gdata-media-1.0.jar"/>
+	<classpathentry kind="lib" path="lib-jar/gdata-photos-1.0.jar"/>
+	<classpathentry kind="lib" path="lib-jar/gdata-photos-meta-1.0.jar"/>
+	<classpathentry kind="lib" path="lib-jar/gdata-spreadsheet-2.0.jar"/>
+	<classpathentry kind="lib" path="lib-jar/gdata-spreadsheet-meta-2.0.jar"/>
+	<classpathentry kind="lib" path="lib-jar/gdata-webmastertools-2.0.jar"/>
+	<classpathentry kind="lib" path="lib-jar/gdata-webmastertools-meta-2.0.jar"/>
+	<classpathentry kind="lib" path="lib-jar/gdata-youtube-2.0.jar"/>
+	<classpathentry kind="lib" path="lib-jar/gdata-youtube-meta-2.0.jar"/>
+	<classpathentry kind="lib" path="lib-jar/imap.jar"/>
+	<classpathentry kind="lib" path="lib-jar/jsr305.jar"/>
+	<classpathentry kind="lib" path="lib-jar/mail.jar"/>
+	<classpathentry kind="lib" path="lib-jar/mailapi.jar"/>
+	<classpathentry kind="lib" path="lib-jar/pop3.jar"/>
+	<classpathentry kind="lib" path="lib-jar/smtp.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
