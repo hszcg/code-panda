@@ -59,12 +59,13 @@ public class SearchResult {
 
 		JPanel resultPanel = new JPanel();
 
-		GridLayout layout = new GridLayout();
-		int rows = (int) Math.sqrt(myISNList.size()) / 5;
-		if( rows == 0 )
-			layout.setColumns(myISNList.size());
+		GridLayout layout = null;
+		if( myISNList.size() < 5 )
+			layout = new GridLayout(1, myISNList.size());
 		else
-			layout.setColumns(5);
+			layout = new GridLayout((int) Math.ceil( myISNList.size()/5.0), 5);
+		
+		System.out.println("ALL DATA:"+myISNList.size());
 		
 		layout.setHgap(5);
 		layout.setVgap(5);
