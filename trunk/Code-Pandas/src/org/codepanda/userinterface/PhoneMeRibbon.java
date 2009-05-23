@@ -181,6 +181,8 @@ public class PhoneMeRibbon {
 						DeleteContactMessageHandler deleteContactMessageHandler = new DeleteContactMessageHandler();
 						deleteContactMessageHandler
 								.executeCommand(deleteContactCommandVisitor);
+						
+						mainFrame.updateTaskPane(p.getISN());
 						mainFrame.getMyPhoneMeMajorPanel().closeTab(currentTab);
 					}
 				}

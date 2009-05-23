@@ -224,4 +224,11 @@ public class PhoneMeFrame extends JRibbonFrame {
 			System.exit(-1);
 		}
 	}
+	
+	/**
+	 * 
+	 */
+	public void updateTaskPane(int updateISN){
+		this.myPhoneMeTaskPane.updateGroupList(updateISN);
+	}
 }

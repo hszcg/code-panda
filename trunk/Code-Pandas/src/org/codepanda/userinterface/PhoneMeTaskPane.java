@@ -155,7 +155,11 @@ public class PhoneMeTaskPane extends JXTaskPaneContainer implements
 	 * 
 	 */
 	public void initializeData() {
-		// TODO
 		configureContactList();
+	}
+
+	public void updateGroupList(int updateISN) {
+		// TODO Auto-generated method stub
+		
 	}
 }
