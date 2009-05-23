@@ -57,25 +57,39 @@ public class DeleteContactXML {
 				System.out.println("Wrong Function!!!");
 			}
 
-			DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
-			DocumentBuilder db = dbf.newDocumentBuilder();
-			Document document = db.parse(new InputSource(new StringReader(
-					commandDetail)));
-			// System.out.println("File Path"+document.getDocumentURI());
-			Element root = document.getDocumentElement();
-			Node node = root.getFirstChild();
-			String str = node.getNodeName();
-			if (str.equalsIgnoreCase("ISN")) {
-				String value = node.getTextContent();
-				 tempISN=Integer.parseInt(value);
-				System.out.println("Value____"+value);
-				System.out.println("Temp___"+tempISN);
-				return tempISN;
-			}
-			
+			DocumentBuilderFactory dbf=DocumentBuilderFactory.newInstance();
+			DocumentBuilder db=dbf.newDocumentBuilder();
+			Document document=db.parse(new InputSource(new StringReader(commandDetail)));
+			//System.out.println("File Path"+document.getDocumentURI());
+			Element root=document.getDocumentElement();
+			return DeleteContactIterator(root);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+		System.out.println("Wrong Format!!!");
+		return Integer.MIN_VALUE;
+	}
+	public int DeleteContactIterator(Element element)
+	{
+		NodeList nodelist=element.getChildNodes();
+//		System.out.println(element.getNodeName());
+		for(int i=0;i<nodelist.getLength();i++)
+		{
+			
+			Node node=nodelist.item(i);
+			String str=node.getNodeName();
+				if(str.equalsIgnoreCase("ISN"))
+				{
+				//System.out.println(i);
+					String value=node.getTextContent();
+					int tempISN=Integer.parseInt(value);
+					return tempISN;
+				}
+			if(node instanceof Element)
+			{
+				return DeleteContactIterator((Element)node);
+			}
+	}
 		return Integer.MIN_VALUE;
 	}
 }
