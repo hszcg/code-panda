@@ -89,6 +89,9 @@ public class PhoneMeRibbon {
 			public void actionPerformed(ActionEvent e) {
 				System.out.println("É¾³ýÓÃ»§");
 				// TODO delete current user
+				
+				PhoneMeCorfirmDialog deleteUserDialog = 
+					new PhoneMeCorfirmDialog(mainFrame);
 			}
 		});
 
