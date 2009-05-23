@@ -10,6 +10,8 @@ import javax.imageio.ImageIO;
 import javax.swing.*;
 import javax.swing.plaf.FontUIResource;
 
+import org.codepanda.application.export.CsvExport;
+import org.codepanda.application.export.CsvImport;
 import org.codepanda.utility.data.DataPool;
 import org.jvnet.flamingo.ribbon.*;
 import org.jvnet.substance.SubstanceLookAndFeel;
@@ -195,6 +197,16 @@ public class PhoneMeFrame extends JRibbonFrame {
 	public void initializeData() {
 		this.myPhoneMeTaskPane.initializeData();
 		this.myPhoneMeMajorPanel.initializeData();
+		
+		//test of CSV export and import
+		CsvExport ce = new CsvExport();
+		ce.convert("abc.csv");
+		
+		CsvImport ci = new CsvImport();
+		ci.convert("abc.csv");
+		
+		CsvExport cee = new CsvExport();
+		cee.convert("cba.csv");
 	}
 
 	/**
