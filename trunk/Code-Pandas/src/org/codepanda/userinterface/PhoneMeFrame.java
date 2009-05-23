@@ -206,6 +206,10 @@ public class PhoneMeFrame extends JRibbonFrame {
 		return myPhoneMeStatusBar;
 	}
 	
+	/**
+	 * 退出程序的相关处理函数
+	 * 
+	 */
 	public void exitProgram(){
 		try {
 			DataPool.getInstance().getDb().close();

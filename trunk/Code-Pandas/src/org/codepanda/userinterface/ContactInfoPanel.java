@@ -38,6 +38,7 @@ public class ContactInfoPanel extends JXPanel {
 	private static final long serialVersionUID = 7578999178358931661L;
 	public static final int USER_INFO_PANEL = 1;
 	public static final int CONTACT_INFO_PANEL = 2;
+	private int localPanelType;
 
 	private PhoneMeFrame parentFrame;
 	private JDialog parentDialog;
@@ -150,6 +151,7 @@ public class ContactInfoPanel extends JXPanel {
 		this.parentDialog = null;
 		this.isEditable = true;
 		this.myContact = null;
+		localPanelType = panelType;
 		this.myButtonList = new ArrayList<JButton>();
 		this.myTextFieldList = new ArrayList<JTextField>();
 		setUpperPanel();
@@ -181,6 +183,7 @@ public class ContactInfoPanel extends JXPanel {
 		this.parentFrame = null;
 		this.parentDialog = parenetDialog;
 		this.myContact = null;
+		localPanelType = panelType;
 		this.isEditable = true;
 		this.myButtonList = new ArrayList<JButton>();
 		this.myTextFieldList = new ArrayList<JTextField>();
@@ -790,7 +793,7 @@ public class ContactInfoPanel extends JXPanel {
 	public StringBuffer makeMainMessageXML() {
 		StringBuffer message = new StringBuffer();
 		message.append(MyXMLMaker.addTag("ContactName", nameField.getText()));
-		if (myContact != null)
+		if (myContact != null && localPanelType == CONTACT_INFO_PANEL)
 			message.append(MyXMLMaker.addTag("ISN", myContact.getISN()
 					.toString()));
 		for (int index = 0; index < phoneNumberBox.getItemCount(); index++) {
