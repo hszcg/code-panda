@@ -198,15 +198,24 @@ public class PhoneMeFrame extends JRibbonFrame {
 		this.myPhoneMeTaskPane.initializeData();
 		this.myPhoneMeMajorPanel.initializeData();
 		
-		//test of CSV export and import
-	/*	CsvExport ce = new CsvExport();
-		ce.convert("abc.csv");
-		
-		//CsvImport ci = new CsvImport();
-		//ci.convert("abc.csv");
-		
-		CsvExport cee = new CsvExport();
-		cee.convert("cba.csv");*/
+//		//test of CSV export and import
+//	/*	CsvExport ce = new CsvExport();
+//		ce.convert("D:\\javawork\\four pandas\\abc.csv");
+//		
+//<<<<<<< .mine
+////		CsvImport ci = new CsvImport();
+////		ci.convert("D:\\javawork\\four pandas\\abc.csv");
+//=======
+//		//CsvImport ci = new CsvImport();
+//		//ci.convert("abc.csv");
+//>>>>>>> .r291
+//		
+//		CsvExport cee = new CsvExport();
+//<<<<<<< .mine
+//		cee.convert("D:\\javawork\\four pandas\\cba.csv");
+//=======
+//		cee.convert("cba.csv");*/
+//>>>>>>> .r291
 	}
 
 	/**
