@@ -52,17 +52,6 @@ public class ContactActorFactory extends CommandActorFactory {
 			 editContactActor.setContact(currentContact);
 			 return  editContactActor;
 		 }
-		 //导出联系人
-		 if(commandType==CommandType.IMPORT_CONTACT)
-		 {
-			 ImportContactActor importContactActor=new  ImportContactActor();
-			 currentContact=new PersonalContact();
-			 ContactXML myContactXML = new ContactXML();
-			 myContactXML.contactParserXML(currentContact, "<ImportContact>",
-						"</ImportContact>", commandDetail);
-			 importContactActor.setContact(currentContact);
-			 return  importContactActor;
-		 }
 		 //删除联系人
 		 if(commandType==CommandType.DELETE_CONTACT)
 		 {
@@ -91,14 +80,22 @@ public class ContactActorFactory extends CommandActorFactory {
 		 //进行联系人的导出
 		 if(commandType==CommandType.EXPORT_CONTACT)
 		 {
-			 String type=null;
-			 String path=null;
+			 String result;
 			 ExportContactActor exportContactActor=new ExportContactActor();
 			 ExportContactXML exportContactXML=new ExportContactXML();
-			 exportContactXML.ContactParserXML(type,path,"<ExportContact>", "</ExportContact>", commandDetail);
-			 exportContactActor.setType(type);
-			 exportContactActor.setPath(path);
+			 result=exportContactXML.ContactParserXML("<ExportContact>", "</ExportContact>", commandDetail);
+			 exportContactActor.setallStr(result);
 			 return exportContactActor;
+		 }
+		 //进行联系人的导入
+		 if(commandType==CommandType.IMPORT_CONTACT)
+		 {
+			 String result;
+			 ImportContactActor importContactActor=new ImportContactActor();
+			 ExportContactXML exportContactXML=new ExportContactXML();
+			 result=exportContactXML.ContactParserXML("<ImportContact>", "</ImportContact>", commandDetail);
+			 importContactActor.setallStr(result);
+			 return importContactActor;
 		 }
 		 //进行联系人的生日统计
 		 if(commandType==CommandType.STAT_CONTACT)

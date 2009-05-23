@@ -7,9 +7,14 @@ import org.codepanda.application.export.XlsConvert;
 
 public class ExportContactActor implements CommandActor {
 
-	
+	private String allStr;
 	private String type;
 	private String path;
+	public String temp[]=new String[2];
+	public void parser(String c)
+	{
+		temp=c.split("--");
+	}
 	public Object executeCommand() 
 	{
 		if(this.getType().equals("csv"))
@@ -26,7 +31,8 @@ public class ExportContactActor implements CommandActor {
 	}
 	public void setType(String type)
 	{
-		this.type=type;
+		parser(allStr);
+		this.type=temp[0];
 	}
 	public String getType()
 	{
@@ -34,10 +40,20 @@ public class ExportContactActor implements CommandActor {
 	}
 	public void setPath(String Path)
 	{
-		this.path=Path;
+		parser(allStr);
+		this.path=temp[1];
 	}
 	public String getPath()
 	{
 		return this.path;
 	}
+	public void setallStr(String str)
+	{
+		this.allStr=str;
+	}
+	public String getallStr()
+	{
+		return this.allStr;
+	}
 }
+
