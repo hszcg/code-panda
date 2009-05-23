@@ -72,7 +72,7 @@ public class SearchContactXML {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		return false;
+		return goFlag;
 	}
 
 	public boolean SearchContactIterator(ContactOperations contactData,
@@ -97,14 +97,19 @@ public class SearchContactXML {
 				if (str.equalsIgnoreCase("ContactName")) {
 					String value = node.getTextContent();
 					System.out.println("SearchText____" + value);
-					if (contactData.getContactName().contains(value)) {
+					System.out.println("Name____"+contactData.getContactName());
+					if (contactData.getContactName().indexOf(value)!=-1) {
 						goFlag = true;
 						System.out.println("BlurSearch___MM"
 								+ contactData.getContactName() + "MMMMMMMM"
 								+ value);
 						System.out.println(goFlag);
+						return true;
 						// return true;
 					} else {
+						System.out.println("Pos____"+contactData.getContactName().indexOf(value));
+						System.out.println("Error Here!!!");
+						goFlag=false;
 						return false;
 					}
 				} else if (str.equalsIgnoreCase("Telephone")) {
@@ -113,6 +118,7 @@ public class SearchContactXML {
 						if (contactData.getPhoneNumberList().get(j).contains(
 								value)) {
 							goFlag = true;
+							
 							break;
 						} else {
 							goFlag = false;
@@ -241,6 +247,7 @@ public class SearchContactXML {
 					}
 				}
 			}
+			return goFlag;
 		}
 		if (!blur) {
 			// ¾«È·ËÑË÷
