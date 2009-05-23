@@ -6,7 +6,7 @@ package org.codepanda.utility.data;
  */
 public enum ContactSectionType {
 	CONTACT_NAME, PHONE_NUMBER, //
-	EMAIL_ADDR, HOME_ADDR, WORK_ADDR, //
-	IM_ADDR, BIRTHDAY, WEB_URL, //
+	EMAIL_ADDR, HOME_ADDR, WORK_OFFICE, //
+	IM, BIRTHDAY, WEB_URL, //
 	COMMON_LABEL, GROUP_LABEL, RELATION_LABEL; //
 }
