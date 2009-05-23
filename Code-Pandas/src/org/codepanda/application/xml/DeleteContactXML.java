@@ -31,7 +31,7 @@ public class DeleteContactXML {
 	 * @param commandDetail
 	 * @return
 	 */
-	public void DeleteConXML(PersonalContact currentContact, String match1,
+	public void DeleteConXML(int currentISN, String match1,
 			String match2, String commandDetail) {
 		// 从commandDetail中解析出用户信息
 		try {
@@ -67,7 +67,7 @@ public class DeleteContactXML {
 			if (str.equalsIgnoreCase("ISN")) {
 				String value = node.getTextContent();
 				Integer tempISN=Integer.parseInt(value);
-				currentContact.setISN(tempISN);
+				currentISN=tempISN;
 			}
 		} catch (Exception e) {
 			e.printStackTrace();

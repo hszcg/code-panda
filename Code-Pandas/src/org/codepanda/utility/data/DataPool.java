@@ -361,6 +361,8 @@ public class DataPool {
 		}
 		// 对所有的hashMap进行维护
 		allContactISNMap.remove(ISN);
+		//System.out.println()
+	//	System.out.println("Here----"+this.getAllContactISNMap().get(ISN).getContactName());
 		allContactNameMultimap.remove(this.getAllContactISNMap().get(ISN)
 				.getContactName(), ISN);
 		for (String groupName : getAllContactISNMap().get(ISN).getGroupList()) {
