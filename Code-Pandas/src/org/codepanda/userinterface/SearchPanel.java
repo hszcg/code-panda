@@ -4,6 +4,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.HashSet;
 
 import javax.swing.ButtonGroup;
 import javax.swing.JButton;
@@ -101,7 +102,10 @@ public class SearchPanel extends JPanel {
 		commonLabelField = new JTextField();
 		builder.add(commonLabelField, cc.xy(5, 11));
 		builder.addLabel("所属分组", cc.xy(7, 11));
-		groupBox = new JComboBox();
+		groupBox = new JComboBox((String[]) PhoneMeConstants.getInstance()
+				.getAllRelationLabelName().toArray(new String[0]));
+		groupBox.insertItemAt("(任意)", 0);
+		groupBox.setSelectedIndex(0);
 		builder.add(groupBox, cc.xy(9, 11));
 
 		builder.addLabel("关系标签", cc.xy(3, 13));
@@ -186,11 +190,11 @@ public class SearchPanel extends JPanel {
 			message.append(MyXMLMaker.addTag("CommonLabel", commonLabelField
 					.getText()));
 
-		/*if (!groupBox.getSelectedItem().toString().equals("(任意)"))
+		if (!groupBox.getSelectedItem().toString().equals("(任意)"))
 			message.append(MyXMLMaker.addTag("Group", groupBox
 					.getSelectedItem().toString()));
 
-		if (!relationBox.getSelectedItem().toString().equals("(任意)")
+		/*if (!relationBox.getSelectedItem().toString().equals("(任意)")
 				&& contactBox.getSelectedItem().toString().equals("(任意)")) {
 			StringBuffer relation = new StringBuffer();
 			relation.append(MyXMLMaker.addTag("LabelName", relationBox
