@@ -10,6 +10,8 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Vector;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
@@ -134,12 +136,18 @@ public class ContactInfoPanel extends JXPanel {
 	// 联系人关系标签
 	private JComboBox relationLabelListBox;
 	private JComboBox objectContactListBox;
+	private JComboBox selectRelationLabelBox;
+	private JComboBox selectRelationContactBox;
 	private JButton addRelationLabelListButton;
 	private JButton editRelationLabelListButton;
 	private JButton deleteRelationLabelListButton;
+	
+	//for relation label
 	private ArrayList<RelationLabel> localRelationLabelList;
 	private HashMap<String, ArrayList<Integer>> relationLabelList;
 	private HashMap<String, ArrayList<String>> relationLabelNameList;
+	private HashSet<Integer> allISN;
+	private Vector<String> allContactName;
 
 	private JButton confirmButton;
 	private JButton cancelButton;
@@ -607,7 +615,8 @@ public class ContactInfoPanel extends JXPanel {
 		downbuilder.add(commonLabelField, downcc.xy(13, 3));
 
 		// 联系人所属分组
-		groupListBox = new JComboBox();
+		groupListBox = new JComboBox((String[]) PhoneMeConstants.getInstance()
+				.getAllGroupList().toArray(new String[0]));
 		addGroupListButton = new JButton("添加");
 		addGroupListButton.addActionListener(new ActionListener() {
 			@Override
@@ -665,8 +674,13 @@ public class ContactInfoPanel extends JXPanel {
 		downbuilder.add(selectGroupBox, downcc.xy(13, 5));
 
 		// 关系标签
+		// TODO add and delete
 		relationLabelListBox = new JComboBox();
 		objectContactListBox = new JComboBox();
+		selectRelationLabelBox = new JComboBox((String[]) 
+				PhoneMeConstants.getInstance()
+				.getAllRelationLabelName().toArray(new String[0]));
+		selectRelationContactBox = new JComboBox();
 		relationLabelListBox.setPreferredSize(new Dimension(100, 20));
 		objectContactListBox.setPreferredSize(new Dimension(100, 20));
 		addRelationLabelListButton = new JButton("添加");
@@ -683,6 +697,8 @@ public class ContactInfoPanel extends JXPanel {
 		downbuilder.add(objectContactListBox, downcc.xy(5, 7));
 		downbuilder.add(addRelationLabelListButton, downcc.xy(7, 7));
 		downbuilder.add(deleteRelationLabelListButton, downcc.xy(9, 7));
+		downbuilder.add(selectRelationLabelBox, downcc.xy(11, 7));
+		downbuilder.add(selectRelationContactBox, downcc.xy(13, 7));
 
 		confirmButton = new JButton("确认");
 		confirmButton.addActionListener(new ActionListener() {
@@ -953,11 +969,53 @@ public class ContactInfoPanel extends JXPanel {
 					(String[]) (myContact.getPhoneNumberList())
 							.toArray(new String[0])));
 		}
+		
+		if(myContact.getEmailAddresseList() != null) {
+			emailAddressBox.setModel(new DefaultComboBoxModel(
+					(String[]) (myContact.getEmailAddresseList())
+							.toArray(new String[0])));
+		}
+		
+		// TODO set contact Information
+		if(myContact.getContactAddressList() != null){
+			contactAddressBox.setModel(new DefaultComboBoxModel(
+					(String[]) (myContact.getContactAddressList())
+							.toArray(new String[0])));
+		}
+		
+		if(myContact.getWorkingDepartmentList() != null){
+			workingDepartmentBox.setModel(new DefaultComboBoxModel(
+					(String[]) (myContact.getWorkingDepartmentList())
+					.toArray(new String[0])));
+		}
+		
+		if(myContact.getImContactInformationList() != null){
+			imContactInformationBox.setModel(new DefaultComboBoxModel(
+					(String[]) (myContact.getImContactInformationList())
+					.toArray(new String[0])));
+		}
+		
+		if(myContact.getContactBirthday() != null){
+			contactBirthdayField.setText
+			(myContact.getContactBirthday());
+		}
+		
+		if(myContact.getUrlList() != null){
+			urlListBox.setModel(new DefaultComboBoxModel(
+					(String[]) (myContact.getUrlList())
+					.toArray(new String[0])));
+		}
+		
+		if(myContact.getCommonLabelList() != null){
+			commonLabelListBox.setModel(new DefaultComboBoxModel(
+					(String[]) (myContact.getCommonLabelList())
+					.toArray(new String[0])));
+		}
 
 		if (myContact.getGroupList() != null) {
 			groupListBox.setModel(new DefaultComboBoxModel(
 					(String[]) (myContact.getGroupList())
-							.toArray(new String[0])));
+					.toArray(new String[0])));
 		}
 
 		localRelationLabelList = myContact.getRelationLabelList();
