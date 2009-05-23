@@ -18,6 +18,8 @@ public class ImportContactActor implements CommandActor {
 	}
 	public Object executeCommand() 
 	{
+		this.setType(temp[0]);
+		this.setPath(temp[1]);
 		if(this.getType().equals("csv"))
 		{
 			CsvImport csvConvertor=new CsvImport();
