@@ -4,13 +4,10 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
-import java.awt.image.DataBufferByte;
-import java.awt.image.MemoryImageSource;
 import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Date;
 import java.util.HashMap;
 
@@ -60,10 +57,12 @@ public class ContactInfoPanel extends JXPanel {
 	private JPanel upperLeftPanel;
 	private JPanel mainPanel;
 
-	// 图片部分
+	// 联系人头像部分
 	private JLabel headImageLabel;
 	private JButton editHeadImageButton;
 	private JButton deleteHeadImageButton;
+	private String newImageURL;
+	private String currentImagetURL;
 
 	// 联系人姓名部分
 	private JTextField nameField;
@@ -162,6 +161,9 @@ public class ContactInfoPanel extends JXPanel {
 		localPanelType = panelType;
 		this.myButtonList = new ArrayList<JButton>();
 		this.myTextFieldList = new ArrayList<JTextField>();
+		newImageURL = PhoneMeConstants.DEFAULT_IMAGE_URL;
+		currentImagetURL = PhoneMeConstants.DEFAULT_IMAGE_URL;
+
 		setUpperPanel();
 		setLayout(new BorderLayout());
 		add(upperPanel, "North");
@@ -169,6 +171,8 @@ public class ContactInfoPanel extends JXPanel {
 		add(mainPanel, "Center");
 
 		this.setMyContact(myContact);
+
+		setContactHeadImage(currentImagetURL);
 
 		if (isEditable == false) {
 			this.setEditable(isEditable);
@@ -195,6 +199,9 @@ public class ContactInfoPanel extends JXPanel {
 		this.isEditable = true;
 		this.myButtonList = new ArrayList<JButton>();
 		this.myTextFieldList = new ArrayList<JTextField>();
+		newImageURL = PhoneMeConstants.DEFAULT_IMAGE_URL;
+		currentImagetURL = PhoneMeConstants.DEFAULT_IMAGE_URL;
+
 		setUpperPanel();
 		setLayout(new BorderLayout());
 		add(upperPanel, "North");
@@ -202,6 +209,8 @@ public class ContactInfoPanel extends JXPanel {
 		add(mainPanel, "Center");
 
 		this.setMyContact(myContact);
+
+		setContactHeadImage(currentImagetURL);
 
 		if (isEditable == false) {
 			this.setEditable(isEditable);
@@ -311,7 +320,6 @@ public class ContactInfoPanel extends JXPanel {
 		// CellConstraints leftcc = new CellConstraints();
 
 		headImageLabel = new JLabel();// 联系人图片
-		this.setContactHeadImage("/userpic/user1.jpg");
 		headImageLabel.setPreferredSize(new Dimension(130, 115));
 		headImageLabel.setBorder(new SoftBevelBorder(BevelBorder.RAISED));
 		editHeadImageButton = new JButton("编辑");
@@ -776,7 +784,7 @@ public class ContactInfoPanel extends JXPanel {
 	/**
 	 * @param pic
 	 */
-	public void setContactHeadImage(BufferedImage pic) {
+	private void setContactHeadImage(BufferedImage pic) {
 		if (pic == null)
 			return;
 
@@ -796,6 +804,7 @@ public class ContactInfoPanel extends JXPanel {
 		try {
 			this.setContactHeadImage(ImageIO.read(this.getClass().getResource(
 					url)));
+			this.newImageURL = url;
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -805,11 +814,9 @@ public class ContactInfoPanel extends JXPanel {
 	 * 
 	 */
 	public void deleteContactHeadImage() {
-		try {
-			this.setContactHeadImage(ImageIO.read(this.getClass().getResource(
-					"/icon/Logo Square.png")));
-		} catch (IOException e) {
-			e.printStackTrace();
+		if (this.newImageURL != null) {
+			this.setContactHeadImage(PhoneMeConstants.DEFAULT_IMAGE_URL);
+			this.newImageURL = null;
 		}
 	}
 
@@ -918,6 +925,11 @@ public class ContactInfoPanel extends JXPanel {
 				.toArray(new String[0]))));
 
 		// set Contact Information
+		if (myContact.getHeadImage() != null) {
+
+		} else {
+
+		}
 
 		if (myContact.getContactName() != null) {
 			/*
