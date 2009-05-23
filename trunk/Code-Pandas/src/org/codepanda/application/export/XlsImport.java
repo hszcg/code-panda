@@ -12,7 +12,7 @@ import org.codepanda.utility.data.DataPool;
 public class XlsImport {
 	public void convert(String url){
 		try {
-			InputStream is = new FileInputStream("url");
+			InputStream is = new FileInputStream(url);
 			Workbook workbook = Workbook.getWorkbook(is);
 			Sheet sheet = workbook.getSheet(0); 
 			
@@ -147,6 +147,7 @@ public class XlsImport {
 						// TODO Relation Label import
 					}
 				}
+				DataPool.getInstance().newContact(pc);
 			}
 			
 			workbook.close();
