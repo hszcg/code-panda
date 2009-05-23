@@ -52,19 +52,19 @@ public class DataPool {
 			
 			
 			
-			// my test of file lock
-				//	File   theFile   =   new   File("test.script");  
-				theFile   =   new   File("test.script");
-				//    RandomAccessFile   raf=new   RandomAccessFile(theFile,"rw");  
-				raf=new   RandomAccessFile(theFile,"rw");
-				//	System.in.read();			//锁住程序，真实程序中不需要
-				//    FileChannel   fc   =   raf.getChannel();  
-				fc   =   raf.getChannel();
-				//     FileLock   fl   =   fc.tryLock();
-				fl   =   fc.tryLock();
-				//		fl.release();
-				//		raf.close();
-			// end of my file lock
+//			// my test of file lock
+//				//	File   theFile   =   new   File("test.script");  
+//				theFile   =   new   File("test.script");
+//				//    RandomAccessFile   raf=new   RandomAccessFile(theFile,"rw");  
+//				raf=new   RandomAccessFile(theFile,"rw");
+//				//	System.in.read();			//锁住程序，真实程序中不需要
+//				//    FileChannel   fc   =   raf.getChannel();  
+//				fc   =   raf.getChannel();
+//				//     FileLock   fl   =   fc.tryLock();
+//				fl   =   fc.tryLock();
+//				//		fl.release();
+//				//		raf.close();
+//			// end of my file lock
 			
 			
 			
