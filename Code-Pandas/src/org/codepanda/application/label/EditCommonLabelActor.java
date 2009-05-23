@@ -6,13 +6,14 @@ import org.codepanda.utility.label.CommonLabel;
 
 public class EditCommonLabelActor implements CommandActor {
 private CommonLabel commonLabel;
+private String strInfo;
 public static final int NULL_LABEL = -1;
 public static final int FAILED = -2;
 public static final int SUCCEED = 0;
 	@Override
 	public Object executeCommand() {
 		// TODO TODO!!!
-		
+		DataPool.getInstance().editCommandLabel(getInfo());
 //		if(this.getLabel()==null)
 //		{
 //			System.out.println("Edit Label Null!!!");
@@ -34,5 +35,12 @@ public static final int SUCCEED = 0;
 	{
 		return this.commonLabel;
 	}
-
+	public void setInfo(String str)
+	{
+		this.strInfo=str;
+	}
+	public String getInfo()
+	{
+		return this.strInfo;
+	}
 }

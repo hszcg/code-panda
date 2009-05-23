@@ -388,7 +388,20 @@ public class DataPool {
 		}
 		return 0;
 	}
-
+	public int editCommandLabel(String paramStr)
+	{
+		String temp[]=paramStr.split("--");
+		if(this.getAllCommonLabelDataMap().containsKey(temp[1]))
+		{
+			//需要调用数据库函数，实现真正的修改
+			
+			ContactGroup contactGroup=this.getAllCommonLabelDataMap().get(temp[1]);
+			this.getAllCommonLabelDataMap().remove(temp[1]);
+			this.getAllCommonLabelDataMap().put(temp[2], contactGroup);
+		}
+		return 0;
+		
+	}
 	public void setDb(DatabaseManagerFacade db) {
 		this.db = db;
 	}
