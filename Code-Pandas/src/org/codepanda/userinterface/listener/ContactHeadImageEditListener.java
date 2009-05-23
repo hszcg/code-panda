@@ -4,6 +4,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
 
+import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
 import javax.swing.filechooser.FileFilter;
@@ -46,11 +47,9 @@ public class ContactHeadImageEditListener implements ActionListener {
 
 		File selectedFile = playerHeadChooser.getSelectedFile();
 		try {
-			ImageIcon selectedImageIcon = new ImageIcon(selectedFile.toURI()
-					.toURL());
-
 			myContactInfoPanel
-					.setContactHeadImage(selectedImageIcon.getImage());
+					.setContactHeadImage(ImageIO.read(selectedFile.toURI()
+							.toURL()));
 		} catch (Exception error) {
 			error.printStackTrace();
 		}
