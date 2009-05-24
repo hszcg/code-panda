@@ -49,7 +49,7 @@ public class ContactInfoPanel extends JXPanel {
 	// All the buttons
 	private ArrayList<JButton> myButtonList;
 	// All the textfields
-	private ArrayList<JTextField> myTextFieldList;
+	private ArrayList<PhoneMeField> myTextFieldList;
 
 	//
 	private JPanel upperPanel;
@@ -166,7 +166,7 @@ public class ContactInfoPanel extends JXPanel {
 		this.myContact = null;
 		localPanelType = panelType;
 		this.myButtonList = new ArrayList<JButton>();
-		this.myTextFieldList = new ArrayList<JTextField>();
+		this.myTextFieldList = new ArrayList<PhoneMeField>();
 
 		setUpperPanel();
 		setLayout(new BorderLayout());
@@ -178,10 +178,18 @@ public class ContactInfoPanel extends JXPanel {
 
 		if (isEditable == false) {
 			this.setEditable(isEditable);
-		} else {
+		} 
+		else {
 			if (panelType == USER_INFO_PANEL) {
 				confirmButton.setVisible(false);
 				cancelButton.setVisible(false);
+			}
+		}
+		
+		if(myContact == null){
+			for(int i=0; i<myTextFieldList.size();i++){
+				myTextFieldList.get(i).setVisible(true);
+				myTextFieldList.get(i).setState(PhoneMeField.ADD_STATE);
 			}
 		}
 	}
@@ -200,7 +208,7 @@ public class ContactInfoPanel extends JXPanel {
 		localPanelType = panelType;
 		this.isEditable = true;
 		this.myButtonList = new ArrayList<JButton>();
-		this.myTextFieldList = new ArrayList<JTextField>();
+		this.myTextFieldList = new ArrayList<PhoneMeField>();
 
 		setUpperPanel();
 		setLayout(new BorderLayout());
@@ -239,8 +247,8 @@ public class ContactInfoPanel extends JXPanel {
 		});
 		this.myButtonList.add(nameEditButton);
 
-		String temp[] = { "010-51534419", "13810013188", "029-85367800" };
-		phoneNumberBox = new JComboBox(temp);
+		//String temp[] = { "010-51534419", "13810013188", "029-85367800" };
+		phoneNumberBox = new JComboBox();
 		addPhoneNumberButton = new JButton("添加");
 		/*
 		 * addPhoneNumberButton.addActionListener(new ActionListener() {
@@ -379,12 +387,12 @@ public class ContactInfoPanel extends JXPanel {
 
 		CellConstraints cc = new CellConstraints();
 
-		String temp[] = { "中华人民共和国北京市海淀区清华大学紫荆公寓1#419B" };
+		//String temp[] = { "中华人民共和国北京市海淀区清华大学紫荆公寓1#419B" };
 
 		builder.addSeparator("个人信息", cc.xyw(1, 1, 9));
 		builder.addLabel("                     				", cc.xy(11, 1));
 		// e-mail
-		emailAddressBox = new JComboBox(temp);
+		emailAddressBox = new JComboBox();
 		addEmailAddressButton = new JButton("添加");
 		editEmailAddressButton = new JButton("编辑");
 		deleteEmailAddressButton = new JButton("删除");
@@ -807,13 +815,20 @@ public class ContactInfoPanel extends JXPanel {
 				if(tempContactList.size() == 0){
 					System.out.println("no in");
 					relationLabelList.remove(deleteLabel);
+					System.out.println("final test");
+					System.out.println(relationLabelList);
 					relationLabelNameList.remove(deleteLabel);
+					System.out.println("final test2");
+					System.out.println(relationLabelNameList);
 					getComboBox = true;
 					relationLabelListBox.removeItem(deleteLabel);
 					getComboBox = false;
 					// TODO update two boxes
 					objectContactListBox.removeItem
 					(objectContactListBox.getSelectedItem());
+					if(relationLabelListBox.getItemCount() != 0)
+						setDestContactBox
+						(relationLabelListBox.getSelectedItem().toString());
 					return;
 				}
 				relationLabelNameList.put(deleteLabel, tempContactList);
@@ -823,6 +838,7 @@ public class ContactInfoPanel extends JXPanel {
 				int ISNIndex = 0;
 				for(ISNIndex = 0;ISNIndex<tempISNList.size();ISNIndex++){
 					System.out.println("in loop second");
+					System.out.println(ISNIndex);
 					System.out.println(DataPool.getInstance().
 					getAllContactISNMap());
 					System.out.println(DataPool.getInstance().
@@ -832,10 +848,13 @@ public class ContactInfoPanel extends JXPanel {
 					getAllContactISNMap().
 					get(tempISNList.get(ISNIndex)).
 					getContactName().equals
-					(selectRelationContactBox.getSelectedItem().toString())){
+					(objectContactListBox.getSelectedItem().toString())){
 						break;
 					}
 				}
+				System.out.println("out loop second");
+				System.out.println(ISNIndex);
+				System.out.println(tempISNList.size());
 				tempISNList.remove(ISNIndex);
 				relationLabelList.put(deleteLabel, tempISNList);
 				objectContactListBox.removeItem
@@ -843,6 +862,9 @@ public class ContactInfoPanel extends JXPanel {
 				System.out.println("delete result");
 				System.out.println(relationLabelList.toString());
 				System.out.println(relationLabelNameList.toString());
+				if(relationLabelListBox.getItemCount() != 0)
+					setDestContactBox
+					(relationLabelListBox.getSelectedItem().toString());
 			}
 		});
 		localRelationLabelList = new ArrayList<RelationLabel>();
