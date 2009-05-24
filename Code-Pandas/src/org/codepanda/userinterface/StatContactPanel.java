@@ -212,9 +212,11 @@ public class StatContactPanel extends JPanel implements ActionListener{
 				message.append(MyXMLMaker.addTag("Birthday", 
 						birthdayDateFormat.format(endBirthdayField.getDate())));
 				}
-			String xml = MyXMLMaker.addTag("com", message.toString());
-			xml = MyXMLMaker.addTag("StatContact", xml);
+			String xml = MyXMLMaker.addTag("StatContact", message.toString());
+			xml = MyXMLMaker.addTag("com", xml);
 			
+			System.out.println("birthday xml");
+			System.out.println(xml);
 //			TODO stat by birthday
 			CommandVisitor statContactCommandVisitor = new CommandVisitor(
 					CommandType.STAT_CONTACT, xml);

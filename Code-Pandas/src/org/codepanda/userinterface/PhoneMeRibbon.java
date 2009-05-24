@@ -544,7 +544,7 @@ public class PhoneMeRibbon {
 		contactSyncBand.addCommandButton(googleContactButton,
 				RibbonElementPriority.MEDIUM);
 
-		JCommandButton bluetoothContactButton = new JCommandButton("与手机蓝牙同步",
+		/*JCommandButton bluetoothContactButton = new JCommandButton("与手机蓝牙同步",
 				ImageWrapperResizableIcon.getIcon(ImageIO.read(this.getClass()
 						.getResource("/icon/plateIcon/computer network.png")),
 						new Dimension(32, 32)));
@@ -556,7 +556,7 @@ public class PhoneMeRibbon {
 		});
 
 		contactSyncBand.addCommandButton(bluetoothContactButton,
-				RibbonElementPriority.MEDIUM);
+				RibbonElementPriority.MEDIUM);*/
 
 		return contactSyncBand;
 	}
