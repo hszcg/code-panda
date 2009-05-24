@@ -57,9 +57,6 @@ public class BirthdayRemindPanel extends JPanel implements ActionListener{
 		setLayout(new BorderLayout());
 		add(builder.getPanel(), "North");
 		
-		System.out.println(getDate(new Date(), 0, PREV_DAY));
-		System.out.println(getDate(new Date(), 7, PREV_DAY));
-		System.out.println(getDate(new Date(), 7, POST_DAY));
 	}
 	
 	public String getDate(Date d,int day, int type){
@@ -98,7 +95,25 @@ public class BirthdayRemindPanel extends JPanel implements ActionListener{
 							getMainPanel(), "Center");
 		}
 		if(e.getSource() == postWeek){
+			StringBuffer message = new StringBuffer();
+			message.append(MyXMLMaker.addTag("StartBirthday", 
+					getDate(new Date(), 0, POST_DAY)));
+			message.append(MyXMLMaker.addTag("EndBirthday", 
+					getDate(new Date(), 7, POST_DAY)));
+			String xml = MyXMLMaker.addTag("StatContact", message.toString());
+			xml = MyXMLMaker.addTag("com", xml);
 			
+			CommandVisitor statContactCommandVisitor = new CommandVisitor(
+					CommandType.STAT_CONTACT, xml);
+			StatContactMessageHandler statContactMessageHandler =
+				new StatContactMessageHandler();
+			resultContactList = (ArrayList<Integer>) statContactMessageHandler
+			.executeCommand(statContactCommandVisitor);
+			
+			add(new SearchResult
+					(localFrame, resultContactList, 
+							ContactSectionType.BIRTHDAY).
+							getMainPanel(), "Center");
 		}
 	}
 
