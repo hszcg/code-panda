@@ -381,14 +381,23 @@ public class DataPool {
 		//0对应的应该是空
 		for(int i=1;i<temp.length;i++)
 		{
+		
 			//TODO 需要调用数据库的函数，调用其接口即可
 			if(this.getAllCommonLabelDataMap().containsKey(temp[i]))
 			{
+				
+				ContactGroup contactGroup=this.getAllCommonLabelDataMap().get(temp[1]);
 				this.getAllCommonLabelDataMap().remove(temp[i]);
-				//for(int i=0;i<this.getAllCommonLabelDataMap().get(temp[i]).size();i++)
-				//{
-					//this.getDb().e
-				//}
+				for(Integer inte : contactGroup.getGroupMembers())
+				{
+					if(this.getAllContactISNMap().containsKey(inte))
+					{
+						ArrayList<String> commandList=this.getAllContactISNMap().get(inte).getCommonLabelList();
+						commandList.remove(temp[i]);
+						this.getAllContactISNMap().get(inte).setCommonLabelList(commandList);
+					}
+				}
+			
 			}
 			
 			
