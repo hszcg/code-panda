@@ -15,6 +15,7 @@ import org.codepanda.application.CommandType;
 import org.codepanda.application.CommandVisitor;
 import org.codepanda.userinterface.messagehandler.StatContactMessageHandler;
 import org.codepanda.userinterface.xml.MyXMLMaker;
+import org.codepanda.utility.data.ContactSectionType;
 
 import com.jgoodies.forms.builder.PanelBuilder;
 import com.jgoodies.forms.layout.CellConstraints;
@@ -90,6 +91,11 @@ public class BirthdayRemindPanel extends JPanel implements ActionListener{
 				new StatContactMessageHandler();
 			resultContactList = (ArrayList<Integer>) statContactMessageHandler
 			.executeCommand(statContactCommandVisitor);
+			
+			add(new SearchResult
+					(localFrame, resultContactList, 
+							ContactSectionType.BIRTHDAY).
+							getMainPanel(), "Center");
 		}
 		if(e.getSource() == postWeek){
 			
