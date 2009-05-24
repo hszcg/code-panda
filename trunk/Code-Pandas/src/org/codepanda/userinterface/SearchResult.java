@@ -16,6 +16,7 @@ import javax.swing.border.BevelBorder;
 import javax.swing.border.SoftBevelBorder;
 
 import org.codepanda.utility.contact.ContactOperations;
+import org.codepanda.utility.data.ContactSectionType;
 import org.codepanda.utility.data.DataPool;
 
 public class SearchResult {
@@ -24,11 +25,11 @@ public class SearchResult {
 	private JScrollPane mainPanel;
 
 	public SearchResult(final PhoneMeFrame mainFrame,
-			final ArrayList<Integer> myISNList) {
+			final ArrayList<Integer> myISNList, ContactSectionType secondType) {
 		this.parentFrame = mainFrame;
 		this.myISNList = myISNList;
 
-		JPanel p = configureResultPanels();
+		JPanel p = configureResultPanels(secondType);
 		this.mainPanel = new JScrollPane(p,
 				JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED,
 				JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
@@ -37,7 +38,7 @@ public class SearchResult {
 	/**
 	 * 
 	 */
-	private JPanel configureResultPanels() {
+	private JPanel configureResultPanels(ContactSectionType secondType) {
 		JPanel content = new JPanel();
 		content.setLayout(new BorderLayout());
 
@@ -75,7 +76,7 @@ public class SearchResult {
 
 		for (int t : myISNList) {
 			resultPanel
-					.add(new SingleResultPanel(this.parentFrame, temp.get(t)));
+					.add(new SingleResultPanel(this.parentFrame, temp.get(t), secondType));
 		}
 
 		center.add(resultPanel);

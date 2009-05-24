@@ -20,6 +20,7 @@ import org.codepanda.application.CommandVisitor;
 import org.codepanda.userinterface.messagehandler.SearchContactMessageHandler;
 import org.codepanda.userinterface.xml.MyXMLMaker;
 import org.codepanda.utility.contact.ContactOperations;
+import org.codepanda.utility.data.ContactSectionType;
 import org.codepanda.utility.data.DataPool;
 import org.codepanda.utility.data.PhoneMeConstants;
 import org.jdesktop.swingx.JXDatePicker;
@@ -168,7 +169,7 @@ public class SearchPanel extends JPanel {
 						.executeCommand(searchContactCommandVisitor);
 				parentFrame.getMyPhoneMeMajorPanel().addNewTab(
 						"Search Result",
-						new SearchResult(parentFrame, resultContactList)
+						new SearchResult(parentFrame, resultContactList, ContactSectionType.PHONE_NUMBER)
 								.getMainPanel());
 			}
 		});
