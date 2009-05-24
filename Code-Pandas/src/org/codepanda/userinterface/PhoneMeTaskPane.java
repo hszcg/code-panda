@@ -1,6 +1,9 @@
 package org.codepanda.userinterface;
 
 import java.awt.Dimension;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -11,13 +14,17 @@ import javax.swing.*;
 import javax.swing.event.*;
 import javax.swing.tree.*;
 
+import org.codepanda.application.CommandType;
+import org.codepanda.application.CommandVisitor;
+import org.codepanda.userinterface.messagehandler.SearchContactMessageHandler;
+import org.codepanda.userinterface.xml.MyXMLMaker;
 import org.codepanda.utility.contact.ContactOperations;
 import org.codepanda.utility.data.DataPool;
 import org.codepanda.utility.group.ContactGroup;
 import org.jdesktop.swingx.*;
 
 public class PhoneMeTaskPane extends JXTaskPaneContainer implements
-		TreeSelectionListener {
+		TreeSelectionListener, ActionListener {
 
 	/**
 	 * 
@@ -40,6 +47,7 @@ public class PhoneMeTaskPane extends JXTaskPaneContainer implements
 		searchTaskPane.setTitle("°´ÐÕÃûËÑË÷    ");
 		searchField = new JTextField("");
 		searchTaskPane.add(searchField);
+		searchField.addActionListener(this);
 		this.add(searchTaskPane);
 	}
 
@@ -168,6 +176,28 @@ public class PhoneMeTaskPane extends JXTaskPaneContainer implements
 		// TODO Auto-generated method stub
 		this.remove(contactListTaskPane);
 		configureContactList();
+	}
+
+	@Override
+	public void actionPerformed(ActionEvent arg0) {
+		// TODO Auto-generated method stub
+		if(arg0.getSource() == searchField){
+		StringBuffer message = new StringBuffer();
+		message.append(MyXMLMaker.addTag("BlurSearch", "1"));
+		message.append(MyXMLMaker.addTag("ContactName", searchField.getText()));
+		String xml = message.toString();
+		xml = MyXMLMaker.addTag("SearchContact", xml);
+		xml = MyXMLMaker.addTag("com", xml);
+		CommandVisitor searchContactCommandVisitor = new CommandVisitor(
+				CommandType.SEARCH_CONTACT, xml);
+		SearchContactMessageHandler searchContactMessageHandler = new SearchContactMessageHandler();
+		ArrayList<Integer> resultContactList = (ArrayList<Integer>) searchContactMessageHandler
+				.executeCommand(searchContactCommandVisitor);
+		parentFrame.getMyPhoneMeMajorPanel().addNewTab(
+				"Search Name Result",
+				new SearchResult(parentFrame, resultContactList)
+						.getMainPanel());
+		}
 	}
 
 	// ContactOperations p = DataPool.getInstance().getAllContactISNMap().get(
