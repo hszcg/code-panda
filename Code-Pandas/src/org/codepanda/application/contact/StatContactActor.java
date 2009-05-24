@@ -27,6 +27,8 @@ public class StatContactActor implements CommandActor {
 		StatContactXML statContactXML = new StatContactXML();
 		for (ContactOperations t : DataPool.getInstance().getAllContactISNMap()
 				.values()) {
+			if(t.getContactBirthday().length()>0)
+			{
 		//	System.out.println("SearchInfo____"+SearchInfo);
 			System.out.println("DataPool----Name" + t.getContactName());
 			System.out.println("DataPool___Birthday"+t.getContactBirthday());
@@ -36,6 +38,7 @@ public class StatContactActor implements CommandActor {
 				ISNList.add(t.getISN());
 				System.out.println("OKContact____");
 				System.out.println("Name____"+t.getContactName());
+			}
 			}
 		}
 		System.out.println("SIZE_____"+ISNList.size());
