@@ -4,6 +4,7 @@ import java.awt.BorderLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.Vector;
 import java.util.Map.Entry;
@@ -13,6 +14,9 @@ import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
+import org.codepanda.application.CommandType;
+import org.codepanda.application.CommandVisitor;
+import org.codepanda.userinterface.messagehandler.SearchContactMessageHandler;
 import org.codepanda.userinterface.xml.MyXMLMaker;
 import org.codepanda.utility.contact.ContactOperations;
 import org.codepanda.utility.data.DataPool;
@@ -41,10 +45,12 @@ public class StatContactPanel extends JPanel implements ActionListener{
 	private JXDatePicker startBirthdayField;
 	private JXDatePicker endBirthdayField;
 	private static SimpleDateFormat birthdayDateFormat = new SimpleDateFormat(
-			"yyyy-MM-dd");
+	"yyyy-MM-dd");
 	private JButton birthdayConfirm;
 	private JLabel birthdayResult;
 	private JButton displayBirthday;
+	
+	private ArrayList<Integer> resultContactList;
 	
 	public StatContactPanel(final PhoneMeFrame mainFrame){
 		parentFrame = mainFrame;
@@ -74,6 +80,7 @@ public class StatContactPanel extends JPanel implements ActionListener{
 		
 		displayGroup = new JButton("显示相关联系人");
 		upperBuilder.add(displayGroup, upcc.xy(10, 4));
+		displayGroup.addActionListener(this);
 		
 		upperBuilder.addLabel("根据普通标签", upcc.xy(2, 6));
 		
@@ -96,6 +103,7 @@ public class StatContactPanel extends JPanel implements ActionListener{
 		
 		displaycommonLabel = new JButton("显示相关联系人");
 		upperBuilder.add(displaycommonLabel, upcc.xy(10, 6));
+		displaycommonLabel.addActionListener(this);
 		
 		setLayout(new BorderLayout());
 		add(upperBuilder.getPanel(), "North");
@@ -111,10 +119,12 @@ public class StatContactPanel extends JPanel implements ActionListener{
 		
 		builder.addLabel("起始生日", cc.xy(2, 4));
 		startBirthdayField = new JXDatePicker();
+		startBirthdayField.setFormats(birthdayDateFormat);
 		builder.add(startBirthdayField, cc.xy(4, 4));
 		
 		builder.addLabel("终止生日", cc.xy(6, 4));
 		endBirthdayField = new JXDatePicker();
+		endBirthdayField.setFormats(birthdayDateFormat);
 		builder.add(endBirthdayField, cc.xy(8, 4));
 		
 		birthdayConfirm = new JButton("开始统计");
@@ -144,10 +154,47 @@ public class StatContactPanel extends JPanel implements ActionListener{
 		if(e.getSource() == groupConfirm){
 			displayGroup.setVisible(true);
 			// TODO Stat
+			String xml = groupStat().toString();
+			xml = MyXMLMaker.addTag("SearchContact", xml);
+			xml = MyXMLMaker.addTag("com", xml);
+			System.out.println("SEARCH_CONTACT group in stat action\n" + xml);
+
+			CommandVisitor searchContactCommandVisitor = new CommandVisitor(
+					CommandType.SEARCH_CONTACT, xml);
+			SearchContactMessageHandler searchContactMessageHandler = new SearchContactMessageHandler();
+			resultContactList = (ArrayList<Integer>) searchContactMessageHandler
+					.executeCommand(searchContactCommandVisitor);
+			groupResult.setText("结果个数: "+resultContactList.size());
+		}
+		
+		if(e.getSource() == displayGroup){
+			parentFrame.getMyPhoneMeMajorPanel().addNewTab(
+					"Stat Result",
+					new SearchResult(parentFrame, resultContactList)
+							.getMainPanel());
 		}
 		
 		if(e.getSource() == commonLabelConfirm){
+			localSetVisible(false);
 			displaycommonLabel.setVisible(true);
+			String xml = commonLabelStat().toString();
+			xml = MyXMLMaker.addTag("SearchContact", xml);
+			xml = MyXMLMaker.addTag("com", xml);
+			System.out.println("SEARCH_CONTACT commonLabel in stat action\n" + xml);
+			
+			CommandVisitor searchContactCommandVisitor = new CommandVisitor(
+					CommandType.SEARCH_CONTACT, xml);
+			SearchContactMessageHandler searchContactMessageHandler = new SearchContactMessageHandler();
+			resultContactList = (ArrayList<Integer>) searchContactMessageHandler
+					.executeCommand(searchContactCommandVisitor);
+			commonLabelResult.setText("结果个数: "+resultContactList.size());
+		}
+		
+		if(e.getSource() == displaycommonLabel){
+			parentFrame.getMyPhoneMeMajorPanel().addNewTab(
+					"Stat Result",
+					new SearchResult(parentFrame, resultContactList)
+							.getMainPanel());
 		}
 		
 		if(e.getSource() == birthdayConfirm){
@@ -160,11 +207,27 @@ public class StatContactPanel extends JPanel implements ActionListener{
 				return;
 			
 			if(endBirthdayField.getDate() != null){
-				//		TOFO give and collect part
 				
 				message.append(MyXMLMaker.addTag("Birthday", 
 						birthdayDateFormat.format(endBirthdayField.getDate())));
 				}
+			String xml = MyXMLMaker.addTag("com", message.toString());
+			
+//			TODO stat by birthday
 		}
+	}
+	
+	public StringBuffer groupStat(){
+		StringBuffer message = new StringBuffer();
+		message.append(MyXMLMaker.addTag("Group", group
+				.getSelectedItem().toString()));
+		return message;
+	}
+	
+	public StringBuffer commonLabelStat(){
+		StringBuffer message = new StringBuffer();
+		message.append(MyXMLMaker.addTag("CommonLabel", commonLabel
+				.getSelectedItem().toString()));
+		return message;
 	}
 }

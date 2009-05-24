@@ -2,6 +2,7 @@ package org.codepanda.userinterface;
 
 import java.awt.Component;
 import java.awt.Dimension;
+import java.awt.GridLayout;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -9,6 +10,7 @@ import java.io.File;
 import java.io.IOException;
 
 import javax.imageio.ImageIO;
+import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
@@ -16,6 +18,7 @@ import javax.swing.filechooser.FileFilter;
 
 import org.codepanda.application.CommandType;
 import org.codepanda.application.CommandVisitor;
+import org.codepanda.application.googlecontactsyn.GContactOper;
 import org.codepanda.userinterface.messagehandler.DeleteContactMessageHandler;
 import org.codepanda.userinterface.messagehandler.ExportContactMessageHandler;
 import org.codepanda.userinterface.messagehandler.ImportContactMessageHandler;
@@ -25,6 +28,8 @@ import org.codepanda.utility.contact.ContactOperations;
 import org.jvnet.flamingo.common.JCommandButton;
 import org.jvnet.flamingo.common.icon.ImageWrapperResizableIcon;
 import org.jvnet.flamingo.ribbon.*;
+
+import com.google.gdata.util.ServiceException;
 
 public class PhoneMeRibbon {
 	private PhoneMeFrame mainFrame;
@@ -470,6 +475,40 @@ public class PhoneMeRibbon {
 		googleContactButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				System.out.println("与Google Contact同步");
+				JDialog dialog = new JDialog(mainFrame, "选择上传或下载", true);
+				JButton upload = new JButton("上传");
+				upload.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent e) {
+						try {
+							GContactOper.createContact();
+						} catch (ServiceException e1) {
+							e1.printStackTrace();
+						} catch (IOException e1) {
+							e1.printStackTrace();
+						}
+				}
+			});
+				JButton download = new JButton("下载");
+				download.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent e) {
+						try {
+							GContactOper.getAllContacts();
+						} catch (ServiceException e1) {
+							e1.printStackTrace();
+						} catch (IOException e1) {
+							e1.printStackTrace();
+						}
+				}
+			});
+				dialog.setLayout(new GridLayout(1, 2));
+				dialog.add(upload);
+				dialog.add(download);
+				dialog.pack();
+				Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+				dialog.setLocation((screenSize.width - dialog.getWidth()) / 2, 
+					(screenSize.height - dialog.getHeight()) / 2);
+				dialog.setResizable(false);
+				dialog.setVisible(true);
 			}
 		});
 
