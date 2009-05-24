@@ -5,16 +5,13 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
-import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.Iterator;
-import java.util.Vector;
 import java.util.Map.Entry;
 
 import javax.imageio.ImageIO;
@@ -22,16 +19,11 @@ import javax.swing.*;
 import javax.swing.border.BevelBorder;
 import javax.swing.border.SoftBevelBorder;
 
-import org.codepanda.application.CommandType;
-import org.codepanda.application.CommandVisitor;
 import org.codepanda.userinterface.listener.*;
-import org.codepanda.userinterface.messagehandler.EditContactMessageHandler;
-import org.codepanda.userinterface.messagehandler.NewContactMessageHandler;
 import org.codepanda.userinterface.xml.MyXMLMaker;
 import org.codepanda.utility.contact.ContactOperations;
 import org.codepanda.utility.data.DataPool;
 import org.codepanda.utility.data.PhoneMeConstants;
-import org.codepanda.utility.group.ContactGroup;
 import org.codepanda.utility.label.RelationLabel;
 
 import org.jdesktop.swingx.JXDatePicker;
@@ -144,7 +136,7 @@ public class ContactInfoPanel extends JXPanel {
 	private JComboBox selectRelationLabelBox;
 	private JComboBox selectRelationContactBox;
 	private JButton addRelationLabelListButton;
-	private JButton editRelationLabelListButton;
+	//private JButton editRelationLabelListButton;
 	private JButton deleteRelationLabelListButton;
 	
 	//TODO for relation label
@@ -231,18 +223,18 @@ public class ContactInfoPanel extends JXPanel {
 		upperPanel.setLayout(new BorderLayout());
 
 		nameField = new JTextField(15);
-		nameField.setEditable(false);
-		nameField.addActionListener(new ActionListener() {
+		getNameField().setEditable(false);
+		getNameField().addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-				nameField.setEditable(false);
+				getNameField().setEditable(false);
 			}
 		});
 		nameEditButton = new JButton("编辑");
 		nameEditButton.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-				nameField.setEditable(true);
+				getNameField().setEditable(true);
 			}
 		});
 		this.myButtonList.add(nameEditButton);
@@ -305,7 +297,7 @@ public class ContactInfoPanel extends JXPanel {
 
 		builder.addSeparator("基本信息", cc.xyw(1, 1, 9));
 		builder.addLabel("姓名", cc.xy(1, 3));
-		builder.add(nameField, cc.xy(3, 3));
+		builder.add(getNameField(), cc.xy(3, 3));
 		builder.add(nameEditButton, cc.xy(5, 3));
 
 		builder.addLabel("联系电话", cc.xy(1, 5));
@@ -869,54 +861,7 @@ public class ContactInfoPanel extends JXPanel {
 		downbuilder.add(selectRelationContactBox, downcc.xy(13, 7));
 
 		confirmButton = new JButton("确认");
-		confirmButton.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent arg0) {
-				// makeMainMessageXML
-				if(nameField.getText().trim().length() == 0)
-					return;
-				if (myContact == null) {
-					// 新建联系人
-					String xml = makeMainMessageXML().toString();
-					xml = MyXMLMaker.addTag("NewContact", xml);
-					xml = MyXMLMaker.addTag("com", xml);
-
-					System.out.println("NEW_CONTACT\n" + xml);
-
-					CommandVisitor newContactCommandVisitor = new CommandVisitor(
-							CommandType.NEW_CONTACT, xml);
-					NewContactMessageHandler newContactMessageHandler = new NewContactMessageHandler();
-					int iSN = (Integer) newContactMessageHandler
-							.executeCommand(newContactCommandVisitor);
-
-					setMyContact(DataPool.getInstance().getAllContactISNMap()
-							.get(iSN));
-
-					setEditable(false);
-					nameField.setEditable(false);
-
-					parentFrame.updateTaskPane(iSN);
-				} else {
-					// 修改联系人
-					String xml = makeMainMessageXML().toString();
-					xml = MyXMLMaker.addTag("EditContact", xml);
-					xml = MyXMLMaker.addTag("com", xml);
-
-					System.out.println("EDIT_CONTACT\n" + xml);
-
-					CommandVisitor editContactCommandVisitor = new CommandVisitor(
-							CommandType.EDIT_CONTACT, xml);
-					EditContactMessageHandler editContactMessageHandler = new EditContactMessageHandler();
-					editContactMessageHandler
-							.executeCommand(editContactCommandVisitor);
-
-					setEditable(false);
-					nameField.setEditable(false);
-
-					parentFrame.updateTaskPane(myContact.getISN());
-				}
-			}
-		});
+		confirmButton.addActionListener(new ConfirmActionListener(this));
 		cancelButton = new JButton("取消");
 		cancelButton.addActionListener(new ActionListener() {
 			@Override
@@ -1073,7 +1018,7 @@ public class ContactInfoPanel extends JXPanel {
 	 */
 	public StringBuffer makeMainMessageXML() {
 		StringBuffer message = new StringBuffer();
-		message.append(MyXMLMaker.addTag("ContactName", nameField.getText()));
+		message.append(MyXMLMaker.addTag("ContactName", getNameField().getText()));
 		if (myContact != null && localPanelType == CONTACT_INFO_PANEL)
 			message.append(MyXMLMaker.addTag("ISN", myContact.getISN()
 					.toString()));
@@ -1175,7 +1120,7 @@ public class ContactInfoPanel extends JXPanel {
 			 * nameField.setVisible(false); }
 			 */
 			// else
-			nameField.setText(myContact.getContactName());
+			getNameField().setText(myContact.getContactName());
 		}
 
 		if (myContact.getPhoneNumberList() != null) {
@@ -1281,6 +1226,17 @@ public class ContactInfoPanel extends JXPanel {
 	 */
 	public final ContactOperations getMyContact() {
 		return myContact;
+	}
+	
+	/**
+	 * @return the nameField
+	 */
+	public JTextField getNameField() {
+		return nameField;
+	}
+
+	public PhoneMeFrame getParentFrame() {
+		return parentFrame;
 	}
 
 }
