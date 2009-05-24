@@ -41,7 +41,7 @@ public class PhoneMeMajorPanel extends JPanel {
 	}
 
 	private void configureListener() {
-		SubstanceLookAndFeel.registerTabCloseChangeListener(centerPanel,
+		/*SubstanceLookAndFeel.registerTabCloseChangeListener(centerPanel,
 				new VetoableTabCloseListener() {
 					public void tabClosed(JTabbedPane tabbedPane,
 							Component tabComponent) {
@@ -66,7 +66,7 @@ public class PhoneMeMajorPanel extends JPanel {
 										JOptionPane.YES_NO_OPTION);
 						return (userCloseAnswer == JOptionPane.NO_OPTION);
 					}
-				});
+				});*/
 
 		SubstanceLookAndFeel.registerTabCloseChangeListener(centerPanel,
 				new VetoableMultipleTabCloseListener() {
@@ -85,9 +85,10 @@ public class PhoneMeMajorPanel extends JPanel {
 					public boolean vetoTabsClosing(JTabbedPane tabbedPane,
 							Set<Component> tabComponents) {
 						int userCloseAnswer = JOptionPane.showConfirmDialog(
-								mainFrame, "Are you sure you want to close "
-										+ tabComponents.size() + " tabs?",
-								"Confirm dialog", JOptionPane.YES_NO_OPTION);
+								mainFrame, "确认关闭当前标签页",
+								
+										//+ tabComponents.size() + " tabs?",
+								"确认对话框", JOptionPane.YES_NO_OPTION);
 						return (userCloseAnswer == JOptionPane.NO_OPTION);
 					}
 				});
@@ -100,7 +101,7 @@ public class PhoneMeMajorPanel extends JPanel {
 
 		JPanel monthPanel = new JPanel();
 		monthPanel.add(new JXMonthView());
-		centerPanel.addTab("Month Tab", monthPanel);
+		centerPanel.addTab("当前月日历", monthPanel);
 
 		JPanel treePanel = new JPanel();
 		treePanel.setLayout(new SpringLayout());
@@ -122,7 +123,7 @@ public class PhoneMeMajorPanel extends JPanel {
 		tree.updateUI();
 
 		treePanel.add(tree);
-		centerPanel.addTab("Tree Tab", treePanel);
+		centerPanel.addTab("当前文件目录", treePanel);
 
 		TabCloseCallback closeCallbackMain = new TabCloseCallback() {
 			public TabCloseKind onAreaClick(JTabbedPane tabbedPane,
@@ -191,8 +192,8 @@ public class PhoneMeMajorPanel extends JPanel {
 		// contactInfoScrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
 		// contactInfoScrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
 
-		centerPanel.addTab("Contact Info", new ContactInfoPanel(this.mainFrame,
-				null, false, ContactInfoPanel.CONTACT_INFO_PANEL));
+		//centerPanel.addTab("Contact Info", new ContactInfoPanel(this.mainFrame,
+		//		null, false, ContactInfoPanel.CONTACT_INFO_PANEL));
 
 		return centerPanel;
 	}

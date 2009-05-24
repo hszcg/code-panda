@@ -26,7 +26,7 @@ public class PhoneMeConstants {
 		allRelationLabelName.add("老师");
 		allRelationLabelName.add("学生");
 		allRelationLabelName.add("父母");
-		allRelationLabelName.add("领导");
+		allRelationLabelName.add("老板");
 		allRelationLabelName.add("部下");
 		allRelationLabelName.add("家属");
 		allRelationLabelName.add("兄弟姐妹");
@@ -37,6 +37,10 @@ public class PhoneMeConstants {
 		allGroupList.add("家人");
 		allGroupList.add("同事");
 		allGroupList.add("同学");
+		allGroupList.add("老板");
+		allGroupList.add("老师");
+		allGroupList.add("重要人物");
+		allGroupList.add("陌生人");
 
 		// 字段名称
 		contactSectionList = new HashMap<ContactSectionType, String>(15);
