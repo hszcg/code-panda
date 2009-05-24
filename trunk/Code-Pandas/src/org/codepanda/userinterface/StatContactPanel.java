@@ -226,6 +226,7 @@ public class StatContactPanel extends JPanel implements ActionListener{
 	
 	public StringBuffer groupStat(){
 		StringBuffer message = new StringBuffer();
+		message.append(MyXMLMaker.addTag("BlurSearch", "1"));
 		message.append(MyXMLMaker.addTag("Group", group
 				.getSelectedItem().toString()));
 		return message;
@@ -233,6 +234,7 @@ public class StatContactPanel extends JPanel implements ActionListener{
 	
 	public StringBuffer commonLabelStat(){
 		StringBuffer message = new StringBuffer();
+		message.append(MyXMLMaker.addTag("BlurSearch", "1"));
 		message.append(MyXMLMaker.addTag("CommonLabel", commonLabel
 				.getSelectedItem().toString()));
 		return message;
