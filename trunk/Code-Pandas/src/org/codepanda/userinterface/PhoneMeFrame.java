@@ -96,7 +96,7 @@ public class PhoneMeFrame extends JRibbonFrame {
 	 * 
 	 */
 	public PhoneMeFrame() {
-		super("PhoneMe test");
+		super("PhoneMe");
 		try {
 			this.setIconImages(Arrays
 					.asList(ImageIO.read(this.getClass().getResource(
