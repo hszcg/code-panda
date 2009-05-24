@@ -159,11 +159,12 @@ public class StatContactPanel extends JPanel implements ActionListener{
 			else
 				return;
 			
-			if(endBirthdayField.getDate() != null)
+			if(endBirthdayField.getDate() != null){
 				//		TOFO give and collect part
 				
-				message.append(MyXMLMaker.addTag("Birthday", endBirthdayField.format(endBirthdayField.getDate())));
-			{
+				message.append(MyXMLMaker.addTag("Birthday", 
+						birthdayDateFormat.format(endBirthdayField.getDate())));
+				}
 		}
 	}
 }
