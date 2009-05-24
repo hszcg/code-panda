@@ -225,6 +225,8 @@ public class PhoneMeRibbon {
 		statContactButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				System.out.println("联系人统计");
+				mainFrame.getMyPhoneMeMajorPanel().addNewTab("Statistic", 
+						new StatContactPanel(mainFrame));
 			}
 		});
 
