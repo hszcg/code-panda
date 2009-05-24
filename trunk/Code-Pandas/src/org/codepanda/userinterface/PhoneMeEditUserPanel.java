@@ -13,8 +13,6 @@ import javax.swing.JPasswordField;
 import org.codepanda.application.CommandType;
 import org.codepanda.application.CommandVisitor;
 import org.codepanda.userinterface.messagehandler.EditUserMessageHandler;
-import org.codepanda.userinterface.messagehandler.LoginUserMessageHandler;
-import org.codepanda.userinterface.messagehandler.NewUserMessageHandler;
 import org.codepanda.userinterface.xml.MyXMLMaker;
 import org.codepanda.utility.data.DataPool;
 import com.jgoodies.forms.layout.FormLayout;

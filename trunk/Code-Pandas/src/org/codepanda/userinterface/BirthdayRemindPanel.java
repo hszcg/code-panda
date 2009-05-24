@@ -22,6 +22,10 @@ import com.jgoodies.forms.layout.CellConstraints;
 import com.jgoodies.forms.layout.FormLayout;
 
 public class BirthdayRemindPanel extends JPanel implements ActionListener{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 2951986593695307900L;
 	PhoneMeFrame localFrame;
 	JButton prevWeek;
 	JButton postWeek;
@@ -70,6 +74,7 @@ public class BirthdayRemindPanel extends JPanel implements ActionListener{
 		return birthdayDateFormat.format(now.getTime());
 		}
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		// TODO Auto-generated method stub

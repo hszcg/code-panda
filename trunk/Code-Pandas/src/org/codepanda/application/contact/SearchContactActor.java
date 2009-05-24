@@ -10,6 +10,7 @@ import org.codepanda.utility.data.DataPool;
 public class SearchContactActor implements CommandActor {
 	private String SearchInfo;
 	private boolean Blur=false;
+	@SuppressWarnings("unchecked")
 	@Override
 	public Object executeCommand() {
 		// TODO Auto-generated method stub

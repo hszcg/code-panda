@@ -6,7 +6,6 @@ import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 
 import org.codepanda.utility.contact.ContactOperations;
-import org.codepanda.utility.contact.PersonalContact;
 import org.codepanda.utility.data.DataPool;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;

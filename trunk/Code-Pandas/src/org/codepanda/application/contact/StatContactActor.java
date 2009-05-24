@@ -3,7 +3,6 @@ package org.codepanda.application.contact;
 import java.util.ArrayList;
 
 import org.codepanda.application.CommandActor;
-import org.codepanda.application.xml.SearchContactXML;
 import org.codepanda.application.xml.StatContactXML;
 import org.codepanda.utility.contact.ContactOperations;
 import org.codepanda.utility.contact.PersonalContact;
@@ -15,6 +14,7 @@ public class StatContactActor implements CommandActor {
 		this.StatInfo= statInfo;
 
 	}
+	@SuppressWarnings("unchecked")
 	@Override
 	public Object executeCommand() {
 		// TODO Auto-generated method stub

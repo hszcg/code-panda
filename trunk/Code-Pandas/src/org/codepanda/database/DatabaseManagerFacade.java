@@ -3,7 +3,6 @@ package org.codepanda.database;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-import org.codepanda.utility.contact.ContactData;
 import org.codepanda.utility.contact.ContactOperations;
 import org.codepanda.utility.contact.PersonalContact;
 import org.codepanda.utility.user.User;

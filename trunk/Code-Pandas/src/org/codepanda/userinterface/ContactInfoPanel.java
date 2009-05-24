@@ -705,8 +705,8 @@ public class ContactInfoPanel extends JXPanel {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				System.out.println("add relation label");
-				int selectIndex = selectRelationContactBox.getSelectedIndex();
-				Integer addISN = allISN.get(selectIndex);
+				//int selectIndex = selectRelationContactBox.getSelectedIndex();
+				//Integer addISN = allISN.get(selectIndex);
 				boolean contain = false;
 				int labelIndex;
 				for(labelIndex = 0;

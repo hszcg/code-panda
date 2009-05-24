@@ -1,10 +1,8 @@
 package org.codepanda.userinterface;
 
-import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
-import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
@@ -197,8 +195,10 @@ public class PhoneMeTaskPane extends JXTaskPaneContainer implements
 		// TODO Auto-generated method stub
 		this.remove(contactListTaskPane);
 		configureContactList();
+		this.repaint();
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public void actionPerformed(ActionEvent arg0) {
 		// TODO Auto-generated method stub

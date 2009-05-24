@@ -15,7 +15,6 @@ import javax.swing.JTextField;
 
 import org.codepanda.application.CommandType;
 import org.codepanda.application.CommandVisitor;
-import org.codepanda.userinterface.messagehandler.DeleteContactMessageHandler;
 import org.codepanda.userinterface.messagehandler.DeleteUserMessageHandler;
 import org.codepanda.userinterface.xml.MyXMLMaker;
 import org.codepanda.utility.data.DataPool;

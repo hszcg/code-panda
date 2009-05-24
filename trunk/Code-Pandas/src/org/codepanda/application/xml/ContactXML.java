@@ -10,14 +10,12 @@ import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.xml.parsers.*;
 
-import org.codepanda.utility.contact.Birthday;
-import org.codepanda.utility.contact.ContactData;
 import org.codepanda.utility.contact.HeadImage;
 import org.codepanda.utility.contact.PersonalContact;
 import org.codepanda.utility.label.RelationLabel;
 import org.w3c.dom.*;
 import org.xml.sax.InputSource;
-import org.xml.sax.SAXException;
+
 /**
  * @author xdq
  *
@@ -191,12 +189,6 @@ public  void ContactIterator(PersonalContact currentContact,Element element) thr
 			else if(str.equalsIgnoreCase("Birthday"))
 			{
 				String value=node.getTextContent();
-				String str1[]= new String[3];
-				str1=value.split("-");
-				Birthday  birth=new Birthday();
-				birth.setYear(Integer.parseInt(str1[0]));
-				birth.setMonth(Integer.parseInt(str1[1]));
-				birth.setDay(Integer.parseInt(str1[2]));
 				currentContact.setContactBirthday(value);
 				System.out.println("Birthday--"+value);
 			}

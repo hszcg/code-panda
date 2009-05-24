@@ -15,12 +15,14 @@ public class CommandVisitor {
 	 * One of Commands Given Above
 	 * 
 	 */
+	@SuppressWarnings("unused")
 	private CommandType commandType;
 
 	/**
 	 * 
 	 */
 
+	@SuppressWarnings("unused")
 	private String commandDetail;
 
 	/**

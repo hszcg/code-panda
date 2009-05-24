@@ -1,18 +1,11 @@
 package org.codepanda.application.xml;
 
 import java.io.StringReader;
-import java.util.ArrayList;
 
 import javax.xml.parsers.*;
 
-import org.codepanda.utility.contact.Birthday;
-import org.codepanda.utility.contact.ContactData;
-import org.codepanda.utility.contact.PersonalContact;
-import org.codepanda.utility.label.RelationLabel;
 import org.w3c.dom.*;
 import org.xml.sax.InputSource;
-import org.xml.sax.SAXException;
-import org.codepanda.utility.user.User;
 
 public class DeleteContactXML {
 	boolean comStart = false;
@@ -34,7 +27,6 @@ public class DeleteContactXML {
 	public int DeleteConXML(String match1,
 			String match2, String commandDetail) {
 		// 从commandDetail中解析出用户信息
-		int tempISN;
 		try {
 			if (commandDetail.contains("<com>")
 					&& commandDetail.contains("</com")) {

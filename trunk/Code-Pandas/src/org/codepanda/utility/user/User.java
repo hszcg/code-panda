@@ -2,15 +2,16 @@ package org.codepanda.utility.user;
 
 import java.io.Serializable;
 import java.util.ArrayList;
-import org.codepanda.database.DatabaseMagager;
-import org.codepanda.database.DatabaseManagerFacade;
-
-import org.codepanda.utility.contact.Birthday;
 import org.codepanda.utility.contact.ContactData;
 import org.codepanda.utility.contact.ContactOperations;
 import org.codepanda.utility.contact.HeadImage;
 import org.codepanda.utility.label.RelationLabel;
+
 public class User implements UserOperations,ContactOperations,Serializable {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 8939988078391894252L;
 	private ContactData userContactData=new ContactData();
 	public ContactData getUserContactData() {
 		return userContactData;
