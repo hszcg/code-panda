@@ -19,6 +19,7 @@ public class DeleteCommonLabelXML {
 	boolean funcEnd=false;
 	String  funSubStr=null;
 	String comSubStr=null;
+	String tempstr=new String();
 	public String labelParserXML(String match1,String match2,String commandDetail)
 	{
 		//从commandDetail中解析出用户信息
@@ -58,7 +59,6 @@ public class DeleteCommonLabelXML {
 	}
 	public String CommonLabelParser(Element element)
 	{
-		String tempstr=null;
 		NodeList nodeList=element.getChildNodes();
 		for(int i=0;i<nodeList.getLength();i++)
 		{
