@@ -12,14 +12,17 @@ import javax.swing.plaf.FontUIResource;
 
 import org.codepanda.application.export.CsvExport;
 import org.codepanda.application.export.CsvImport;
+import org.codepanda.application.googlecontactsyn.GContactOper;
 import org.codepanda.utility.data.DataPool;
 import org.jvnet.flamingo.ribbon.*;
 import org.jvnet.substance.SubstanceLookAndFeel;
 import org.jvnet.substance.skin.SubstanceMistAquaLookAndFeel;
 
+import com.google.gdata.util.ServiceException;
+
 /**
  * @author hszcg
- *
+ * 
  */
 public class PhoneMeFrame extends JRibbonFrame {
 	/**
@@ -138,7 +141,7 @@ public class PhoneMeFrame extends JRibbonFrame {
 			public void run() {
 
 				// datapool-init
-				/* ADD BY SA*/
+				/* ADD BY SA */
 				DataPool.getInstance();
 
 				// 外观设置
@@ -182,40 +185,50 @@ public class PhoneMeFrame extends JRibbonFrame {
 		myPhoneMeLoginDialog = new PhoneMeLoginDialog(this);
 		myPhoneMeLoginDialog.setVisible(true);
 	}
-	
+
 	/**
 	 * @return
 	 */
 	public final PhoneMeMajorPanel getMyPhoneMeMajorPanel() {
 		return myPhoneMeMajorPanel;
 	}
-	
-	
+
 	/**
 	 * After Login to Initialize Data
 	 */
 	public void initializeData() {
+		// GContactOper gco = new GContactOper();
+		// try {
+		// gco.createContact();
+		// // gco.getAllContacts();
+		// } catch (ServiceException e) {
+		// // TODO Auto-generated catch block
+		// e.printStackTrace();
+		// } catch (IOException e) {
+		// // TODO Auto-generated catch block
+		// e.printStackTrace();
+		// }
 		this.myPhoneMeTaskPane.initializeData();
 		this.myPhoneMeMajorPanel.initializeData();
-		
-//		//test of CSV export and import
-//	/*	CsvExport ce = new CsvExport();
-//		ce.convert("D:\\javawork\\four pandas\\abc.csv");
-//		
-//<<<<<<< .mine
-////		CsvImport ci = new CsvImport();
-////		ci.convert("D:\\javawork\\four pandas\\abc.csv");
-//=======
-//		//CsvImport ci = new CsvImport();
-//		//ci.convert("abc.csv");
-//>>>>>>> .r291
-//		
-//		CsvExport cee = new CsvExport();
-//<<<<<<< .mine
-//		cee.convert("D:\\javawork\\four pandas\\cba.csv");
-//=======
-//		cee.convert("cba.csv");*/
-//>>>>>>> .r291
+
+		// //test of CSV export and import
+		// /* CsvExport ce = new CsvExport();
+		// ce.convert("D:\\javawork\\four pandas\\abc.csv");
+		//		
+		// <<<<<<< .mine
+		// // CsvImport ci = new CsvImport();
+		// // ci.convert("D:\\javawork\\four pandas\\abc.csv");
+		// =======
+		// //CsvImport ci = new CsvImport();
+		// //ci.convert("abc.csv");
+		// >>>>>>> .r291
+		//		
+		// CsvExport cee = new CsvExport();
+		// <<<<<<< .mine
+		// cee.convert("D:\\javawork\\four pandas\\cba.csv");
+		// =======
+		// cee.convert("cba.csv");*/
+		// >>>>>>> .r291
 	}
 
 	/**
@@ -224,17 +237,17 @@ public class PhoneMeFrame extends JRibbonFrame {
 	public final PhoneMeStatusBar getMyPhoneMeStatusBar() {
 		return myPhoneMeStatusBar;
 	}
-	
+
 	/**
 	 * 退出程序的相关处理函数
 	 * 
 	 */
-	public void exitProgram(){
+	public void exitProgram() {
 		try {
-//			DataPool.getInstance().fl.release();
-//			DataPool.getInstance().raf.close();
+			DataPool.getInstance().fl.release();
+			DataPool.getInstance().raf.close();
 			DataPool.getInstance().getDb().close();
-//			Thread.sleep(1000);
+			// Thread.sleep(1000);
 			System.out.println("Normal Exit!");
 			System.exit(0);
 		} catch (Exception e) {
@@ -243,11 +256,11 @@ public class PhoneMeFrame extends JRibbonFrame {
 			System.exit(-1);
 		}
 	}
-	
+
 	/**
 	 * 
 	 */
-	public void updateTaskPane(int updateISN){
+	public void updateTaskPane(int updateISN) {
 		this.myPhoneMeTaskPane.updateGroupList(updateISN);
 	}
 }
