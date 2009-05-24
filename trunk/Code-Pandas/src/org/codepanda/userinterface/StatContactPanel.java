@@ -17,6 +17,7 @@ import javax.swing.JPanel;
 import org.codepanda.application.CommandType;
 import org.codepanda.application.CommandVisitor;
 import org.codepanda.userinterface.messagehandler.SearchContactMessageHandler;
+import org.codepanda.userinterface.messagehandler.StatContactMessageHandler;
 import org.codepanda.userinterface.xml.MyXMLMaker;
 import org.codepanda.utility.contact.ContactOperations;
 import org.codepanda.utility.data.DataPool;
@@ -214,6 +215,12 @@ public class StatContactPanel extends JPanel implements ActionListener{
 			String xml = MyXMLMaker.addTag("com", message.toString());
 			
 //			TODO stat by birthday
+			CommandVisitor statContactCommandVisitor = new CommandVisitor(
+					CommandType.STAT_CONTACT, xml);
+			StatContactMessageHandler statContactMessageHandler = new StatContactMessageHandler();
+			resultContactList = (ArrayList<Integer>) statContactMessageHandler
+			.executeCommand(statContactCommandVisitor);
+			birthdayResult.setText("结果个数: "+resultContactList.size());
 		}
 	}
 	
