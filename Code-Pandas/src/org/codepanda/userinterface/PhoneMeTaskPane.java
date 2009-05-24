@@ -205,6 +205,9 @@ public class PhoneMeTaskPane extends JXTaskPaneContainer implements
 		this.remove(contactListTaskPane);
 		configureContactList();
 		this.repaint();
+		autoCompleteList = new ArrayList<String>();
+		autoCompleteList.addAll(DataPool.getInstance().getAllContactNameMultimap().keySet());
+		AutoCompleteDecorator.decorate(searchField, autoCompleteList, false);
 	}
 
 	@SuppressWarnings("unchecked")
