@@ -475,12 +475,13 @@ public class PhoneMeRibbon {
 		googleContactButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				System.out.println("与Google Contact同步");
-				JDialog dialog = new JDialog(mainFrame, "选择上传或下载", true);
+				final JDialog dialog = new JDialog(mainFrame, "选择上传或下载", true);
 				JButton upload = new JButton("上传");
 				upload.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
 						try {
 							GContactOper.createContact();
+							dialog.dispose();
 						} catch (ServiceException e1) {
 							e1.printStackTrace();
 						} catch (IOException e1) {
@@ -493,6 +494,7 @@ public class PhoneMeRibbon {
 					public void actionPerformed(ActionEvent e) {
 						try {
 							GContactOper.getAllContacts();
+							dialog.dispose();
 						} catch (ServiceException e1) {
 							e1.printStackTrace();
 						} catch (IOException e1) {
