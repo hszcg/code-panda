@@ -112,7 +112,7 @@ public class GContactOper {
 
 			Email primaryMail = new Email();
 			primaryMail.setAddress(ite.getEmailAddresseList().get(0));
-			// primaryMail.setRel("http://schemas.google.com/g/2005#home");
+			primaryMail.setRel("http://schemas.google.com/g/2005#home");
 			// primaryMail.setPrimary(true);
 			contact.addEmailAddress(primaryMail);
 
