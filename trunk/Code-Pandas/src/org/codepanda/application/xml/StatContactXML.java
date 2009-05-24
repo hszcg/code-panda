@@ -73,9 +73,7 @@ public class StatContactXML {
 			Node node=nodeList.item(i);
 			String str=node.getNodeName();
 		//第一次出现
-			if (str.equalsIgnoreCase("Birthday")) {
-				if(!secondFlag)
-				{
+			if (str.equalsIgnoreCase("StartBirthday")) {
 				String value = node.getTextContent();
 				//对生日条目进行解析
 				String []tempstr=new String[3];
@@ -88,7 +86,7 @@ public class StatContactXML {
 				System.out.println(startDay);
 				secondFlag=true;
 				}
-				else
+				else if(str.equalsIgnoreCase("EndBirthday"))
 				{
 					String value = node.getTextContent();
 					//对生日条目进行解析
@@ -102,7 +100,6 @@ public class StatContactXML {
 					System.out.println(endDay);
 					//secondFlag=true;
 				}
-			}
 			if(node instanceof Element)
 			{
 				StatIterator((Element)node,currentContact);
