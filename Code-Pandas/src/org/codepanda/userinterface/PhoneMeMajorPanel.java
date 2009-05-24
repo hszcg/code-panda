@@ -2,13 +2,11 @@ package org.codepanda.userinterface;
 
 import java.awt.*;
 import java.awt.event.*;
-import java.util.ArrayList;
 import java.util.Set;
 
 import javax.swing.*;
 
 import org.codepanda.utility.contact.ContactOperations;
-import org.codepanda.utility.data.DataPool;
 import org.jdesktop.swingx.*;
 import org.jdesktop.swingx.decorator.*;
 import org.jdesktop.swingx.decorator.ComponentAdapter;
@@ -274,13 +272,13 @@ public class PhoneMeMajorPanel extends JPanel {
 	public void initializeData() {
 		// TODO Auto-generated method stub
 		//
-		ArrayList<Integer> myISNList = new ArrayList<Integer>();
-		myISNList.addAll(DataPool.getInstance().getAllContactISNMap().keySet());
-
-		centerPanel.addTab("All Contact", new SearchResult(this.mainFrame,
-				myISNList).getMainPanel());
-
-		centerPanel.addTab("Search", new SearchPanel(this.mainFrame));
+		// ArrayList<Integer> myISNList = new ArrayList<Integer>();
+		// myISNList.addAll(DataPool.getInstance().getAllContactISNMap().keySet());
+		//
+		// centerPanel.addTab("All Contact", new SearchResult(this.mainFrame,
+		// myISNList).getMainPanel());
+		//
+		// centerPanel.addTab("Search", new SearchPanel(this.mainFrame));
 
 		// PhoneMeEditUserPanel p = new PhoneMeEditUserPanel(this.mainFrame);
 		// Rectangle r = GraphicsEnvironment.getLocalGraphicsEnvironment()

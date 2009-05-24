@@ -8,6 +8,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 
 import javax.imageio.ImageIO;
 import javax.swing.JButton;
@@ -25,6 +26,7 @@ import org.codepanda.userinterface.messagehandler.ImportContactMessageHandler;
 import org.codepanda.userinterface.utility.ExtensionFileFilter;
 import org.codepanda.userinterface.xml.MyXMLMaker;
 import org.codepanda.utility.contact.ContactOperations;
+import org.codepanda.utility.data.DataPool;
 import org.jvnet.flamingo.common.JCommandButton;
 import org.jvnet.flamingo.common.icon.ImageWrapperResizableIcon;
 import org.jvnet.flamingo.ribbon.*;
@@ -218,8 +220,26 @@ public class PhoneMeRibbon {
 				}
 			}
 		});
-
+		
 		contactManagerBand.addCommandButton(editContactButton,
+				RibbonElementPriority.MEDIUM);
+
+		JCommandButton allContactButton = new JCommandButton("显示所有联系人",
+				ImageWrapperResizableIcon.getIcon(ImageIO.read(this.getClass()
+						.getResource("/icon/plateIcon/chat 2.png")),
+						new Dimension(32, 32)));
+
+		allContactButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				System.out.println("显示所有联系人");
+				ArrayList<Integer> myISNList = new ArrayList<Integer>();
+				myISNList.addAll(DataPool.getInstance().getAllContactISNMap().keySet());
+				mainFrame.getMyPhoneMeMajorPanel().addNewTab("All Contacts", 
+						new SearchResult(mainFrame, myISNList).getMainPanel());
+			}
+		});
+
+		contactManagerBand.addCommandButton(allContactButton,
 				RibbonElementPriority.MEDIUM);
 
 		JCommandButton statContactButton = new JCommandButton("联系人统计",
@@ -475,7 +495,7 @@ public class PhoneMeRibbon {
 		googleContactButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				System.out.println("与Google Contact同步");
-				final JDialog dialog = new JDialog(mainFrame, "选择上传或下载", true);
+				final JDialog dialog = new JDialog(mainFrame, "Please Select Upload or DownLoad.", true);
 				JButton upload = new JButton("上传");
 				upload.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
