@@ -26,7 +26,9 @@ import org.codepanda.userinterface.messagehandler.ImportContactMessageHandler;
 import org.codepanda.userinterface.utility.ExtensionFileFilter;
 import org.codepanda.userinterface.xml.MyXMLMaker;
 import org.codepanda.utility.contact.ContactOperations;
+import org.codepanda.utility.data.ContactSectionType;
 import org.codepanda.utility.data.DataPool;
+import org.codepanda.utility.data.PhoneMeConstants;
 import org.jvnet.flamingo.common.JCommandButton;
 import org.jvnet.flamingo.common.icon.ImageWrapperResizableIcon;
 import org.jvnet.flamingo.ribbon.*;
@@ -236,7 +238,7 @@ public class PhoneMeRibbon {
 				myISNList.addAll(DataPool.getInstance().getAllContactISNMap()
 						.keySet());
 				mainFrame.getMyPhoneMeMajorPanel().addNewTab("All Contacts",
-						new SearchResult(mainFrame, myISNList).getMainPanel());
+						new SearchResult(mainFrame, myISNList, ContactSectionType.PHONE_NUMBER).getMainPanel());
 			}
 		});
 

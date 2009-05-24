@@ -19,7 +19,7 @@ import org.codepanda.application.CommandVisitor;
 import org.codepanda.userinterface.messagehandler.SearchContactMessageHandler;
 import org.codepanda.userinterface.messagehandler.StatContactMessageHandler;
 import org.codepanda.userinterface.xml.MyXMLMaker;
-import org.codepanda.utility.contact.ContactOperations;
+import org.codepanda.utility.data.ContactSectionType;
 import org.codepanda.utility.data.DataPool;
 import org.codepanda.utility.data.PhoneMeConstants;
 import org.codepanda.utility.group.ContactGroup;
@@ -30,6 +30,11 @@ import com.jgoodies.forms.layout.CellConstraints;
 import com.jgoodies.forms.layout.FormLayout;
 
 public class StatContactPanel extends JPanel implements ActionListener{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 5567407877191130269L;
+
 	private final PhoneMeFrame parentFrame;
 	
 	private JComboBox group;
@@ -149,6 +154,7 @@ public class StatContactPanel extends JPanel implements ActionListener{
 		displayBirthday.setVisible(isVisible);
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		// TODO Auto-generated method stub
@@ -171,7 +177,7 @@ public class StatContactPanel extends JPanel implements ActionListener{
 		if(e.getSource() == displayGroup){
 			parentFrame.getMyPhoneMeMajorPanel().addNewTab(
 					"Stat Result",
-					new SearchResult(parentFrame, resultContactList)
+					new SearchResult(parentFrame, resultContactList, ContactSectionType.GROUP_LABEL)
 							.getMainPanel());
 		}
 		
@@ -194,7 +200,7 @@ public class StatContactPanel extends JPanel implements ActionListener{
 		if(e.getSource() == displaycommonLabel){
 			parentFrame.getMyPhoneMeMajorPanel().addNewTab(
 					"Stat Result",
-					new SearchResult(parentFrame, resultContactList)
+					new SearchResult(parentFrame, resultContactList, ContactSectionType.COMMON_LABEL)
 							.getMainPanel());
 		}
 		
@@ -224,6 +230,10 @@ public class StatContactPanel extends JPanel implements ActionListener{
 			resultContactList = (ArrayList<Integer>) statContactMessageHandler
 			.executeCommand(statContactCommandVisitor);
 			birthdayResult.setText("结果个数: "+resultContactList.size());
+			parentFrame.getMyPhoneMeMajorPanel().addNewTab(
+					"Stat Result",
+					new SearchResult(parentFrame, resultContactList, ContactSectionType.BIRTHDAY)
+							.getMainPanel());
 		}
 	}
 	

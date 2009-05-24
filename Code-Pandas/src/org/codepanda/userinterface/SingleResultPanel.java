@@ -17,6 +17,7 @@ import javax.swing.JPanel;
 import javax.swing.border.BevelBorder;
 
 import org.codepanda.utility.contact.ContactOperations;
+import org.codepanda.utility.data.ContactSectionType;
 import org.codepanda.utility.data.PhoneMeConstants;
 
 public class SingleResultPanel extends JPanel {
@@ -29,27 +30,27 @@ public class SingleResultPanel extends JPanel {
 	private static Image defaultImage;
 
 	public SingleResultPanel(PhoneMeFrame phoneMeFrame,
-			final ContactOperations c) {
-		// TODO Auto-generated constructor stub
+			final ContactOperations c, ContactSectionType secondType) {
 		super();
 		this.parentFrame = phoneMeFrame;
 		this.myContact = c;
 
 		try {
-			if (SingleResultPanel.defaultImage == null)
-				SingleResultPanel.defaultImage = ImageIO
-						.read(getClass()
-								.getResource(
-										PhoneMeConstants.getInstance().DEFAULT_IMAGE_URL));
+			if (SingleResultPanel.defaultImage == null) {
+				PhoneMeConstants.getInstance();
+				SingleResultPanel.defaultImage = ImageIO.read(getClass()
+						.getResource(PhoneMeConstants.DEFAULT_IMAGE_URL));
+			}
 
-			configurePanel();
+			configurePanel(secondType);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
 
-	private void configurePanel() throws IOException {
+	private void configurePanel(ContactSectionType secondType)
+			throws IOException {
 		// TODO Auto-generated method stub
 		this.setLayout(new BoxLayout(this, BoxLayout.X_AXIS));
 		this.setBorder(new BevelBorder(BevelBorder.RAISED));
@@ -65,12 +66,26 @@ public class SingleResultPanel extends JPanel {
 		nameLabel.setFont(nameLabel.getFont().deriveFont(Font.BOLD,
 				(float) 15.0));
 
-		String phoneNumber = "N/A";
-		ArrayList<String> phoneNumberList = myContact.getPhoneNumberList();
-		if (phoneNumberList != null && phoneNumberList.size() > 0)
-			phoneNumber = myContact.getPhoneNumberList().get(0);
+		String secondTypeString = "N/A";
+		if (secondType == ContactSectionType.BIRTHDAY) {
+			String birthdayString = myContact.getContactBirthday();
+			if (birthdayString != null && birthdayString.length() != 0)
+				secondTypeString = birthdayString;
+		} else if (secondType == ContactSectionType.PHONE_NUMBER) {
+			ArrayList<String> phoneNumberList = myContact.getPhoneNumberList();
+			if (phoneNumberList != null && phoneNumberList.size() > 0)
+				secondTypeString = phoneNumberList.get(0);
+		} else if (secondType == ContactSectionType.COMMON_LABEL) {
+			ArrayList<String> commonLabelList = myContact.getCommonLabelList();
+			if (commonLabelList != null && commonLabelList.size() > 0)
+				secondTypeString = commonLabelList.get(0);
+		} else if (secondType == ContactSectionType.GROUP_LABEL) {
+			ArrayList<String> groupLabelList = myContact.getGroupList();
+			if (groupLabelList != null && groupLabelList.size() > 0)
+				secondTypeString = groupLabelList.get(0);
+		}
 
-		JLabel phoneLabel = new JLabel(phoneNumber);
+		JLabel phoneLabel = new JLabel(secondTypeString);
 		phoneLabel.setFont(phoneLabel.getFont().deriveFont(Font.BOLD,
 				(float) 15.0));
 
