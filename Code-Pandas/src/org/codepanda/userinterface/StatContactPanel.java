@@ -208,16 +208,18 @@ public class StatContactPanel extends JPanel implements ActionListener{
 			displayBirthday.setVisible(true);
 			StringBuffer message = new StringBuffer();
 			if (startBirthdayField.getDate() != null)
-				message.append(MyXMLMaker.addTag("Birthday", birthdayDateFormat
+				message.append(MyXMLMaker.addTag("StartBirthday", birthdayDateFormat
 				.format(startBirthdayField.getDate())));
 			else
 				return;
 			
 			if(endBirthdayField.getDate() != null){
 				
-				message.append(MyXMLMaker.addTag("Birthday", 
+				message.append(MyXMLMaker.addTag("EndBirthday", 
 						birthdayDateFormat.format(endBirthdayField.getDate())));
 				}
+			else
+				return;
 			String xml = MyXMLMaker.addTag("StatContact", message.toString());
 			xml = MyXMLMaker.addTag("com", xml);
 			

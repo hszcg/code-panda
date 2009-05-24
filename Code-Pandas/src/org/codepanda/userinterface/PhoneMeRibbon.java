@@ -159,7 +159,7 @@ public class PhoneMeRibbon {
 			public void actionPerformed(ActionEvent e) {
 				System.out.println("新建联系人");
 				mainFrame.getMyPhoneMeMajorPanel().addNewTab(
-						"New Contact",
+						"新建联系人",
 						new ContactInfoPanel(mainFrame, null, true,
 								ContactInfoPanel.CONTACT_INFO_PANEL));
 			}
@@ -253,7 +253,7 @@ public class PhoneMeRibbon {
 		statContactButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				System.out.println("联系人统计");
-				mainFrame.getMyPhoneMeMajorPanel().addNewTab("Statistic",
+				mainFrame.getMyPhoneMeMajorPanel().addNewTab("联系人统计",
 						new StatContactPanel(mainFrame));
 			}
 		});
@@ -269,7 +269,7 @@ public class PhoneMeRibbon {
 		searchContactButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				System.out.println("联系人搜索");
-				mainFrame.getMyPhoneMeMajorPanel().addNewTab("Search",
+				mainFrame.getMyPhoneMeMajorPanel().addNewTab("高级搜索",
 						new SearchPanel(mainFrame));
 			}
 		});
@@ -577,6 +577,8 @@ public class PhoneMeRibbon {
 		remindBirthdayButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				System.out.println("生日提醒");
+				mainFrame.getMyPhoneMeMajorPanel().addNewTab("生日提醒",
+						new BirthdayRemindPanel(mainFrame));
 			}
 		});
 
