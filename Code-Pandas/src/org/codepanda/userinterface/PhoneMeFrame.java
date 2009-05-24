@@ -10,15 +10,11 @@ import javax.imageio.ImageIO;
 import javax.swing.*;
 import javax.swing.plaf.FontUIResource;
 
-import org.codepanda.application.export.CsvExport;
-import org.codepanda.application.export.CsvImport;
-import org.codepanda.application.googlecontactsyn.GContactOper;
 import org.codepanda.utility.data.DataPool;
 import org.jvnet.flamingo.ribbon.*;
 import org.jvnet.substance.SubstanceLookAndFeel;
 import org.jvnet.substance.skin.SubstanceMistAquaLookAndFeel;
 
-import com.google.gdata.util.ServiceException;
 
 /**
  * @author hszcg
@@ -181,7 +177,6 @@ public class PhoneMeFrame extends JRibbonFrame {
 	 * 
 	 */
 	private void configureLogin() {
-		// TODO Auto-generated method stub
 		myPhoneMeLoginDialog = new PhoneMeLoginDialog(this);
 		myPhoneMeLoginDialog.setVisible(true);
 	}

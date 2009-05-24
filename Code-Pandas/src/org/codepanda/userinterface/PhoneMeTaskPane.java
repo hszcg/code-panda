@@ -130,6 +130,26 @@ public class PhoneMeTaskPane extends JXTaskPaneContainer implements
 				group.add(contact);
 			}
 		}
+
+		// 未分组
+		group = new DefaultMutableTreeNode("未分组");
+		root.add(group);
+		
+		Iterator<Entry<Integer, ContactOperations>> itNew = allContactISN
+				.entrySet().iterator();
+		while (it.hasNext()) {
+			Entry<Integer, ContactOperations> entry = (Entry<Integer, ContactOperations>) itNew
+					.next();
+
+			ContactOperations c = allContactISN.get(entry.getKey());
+
+			if (c.getGroupList() == null || c.getGroupList().size() == 0) {
+				contact = new DefaultMutableTreeNode(new TreeNodeItem(c
+						.getContactName(), c.getISN()));
+
+				group.add(contact);
+			}
+		}
 	}
 
 	/**
