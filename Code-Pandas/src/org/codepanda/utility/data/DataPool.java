@@ -38,6 +38,16 @@ public class DataPool {
 	// 1个Key对应多个Value的HashMap
 	private HashMultimap<String, Integer> allContactNameMultimap;
 
+	/**
+	 * @return
+	 */
+	public HashMultimap<String, Integer> getAllContactNameMultimap() {
+		return allContactNameMultimap;
+	}
+
+	/**
+	 * 
+	 */
 	private DataPool() {
 		// TODO Initialize all data except for dataPoolInstance
 		setCurrentUser(new User());

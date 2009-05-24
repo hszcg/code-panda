@@ -21,6 +21,7 @@ import org.codepanda.utility.data.ContactSectionType;
 import org.codepanda.utility.data.DataPool;
 import org.codepanda.utility.group.ContactGroup;
 import org.jdesktop.swingx.*;
+import org.jdesktop.swingx.autocomplete.AutoCompleteDecorator;
 
 public class PhoneMeTaskPane extends JXTaskPaneContainer implements
 		TreeSelectionListener, ActionListener {
@@ -32,6 +33,7 @@ public class PhoneMeTaskPane extends JXTaskPaneContainer implements
 	private PhoneMeFrame parentFrame;
 	private JXTaskPane searchTaskPane;
 	private JTextField searchField;
+	private ArrayList<String> autoCompleteList;
 
 	private JXTaskPane contactListTaskPane;
 	private JScrollPane treeViewPane;
@@ -40,14 +42,6 @@ public class PhoneMeTaskPane extends JXTaskPaneContainer implements
 	public PhoneMeTaskPane(PhoneMeFrame phoneMeFrame) {
 		super();
 		this.parentFrame = phoneMeFrame;
-
-		// 搜索
-		searchTaskPane = new JXTaskPane();
-		searchTaskPane.setTitle("按姓名搜索    ");
-		searchField = new JTextField("");
-		searchTaskPane.add(searchField);
-		searchField.addActionListener(this);
-		this.add(searchTaskPane);
 	}
 
 	public void configureContactList() {
@@ -133,7 +127,7 @@ public class PhoneMeTaskPane extends JXTaskPaneContainer implements
 		// 未分组
 		group = new DefaultMutableTreeNode("未分组");
 		root.add(group);
-		
+
 		Iterator<Entry<Integer, ContactOperations>> itNew = allContactISN
 				.entrySet().iterator();
 		while (it.hasNext()) {
@@ -185,7 +179,22 @@ public class PhoneMeTaskPane extends JXTaskPaneContainer implements
 	 * 
 	 */
 	public void initializeData() {
+		configureSearchField();
 		configureContactList();
+	}
+
+	private void configureSearchField() {
+		// TODO Auto-generated method stub
+		// 搜索
+		searchTaskPane = new JXTaskPane();
+		searchTaskPane.setTitle("按姓名搜索    ");
+		searchField = new JTextField("");
+		autoCompleteList = new ArrayList<String>();
+		autoCompleteList.addAll(DataPool.getInstance().getAllContactNameMultimap().keySet());
+		AutoCompleteDecorator.decorate(searchField, autoCompleteList, false);
+		searchTaskPane.add(searchField);
+		searchField.addActionListener(this);
+		this.add(searchTaskPane);
 	}
 
 	/**
@@ -202,22 +211,23 @@ public class PhoneMeTaskPane extends JXTaskPaneContainer implements
 	@Override
 	public void actionPerformed(ActionEvent arg0) {
 		// TODO Auto-generated method stub
-		if(arg0.getSource() == searchField){
-		StringBuffer message = new StringBuffer();
-		message.append(MyXMLMaker.addTag("BlurSearch", "1"));
-		message.append(MyXMLMaker.addTag("ContactName", searchField.getText()));
-		String xml = message.toString();
-		xml = MyXMLMaker.addTag("SearchContact", xml);
-		xml = MyXMLMaker.addTag("com", xml);
-		CommandVisitor searchContactCommandVisitor = new CommandVisitor(
-				CommandType.SEARCH_CONTACT, xml);
-		SearchContactMessageHandler searchContactMessageHandler = new SearchContactMessageHandler();
-		ArrayList<Integer> resultContactList = (ArrayList<Integer>) searchContactMessageHandler
-				.executeCommand(searchContactCommandVisitor);
-		parentFrame.getMyPhoneMeMajorPanel().addNewTab(
-				"Search Name Result",
-				new SearchResult(parentFrame, resultContactList, ContactSectionType.PHONE_NUMBER)
-						.getMainPanel());
+		if (arg0.getSource() == searchField) {
+			StringBuffer message = new StringBuffer();
+			message.append(MyXMLMaker.addTag("BlurSearch", "1"));
+			message.append(MyXMLMaker.addTag("ContactName", searchField
+					.getText()));
+			String xml = message.toString();
+			xml = MyXMLMaker.addTag("SearchContact", xml);
+			xml = MyXMLMaker.addTag("com", xml);
+			CommandVisitor searchContactCommandVisitor = new CommandVisitor(
+					CommandType.SEARCH_CONTACT, xml);
+			SearchContactMessageHandler searchContactMessageHandler = new SearchContactMessageHandler();
+			ArrayList<Integer> resultContactList = (ArrayList<Integer>) searchContactMessageHandler
+					.executeCommand(searchContactCommandVisitor);
+			parentFrame.getMyPhoneMeMajorPanel().addNewTab(
+					"Search Name Result",
+					new SearchResult(parentFrame, resultContactList,
+							ContactSectionType.PHONE_NUMBER).getMainPanel());
 		}
 	}
 
