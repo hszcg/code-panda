@@ -33,6 +33,9 @@ import org.jvnet.flamingo.common.icon.ImageWrapperResizableIcon;
 import org.jvnet.flamingo.ribbon.*;
 
 import com.google.gdata.util.ServiceException;
+import com.jgoodies.forms.builder.PanelBuilder;
+import com.jgoodies.forms.layout.CellConstraints;
+import com.jgoodies.forms.layout.FormLayout;
 
 public class PhoneMeRibbon {
 	private PhoneMeFrame mainFrame;
@@ -501,7 +504,7 @@ public class PhoneMeRibbon {
 			public void actionPerformed(ActionEvent e) {
 				System.out.println("与Google Contact同步");
 				final JDialog dialog = new JDialog(mainFrame,
-						"Please Select.", true);
+						"请选择同步操作", true);
 				JButton upload = new JButton("上传");
 				upload.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
@@ -529,9 +532,19 @@ public class PhoneMeRibbon {
 						mainFrame.updateTaskPane(0);
 					}
 				});
-				dialog.setLayout(new GridLayout(1, 2));
-				dialog.add(upload);
-				dialog.add(download);
+				FormLayout layout = new FormLayout(
+						"10dlu, pref, 20dlu, pref, 10dlu", // columns
+						"10dlu, p, 10dlu"); // rows
+					
+				PanelBuilder builder = new PanelBuilder(layout);
+				builder.setDefaultDialogBorder();
+				CellConstraints cc = new CellConstraints();
+				
+				//dialog.setLayout(new GridLayout(1, 2));
+				builder.add(upload, cc.xy(2, 2));
+				builder.add(download, cc.xy(4, 2));
+				//dialog.add(upload);
+				dialog.add(builder.getPanel());
 				dialog.pack();
 				Dimension screenSize = Toolkit.getDefaultToolkit()
 						.getScreenSize();
