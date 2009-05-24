@@ -289,4 +289,14 @@ public class PhoneMeMajorPanel extends JPanel {
 		// centerPanel.addTab("Edit User", new JScrollPane(p));
 	}
 
+	/**
+	 * @param myContactInfoPanel
+	 * @param title
+	 */
+	public void setTitle(String title, ContactInfoPanel myContactInfoPanel) {
+		// TODO Auto-generated method stub
+		this.centerPanel.setTitleAt(this.centerPanel
+				.indexOfComponent(myContactInfoPanel), title);
+	}
+
 }
