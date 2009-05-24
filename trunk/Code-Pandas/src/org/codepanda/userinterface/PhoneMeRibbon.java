@@ -220,7 +220,7 @@ public class PhoneMeRibbon {
 				}
 			}
 		});
-		
+
 		contactManagerBand.addCommandButton(editContactButton,
 				RibbonElementPriority.MEDIUM);
 
@@ -233,8 +233,9 @@ public class PhoneMeRibbon {
 			public void actionPerformed(ActionEvent e) {
 				System.out.println("显示所有联系人");
 				ArrayList<Integer> myISNList = new ArrayList<Integer>();
-				myISNList.addAll(DataPool.getInstance().getAllContactISNMap().keySet());
-				mainFrame.getMyPhoneMeMajorPanel().addNewTab("All Contacts", 
+				myISNList.addAll(DataPool.getInstance().getAllContactISNMap()
+						.keySet());
+				mainFrame.getMyPhoneMeMajorPanel().addNewTab("All Contacts",
 						new SearchResult(mainFrame, myISNList).getMainPanel());
 			}
 		});
@@ -250,7 +251,7 @@ public class PhoneMeRibbon {
 		statContactButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				System.out.println("联系人统计");
-				mainFrame.getMyPhoneMeMajorPanel().addNewTab("Statistic", 
+				mainFrame.getMyPhoneMeMajorPanel().addNewTab("Statistic",
 						new StatContactPanel(mainFrame));
 			}
 		});
@@ -314,7 +315,8 @@ public class PhoneMeRibbon {
 				Component currentTab = mainFrame.getMyPhoneMeMajorPanel()
 						.getCurrentTab();
 				if (currentTab instanceof CommonLabelShowPanel) {
-					((CommonLabelShowPanel)currentTab).deleteAllSelectedCommonLabel();
+					((CommonLabelShowPanel) currentTab)
+							.deleteAllSelectedCommonLabel();
 				}
 			}
 		});
@@ -333,7 +335,7 @@ public class PhoneMeRibbon {
 				Component currentTab = mainFrame.getMyPhoneMeMajorPanel()
 						.getCurrentTab();
 				if (currentTab instanceof CommonLabelShowPanel) {
-					((CommonLabelShowPanel)currentTab).setEditable(true);
+					((CommonLabelShowPanel) currentTab).setEditable(true);
 				}
 			}
 		});
@@ -408,6 +410,8 @@ public class PhoneMeRibbon {
 				ImportContactMessageHandler importContactMessageHandler = new ImportContactMessageHandler();
 				importContactMessageHandler
 						.executeCommand(importContactCommandVisitor);
+
+				mainFrame.updateTaskPane(0);
 			}
 		});
 
@@ -495,7 +499,8 @@ public class PhoneMeRibbon {
 		googleContactButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				System.out.println("与Google Contact同步");
-				final JDialog dialog = new JDialog(mainFrame, "Please Select Upload or DownLoad.", true);
+				final JDialog dialog = new JDialog(mainFrame,
+						"Please Select.", true);
 				JButton upload = new JButton("上传");
 				upload.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
@@ -507,8 +512,8 @@ public class PhoneMeRibbon {
 						} catch (IOException e1) {
 							e1.printStackTrace();
 						}
-				}
-			});
+					}
+				});
 				JButton download = new JButton("下载");
 				download.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
@@ -520,15 +525,17 @@ public class PhoneMeRibbon {
 						} catch (IOException e1) {
 							e1.printStackTrace();
 						}
-				}
-			});
+						mainFrame.updateTaskPane(0);
+					}
+				});
 				dialog.setLayout(new GridLayout(1, 2));
 				dialog.add(upload);
 				dialog.add(download);
 				dialog.pack();
-				Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-				dialog.setLocation((screenSize.width - dialog.getWidth()) / 2, 
-					(screenSize.height - dialog.getHeight()) / 2);
+				Dimension screenSize = Toolkit.getDefaultToolkit()
+						.getScreenSize();
+				dialog.setLocation((screenSize.width - dialog.getWidth()) / 2,
+						(screenSize.height - dialog.getHeight()) / 2);
 				dialog.setResizable(false);
 				dialog.setVisible(true);
 			}
