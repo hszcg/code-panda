@@ -3,6 +3,10 @@
  */
 package org.codepanda.utility.data;
 
+import java.io.File;
+import java.io.RandomAccessFile;
+import java.nio.channels.FileChannel;
+import java.nio.channels.FileLock;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -26,7 +30,7 @@ import com.google.common.collect.HashMultimap;
  * 
  */
 public class DataPool {
-	private static int currentLowBound = Integer.MIN_VALUE+1;
+	private static int currentLowBound = Integer.MIN_VALUE + 1;
 	private HashMap<Integer, ContactOperations> allContactISNMap;
 	private HashMap<String, ContactGroup> allContactGroupMap;
 	private HashMap<String, ContactGroup> allCommonLabelDataMap;
@@ -43,19 +47,21 @@ public class DataPool {
 			setDb(new DatabaseMagager("test"));
 			getDb().open("test");
 
-			// // my test of file lock
-			// // File theFile = new File("test.script");
-			// theFile = new File("test.script");
-			// // RandomAccessFile raf=new RandomAccessFile(theFile,"rw");
-			// raf=new RandomAccessFile(theFile,"rw");
-			// // System.in.read(); //锁住程序，真实程序中不需要
-			// // FileChannel fc = raf.getChannel();
-			// fc = raf.getChannel();
-			// // FileLock fl = fc.tryLock();
+			// my test of file lock
+			// File theFile = new File("test.script");
+			theFile = new File("test.script");
+			// RandomAccessFile raf=new RandomAccessFile(theFile,"rw");
+			raf = new RandomAccessFile(theFile, "rw");
+			// System.in.read(); //锁住程序，真实程序中不需要
+			// FileChannel fc = raf.getChannel();
+			fc = raf.getChannel();
+			// FileLock fl = fc.tryLock();
 			// fl = fc.tryLock();
-			// // fl.release();
-			// // raf.close();
-			// // end of my file lock
+			// fl = fc.lock();
+			fl = fc.tryLock();
+			// fl.release();
+			// raf.close();
+			// end of my file lock
 
 		} catch (Exception e1) {
 			e1.printStackTrace();
@@ -82,10 +88,10 @@ public class DataPool {
 	private DatabaseManagerFacade db;
 
 	// add for locking file
-	// public RandomAccessFile raf;
-	// File theFile;
-	// FileChannel fc;
-	// public FileLock fl;
+	public RandomAccessFile raf;
+	File theFile;
+	FileChannel fc;
+	public FileLock fl;
 
 	/**
 	 * @return
@@ -133,7 +139,7 @@ public class DataPool {
 			System.out.println("Login User Password Invaild");
 			return -2;
 		}
-		
+
 		// 加载分组信息
 		for (String str : PhoneMeConstants.getInstance().getAllGroupList()) {
 			System.out.println("ADD GROUP\n" + str);
@@ -144,7 +150,7 @@ public class DataPool {
 
 		// TODO 把当前用户的联系人读入DataPool
 		DataPool.getInstance().getDb().getUser(userName, getCurrentUser());
-		
+
 		ArrayList<ContactOperations> allContactList = new ArrayList<ContactOperations>();
 		this.getDb().getContactData(userName, allContactList);
 
@@ -213,11 +219,12 @@ public class DataPool {
 	public int newContact(PersonalContact contactData) {
 		// 如果失败，返回-2,成功返回0
 		// if
-		// (DataPool.getInstance().getDb().newContact(getCurrentUser().getUserName(),
+		//(DataPool.getInstance().getDb().newContact(getCurrentUser().getUserName
+		// (),
 		// contactData) == -2) {
 		int temp = currentLowBound;
 		contactData.setISN(temp);
-		System.out.println("Name_____"+contactData.getContactName());
+		System.out.println("Name_____" + contactData.getContactName());
 		System.out.println("ISN----" + contactData.getISN());
 		DataPool.getInstance().getDb().newContact(
 				getCurrentUser().getUserName(), contactData);
@@ -312,25 +319,24 @@ public class DataPool {
 			currentLowBound = ISN;
 		}
 		// 对所有的hashMap进行维护
-		//System.out.println()
-		if(allContactISNMap.isEmpty())
-		{
+		// System.out.println()
+		if (allContactISNMap.isEmpty()) {
 			System.out.println("Empty!!!!");
 		}
-		if(allContactISNMap==null)
-		{
+		if (allContactISNMap == null) {
 			System.out.println("Null!!!!");
 		}
-		if(allContactISNMap.get(ISN)!=null)
-		{
+		if (allContactISNMap.get(ISN) != null) {
 			System.out.println("LLLLLL");
 			System.out.println(allContactISNMap.get(ISN).getContactName());
 		}
 		System.out.println(ISN);
-		allContactNameMultimap.remove(allContactISNMap.get(ISN).getContactName(),ISN);
-	//	System.out.println("Here----"+this.getAllContactISNMap().get(ISN).getContactName());
-	//	allContactNameMultimap.remove(this.getAllContactISNMap().get(ISN)
-		//		.getContactName(), ISN);
+		allContactNameMultimap.remove(allContactISNMap.get(ISN)
+				.getContactName(), ISN);
+		// System.out.println("Here----"+this.getAllContactISNMap().get(ISN).
+		// getContactName());
+		// allContactNameMultimap.remove(this.getAllContactISNMap().get(ISN)
+		// .getContactName(), ISN);
 		for (String groupName : getAllContactISNMap().get(ISN).getGroupList()) {
 			if (allContactGroupMap.containsKey(groupName)) {
 				allContactGroupMap.get(groupName).deleteGroupMember(ISN);
@@ -375,62 +381,64 @@ public class DataPool {
 		return allContactISNMap;
 	}
 
-	public int deleteCommonLabel(String paramStr)
-	{
-		String temp[]=paramStr.split("--");
-		//0对应的应该是空
-		for(int i=1;i<temp.length;i++)
-		{
-		
-			//TODO 需要调用数据库的函数，调用其接口即可
-			if(this.getAllCommonLabelDataMap().containsKey(temp[i]))
-			{
-				
-				ContactGroup contactGroup=this.getAllCommonLabelDataMap().get(temp[i]);
+	public int deleteCommonLabel(String paramStr) {
+		String temp[] = paramStr.split("--");
+		// 0对应的应该是空
+		for (int i = 1; i < temp.length; i++) {
+
+			// TODO 需要调用数据库的函数，调用其接口即可
+			if (this.getAllCommonLabelDataMap().containsKey(temp[i])) {
+
+				ContactGroup contactGroup = this.getAllCommonLabelDataMap()
+						.get(temp[i]);
 				this.getAllCommonLabelDataMap().remove(temp[i]);
-				for(Integer inte : contactGroup.getGroupMembers())
-				{
-					if(this.getAllContactISNMap().containsKey(inte))
-					{
-						ArrayList<String> commandList=this.getAllContactISNMap().get(inte).getCommonLabelList();
+				for (Integer inte : contactGroup.getGroupMembers()) {
+					if (this.getAllContactISNMap().containsKey(inte)) {
+						ArrayList<String> commandList = this
+								.getAllContactISNMap().get(inte)
+								.getCommonLabelList();
 						commandList.remove(temp[i]);
-						this.getAllContactISNMap().get(inte).setCommonLabelList(commandList);
-						this.getDb().editContact(getCurrentUser().getUserName(), (PersonalContact)this.getAllContactISNMap().get(inte));
+						this.getAllContactISNMap().get(inte)
+								.setCommonLabelList(commandList);
+						this.getDb().editContact(
+								getCurrentUser().getUserName(),
+								(PersonalContact) this.getAllContactISNMap()
+										.get(inte));
 					}
 				}
-			
+
 			}
-			
-			
+
 		}
 		return 0;
 	}
-	public int editCommandLabel(String paramStr)
-	{
-		String temp[]=paramStr.split("--");
-		System.out.println("Temp___1__"+temp[1]);
-		System.out.println("Temp___2__"+temp[2]);
-		if(this.getAllCommonLabelDataMap().containsKey(temp[1]))
-		{
-			//需要调用数据库函数，实现真正的修改
-			
-			ContactGroup contactGroup=this.getAllCommonLabelDataMap().get(temp[1]);
+
+	public int editCommandLabel(String paramStr) {
+		String temp[] = paramStr.split("--");
+		System.out.println("Temp___1__" + temp[1]);
+		System.out.println("Temp___2__" + temp[2]);
+		if (this.getAllCommonLabelDataMap().containsKey(temp[1])) {
+			// 需要调用数据库函数，实现真正的修改
+
+			ContactGroup contactGroup = this.getAllCommonLabelDataMap().get(
+					temp[1]);
 			this.getAllCommonLabelDataMap().remove(temp[1]);
 			this.getAllCommonLabelDataMap().put(temp[2], contactGroup);
-			ArrayList<String> newCommonLabel=new ArrayList<String>();
+			ArrayList<String> newCommonLabel = new ArrayList<String>();
 			newCommonLabel.add(temp[2]);
-				for(Integer inte : contactGroup.getGroupMembers())
-				{
-					if(this.getAllContactISNMap().containsKey(inte))
-						this.getAllContactISNMap().get(inte).setCommonLabelList(newCommonLabel);
-					this.getDb().editContact(getCurrentUser().getUserName(), (PersonalContact)this.getAllContactISNMap().get(inte));
-				}
-			
-			
+			for (Integer inte : contactGroup.getGroupMembers()) {
+				if (this.getAllContactISNMap().containsKey(inte))
+					this.getAllContactISNMap().get(inte).setCommonLabelList(
+							newCommonLabel);
+				this.getDb().editContact(getCurrentUser().getUserName(),
+						(PersonalContact) this.getAllContactISNMap().get(inte));
+			}
+
 		}
 		return 0;
-		
+
 	}
+
 	public void setDb(DatabaseManagerFacade db) {
 		this.db = db;
 	}
