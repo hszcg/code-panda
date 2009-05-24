@@ -66,6 +66,7 @@ public class StatContactXML {
 	}
 	public boolean StatIterator(Element element,PersonalContact currentContact)
 	{
+		System.out.println(currentContact.getContactBirthday());
 		NodeList nodeList=element.getChildNodes();
 		for(int i=0;i<nodeList.getLength();i++)
 		{
@@ -82,6 +83,9 @@ public class StatContactXML {
 				startYear=Integer.parseInt(tempstr[0]);
 				startMonth=Integer.parseInt(tempstr[1]);
 				startDay=Integer.parseInt(tempstr[2]);
+				System.out.println(startYear);
+				System.out.println(startMonth);
+				System.out.println(startDay);
 				secondFlag=true;
 				}
 				else
@@ -93,6 +97,9 @@ public class StatContactXML {
 					endYear=Integer.parseInt(tempstr[0]);
 					endMonth=Integer.parseInt(tempstr[1]);
 					endDay=Integer.parseInt(tempstr[2]);
+					System.out.println(endYear);
+					System.out.println(endMonth);
+					System.out.println(endDay);
 					//secondFlag=true;
 				}
 			}
@@ -148,6 +155,7 @@ public class StatContactXML {
 				}
 				if(startMonth<endMonth)
 				{
+					if(!currentContact.getContactBirthday().isEmpty()){
 					String temp=currentContact.getContactBirthday().substring(5,6);
 					int tempMonth=Integer.parseInt(temp);
 					boolean startTemp1=(tempMonth>startMonth);
@@ -157,10 +165,12 @@ public class StatContactXML {
 					//上述情况的任意两种情况进行组合，即可
 					if((startTemp1||startTemp2)&&(endTemp1||endTemp2))
 						return true;
+					}
 				}
 			}
 			if(startYear<endYear)
 			{
+				if(!currentContact.getContactBirthday().isEmpty()){
 				String temp=currentContact.getContactBirthday().substring(0,3);
 				int tempYear=Integer.parseInt(temp);
 				 temp=currentContact.getContactBirthday().substring(5,6);
@@ -177,6 +187,7 @@ public class StatContactXML {
 				boolean endTemp3=(tempYear==endYear)&&(tempMonth==endMonth)&&(tempDay<=endDay);
 				if((startTemp1||startTemp2||startTemp3)&&(endTemp1||endTemp2||endTemp3))
 					return true;
+			}
 			}
 			return false;
 	}
