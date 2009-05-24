@@ -212,6 +212,8 @@ public class DataPool {
 			System.out.println("Edit User Failed!!!!");
 			return -2;
 		}
+		int result=DataPool.getInstance().getDb().getUser(userName, user);
+		setCurrentUser(user);
 		return 0;
 	}
 
