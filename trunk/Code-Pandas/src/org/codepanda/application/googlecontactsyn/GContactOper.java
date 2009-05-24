@@ -36,15 +36,15 @@ public class GContactOper {
 		for (int i = 0; i < resultFeed.getEntries().size(); i++) {
 			PersonalContact pc = new PersonalContact();
 			ContactEntry entry = resultFeed.getEntries().get(i);
-
+			
 			pc.setContactName(entry.getTitle().getPlainText());
-			System.out.println("\t" + entry.getTitle().getPlainText());
+			System.out.println("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@\t" + entry.getTitle().getPlainText());
 
 			ArrayList<String> emailAddressList = new ArrayList<String>();
-			System.out.println("Email addresses:");
+			System.out.println("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@Email addresses:");
 			for (Email email : entry.getEmailAddresses()) {
 				emailAddressList.add(email.getAddress());
-				System.out.print(" " + email.getAddress());
+				System.out.print(" @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@" + email.getAddress());
 				System.out.print("\n");
 			}
 			pc.setEmailAddresseList(emailAddressList);
