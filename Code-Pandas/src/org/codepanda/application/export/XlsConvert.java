@@ -20,8 +20,8 @@ public class XlsConvert {
 			ContactOperations[] contactList = 
 				(ContactOperations[]) DataPool.getInstance()
 			.getAllContactISNMap().values().toArray(new ContactOperations[0]);
-			String[] labelList = (String[]) PhoneMeConstants.getInstance()
-			.getContactSectionList().values().toArray(new String[0]);
+			//String[] labelList = (String[]) PhoneMeConstants.getInstance()
+			//.getContactSectionList().values().toArray(new String[0]);
 		
 			File tempFile = new File(url);
 			if(tempFile.exists())

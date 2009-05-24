@@ -1,7 +1,6 @@
 package org.codepanda.application.contact;
 
 import org.codepanda.application.CommandActor;
-import org.codepanda.utility.contact.PersonalContact;
 import org.codepanda.utility.data.DataPool;
 
 public class DeleteContactActor implements CommandActor {

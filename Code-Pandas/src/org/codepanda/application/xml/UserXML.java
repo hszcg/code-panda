@@ -10,12 +10,9 @@ import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.xml.parsers.*;
 
-import org.codepanda.utility.contact.Birthday;
-import org.codepanda.utility.contact.ContactData;
 import org.codepanda.utility.contact.HeadImage;
 import org.w3c.dom.*;
 import org.xml.sax.InputSource;
-import org.xml.sax.SAXException;
 import org.codepanda.utility.user.User;
 /**
  * @author xdq
@@ -208,12 +205,6 @@ public  void UserIterator(User currentUser,Element element) throws IOException
 		else if(str.equalsIgnoreCase("Birthday"))
 		{
 			String value=node.getTextContent();
-			String str1[]= new String[3];
-			str1=value.split("-");
-			Birthday  birth=new Birthday();
-			birth.setYear(Integer.parseInt(str1[0]));
-			birth.setMonth(Integer.parseInt(str1[1]));
-			birth.setDay(Integer.parseInt(str1[2]));
 			currentUser.setContactBirthday(value);
 			System.out.println("Birthday--"+value);
 		}

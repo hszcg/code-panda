@@ -88,7 +88,7 @@ public class PhoneMeCreateNewUserDialog {
 
 		// 信息提示
 		this.errorMessageLabel = new JLabel(
-				"Welcome To PhoneMe, Please Login to Procceed.");
+				"Welcome To PhoneMe, Please Create New User to Procceed.");
 		this.errorMessageLabel.setForeground(Color.BLUE);
 		// **************************************************
 

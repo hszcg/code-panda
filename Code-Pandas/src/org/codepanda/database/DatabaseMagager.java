@@ -7,12 +7,9 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 
-import org.codepanda.utility.contact.ContactData;
 import org.codepanda.utility.contact.ContactOperations;
 import org.codepanda.utility.contact.PersonalContact;
-import org.codepanda.utility.data.DataPool;
 import org.codepanda.utility.user.User;
-import org.hsqldb.*;
 import org.hsqldb.jdbc.jdbcDataSource;
 
 public class DatabaseMagager implements DatabaseManagerFacade {

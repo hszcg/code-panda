@@ -16,6 +16,10 @@ import org.codepanda.utility.label.RelationLabel;
  *
  */
 public class ContactData implements Serializable {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -8100955859773567957L;
 	public String contactName;
 	public ArrayList<String> phoneNumberList;
 	public ArrayList<String> emailAddresseList;

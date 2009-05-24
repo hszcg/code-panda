@@ -15,6 +15,10 @@ import org.codepanda.utility.label.RelationLabel;
  * 
  */
 public class PersonalContact implements ContactOperations,Serializable {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -8192855369818866696L;
 	private ContactData personalContactData;
 	
 	public PersonalContact()

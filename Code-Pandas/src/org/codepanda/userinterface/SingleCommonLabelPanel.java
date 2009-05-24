@@ -26,7 +26,6 @@ public class SingleCommonLabelPanel extends JPanel {
 	private static final long serialVersionUID = -489177675135631883L;
 	private PhoneMeFrame parentFrame;
 	private String oldLabelName;
-	private String newLabelName;
 
 	private JCheckBox selectBox;
 	private JTextField labelNameField;
@@ -41,7 +40,6 @@ public class SingleCommonLabelPanel extends JPanel {
 		super();
 		this.parentFrame = parentFrame;
 		this.oldLabelName = labelName;
-		this.newLabelName = labelName;
 
 		configurePanel();
 	}
@@ -121,6 +119,13 @@ public class SingleCommonLabelPanel extends JPanel {
 	public String getLabelName() {
 		// TODO Auto-generated method stub
 		return oldLabelName;
+	}
+
+	/**
+	 * @return the parentFrame
+	 */
+	public PhoneMeFrame getParentFrame() {
+		return parentFrame;
 	}
 
 }

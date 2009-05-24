@@ -5,12 +5,8 @@ import java.sql.SQLException;
 import org.codepanda.application.CommandType;
 import org.codepanda.application.CommandVisitor;
 import org.codepanda.application.user.DeleteUserActor;
-import org.codepanda.application.user.LoginUserActor;
-import org.codepanda.application.user.NewUserActor;
 import org.codepanda.userinterface.messagehandler.MessageHandler;
 import org.codepanda.userinterface.utility.DeleteUserResultType;
-import org.codepanda.userinterface.utility.LoginResultType;
-import org.codepanda.userinterface.utility.NewUserResultType;
 import org.codepanda.utility.data.DataPool;
 import org.codepanda.utility.user.User;
 
@@ -21,6 +17,7 @@ import org.codepanda.utility.user.User;
  *
  */
 public class TestMessageHandler implements MessageHandler {
+	@SuppressWarnings("unused")
 	private User currentUser;
 	public void testFunc(CommandType commandType,String xml){
 	/*	CommandVisitor c = new CommandVisitor(CommandType.NEW_USER, xml);*/
@@ -47,6 +44,7 @@ public class TestMessageHandler implements MessageHandler {
 		"</LoginUser>"+
 		"</com>";
 		
+		@SuppressWarnings("unused")
 		String DeleteUserxml="<com>"+
 		"<DeleteUser>"+
 		"<UserName>"+"xdq"+"</UserName>"+
@@ -104,6 +102,7 @@ public class TestMessageHandler implements MessageHandler {
 		"</NewUser>"+
 		"</com>";
 		
+		@SuppressWarnings("unused")
 		String EditUserxml="<com>"+
 		"<EditUser>"+
 		"<UserName>"+"zcg"+"</UserName>"+
@@ -111,6 +110,8 @@ public class TestMessageHandler implements MessageHandler {
 		"<Email>"+"zcg@fjd"+"</Email>"+
 		"</EditUser>"+
 		"</com>";
+		
+		@SuppressWarnings("unused")
 		String StatContactxml="<com>"+
 		"<StatContact>"+
 		"<Birthday>"+"1995-05-11"+"</Birthday>"+
@@ -131,7 +132,6 @@ public class TestMessageHandler implements MessageHandler {
 		try {
 			DataPool.getInstance().getDb().close();
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}

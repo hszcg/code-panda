@@ -5,9 +5,6 @@ package org.codepanda.utility.label;
 
 import java.io.Serializable;
 
-import org.codepanda.utility.contact.ContactOperations;
-import org.jdesktop.swingx.search.Searchable;
-
 /**
  * 
  * @author hszcg
@@ -15,6 +12,11 @@ import org.jdesktop.swingx.search.Searchable;
  *
  */
 public class RelationLabel implements Serializable{
+	/**
+	 *
+	 */
+	private static final long serialVersionUID = -3619647312177809215L;
+
 	/**
 	 * 
 	 */

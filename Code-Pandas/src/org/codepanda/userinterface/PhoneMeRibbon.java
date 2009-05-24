@@ -28,7 +28,6 @@ import org.codepanda.userinterface.xml.MyXMLMaker;
 import org.codepanda.utility.contact.ContactOperations;
 import org.codepanda.utility.data.ContactSectionType;
 import org.codepanda.utility.data.DataPool;
-import org.codepanda.utility.data.PhoneMeConstants;
 import org.jvnet.flamingo.common.JCommandButton;
 import org.jvnet.flamingo.common.icon.ImageWrapperResizableIcon;
 import org.jvnet.flamingo.ribbon.*;

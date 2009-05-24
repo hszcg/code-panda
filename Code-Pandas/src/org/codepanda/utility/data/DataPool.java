@@ -10,8 +10,6 @@ import java.nio.channels.FileLock;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-import javax.swing.text.html.HTMLDocument.Iterator;
-
 import org.codepanda.database.DatabaseMagager;
 import org.codepanda.database.DatabaseManagerFacade;
 import org.codepanda.utility.contact.ContactOperations;
@@ -212,7 +210,7 @@ public class DataPool {
 			System.out.println("Edit User Failed!!!!");
 			return -2;
 		}
-		int result=DataPool.getInstance().getDb().getUser(userName, user);
+		DataPool.getInstance().getDb().getUser(userName, user);
 		setCurrentUser(user);
 		return 0;
 	}

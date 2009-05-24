@@ -3,6 +3,10 @@ package org.codepanda.userinterface;
 import javax.swing.JTextField;
 
 public class PhoneMeField extends JTextField{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -7905237871318907598L;
 	public static final int ADD_STATE = 0;
 	public static final int EDIT_STATE = 1;
 	int state =ADD_STATE;

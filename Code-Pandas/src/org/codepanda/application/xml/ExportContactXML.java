@@ -25,7 +25,6 @@ public class ExportContactXML {
 	String tempStr=null;
 	public String ContactParserXML(String match1,String match2,String commandDetail)
 	{
-		String tempStr=null;
 		try
 		{
 			//System.out.println("MMMMMMMMMMM");

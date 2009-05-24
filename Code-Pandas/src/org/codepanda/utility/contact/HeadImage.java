@@ -14,6 +14,10 @@ import javax.swing.ImageIcon;
  *
  */
 public class HeadImage implements Serializable{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1574864907186977562L;
 	private ImageIcon myImageIcon;
 
 	/**

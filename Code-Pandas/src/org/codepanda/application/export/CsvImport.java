@@ -2,7 +2,6 @@ package org.codepanda.application.export;
 
 import java.io.BufferedReader;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 
@@ -20,7 +19,6 @@ public class CsvImport {
 			String[] argsArr = null;
 			System.out.println(line=br.readLine());
 			while((line=br.readLine())!=null){
-				int col = 0;
 				PersonalContact pc = new PersonalContact();
 				System.out.println(line);
 				argsArr = line.split(",");

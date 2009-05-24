@@ -1,7 +1,6 @@
 package org.codepanda.application.label;
 
 import org.codepanda.application.CommandActor;
-import org.codepanda.utility.data.DataPool;
 import org.codepanda.utility.label.CommonLabel;
 
 public class NewCommonLabelActor implements CommandActor {
