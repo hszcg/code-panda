@@ -395,6 +395,7 @@ public class DataPool {
 						ArrayList<String> commandList=this.getAllContactISNMap().get(inte).getCommonLabelList();
 						commandList.remove(temp[i]);
 						this.getAllContactISNMap().get(inte).setCommonLabelList(commandList);
+						this.getDb().editContact(getCurrentUser().getUserName(), (PersonalContact)this.getAllContactISNMap().get(inte));
 					}
 				}
 			
@@ -422,6 +423,7 @@ public class DataPool {
 				{
 					if(this.getAllContactISNMap().containsKey(inte))
 						this.getAllContactISNMap().get(inte).setCommonLabelList(newCommonLabel);
+					this.getDb().editContact(getCurrentUser().getUserName(), (PersonalContact)this.getAllContactISNMap().get(inte));
 				}
 			
 			
