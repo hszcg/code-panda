@@ -107,6 +107,7 @@ public class StatContactXML {
 		}
 		//分情况进行分析
 		int tempYear,tempMonth,tempDay;
+		System.out.println(currentContact.getContactBirthday().length());
 		temp=currentContact.getContactBirthday().substring(0,4);
 		tempYear=Integer.parseInt(temp);
 		temp=currentContact.getContactBirthday().substring(5,7);
