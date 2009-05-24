@@ -99,6 +99,7 @@ public class StatContactPanel extends JPanel implements ActionListener{
 			allCommonLabel.add(entry.getKey());
 		}
 		commonLabel = new JComboBox(allCommonLabel);
+		upperBuilder.add(commonLabel, upcc.xy(4, 6));
 		
 		commonLabelConfirm = new JButton("开始统计");
 		upperBuilder.add(commonLabelConfirm, upcc.xy(6, 6));
