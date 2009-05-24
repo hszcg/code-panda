@@ -386,7 +386,7 @@ public class DataPool {
 			if(this.getAllCommonLabelDataMap().containsKey(temp[i]))
 			{
 				
-				ContactGroup contactGroup=this.getAllCommonLabelDataMap().get(temp[1]);
+				ContactGroup contactGroup=this.getAllCommonLabelDataMap().get(temp[i]);
 				this.getAllCommonLabelDataMap().remove(temp[i]);
 				for(Integer inte : contactGroup.getGroupMembers())
 				{
