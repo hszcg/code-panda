@@ -13,6 +13,7 @@ import javax.imageio.ImageIO;
 import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JFileChooser;
+import javax.swing.JLabel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 import javax.swing.filechooser.FileFilter;
@@ -517,12 +518,20 @@ public class PhoneMeRibbon {
 				System.out.println("与Google Contact同步");
 				final JDialog dialog = new JDialog(mainFrame,
 						"请选择同步操作", true);
+				final JTextField userNameField = new JTextField(15);
+				final JPasswordField userPasswordField = new JPasswordField(15);
+				final JLabel errorLabel = new JLabel();
 				JButton upload = new JButton("上传");
 				upload.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
 						try {
-							GContactOper.createContact();
+							if(
+							GContactOper.createContact
+							(userNameField.getText(), 
+							String.valueOf(userPasswordField.getPassword())))
 							dialog.dispose();
+							else
+								errorLabel.setText("登录失败");
 						} catch (ServiceException e1) {
 							e1.printStackTrace();
 						} catch (IOException e1) {
@@ -534,8 +543,13 @@ public class PhoneMeRibbon {
 				download.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
 						try {
-							GContactOper.getAllContacts();
+							if(
+							GContactOper.getAllContacts
+							(userNameField.getText(), 
+									String.valueOf(userPasswordField.getPassword())))
 							dialog.dispose();
+							else
+								errorLabel.setText("登录失败");
 						} catch (ServiceException e1) {
 							e1.printStackTrace();
 						} catch (IOException e1) {
@@ -544,16 +558,24 @@ public class PhoneMeRibbon {
 						mainFrame.updateTaskPane(0);
 					}
 				});
+				JButton cancel = new JButton("取消同步操作");
+				cancel.addActionListener(new ActionListener(){
+
+					@Override
+					public void actionPerformed(ActionEvent e) {
+						// TODO Auto-generated method stub
+						dialog.dispose();
+					}
+					
+				});
 				FormLayout layout = new FormLayout(
-						"10dlu, pref, 20dlu, pref, 10dlu", // columns
-						"10dlu, p, 10dlu, p, 10dlu, p, 10dlu, p, 10dlu"); // rows
+				"10dlu, pref, 20dlu, pref, 10dlu", // columns
+				"10dlu, p, 10dlu, p, 10dlu, p, 10dlu, p, 10dlu, p, 10dlu"); // rows
 					
 				PanelBuilder builder = new PanelBuilder(layout);
 				builder.setDefaultDialogBorder();
 				CellConstraints cc = new CellConstraints();
 				
-				JTextField userNameField = new JTextField(15);
-				JPasswordField userPasswordField = new JPasswordField(15);
 				builder.addLabel("请输入gmail帐号", cc.xy(2, 2));
 				builder.addLabel("用户名", cc.xy(2, 4));
 				builder.add(userNameField, cc.xy(4, 4));
@@ -563,6 +585,8 @@ public class PhoneMeRibbon {
 				
 				builder.add(upload, cc.xy(2, 8));
 				builder.add(download, cc.xy(4, 8));
+				builder.add(errorLabel, cc.xy(2, 10));
+				builder.add(cancel, cc.xy(4, 10));
 				//dialog.add(upload);
 				dialog.add(builder.getPanel());
 				dialog.pack();
