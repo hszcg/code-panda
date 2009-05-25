@@ -91,17 +91,17 @@ public class PhoneMeTaskPane extends JXTaskPaneContainer implements
 		DefaultMutableTreeNode group = null;
 		DefaultMutableTreeNode contact = null;
 
-		System.out.println("Create Tree!");
+		//System.out.println("Create Tree!");
 
 		final HashMap<String, ContactGroup> allContactGroup = DataPool
 				.getInstance().getAllContactGroupMap();
 
-		System.out.println("GROUP" + allContactGroup.size());
+		//System.out.println("GROUP" + allContactGroup.size());
 
 		final HashMap<Integer, ContactOperations> allContactISN = DataPool
 				.getInstance().getAllContactISNMap();
 
-		System.out.println("ALL CONTACT" + allContactISN.size());
+		//System.out.println("ALL CONTACT" + allContactISN.size());
 
 		Iterator<Entry<String, ContactGroup>> it = allContactGroup.entrySet()
 				.iterator();
@@ -130,7 +130,7 @@ public class PhoneMeTaskPane extends JXTaskPaneContainer implements
 
 		Iterator<Entry<Integer, ContactOperations>> itNew = allContactISN
 				.entrySet().iterator();
-		while (it.hasNext()) {
+		while (itNew.hasNext()) {
 			Entry<Integer, ContactOperations> entry = (Entry<Integer, ContactOperations>) itNew
 					.next();
 

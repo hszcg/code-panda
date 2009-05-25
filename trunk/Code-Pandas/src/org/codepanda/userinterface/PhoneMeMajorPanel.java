@@ -88,7 +88,7 @@ public class PhoneMeMajorPanel extends JPanel {
 								mainFrame, "确认关闭当前标签页",
 								
 										//+ tabComponents.size() + " tabs?",
-								"确认对话框", JOptionPane.YES_NO_OPTION);
+								"Comfirm Dialog", JOptionPane.YES_NO_OPTION);
 						return (userCloseAnswer == JOptionPane.NO_OPTION);
 					}
 				});

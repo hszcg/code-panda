@@ -517,7 +517,7 @@ public class PhoneMeRibbon {
 			public void actionPerformed(ActionEvent e) {
 				System.out.println("与Google Contact同步");
 				final JDialog dialog = new JDialog(mainFrame,
-						"请选择同步操作", true);
+						"Sync With Gmail", true);
 				final JTextField userNameField = new JTextField(15);
 				final JPasswordField userPasswordField = new JPasswordField(15);
 				final JLabel errorLabel = new JLabel();
