@@ -45,6 +45,8 @@ public class ConfirmActionListener implements ActionListener {
 
 			myContactInfoPanel.setEditable(false);
 			myContactInfoPanel.getNameField().setEditable(false);
+			myContactInfoPanel.setTextFieldInVisible();
+			myContactInfoPanel.setContactBirthdayPickerInVisible();
 
 			myContactInfoPanel.getParentFrame().updateTaskPane(iSN);
 			myContactInfoPanel.getParentFrame().getMyPhoneMeMajorPanel()
@@ -64,6 +66,8 @@ public class ConfirmActionListener implements ActionListener {
 
 			myContactInfoPanel.setEditable(false);
 			myContactInfoPanel.getNameField().setEditable(false);
+			myContactInfoPanel.setTextFieldInVisible();
+			myContactInfoPanel.setContactBirthdayPickerInVisible();
 
 			myContactInfoPanel.getParentFrame().updateTaskPane(
 					myContactInfoPanel.getMyContact().getISN());
