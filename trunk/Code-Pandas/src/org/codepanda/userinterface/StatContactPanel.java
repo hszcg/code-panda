@@ -178,7 +178,7 @@ public class StatContactPanel extends JPanel implements ActionListener{
 		if(e.getSource() == displayGroup){
 			parentFrame.getMyPhoneMeMajorPanel().addNewTab(
 					"Stat Result",
-					new SearchResult(parentFrame, resultContactList, ContactSectionType.GROUP_LABEL)
+					new SearchResultPanel(parentFrame, resultContactList, ContactSectionType.GROUP_LABEL)
 							.getMainPanel());
 		}
 		
@@ -201,7 +201,7 @@ public class StatContactPanel extends JPanel implements ActionListener{
 		if(e.getSource() == displaycommonLabel){
 			parentFrame.getMyPhoneMeMajorPanel().addNewTab(
 					"Stat Result",
-					new SearchResult(parentFrame, resultContactList, ContactSectionType.COMMON_LABEL)
+					new SearchResultPanel(parentFrame, resultContactList, ContactSectionType.COMMON_LABEL)
 							.getMainPanel());
 		}
 		
@@ -235,7 +235,7 @@ public class StatContactPanel extends JPanel implements ActionListener{
 			birthdayResult.setText("结果个数: "+resultContactList.size());
 			parentFrame.getMyPhoneMeMajorPanel().addNewTab(
 					"Stat Result",
-					new SearchResult(parentFrame, resultContactList, ContactSectionType.BIRTHDAY)
+					new SearchResultPanel(parentFrame, resultContactList, ContactSectionType.BIRTHDAY)
 							.getMainPanel());
 		}
 	}

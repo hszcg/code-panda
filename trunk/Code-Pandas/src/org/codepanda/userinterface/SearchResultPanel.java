@@ -19,32 +19,43 @@ import org.codepanda.utility.contact.ContactOperations;
 import org.codepanda.utility.data.ContactSectionType;
 import org.codepanda.utility.data.DataPool;
 
-public class SearchResult {
+public class SearchResultPanel extends JScrollPane {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 2387803767963350937L;
 	private final PhoneMeFrame parentFrame;
-	private final ArrayList<Integer> myISNList;
-	private JScrollPane mainPanel;
+	private ArrayList<Integer> myISNList;
+	private final JPanel center;
+	private final JPanel resultPanel;
+	private final JLabel searchResultLabel;
+	private final ContactSectionType secondType;
 
-	public SearchResult(final PhoneMeFrame mainFrame,
+	public SearchResultPanel(final PhoneMeFrame mainFrame,
 			final ArrayList<Integer> myISNList, ContactSectionType secondType) {
+		super(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED,
+				JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
 		this.parentFrame = mainFrame;
 		this.myISNList = myISNList;
+		this.center = new JPanel();
+		this.resultPanel = new JPanel();
+		this.searchResultLabel = new JLabel(myISNList.size() + " Items Found",
+				SwingConstants.CENTER);
+		this.secondType = secondType;
 
-		JPanel p = configureResultPanels(secondType);
-		this.mainPanel = new JScrollPane(p,
-				JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED,
-				JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+		JPanel p = configureResultPanels();
+
+		this.setViewportView(p);
 	}
 
 	/**
 	 * 
 	 */
-	private JPanel configureResultPanels(ContactSectionType secondType) {
+	private JPanel configureResultPanels() {
 		JPanel content = new JPanel();
 		content.setLayout(new BorderLayout());
 
 		// 结果提示信息
-		JLabel searchResultLabel = new JLabel(
-				myISNList.size() + " Items Found", SwingConstants.CENTER);
 		searchResultLabel.setForeground(Color.BLUE);
 		searchResultLabel.setFont(searchResultLabel.getFont().deriveFont(
 				Font.BOLD, (float) 14.0));
@@ -55,10 +66,7 @@ public class SearchResult {
 		// 结果显示
 		HashMap<Integer, ContactOperations> temp = DataPool.getInstance()
 				.getAllContactISNMap();
-		JPanel center = new JPanel();
 		center.setLayout(new FlowLayout());
-
-		JPanel resultPanel = new JPanel();
 
 		GridLayout layout = null;
 		int numberInOneRow = 5;
@@ -75,8 +83,8 @@ public class SearchResult {
 		resultPanel.setLayout(layout);
 
 		for (int t : myISNList) {
-			resultPanel
-					.add(new SingleResultPanel(this.parentFrame, temp.get(t), secondType));
+			resultPanel.add(new SingleResultPanel(this.parentFrame,
+					temp.get(t), secondType));
 		}
 
 		center.add(resultPanel);
@@ -96,7 +104,44 @@ public class SearchResult {
 	/**
 	 * @return the mainPanel
 	 */
-	public final JScrollPane getMainPanel() {
-		return mainPanel;
+	public final SearchResultPanel getMainPanel() {
+		return this;
+	}
+
+	/**
+	 * @param updateISN
+	 */
+	public void updateAllResult(int updateISN) {
+		boolean isNewISN = true;
+		ContactOperations c = DataPool.getInstance().getAllContactISNMap().get(
+				updateISN);
+
+		for (int i = 0; i < this.myISNList.size(); i++) {
+			if (myISNList.get(i) == updateISN) {
+				isNewISN = false;
+				if (c == null) {
+					myISNList.remove(i);
+					resultPanel.remove(i);
+				} else {
+					((SingleResultPanel) resultPanel.getComponent(i))
+							.updateDisplay(c, secondType);
+				}
+			}
+		}
+
+		if (isNewISN && c != null) {
+			myISNList.add(updateISN);
+			resultPanel.add(new SingleResultPanel(this.parentFrame, c,
+					secondType));
+		}
+	}
+
+	/**
+	 * @param updateISNList
+	 */
+	public void updateAllResult(ArrayList<Integer> updateISNList) {
+		for (int updateISN : updateISNList) {
+			updateAllResult(updateISN);
+		}
 	}
 }

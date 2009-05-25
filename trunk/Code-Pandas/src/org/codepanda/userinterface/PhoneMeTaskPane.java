@@ -200,7 +200,7 @@ public class PhoneMeTaskPane extends JXTaskPaneContainer implements
 	/**
 	 * @param updateISN
 	 */
-	public void updateGroupList(int updateISN) {
+	public void updateGroupList() {
 		// TODO Auto-generated method stub
 		this.remove(contactListTaskPane);
 		configureContactList();
@@ -229,7 +229,7 @@ public class PhoneMeTaskPane extends JXTaskPaneContainer implements
 					.executeCommand(searchContactCommandVisitor);
 			parentFrame.getMyPhoneMeMajorPanel().addNewTab(
 					"Search Name Result",
-					new SearchResult(parentFrame, resultContactList,
+					new SearchResultPanel(parentFrame, resultContactList,
 							ContactSectionType.PHONE_NUMBER).getMainPanel());
 		}
 	}

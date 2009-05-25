@@ -168,7 +168,7 @@ public class SearchPanel extends JPanel {
 						.executeCommand(searchContactCommandVisitor);
 				parentFrame.getMyPhoneMeMajorPanel().addNewTab(
 						"Search Result",
-						new SearchResult(parentFrame, resultContactList, ContactSectionType.PHONE_NUMBER)
+						new SearchResultPanel(parentFrame, resultContactList, ContactSectionType.PHONE_NUMBER)
 								.getMainPanel());
 			}
 		});

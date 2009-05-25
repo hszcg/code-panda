@@ -119,7 +119,6 @@ public class SingleResultPanel extends JPanel {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				// TODO Auto-generated method stub
 				String name = myContact.getContactName();
 				if (name == null)
 					name = "N/A";
@@ -135,5 +134,19 @@ public class SingleResultPanel extends JPanel {
 		this.add(contactHeadImage);
 		this.add(Box.createHorizontalStrut(8));
 		this.add(infoPanel);
+	}
+
+	/**
+	 * @param c
+	 * @param secondType 
+	 */
+	public void updateDisplay(ContactOperations c, ContactSectionType secondType) {
+		this.removeAll();
+		try {
+			this.myContact = c;
+			this.configurePanel(secondType);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 }

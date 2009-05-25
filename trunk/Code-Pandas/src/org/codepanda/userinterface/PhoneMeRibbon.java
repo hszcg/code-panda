@@ -208,7 +208,7 @@ public class PhoneMeRibbon {
 						deleteContactMessageHandler
 								.executeCommand(deleteContactCommandVisitor);
 
-						mainFrame.updateTaskPane(p.getISN());
+						mainFrame.updateAllPanel(p.getISN());
 						mainFrame.getMyPhoneMeMajorPanel().closeTab(currentTab);
 					}
 				}
@@ -249,7 +249,7 @@ public class PhoneMeRibbon {
 				myISNList.addAll(DataPool.getInstance().getAllContactISNMap()
 						.keySet());
 				mainFrame.getMyPhoneMeMajorPanel().addNewTab("All Contacts",
-						new SearchResult(mainFrame, myISNList, ContactSectionType.PHONE_NUMBER).getMainPanel());
+						new SearchResultPanel(mainFrame, myISNList, ContactSectionType.PHONE_NUMBER).getMainPanel());
 			}
 		});
 
@@ -427,7 +427,7 @@ public class PhoneMeRibbon {
 				importContactMessageHandler
 						.executeCommand(importContactCommandVisitor);
 
-				mainFrame.updateTaskPane(0);
+				mainFrame.updateAllPanel(0);
 			}
 		});
 
@@ -555,7 +555,7 @@ public class PhoneMeRibbon {
 						} catch (IOException e1) {
 							e1.printStackTrace();
 						}
-						mainFrame.updateTaskPane(0);
+						mainFrame.updateAllPanel(0);
 					}
 				});
 				JButton cancel = new JButton("取消同步操作");
