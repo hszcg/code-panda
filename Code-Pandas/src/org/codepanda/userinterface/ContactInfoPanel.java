@@ -679,13 +679,11 @@ public class ContactInfoPanel extends JXPanel {
 		downbuilder.add(selectGroupBox, downcc.xy(13, 5));
 
 		// πÿœµ±Í«©
-		// TODO add and delete
 		relationLabelListBox = new JComboBox();
 		relationLabelListBox.addItemListener(new ItemListener(){
 
 			@Override
 			public void itemStateChanged(ItemEvent e) {
-				// TODO Auto-generated method stub
 				if(getComboBox == false)
 				    setDestContactBox
 				    (relationLabelListBox.getSelectedItem().toString());
@@ -734,13 +732,11 @@ public class ContactInfoPanel extends JXPanel {
 								toString().equals
 								(selectRelationContactBox.
 										getSelectedItem().toString())){
-							// TODO already exist display message?
 							System.out.println("already exist");
 							return;
 						}
 					}
 					relationLabelListBox.setSelectedIndex(labelIndex);
-					// TODO update second combobox
 					objectContactListBox.addItem
 					(selectRelationContactBox.getSelectedItem());
 					objectContactListBox.setSelectedIndex
@@ -794,7 +790,6 @@ public class ContactInfoPanel extends JXPanel {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				System.out.println("delete relation label");
-				// TODO delete common label
 				if(relationLabelListBox.getItemCount() == 0)
 					return;
 				
@@ -823,7 +818,6 @@ public class ContactInfoPanel extends JXPanel {
 					getComboBox = true;
 					relationLabelListBox.removeItem(deleteLabel);
 					getComboBox = false;
-					// TODO update two boxes
 					objectContactListBox.removeItem
 					(objectContactListBox.getSelectedItem());
 					if(relationLabelListBox.getItemCount() != 0)
@@ -1026,6 +1020,13 @@ public class ContactInfoPanel extends JXPanel {
 		for (JTextField p : myTextFieldList) {
 			p.setVisible(false);
 		}
+	}
+	
+	/**
+	 * Special for DatePicker
+	 */
+	public void setContactBirthdayPickerInVisible(){
+		contactBirthdayPicker.setVisible(false);
 	}
 
 	/**
