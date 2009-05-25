@@ -52,7 +52,7 @@ public class ConfirmActionListener implements ActionListener {
 			myContactInfoPanel.setTextFieldInVisible();
 			myContactInfoPanel.setContactBirthdayPickerInVisible();
 
-			myContactInfoPanel.getParentFrame().updateTaskPane(iSN);
+			myContactInfoPanel.getParentFrame().updateAllPanel(iSN);
 			myContactInfoPanel.getParentFrame().getMyPhoneMeMajorPanel()
 					.setTitle(name, myContactInfoPanel);
 		} else {
@@ -73,7 +73,7 @@ public class ConfirmActionListener implements ActionListener {
 			myContactInfoPanel.setTextFieldInVisible();
 			myContactInfoPanel.setContactBirthdayPickerInVisible();
 
-			myContactInfoPanel.getParentFrame().updateTaskPane(
+			myContactInfoPanel.getParentFrame().updateAllPanel(
 					myContactInfoPanel.getMyContact().getISN());
 			myContactInfoPanel.getParentFrame().getMyPhoneMeMajorPanel()
 					.setTitle(name, myContactInfoPanel);

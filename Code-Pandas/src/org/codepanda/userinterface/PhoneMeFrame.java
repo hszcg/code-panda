@@ -256,7 +256,17 @@ public class PhoneMeFrame extends JRibbonFrame {
 	/**
 	 * 
 	 */
-	public void updateTaskPane(int updateISN) {
-		this.myPhoneMeTaskPane.updateGroupList(updateISN);
+	public void updateAllPanel(int updateISN) {
+		this.myPhoneMeTaskPane.updateGroupList();
+		this.myPhoneMeMajorPanel.updateAllResult(updateISN);
 	}
+	
+	/**
+	 * 
+	 */
+	public void updateAllPanel(ArrayList<Integer> updateISNList){
+		this.myPhoneMeTaskPane.updateGroupList();
+		this.myPhoneMeMajorPanel.updateAllResult(updateISNList);
+	}
+
 }

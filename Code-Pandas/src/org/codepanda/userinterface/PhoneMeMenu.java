@@ -259,7 +259,7 @@ public class PhoneMeMenu extends RibbonApplicationMenu {
 						importContactMessageHandler
 								.executeCommand(importContactCommandVisitor);
 
-						mainFrame.updateTaskPane(0);
+						mainFrame.updateAllPanel(0);
 					}
 				},
 				CommandButtonKind.ACTION_ONLY);

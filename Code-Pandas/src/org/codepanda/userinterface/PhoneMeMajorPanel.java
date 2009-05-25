@@ -2,6 +2,7 @@ package org.codepanda.userinterface;
 
 import java.awt.*;
 import java.awt.event.*;
+import java.util.ArrayList;
 import java.util.Set;
 
 import javax.swing.*;
@@ -296,6 +297,34 @@ public class PhoneMeMajorPanel extends JPanel {
 		// TODO Auto-generated method stub
 		this.centerPanel.setTitleAt(this.centerPanel
 				.indexOfComponent(myContactInfoPanel), title);
+	}
+
+	/**
+	 * @param updateISN
+	 */
+	public void updateAllResult(int updateISN) {
+		// TODO Auto-generated method stub
+		for(Component tab :this.centerPanel.getComponents()){
+			if(tab instanceof SearchResultPanel){
+				((SearchResultPanel) tab).updateAllResult(updateISN);
+			} else if(tab instanceof BirthdayRemindPanel) {
+				((BirthdayRemindPanel) tab).updateAllResult(updateISN);
+			}
+		}
+	}
+
+	/**
+	 * @param updateISNList
+	 */
+	public void updateAllResult(ArrayList<Integer> updateISNList) {
+		// TODO Auto-generated method stub
+		for(Component tab :this.centerPanel.getComponents()){
+			if(tab instanceof SearchResultPanel){
+				((SearchResultPanel) tab).updateAllResult(updateISNList);
+			} else if(tab instanceof BirthdayRemindPanel) {
+				((BirthdayRemindPanel) tab).updateAllResult(updateISNList);
+			}
+		}
 	}
 
 }
