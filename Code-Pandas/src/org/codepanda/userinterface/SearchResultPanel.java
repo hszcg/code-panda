@@ -28,7 +28,7 @@ public class SearchResultPanel extends JScrollPane {
 	protected ArrayList<Integer> myISNList;
 	private final JPanel center;
 	protected final JPanel resultPanel;
-	private final JLabel searchResultLabel;
+	protected final JLabel searchResultLabel;
 	protected final ContactSectionType secondType;
 
 	public SearchResultPanel(final PhoneMeFrame mainFrame,
@@ -128,6 +128,8 @@ public class SearchResultPanel extends JScrollPane {
 				}
 			}
 		}
+		
+		searchResultLabel.setText(myISNList.size() + " Items Found");
 	}
 
 	/**

@@ -47,6 +47,8 @@ public class AllContactPanel extends SearchResultPanel{
 			resultPanel.add(new SingleResultPanel(this.parentFrame, c,
 					secondType));
 		}
+		
+		searchResultLabel.setText(myISNList.size() + " Items Found");
 	}
 
 	/**
