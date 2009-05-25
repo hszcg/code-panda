@@ -266,6 +266,16 @@ public class PhoneMeMajorPanel extends JPanel {
 				}
 			}
 		}
+		
+		if (p instanceof AllContactPanel) {
+			// AllContactPanel Single
+			for (int i = 0; i < centerPanel.getTabCount(); i++) {
+				if (centerPanel.getComponentAt(i) instanceof AllContactPanel) {
+					centerPanel.setSelectedIndex(i);
+					return false;
+				}
+			}
+		}
 
 		if (centerPanel.getTabCount() > MAX_TAB_NUMBER - 1) {
 			this.mainFrame.getMyPhoneMeStatusBar().setStatus(
