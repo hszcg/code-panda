@@ -25,7 +25,11 @@ public class ConfirmActionListener implements ActionListener {
 		// makeMainMessageXML
 		String name = myContactInfoPanel.getNameField().getText().trim();
 		if (name.length() == 0)
+		{
+			myContactInfoPanel.getParentFrame().
+			getMyPhoneMeStatusBar().setStatus("联系人姓名不能为空");
 			return;
+		}
 		if (myContactInfoPanel.getMyContact() == null) {
 			// 新建联系人
 			String xml = myContactInfoPanel.makeMainMessageXML().toString();

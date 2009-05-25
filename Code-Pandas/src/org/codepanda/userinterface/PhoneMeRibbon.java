@@ -13,6 +13,8 @@ import javax.imageio.ImageIO;
 import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JFileChooser;
+import javax.swing.JPasswordField;
+import javax.swing.JTextField;
 import javax.swing.filechooser.FileFilter;
 
 import org.codepanda.application.CommandType;
@@ -544,15 +546,23 @@ public class PhoneMeRibbon {
 				});
 				FormLayout layout = new FormLayout(
 						"10dlu, pref, 20dlu, pref, 10dlu", // columns
-						"10dlu, p, 10dlu"); // rows
+						"10dlu, p, 10dlu, p, 10dlu, p, 10dlu, p, 10dlu"); // rows
 					
 				PanelBuilder builder = new PanelBuilder(layout);
 				builder.setDefaultDialogBorder();
 				CellConstraints cc = new CellConstraints();
 				
-				//dialog.setLayout(new GridLayout(1, 2));
-				builder.add(upload, cc.xy(2, 2));
-				builder.add(download, cc.xy(4, 2));
+				JTextField userNameField = new JTextField(15);
+				JPasswordField userPasswordField = new JPasswordField(15);
+				builder.addLabel("请输入gmail帐号", cc.xy(2, 2));
+				builder.addLabel("用户名", cc.xy(2, 4));
+				builder.add(userNameField, cc.xy(4, 4));
+				
+				builder.addLabel("密码", cc.xy(2, 6));
+				builder.add(userPasswordField, cc.xy(4, 6));
+				
+				builder.add(upload, cc.xy(2, 8));
+				builder.add(download, cc.xy(4, 8));
 				//dialog.add(upload);
 				dialog.add(builder.getPanel());
 				dialog.pack();
