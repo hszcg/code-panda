@@ -131,31 +131,28 @@ public class PhoneMeFrame extends JRibbonFrame {
 	 * @param args
 	 */
 	public static void main(String args[]) {
+		
+		// 外观设置
+		try {
+			UIManager
+					.setLookAndFeel(new SubstanceMistAquaLookAndFeel());
+			UIManager
+					.put(
+							SubstanceLookAndFeel.TABBED_PANE_CLOSE_BUTTONS_PROPERTY,
+							Boolean.TRUE);
 
+			JFrame.setDefaultLookAndFeelDecorated(true);
+			JDialog.setDefaultLookAndFeelDecorated(true);
+		} catch (UnsupportedLookAndFeelException e) {
+			e.printStackTrace();
+		}
+
+		Locale.setDefault(new Locale("USA"));
+		
 		SwingUtilities.invokeLater(new Runnable() {
 			@Override
 			public void run() {
-
-				// datapool-init
-				/* ADD BY SA */
-				DataPool.getInstance();
-
-				// 外观设置
-				try {
-					UIManager
-							.setLookAndFeel(new SubstanceMistAquaLookAndFeel());
-					UIManager
-							.put(
-									SubstanceLookAndFeel.TABBED_PANE_CLOSE_BUTTONS_PROPERTY,
-									Boolean.TRUE);
-
-					JFrame.setDefaultLookAndFeelDecorated(true);
-					JDialog.setDefaultLookAndFeelDecorated(true);
-				} catch (UnsupportedLookAndFeelException e) {
-					e.printStackTrace();
-				}
-
-				Locale.setDefault(new Locale("USA"));
+				
 				// **************************************************
 
 				try {
@@ -164,7 +161,11 @@ public class PhoneMeFrame extends JRibbonFrame {
 					InitGlobalFont(new Font(Font.SANS_SERIF, Font.PLAIN, 12));
 				}
 
-				PhoneMeFrame phoneMeFrame = new PhoneMeFrame();
+				// datapool-init
+				/* ADD BY SA */
+				DataPool.getInstance();
+				
+				final PhoneMeFrame phoneMeFrame = new PhoneMeFrame();
 
 				phoneMeFrame.configureLogin();
 

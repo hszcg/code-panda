@@ -13,7 +13,6 @@ import javax.imageio.ImageIO;
 import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JFileChooser;
-import javax.swing.JOptionPane;
 import javax.swing.filechooser.FileFilter;
 
 import org.codepanda.application.CommandType;
@@ -44,12 +43,14 @@ public class PhoneMeRibbon {
 	public PhoneMeRibbon(PhoneMeFrame mainFrame) {
 		this.mainFrame = mainFrame;
 
-		JRibbonBand userManagerBand;
 		try {
-			userManagerBand = this.getUserManagerBand();
+			JRibbonBand userManagerBand = this.getUserManagerBand();
 			JRibbonBand contactManagerBand = this.getContactManagerBand();
 			JRibbonBand commonLabelManagerBand = this
 					.getCommonLabelManagerBand();
+			//userManagerBand.setTitle("User Manager");
+			//contactManagerBand.setTitle("User Manager");
+			//commonLabelManagerBand.setTitle("User Manager");
 			basicTask = new RibbonTask("基本功能", userManagerBand,
 					contactManagerBand, commonLabelManagerBand);
 			basicTask.setKeyTip("B");
@@ -57,6 +58,9 @@ public class PhoneMeRibbon {
 			JRibbonBand contactExchangeBand = this.getContactExchangeBand();
 			JRibbonBand contactSyncBand = this.getContactSyncBand();
 			JRibbonBand otherFunctionBand = this.getOtherFunctionBand();
+			//contactExchangeBand.setTitle("User Manager");
+			//contactSyncBand.setTitle("User Manager");
+			//otherFunctionBand.setTitle("User Manager");
 			advancedTask = new RibbonTask("高级功能", contactExchangeBand,
 					contactSyncBand, otherFunctionBand);
 			advancedTask.setKeyTip("A");
@@ -65,17 +69,18 @@ public class PhoneMeRibbon {
 		}
 	}
 
-	private class ExpandActionListener implements ActionListener {
-		public void actionPerformed(ActionEvent e) {
-			JOptionPane.showMessageDialog(mainFrame, "Expand button clicked");
-		}
-	}
+//	private class ExpandActionListener implements ActionListener {
+//		public void actionPerformed(ActionEvent e) {
+//			JOptionPane.showMessageDialog(mainFrame, "Expand button clicked");
+//		}
+//	}
 
 	private JRibbonBand getUserManagerBand() throws IOException {
 		JRibbonBand userManagerBand = new JRibbonBand("用户管理",
 				ImageWrapperResizableIcon.getIcon(ImageIO.read(this.getClass()
 						.getResource("/icon/plateIcon/user network.png")),
-						new Dimension(32, 32)), new ExpandActionListener());
+						new Dimension(32, 32)), null);
+		userManagerBand.startGroup();
 
 		JCommandButton newUserButton;
 
@@ -149,8 +154,10 @@ public class PhoneMeRibbon {
 		JRibbonBand contactManagerBand = new JRibbonBand("联系人管理",
 				ImageWrapperResizableIcon.getIcon(ImageIO.read(this.getClass()
 						.getResource("/icon/plateIcon/addressbook 2.png")),
-						new Dimension(32, 32)), new ExpandActionListener());
+						new Dimension(32, 32)), null);
 
+		contactManagerBand.startGroup();
+		
 		JCommandButton newContactButton = new JCommandButton("新建联系人",
 				ImageWrapperResizableIcon.getIcon(ImageIO.read(this.getClass()
 						.getResource("/icon/plateIcon/addressbook.png")),
@@ -288,7 +295,9 @@ public class PhoneMeRibbon {
 		JRibbonBand commonLabelManagerBand = new JRibbonBand("普通标签管理",
 				ImageWrapperResizableIcon.getIcon(ImageIO.read(this.getClass()
 						.getResource("/icon/plateIcon/clipboard.png")),
-						new Dimension(32, 32)), new ExpandActionListener());
+						new Dimension(32, 32)), null);
+		
+		commonLabelManagerBand.startGroup();
 
 		JCommandButton newCommonLabelButton = new JCommandButton("普通标签管理",
 				ImageWrapperResizableIcon.getIcon(ImageIO.read(this.getClass()
@@ -353,7 +362,8 @@ public class PhoneMeRibbon {
 		JRibbonBand contactExchangeBand = new JRibbonBand("数据导入导出",
 				ImageWrapperResizableIcon.getIcon(ImageIO.read(this.getClass()
 						.getResource("/icon/plateIcon/harddrive floppy.png")),
-						new Dimension(32, 32)), new ExpandActionListener());
+						new Dimension(32, 32)), null);
+		contactExchangeBand.startGroup();
 
 		JCommandButton importContactButton = new JCommandButton("联系人导入",
 				ImageWrapperResizableIcon.getIcon(ImageIO.read(this.getClass()
@@ -491,7 +501,8 @@ public class PhoneMeRibbon {
 		JRibbonBand contactSyncBand = new JRibbonBand("联系人同步",
 				ImageWrapperResizableIcon.getIcon(ImageIO.read(this.getClass()
 						.getResource("/icon/plateIcon/regional settings.png")),
-						new Dimension(32, 32)), new ExpandActionListener());
+						new Dimension(32, 32)), null);
+		contactSyncBand.startGroup();
 
 		JCommandButton googleContactButton = new JCommandButton(
 				"与Google Contact同步", ImageWrapperResizableIcon.getIcon(ImageIO
@@ -578,7 +589,8 @@ public class PhoneMeRibbon {
 		JRibbonBand otherFunctionBand = new JRibbonBand("其它高级功能",
 				ImageWrapperResizableIcon.getIcon(ImageIO.read(this.getClass()
 						.getResource("/icon/plateIcon/tool.png")),
-						new Dimension(32, 32)), new ExpandActionListener());
+						new Dimension(32, 32)), null);
+		otherFunctionBand.startGroup();
 
 		JCommandButton remindBirthdayButton = new JCommandButton("生日提醒",
 				ImageWrapperResizableIcon.getIcon(ImageIO.read(this.getClass()
