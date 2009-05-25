@@ -18,13 +18,14 @@ import org.codepanda.utility.data.DataPool;
 
 public class GContactOper {
 
-	public static void getAllContacts() throws ServiceException, IOException {
+	public static boolean getAllContacts(String userName, String passWord) throws ServiceException, IOException {
 		ContactsService myService = new ContactsService("TEST");
 		try {
-			myService.setUserCredentials("code.pandas@gmail.com", "qwerfdsa");
+			myService.setUserCredentials(userName+"@gmail.com", passWord);
 		} catch (AuthenticationException e2) {
 			// TODO Auto-generated catch block
-			e2.printStackTrace();
+			return false;
+//			e2.printStackTrace();
 		}
 
 		// Request the feed
@@ -88,15 +89,16 @@ public class GContactOper {
 			//
 			// System.out.println("Contact's ETag: " + entry.getEtag());
 		}
+		return true;
 	}
 
-	public static void createContact() throws ServiceException, IOException {
+	public static boolean createContact(String userName, String passWord) throws ServiceException, IOException {
 		ContactsService myService = new ContactsService("TEST");
 		try {
-			myService.setUserCredentials("code.pandas@gmail.com", "qwerfdsa");
+			myService.setUserCredentials(userName+"@gmail.com", passWord);
 		} catch (AuthenticationException e2) {
 			// TODO Auto-generated catch block
-			e2.printStackTrace();
+			return false;
 		}
 
 		ArrayList<ContactOperations> contactList = new ArrayList<ContactOperations>();
@@ -140,5 +142,6 @@ public class GContactOper {
 					"http://www.google.com/m8/feeds/contacts/code.pandas@gmail.com/full");
 			myService.insert(postUrl, contact);
 		}
+		return true;
 	}
 }
