@@ -25,6 +25,7 @@ public class ComboBoxButtonListener implements ActionListener{
 			field.setVisible(true);
 			field.setText("");
 			field.setState(PhoneMeField.ADD_STATE);
+			if(localPanel.getParentFrame() != null)
 			localPanel.getParentFrame().
 			getMyPhoneMeStatusBar().
 			setStatus("在右侧文本框中输入内容，回车进行添加");
@@ -33,6 +34,7 @@ public class ComboBoxButtonListener implements ActionListener{
 		if(e.getActionCommand() == "编辑"){
 			if(manageBox.getItemCount() == 0)
 			{
+				if(localPanel.getParentFrame() != null)
 				localPanel.getParentFrame().
 				getMyPhoneMeStatusBar().
 				setStatus("当前内容为空，只能进行添加操作");
@@ -48,6 +50,7 @@ public class ComboBoxButtonListener implements ActionListener{
 		if(e.getActionCommand() == "删除"){
 			if(manageBox.getItemCount() == 0)
 			{
+				if(localPanel.getParentFrame() != null)
 				localPanel.getParentFrame().
 				getMyPhoneMeStatusBar().
 				setStatus("当前内容为空，只能进行添加操作");
