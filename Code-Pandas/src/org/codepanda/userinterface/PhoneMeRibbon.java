@@ -249,7 +249,7 @@ public class PhoneMeRibbon {
 				myISNList.addAll(DataPool.getInstance().getAllContactISNMap()
 						.keySet());
 				mainFrame.getMyPhoneMeMajorPanel().addNewTab("All Contacts",
-						new SearchResultPanel(mainFrame, myISNList, ContactSectionType.PHONE_NUMBER).getMainPanel());
+						new AllContactPanel(mainFrame, myISNList, ContactSectionType.PHONE_NUMBER).getMainPanel());
 			}
 		});
 

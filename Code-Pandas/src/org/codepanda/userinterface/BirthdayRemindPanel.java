@@ -32,12 +32,18 @@ public class BirthdayRemindPanel extends JPanel implements ActionListener {
 	private SearchResultPanel resultPanel;
 
 	private ArrayList<Integer> resultContactList;
+	
+	private static final int UN_CLICKED = 0;
+	private static final int PREV_WEEK = -1;
+	private static final int POST_WEEK = -2;
+	
+	private int currentStatus = UN_CLICKED;
 
 	private static SimpleDateFormat birthdayDateFormat = new SimpleDateFormat(
 			"yyyy-MM-dd");
 
-	public final int PREV_DAY = 0;
-	public final int POST_DAY = 1;
+	public static final int PREV_DAY = 1;
+	public static final int POST_DAY = 2;
 
 	public BirthdayRemindPanel(PhoneMeFrame frame) {
 		localFrame = frame;
@@ -74,49 +80,68 @@ public class BirthdayRemindPanel extends JPanel implements ActionListener {
 		return birthdayDateFormat.format(now.getTime());
 	}
 
-	@SuppressWarnings("unchecked")
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		// TODO Auto-generated method stub
 		if (e.getSource() == prevWeek) {
-			StringBuffer message = new StringBuffer();
-			message.append(MyXMLMaker.addTag("StartBirthday", getDate(
-					new Date(), 7, PREV_DAY)));
-			message.append(MyXMLMaker.addTag("EndBirthday", getDate(new Date(),
-					0, PREV_DAY)));
-			String xml = MyXMLMaker.addTag("StatContact", message.toString());
-			xml = MyXMLMaker.addTag("com", xml);
-
-			CommandVisitor statContactCommandVisitor = new CommandVisitor(
-					CommandType.STAT_CONTACT, xml);
-			StatContactMessageHandler statContactMessageHandler = new StatContactMessageHandler();
-			resultContactList = (ArrayList<Integer>) statContactMessageHandler
-					.executeCommand(statContactCommandVisitor);
-
-			resultPanel = new SearchResultPanel(localFrame, resultContactList,
-					ContactSectionType.BIRTHDAY).getMainPanel();
-
-			add(resultPanel, "Center");
+			currentStatus = PREV_WEEK;
+			showPrevWeek();
 		}
 		if (e.getSource() == postWeek) {
-			StringBuffer message = new StringBuffer();
-			message.append(MyXMLMaker.addTag("StartBirthday", getDate(
-					new Date(), 0, POST_DAY)));
-			message.append(MyXMLMaker.addTag("EndBirthday", getDate(new Date(),
-					7, POST_DAY)));
-			String xml = MyXMLMaker.addTag("StatContact", message.toString());
-			xml = MyXMLMaker.addTag("com", xml);
-
-			CommandVisitor statContactCommandVisitor = new CommandVisitor(
-					CommandType.STAT_CONTACT, xml);
-			StatContactMessageHandler statContactMessageHandler = new StatContactMessageHandler();
-			resultContactList = (ArrayList<Integer>) statContactMessageHandler
-					.executeCommand(statContactCommandVisitor);
-
-			resultPanel = new SearchResultPanel(localFrame, resultContactList,
-					ContactSectionType.BIRTHDAY).getMainPanel();
-			add(resultPanel, "Center");
+			currentStatus = POST_WEEK;
+			showPostWeek();
 		}
+	}
+
+	/**
+	 * 
+	 */
+	@SuppressWarnings("unchecked")
+	private void showPostWeek() {
+		// TODO Auto-generated method stub
+		StringBuffer message = new StringBuffer();
+		message.append(MyXMLMaker.addTag("StartBirthday", getDate(
+				new Date(), 0, POST_DAY)));
+		message.append(MyXMLMaker.addTag("EndBirthday", getDate(new Date(),
+				7, POST_DAY)));
+		String xml = MyXMLMaker.addTag("StatContact", message.toString());
+		xml = MyXMLMaker.addTag("com", xml);
+
+		CommandVisitor statContactCommandVisitor = new CommandVisitor(
+				CommandType.STAT_CONTACT, xml);
+		StatContactMessageHandler statContactMessageHandler = new StatContactMessageHandler();
+		resultContactList = (ArrayList<Integer>) statContactMessageHandler
+				.executeCommand(statContactCommandVisitor);
+
+		resultPanel = new SearchResultPanel(localFrame, resultContactList,
+				ContactSectionType.BIRTHDAY).getMainPanel();
+		add(resultPanel, "Center");
+	}
+
+	/**
+	 * 
+	 */
+	@SuppressWarnings("unchecked")
+	private void showPrevWeek() {
+		// TODO Auto-generated method stub
+		StringBuffer message = new StringBuffer();
+		message.append(MyXMLMaker.addTag("StartBirthday", getDate(
+				new Date(), 7, PREV_DAY)));
+		message.append(MyXMLMaker.addTag("EndBirthday", getDate(new Date(),
+				0, PREV_DAY)));
+		String xml = MyXMLMaker.addTag("StatContact", message.toString());
+		xml = MyXMLMaker.addTag("com", xml);
+
+		CommandVisitor statContactCommandVisitor = new CommandVisitor(
+				CommandType.STAT_CONTACT, xml);
+		StatContactMessageHandler statContactMessageHandler = new StatContactMessageHandler();
+		resultContactList = (ArrayList<Integer>) statContactMessageHandler
+				.executeCommand(statContactCommandVisitor);
+
+		resultPanel = new SearchResultPanel(localFrame, resultContactList,
+				ContactSectionType.BIRTHDAY).getMainPanel();
+
+		add(resultPanel, BorderLayout.CENTER);
 	}
 
 	/**
@@ -124,8 +149,10 @@ public class BirthdayRemindPanel extends JPanel implements ActionListener {
 	 */
 	public void updateAllResult(int updateISN) {
 		// TODO Auto-generated method stub
-		if(resultPanel != null){
-			resultPanel.updateAllResult(updateISN);
+		if(this.currentStatus == PREV_WEEK){
+			showPrevWeek();
+		} else if(this.currentStatus == POST_WEEK){
+			showPostWeek();
 		}
 		
 	}
@@ -135,8 +162,10 @@ public class BirthdayRemindPanel extends JPanel implements ActionListener {
 	 */
 	public void updateAllResult(ArrayList<Integer> updateISNList) {
 		// TODO Auto-generated method stub
-		if(resultPanel != null){
-			resultPanel.updateAllResult(updateISNList);
+		if(this.currentStatus == PREV_WEEK){
+			showPrevWeek();
+		} else if(this.currentStatus == POST_WEEK){
+			showPostWeek();
 		}
 	}
 

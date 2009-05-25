@@ -240,18 +240,29 @@ public class PhoneMeMajorPanel extends JPanel {
 							centerPanel.setSelectedIndex(i);
 							this.mainFrame.getMyPhoneMeStatusBar().setStatus(
 									"This Tab has Already Opened");
-							return true;
+							return false;
 						}
 					}
 				}
 			}
 		}
+		
 		if (p instanceof CommonLabelShowPanel) {
 			// CommonLabelShowPanel Single
 			for (int i = 0; i < centerPanel.getTabCount(); i++) {
 				if (centerPanel.getComponentAt(i) instanceof CommonLabelShowPanel) {
 					centerPanel.setSelectedIndex(i);
-					return true;
+					return false;
+				}
+			}
+		}
+		
+		if (p instanceof BirthdayRemindPanel) {
+			// BirthdayRemindPanel Single
+			for (int i = 0; i < centerPanel.getTabCount(); i++) {
+				if (centerPanel.getComponentAt(i) instanceof BirthdayRemindPanel) {
+					centerPanel.setSelectedIndex(i);
+					return false;
 				}
 			}
 		}
@@ -305,7 +316,9 @@ public class PhoneMeMajorPanel extends JPanel {
 	public void updateAllResult(int updateISN) {
 		// TODO Auto-generated method stub
 		for(Component tab :this.centerPanel.getComponents()){
-			if(tab instanceof SearchResultPanel){
+			if(tab instanceof AllContactPanel){
+				((AllContactPanel) tab).updateAllResult(updateISN);
+			}else if(tab instanceof SearchResultPanel){
 				((SearchResultPanel) tab).updateAllResult(updateISN);
 			} else if(tab instanceof BirthdayRemindPanel) {
 				((BirthdayRemindPanel) tab).updateAllResult(updateISN);
@@ -319,7 +332,9 @@ public class PhoneMeMajorPanel extends JPanel {
 	public void updateAllResult(ArrayList<Integer> updateISNList) {
 		// TODO Auto-generated method stub
 		for(Component tab :this.centerPanel.getComponents()){
-			if(tab instanceof SearchResultPanel){
+			if(tab instanceof AllContactPanel){
+				((AllContactPanel) tab).updateAllResult(updateISNList);
+			}else if(tab instanceof SearchResultPanel){
 				((SearchResultPanel) tab).updateAllResult(updateISNList);
 			} else if(tab instanceof BirthdayRemindPanel) {
 				((BirthdayRemindPanel) tab).updateAllResult(updateISNList);

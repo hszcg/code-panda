@@ -24,12 +24,12 @@ public class SearchResultPanel extends JScrollPane {
 	 * 
 	 */
 	private static final long serialVersionUID = 2387803767963350937L;
-	private final PhoneMeFrame parentFrame;
-	private ArrayList<Integer> myISNList;
+	protected final PhoneMeFrame parentFrame;
+	protected ArrayList<Integer> myISNList;
 	private final JPanel center;
-	private final JPanel resultPanel;
+	protected final JPanel resultPanel;
 	private final JLabel searchResultLabel;
-	private final ContactSectionType secondType;
+	protected final ContactSectionType secondType;
 
 	public SearchResultPanel(final PhoneMeFrame mainFrame,
 			final ArrayList<Integer> myISNList, ContactSectionType secondType) {
@@ -110,15 +110,15 @@ public class SearchResultPanel extends JScrollPane {
 
 	/**
 	 * @param updateISN
+	 * 
+	 * 只能更新和删除，不能新加
+	 * 
 	 */
 	public void updateAllResult(int updateISN) {
-		boolean isNewISN = true;
 		ContactOperations c = DataPool.getInstance().getAllContactISNMap().get(
 				updateISN);
-
 		for (int i = 0; i < this.myISNList.size(); i++) {
-			if (myISNList.get(i) == updateISN) {
-				isNewISN = false;
+			if (myISNList.get(i) == updateISN) {			
 				if (c == null) {
 					myISNList.remove(i);
 					resultPanel.remove(i);
@@ -128,16 +128,13 @@ public class SearchResultPanel extends JScrollPane {
 				}
 			}
 		}
-
-		if (isNewISN && c != null) {
-			myISNList.add(updateISN);
-			resultPanel.add(new SingleResultPanel(this.parentFrame, c,
-					secondType));
-		}
 	}
 
 	/**
 	 * @param updateISNList
+	 * 
+	 * 只能更新和删除，不能新加
+	 * 
 	 */
 	public void updateAllResult(ArrayList<Integer> updateISNList) {
 		for (int updateISN : updateISNList) {
