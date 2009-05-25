@@ -30,7 +30,7 @@ public class GContactOper {
 
 		// Request the feed
 		URL feedUrl = new URL(
-				"http://www.google.com/m8/feeds/contacts/code.pandas@gmail.com/full");
+				"http://www.google.com/m8/feeds/contacts/"+userName+"@gmail.com/full");
 		ContactFeed resultFeed = myService.getFeed(feedUrl, ContactFeed.class);
 		// Print the results
 		System.out.println(resultFeed.getTitle().getPlainText());
@@ -139,7 +139,7 @@ public class GContactOper {
 
 			// Ask the service to insert the new entry
 			URL postUrl = new URL(
-					"http://www.google.com/m8/feeds/contacts/code.pandas@gmail.com/full");
+					"http://www.google.com/m8/feeds/contacts/"+userName+"@gmail.com/full");
 			myService.insert(postUrl, contact);
 		}
 		return true;
