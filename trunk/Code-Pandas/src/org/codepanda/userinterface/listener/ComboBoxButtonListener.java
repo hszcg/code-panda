@@ -22,17 +22,22 @@ public class ComboBoxButtonListener implements ActionListener{
 	public void actionPerformed(ActionEvent e) {
 		if(e.getActionCommand() == "添加"){
 			System.out.println("添加");
-			//manageBox.addItem(new StringBuffer(""));
-			//manageBox.setSelectedIndex(manageBox.getItemCount()-1);
-			//manageBox.setEditable(true);
 			field.setVisible(true);
 			field.setText("");
 			field.setState(PhoneMeField.ADD_STATE);
+			localPanel.getParentFrame().
+			getMyPhoneMeStatusBar().
+			setStatus("在右侧文本框中输入内容，回车进行添加");
 			localPanel.paintComponents(localPanel.getGraphics());
 		}
 		if(e.getActionCommand() == "编辑"){
 			if(manageBox.getItemCount() == 0)
+			{
+				localPanel.getParentFrame().
+				getMyPhoneMeStatusBar().
+				setStatus("当前内容为空，只能进行添加操作");
 				return;
+			}
 			field.setVisible(true);
 			field.setText(manageBox.getSelectedItem().toString());
 			System.out.println("STEP 1");
@@ -41,6 +46,13 @@ public class ComboBoxButtonListener implements ActionListener{
 			localPanel.paintComponents(localPanel.getGraphics());
 		}
 		if(e.getActionCommand() == "删除"){
+			if(manageBox.getItemCount() == 0)
+			{
+				localPanel.getParentFrame().
+				getMyPhoneMeStatusBar().
+				setStatus("当前内容为空，只能进行添加操作");
+				return;
+			}
 			manageBox.removeItem(manageBox.getSelectedItem());
 		}
 	}

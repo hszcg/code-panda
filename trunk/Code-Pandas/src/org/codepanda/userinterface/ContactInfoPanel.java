@@ -732,6 +732,8 @@ public class ContactInfoPanel extends JXPanel {
 								toString().equals
 								(selectRelationContactBox.
 										getSelectedItem().toString())){
+							parentFrame.getMyPhoneMeStatusBar().
+							setStatus("同样条目已经存在，不能重复添加");
 							System.out.println("already exist");
 							return;
 						}
