@@ -231,7 +231,7 @@ public class DataPool {
 	public int newContact(PersonalContact contactData) {
 		// 如果失败，返回-2,成功返回0
 		// if
-		//(DataPool.getInstance().getDb().newContact(getCurrentUser().getUserName
+		// (DataPool.getInstance().getDb().newContact(getCurrentUser().getUserName
 		// (),
 		// contactData) == -2) {
 		int temp = currentLowBound;
@@ -364,74 +364,52 @@ public class DataPool {
 		return currentLowBound;
 
 	}
-	public void MergeContact(String srtISN,PersonalContact currentContact)
-	{
-		currentContact=new PersonalContact();
-		//传入一系列的ISN，对其进行解析
-		String tempStr[]=srtISN.split("-");
-		int size=tempStr.length-1;
-		int ISNList[]=new int[size];
-		for(int i=0;i<size;i++)
-		{
-			ISNList[i]=Integer.parseInt(tempStr[i+1]);
+
+	public void MergeContact(String srtISN, PersonalContact currentContact) {
+		currentContact = new PersonalContact();
+		// 传入一系列的ISN，对其进行解析
+		String tempStr[] = srtISN.split("-");
+		int size = tempStr.length - 1;
+		int ISNList[] = new int[size];
+		for (int i = 0; i < size; i++) {
+			ISNList[i] = Integer.parseInt(tempStr[i + 1]);
 		}
-		String contactName=new String();
-		String contactBirthday=new String();
-		HashSet<String>telephone=new HashSet<String>();
-		HashSet<String>email=new HashSet<String>();
-		HashSet<String>address=new HashSet<String>();
-		HashSet<String>office=new HashSet<String>();
-		HashSet<String>imContact=new HashSet<String>();
-		HashSet<String>url=new HashSet<String>();
-		HashSet<String>commonLabel=new HashSet<String>();
-		HashSet<String>group=new HashSet<String>();
-		HashSet<RelationLabel>relationlabel=new HashSet<RelationLabel>();
-		//从最后开始计算，处理方便
-		for(int i=size-1;i>=0;i--)
-		{
-			PersonalContact tempContact=(PersonalContact)this.getAllContactISNMap().get(ISNList[i]);
-			if(!tempContact.getContactName().isEmpty())
-			{
-				contactName=tempContact.getContactName();
-			}
-			else if(!tempContact.getContactBirthday().isEmpty())
-			{
-				contactBirthday=tempContact.getContactBirthday();
-			}
-			else if(!tempContact.getPhoneNumberList().isEmpty())
-			{
+		String contactName = new String();
+		String contactBirthday = new String();
+		HashSet<String> telephone = new HashSet<String>();
+		HashSet<String> email = new HashSet<String>();
+		HashSet<String> address = new HashSet<String>();
+		HashSet<String> office = new HashSet<String>();
+		HashSet<String> imContact = new HashSet<String>();
+		HashSet<String> url = new HashSet<String>();
+		HashSet<String> commonLabel = new HashSet<String>();
+		HashSet<String> group = new HashSet<String>();
+		HashSet<RelationLabel> relationlabel = new HashSet<RelationLabel>();
+		// 从最后开始计算，处理方便
+		for (int i = size - 1; i >= 0; i--) {
+			PersonalContact tempContact = (PersonalContact) this
+					.getAllContactISNMap().get(ISNList[i]);
+			if (!tempContact.getContactName().isEmpty()) {
+				contactName = tempContact.getContactName();
+			} else if (!tempContact.getContactBirthday().isEmpty()) {
+				contactBirthday = tempContact.getContactBirthday();
+			} else if (!tempContact.getPhoneNumberList().isEmpty()) {
 				telephone.addAll(tempContact.getPhoneNumberList());
-			}
-			else if(!tempContact.getEmailAddresseList().isEmpty())
-			{
+			} else if (!tempContact.getEmailAddresseList().isEmpty()) {
 				email.addAll(tempContact.getEmailAddresseList());
-			}
-			else if(!tempContact.getContactAddressList().isEmpty())
-			{
+			} else if (!tempContact.getContactAddressList().isEmpty()) {
 				address.addAll(tempContact.getContactAddressList());
-			}
-			else if(!tempContact.getWorkingDepartmentList().isEmpty())
-			{
+			} else if (!tempContact.getWorkingDepartmentList().isEmpty()) {
 				office.addAll(tempContact.getWorkingDepartmentList());
-			}
-			else if(!tempContact.getImContactInformationList().isEmpty())
-			{
+			} else if (!tempContact.getImContactInformationList().isEmpty()) {
 				imContact.addAll(tempContact.getImContactInformationList());
-			}
-			else if(!tempContact.getUrlList().isEmpty())
-			{
+			} else if (!tempContact.getUrlList().isEmpty()) {
 				url.addAll(tempContact.getUrlList());
-			}
-			else if(!tempContact.getCommonLabelList().isEmpty())
-			{
+			} else if (!tempContact.getCommonLabelList().isEmpty()) {
 				commonLabel.addAll(tempContact.getCommonLabelList());
-			}
-			else if(!tempContact.getGroupList().isEmpty())
-			{
+			} else if (!tempContact.getGroupList().isEmpty()) {
 				group.addAll(tempContact.getGroupList());
-			}
-			else if(!tempContact.getRelationLabelList().isEmpty())
-			{
+			} else if (!tempContact.getRelationLabelList().isEmpty()) {
 				relationlabel.addAll(tempContact.getRelationLabelList());
 			}
 		}
@@ -447,13 +425,13 @@ public class DataPool {
 		currentContact.getGroupList().addAll(group);
 		currentContact.getRelationLabelList().addAll(relationlabel);
 		currentContact.setISN(ISNList[0]);
-		for(int i=0;i<size;i++)
-		{
+		for (int i = 0; i < size; i++) {
 			this.deleteContact(ISNList[i]);
 		}
 		this.editContact(currentContact);
-		//应该不需要更新其他集合了吧，相应的函数都已经更新了
+		// 应该不需要更新其他集合了吧，相应的函数都已经更新了
 	}
+
 	/**
 	 * @return
 	 */
