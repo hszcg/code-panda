@@ -61,13 +61,13 @@ public class PhoneMeCorfirmDialog extends JDialog implements ActionListener {
 		builder.add(userPasswordField, cc.xy(4, 5));
 
 		errorMessageLabel = new JLabel();
-		builder.add(errorMessageLabel, cc.xy(2, 7));
+		builder.add(errorMessageLabel, cc.xy(4, 7));
 
 		setLayout(new BorderLayout());
 		add(builder.getPanel(), "Center");
 
 		FormLayout downlayout = new FormLayout("1dlu, pref, 10dlu, pref", // columns
-				"p"); // rows
+				"2dlu, p, 5dlu"); // rows
 
 		PanelBuilder downbuilder = new PanelBuilder(downlayout);
 		downbuilder.setDefaultDialogBorder();
@@ -75,11 +75,11 @@ public class PhoneMeCorfirmDialog extends JDialog implements ActionListener {
 		CellConstraints downcc = new CellConstraints();
 
 		confirm = new JButton("确认删除");
-		downbuilder.add(confirm, downcc.xy(2, 1));
+		downbuilder.add(confirm, downcc.xy(2, 2));
 		confirm.addActionListener(this);
 
 		cancel = new JButton("取消删除");
-		downbuilder.add(cancel, downcc.xy(4, 1));
+		downbuilder.add(cancel, downcc.xy(4, 2));
 		cancel.addActionListener(this);
 
 		add(downbuilder.getPanel(), "South");
@@ -105,12 +105,12 @@ public class PhoneMeCorfirmDialog extends JDialog implements ActionListener {
 	
 			// check password is right or wrong
 			if( !userName.equals(DataPool.getInstance().getCurrentUser().getUserName()) ){
-				updateErrorMessageLabel("User Name not Exist!");
+				updateErrorMessageLabel("用户名不存在!");
 				return;
 			}
 			
 			if( !userPassword.equals(DataPool.getInstance().getCurrentUser().getPassword())) {
-				updateErrorMessageLabel("User Password Error!");
+				updateErrorMessageLabel("密码错误!");
 				return;
 			}
 

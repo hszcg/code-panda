@@ -196,6 +196,7 @@ public class PhoneMeMajorPanel extends JPanel {
 		//centerPanel.addTab("Contact Info", new ContactInfoPanel(this.mainFrame,
 		//		null, false, ContactInfoPanel.CONTACT_INFO_PANEL));
 
+		centerPanel.addTab("test", new ImportContactPanel(mainFrame));
 		return centerPanel;
 	}
 
