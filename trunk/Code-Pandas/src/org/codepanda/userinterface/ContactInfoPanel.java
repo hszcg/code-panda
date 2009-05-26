@@ -683,6 +683,11 @@ public class ContactInfoPanel extends JXPanel {
 				System.out.println("add relation label");
 				//int selectIndex = selectRelationContactBox.getSelectedIndex();
 				//Integer addISN = allISN.get(selectIndex);
+				if(selectRelationContactBox.getItemCount() == 0){
+					parentFrame.getMyPhoneMeStatusBar().
+					setStatus("当前无其余联系人， 不能添加关系标签");
+					return;
+				}
 				boolean contain = false;
 				int labelIndex;
 				for(labelIndex = 0;
