@@ -254,7 +254,7 @@ public class ContactInfoPanel extends JXPanel {
 		deletePhoneNumberButton = new JButton("删除");
 		phoneNumberField = new PhoneMeField(20);
 		phoneNumberField.addActionListener(new FieldActionListener(
-				phoneNumberBox, phoneNumberField));
+				parentFrame, phoneNumberBox, phoneNumberField));
 
 		phoneNumberBox.addItemListener(new ComboBoxSetTextListener(
 				phoneNumberField, phoneNumberBox));
@@ -375,8 +375,8 @@ public class ContactInfoPanel extends JXPanel {
 		deleteEmailAddressButton = new JButton("删除");
 
 		emailField = new PhoneMeField(20);
-		emailField.addActionListener(new FieldActionListener(emailAddressBox,
-				emailField));
+		emailField.addActionListener(new FieldActionListener(parentFrame, 
+				emailAddressBox,emailField, FieldActionListener.EMAIL_FIELD));
 
 		emailAddressBox.addItemListener(new ComboBoxSetTextListener(emailField,
 				emailAddressBox));
@@ -406,7 +406,7 @@ public class ContactInfoPanel extends JXPanel {
 		deleteContactAddressButton = new JButton("删除");
 		addressField = new PhoneMeField(20);
 		addressField.addActionListener(new FieldActionListener(
-				contactAddressBox, addressField));
+				parentFrame, contactAddressBox, addressField));
 
 		contactAddressBox.addItemListener(new ComboBoxSetTextListener(
 				addressField, contactAddressBox));
@@ -437,7 +437,7 @@ public class ContactInfoPanel extends JXPanel {
 
 		workField = new PhoneMeField(20);
 		workField.addActionListener(new FieldActionListener(
-				workingDepartmentBox, workField));
+				parentFrame, workingDepartmentBox, workField));
 
 		workingDepartmentBox.addItemListener(new ComboBoxSetTextListener(
 				workField, workingDepartmentBox));
@@ -468,7 +468,7 @@ public class ContactInfoPanel extends JXPanel {
 
 		IMField = new PhoneMeField(20);
 		IMField.addActionListener(new FieldActionListener(
-				imContactInformationBox, IMField));
+				parentFrame, imContactInformationBox, IMField));
 
 		imContactInformationBox.addItemListener(new ComboBoxSetTextListener(
 				IMField, imContactInformationBox));
@@ -527,7 +527,8 @@ public class ContactInfoPanel extends JXPanel {
 
 		urlField = new PhoneMeField(20);
 		urlField
-				.addActionListener(new FieldActionListener(urlListBox, urlField));
+				.addActionListener(new FieldActionListener
+						(parentFrame, urlListBox, urlField));
 
 		urlListBox.addItemListener(new ComboBoxSetTextListener(urlField,
 				urlListBox));
@@ -574,7 +575,7 @@ public class ContactInfoPanel extends JXPanel {
 
 		commonLabelField = new PhoneMeField(20);
 		commonLabelField.addActionListener(new FieldActionListener(
-				commonLabelListBox, commonLabelField));
+				parentFrame, commonLabelListBox, commonLabelField));
 
 		commonLabelListBox.addItemListener(new ComboBoxSetTextListener(
 				commonLabelField, commonLabelListBox));
@@ -857,12 +858,15 @@ public class ContactInfoPanel extends JXPanel {
 		downbuilder.add(selectRelationContactBox, downcc.xy(13, 7));
 
 		confirmButton = new JButton("确认");
+		confirmButton.setToolTipText("确认保存当前联系人的所有修改");
 		confirmButton.addActionListener(new ConfirmActionListener(this));
 		cancelButton = new JButton("取消");
+		cancelButton.setToolTipText("取消关于当前联系人的所有修改");
 		cancelButton.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				setMyContact(myContact);
+				setTextFieldInVisible();
 				setEditable(false);
 				newImageURL = currentImagetURL;
 			}
