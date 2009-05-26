@@ -31,6 +31,7 @@ public class ExportContactPanel extends JPanel implements ActionListener{
 	private JLabel daochu;
 	private JComboBox groupBox;
 	
+	private JLabel xuanxiang;
 	private ButtonGroup selectionGroup;
 	private JRadioButton csv;
 	private JRadioButton xls;
@@ -67,8 +68,12 @@ public class ExportContactPanel extends JPanel implements ActionListener{
 		PanelBuilder builder = new PanelBuilder(layout);
 		upbuilder.setDefaultDialogBorder();
 
-		CellConstraints cc = new CellConstraints(); 
-		builder.addLabel("导出选项",cc.xy(2, 2));
+		CellConstraints cc = new CellConstraints();
+		
+		xuanxiang = new JLabel("导出选项");
+		xuanxiang.setFont(daochu.getFont().deriveFont(
+				Font.BOLD, (float) 12.0));
+		builder.add(xuanxiang, cc.xy(2, 2));
 		
 		builder.addLabel("选择要导出分组", cc.xy(2, 4));
 		groupBox = new JComboBox((String[]) PhoneMeConstants.getInstance()

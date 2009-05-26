@@ -323,9 +323,6 @@ public class ContactInfoPanel extends JXPanel {
 		editHeadImageButton.setPreferredSize(new Dimension(50, 20));
 		deleteHeadImageButton.setPreferredSize(new Dimension(50, 20));
 
-		// leftBuilder.add(headImageLabel, leftcc.xyw(1, 1, 3));
-		// leftBuilder.add(editHeadImageButton, leftcc.xy(1, 3));
-		// leftBuilder.add(deleteHeadImageButton, leftcc.xy(3, 3));
 
 		FormLayout upperLeftDownlayout = new FormLayout("pref, 3dlu, pref", // columns
 				"p"); // rows
