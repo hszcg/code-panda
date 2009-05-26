@@ -650,6 +650,8 @@ public class PhoneMeRibbon {
 		arrangeContactButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				System.out.println("联系人整理");
+				mainFrame.getMyPhoneMeMajorPanel().addNewTab
+				("联系人整理选项", new PhoneMeArrangeContactPanel(mainFrame));
 			}
 		});
 
