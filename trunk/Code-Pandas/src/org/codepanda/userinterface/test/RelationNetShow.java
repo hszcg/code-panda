@@ -77,7 +77,6 @@ public class RelationNetShow extends Display {
 		((PolygonRenderer) polyR).setCurveSlack(0.15f);
 
 		DefaultRendererFactory drf = new DefaultRendererFactory(nodeR);
-		//drf.setDefaultRenderer(nodeR);
 		drf.add("ingroup('aggregates')", polyR);
 		m_vis.setRendererFactory(drf);
 
@@ -196,12 +195,14 @@ public class RelationNetShow extends Display {
 		AggregateTable at = m_vis.addAggregates(AGGR);
 		at.addColumn(VisualItem.POLYGON, float[].class);
 		at.addColumn("id", int.class);
+		at.addColumn(NAME, String.class);
+
 
 		Iterator nodes = vg.nodes();
 		for (int i = 0; i < 1; ++i) {
 			AggregateItem aitem = (AggregateItem) at.addItem();
 			aitem.setInt("id", i);
-			for (int j = 1; j < vg.getNodeCount(); ++j) {
+			for (int j = 0; j < vg.getNodeCount(); ++j) {
 				aitem.addItem((VisualItem) nodes.next());
 			}
 		}
@@ -355,6 +356,7 @@ class AggregateDragControl extends ControlAdapter {
 		d.getAbsoluteCoordinate(e.getPoint(), down);
 		if (item instanceof AggregateItem)
 			setFixed(item, true);
+		System.out.println(item.getString("name") + "Item Pressed");
 	}
 
 	/**
