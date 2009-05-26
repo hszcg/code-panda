@@ -247,34 +247,11 @@ public class ContactInfoPanel extends JXPanel {
 		});
 		this.myButtonList.add(nameEditButton);
 
-		//String temp[] = { "010-51534419", "13810013188", "029-85367800" };
 		phoneNumberBox = new JComboBox();
 		addPhoneNumberButton = new JButton("Ìí¼Ó");
-		/*
-		 * addPhoneNumberButton.addActionListener(new ActionListener() {
-		 * 
-		 * @Override public void actionPerformed(ActionEvent arg0) {
-		 * phoneNumberField.setVisible(true); phoneNumberField.setState(0);
-		 * paintComponents(getGraphics()); } });
-		 */
 
 		editPhoneNumberButton = new JButton("±à¼­");
-		/*
-		 * editPhoneNumberButton.addActionListener(new ActionListener() {
-		 * 
-		 * @Override public void actionPerformed(ActionEvent arg0) {
-		 * phoneNumberField.setVisible(true); if(phoneNumberBox.getItemCount()
-		 * != 0) phoneNumberField.setText
-		 * (phoneNumberBox.getItemAt(0).toString());
-		 * phoneNumberField.setState(1); paintComponents(getGraphics()); } });
-		 */
 		deletePhoneNumberButton = new JButton("É¾³ý");
-		/*
-		 * deletePhoneNumberButton.addActionListener(new ActionListener() {
-		 * 
-		 * @Override public void actionPerformed(ActionEvent arg0) {
-		 * phoneNumberBox.removeItem(phoneNumberBox.getSelectedItem()); } });
-		 */
 		phoneNumberField = new PhoneMeField(20);
 		phoneNumberField.addActionListener(new FieldActionListener(
 				phoneNumberBox, phoneNumberField));
