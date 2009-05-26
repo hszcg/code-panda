@@ -193,38 +193,10 @@ public class PhoneMeFrame extends JRibbonFrame {
 	 * After Login to Initialize Data
 	 */
 	public void initializeData() {
-		// GContactOper gco = new GContactOper();
-		// try {
-		// gco.createContact();
-		// // gco.getAllContacts();
-		// } catch (ServiceException e) {
-		// // TODO Auto-generated catch block
-		// e.printStackTrace();
-		// } catch (IOException e) {
-		// // TODO Auto-generated catch block
-		// e.printStackTrace();
-		// }
+		
 		this.myPhoneMeTaskPane.initializeData();
 		this.myPhoneMeMajorPanel.initializeData();
 
-		// //test of CSV export and import
-		// /* CsvExport ce = new CsvExport();
-		// ce.convert("D:\\javawork\\four pandas\\abc.csv");
-		//		
-		// <<<<<<< .mine
-		// // CsvImport ci = new CsvImport();
-		// // ci.convert("D:\\javawork\\four pandas\\abc.csv");
-		// =======
-		// //CsvImport ci = new CsvImport();
-		// //ci.convert("abc.csv");
-		// >>>>>>> .r291
-		//		
-		// CsvExport cee = new CsvExport();
-		// <<<<<<< .mine
-		// cee.convert("D:\\javawork\\four pandas\\cba.csv");
-		// =======
-		// cee.convert("cba.csv");*/
-		// >>>>>>> .r291
 	}
 
 	/**

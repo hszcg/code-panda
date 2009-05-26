@@ -7,6 +7,7 @@ import java.util.Set;
 
 import javax.swing.*;
 
+import org.codepanda.userinterface.test.RelationNetShow;
 import org.codepanda.utility.contact.ContactOperations;
 import org.jdesktop.swingx.*;
 import org.jdesktop.swingx.decorator.*;
@@ -309,6 +310,7 @@ public class PhoneMeMajorPanel extends JPanel {
 		// .getMaximumWindowBounds();
 		// p.setPreferredSize(new Dimension(r.width, r.height));
 		// centerPanel.addTab("Edit User", new JScrollPane(p));
+		centerPanel.addTab("Net Show", new RelationNetShow());
 	}
 
 	/**
