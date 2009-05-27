@@ -4,17 +4,14 @@ import java.awt.BorderLayout;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Vector;
 
 import javax.swing.AbstractButton;
 import javax.swing.DefaultComboBoxModel;
-import javax.swing.DefaultListModel;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
-import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
@@ -25,20 +22,21 @@ import javax.swing.event.ListSelectionListener;
 import org.codepanda.application.CommandType;
 import org.codepanda.application.CommandVisitor;
 import org.codepanda.userinterface.messagehandler.MergeContactMessageHandler;
-import org.codepanda.userinterface.messagehandler.StatContactMessageHandler;
 import org.codepanda.userinterface.xml.MyXMLMaker;
 import org.codepanda.utility.contact.ContactOperations;
 import org.codepanda.utility.data.DataPool;
-import org.jvnet.substance.colorschemepack.BelizeColorScheme;
 
 import com.google.common.collect.HashMultimap;
 import com.jgoodies.forms.builder.PanelBuilder;
 import com.jgoodies.forms.layout.CellConstraints;
 import com.jgoodies.forms.layout.FormLayout;
-import com.sun.java.swing.plaf.motif.MotifBorders.BevelBorder;
 
 public class PhoneMeArrangeContactPanel extends JPanel
 					implements ListSelectionListener, ActionListener{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -4426399520001378902L;
 	final private PhoneMeFrame localFrame;
 	private HashMultimap<String, Integer> localNameMap;
 	private HashMap<String, Vector<Integer>> displayContent;
