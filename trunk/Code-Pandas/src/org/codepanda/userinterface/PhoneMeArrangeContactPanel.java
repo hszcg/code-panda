@@ -4,17 +4,21 @@ import java.awt.BorderLayout;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Vector;
 
 import javax.swing.AbstractButton;
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.DefaultListModel;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
+import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
+import javax.swing.ListSelectionModel;
 import javax.swing.border.SoftBevelBorder;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
@@ -43,15 +47,16 @@ public class PhoneMeArrangeContactPanel extends JPanel
 	private Vector<Integer> displayISN;
 	
 	private JPanel leftPanel;
+	private JLabel title1;
 	private Vector<String> nameSet;
+	private DefaultListModel nameListModel;
 	private JList nameList;
 	private boolean getList;
-	private int selectedIndex;
 	
 	private Vector<JCheckBox> secondBox;
 	private JPanel middlePanel;
 	private JPanel mainPanel;
-	private JButton action;
+	private JLabel title2;
 	
 	private JPanel rightPanel;
 	private ContactOperations displayContact;
@@ -61,62 +66,36 @@ public class PhoneMeArrangeContactPanel extends JPanel
 	private JTextField contactBirthdayField;
 	private JComboBox groupListBox;
 	private JButton seeAll;
+	private JButton action;
 	
 	public PhoneMeArrangeContactPanel(PhoneMeFrame frame){
 		localFrame = frame;
-		//frame.paintComponents(getGraphics());
-		//this.removeAll();
-		initialData();
+		setThisLayout();
+		initialComponent();
 	}
 	
-	public void initialData(){
-		localNameMap = DataPool.getInstance().getAllContactNameMultimap();
-		if(!getData())
-		{
-			localFrame.getMyPhoneMeStatusBar().setStatus
-			("当前没有重名的联系人");
-			return;
-		}
-		
+	public void setThisLayout(){
 		setLayout(new GridLayout(1, 3));
 		
-		FormLayout leftLayout = 
-			new FormLayout("1dlu, pref, 1dlu", // columns
-							"1dlu, p, 10dlu, p, 50dlu, p"); // rows
-		
-		PanelBuilder leftBuilder = new PanelBuilder(leftLayout);
-		leftBuilder.setDefaultDialogBorder();
-		CellConstraints leftcc = new CellConstraints();
-		
-		leftBuilder.addLabel("同名的联系人列表", leftcc.xy(2, 2));
-		
-		
-		nameList = new JList(nameSet);
-		nameList.addListSelectionListener(this);
-		getList = false;
-		selectedIndex = 0;
-		
-		leftBuilder.add(nameList, leftcc.xy(2, 4));
-		
-		action = new JButton("合并所有选中的联系人");
-		action.addActionListener(this);
-		
-		leftPanel = leftBuilder.getPanel();
+		leftPanel = new JPanel();
+		leftPanel.setLayout(new BorderLayout());
+		title1 = new JLabel("所有同名联系人的列表");
 		leftPanel.setBorder(new 
 				SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
 		add(leftPanel);
 		
 		middlePanel = new JPanel();
-		middlePanel.setLayout(new BorderLayout());
+		add(middlePanel);
 		
 		mainPanel = new JPanel();
-		middlePanel.add(mainPanel, "North");
-		add(middlePanel);
-		secondBox = new Vector<JCheckBox>();
-		//middlePanel.add(action, "South");
+		title2 = new JLabel();
 		
 		rightPanel = new JPanel();
 		setRightComponent();
+		
+		action = new JButton("合并所有选中的联系人");
+		action.addActionListener(this);
+		
 		FormLayout rightLayout = 
 			new FormLayout("1dlu, pref, 4dlu, pref, 1dlu", // columns
 		"5dlu, p, 10dlu, p, 8dlu, p, 8dlu, p, 8dlu, " +
@@ -140,7 +119,6 @@ public class PhoneMeArrangeContactPanel extends JPanel
 		rightBuilder.add(seeAll, rightcc.xy(2, 14));
 		rightBuilder.add(action, rightcc.xy(4, 16));
 		
-		System.out.println("in right");
 		rightPanel = rightBuilder.getPanel();
 		rightPanel.setBorder(new 
 				SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
@@ -148,21 +126,46 @@ public class PhoneMeArrangeContactPanel extends JPanel
 		add(rightPanel);
 	}
 	
+	public void initialComponent(){
+		localNameMap = DataPool.getInstance().getAllContactNameMultimap();
+		if(!getData())
+		{
+			localFrame.getMyPhoneMeStatusBar().setStatus
+			("当前没有重名的联系人");
+			return;
+		}
+		
+		nameListModel = new DefaultListModel();
+		for(int i=0;i<nameSet.size();i++){
+			nameListModel.addElement(nameSet.get(i));
+		}
+		nameList = new JList(nameListModel);
+		nameList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+		nameList.addListSelectionListener(this);
+		
+		leftPanel.removeAll();
+		leftPanel.add(title1, "North");
+		leftPanel.add(nameList, "Center");
+		leftPanel.paintComponents(leftPanel.getGraphics());
+		getList = false;
+		
+		middlePanel.setLayout(new BorderLayout());
+		
+		middlePanel.add(mainPanel, "North");
+		middlePanel.add(title2, "Center");
+		secondBox = new Vector<JCheckBox>();
+	}
+	
 	public boolean getData(){
-		System.out.println("getDataing");
 		boolean moreThanOne = false;
 		nameSet = new Vector<String>();
 		displayContent = new HashMap<String, Vector<Integer>>();
 		for (String str : localNameMap.keySet()) {
 			if(localNameMap.get(str).size() > 1){
-				System.out.println("[][][][][][][][]");
-				System.out.println(str);
-				System.out.println(localNameMap.get(str).size());
 				nameSet.add(str);
 				Vector<Integer> ISNSet = new Vector<Integer>();
 				ISNSet.addAll(localNameMap.get(str));
 				displayContent.put(str, ISNSet);
-				System.out.println(ISNSet.size());
 				moreThanOne = true;
 			}
 		}
@@ -172,17 +175,12 @@ public class PhoneMeArrangeContactPanel extends JPanel
 	@Override
 	public void valueChanged(ListSelectionEvent arg0) {
 		if(!arg0.getValueIsAdjusting() && !getList){
-			//title2.setText("有同样姓名为" + 
-				//nameList.getSelectedValue().toString() + "的所有联系人");
 		localFrame.getMyPhoneMeStatusBar().setStatus("正在读取数据，请稍候");
 		displayISN = displayContent.get
 		(nameList.getSelectedValue().toString());
-		selectedIndex = nameList.getSelectedIndex();
 		secondBox.clear();
 		mainPanel.removeAll();
 		
-		System.out.println("valueChanged");
-		System.out.println(displayISN.size());
 		for(int index = 0; index <displayISN.size(); index ++){
 			JCheckBox temp = new JCheckBox
 			(DataPool.getInstance().getAllContactISNMap().
@@ -198,7 +196,12 @@ public class PhoneMeArrangeContactPanel extends JPanel
 		for(int index = 0;index < secondBox.size(); index ++){
 			mainPanel.add(secondBox.get(index));
 		}
-		localFrame.getMyPhoneMeStatusBar().setStatus("选择要整理的联系人");
+			localFrame.getMyPhoneMeStatusBar().
+			setStatus("选择要整理的联系人");
+			title2.setText("共有" + 
+					displayISN.size()+"个姓名为" + 
+					nameList.getSelectedValue().toString() + "的联系人");
+			title2.setVisible(true);
 		}
 	}
 	
@@ -215,6 +218,14 @@ public class PhoneMeArrangeContactPanel extends JPanel
 	}
 	
 	public void updateRightPanel(Integer ISN){
+		if(ISN.equals(Integer.MIN_VALUE)){
+			nameField.setText("");
+			phoneNumberBox.removeAllItems();
+			workingDepartmentBox.removeAllItems();
+			contactBirthdayField.setText("");
+			groupListBox.removeAllItems();
+			return;
+		}
 		displayContact = 
 			DataPool.getInstance().getAllContactISNMap().get(ISN);
 		
@@ -243,21 +254,16 @@ public class PhoneMeArrangeContactPanel extends JPanel
 		}
 		
 		rightPanel.setVisible(true);
-		System.out.println("in right");
 	}
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		if(e.getSource() == action){
-			boolean delete = true;
 			System.out.println("action merge");
-			Vector<Integer> mergeISN = new Vector<Integer>();
+			ArrayList<Integer> mergeISN = new ArrayList<Integer>();
 			for(int i=0;i<secondBox.size();i++){
 				if(secondBox.get(i).isSelected()){
 					mergeISN.add(displayISN.get(i));
-				}
-				else{
-					delete = false;
 				}
 			}
 			for(int i=0;i<mergeISN.size();i++){
@@ -284,26 +290,13 @@ public class PhoneMeArrangeContactPanel extends JPanel
 			MergeContactMessageHandler mergeContactMessageHandler = 
 				new MergeContactMessageHandler();
 			mergeContactMessageHandler
-					.executeCommand(statContactCommandVisitor);
-			
-			// TODO update the panel 
-			/*if(delete){
-				getList = true;
-				DefaultListModel dtl = (DefaultListModel)nameList.getModel();
-				//nameList.setModel(dtl);
-				System.out.println("delete index");
-				//System.out.println(nameList.getSelectedIndex());
-				System.out.println(selectedIndex);
-				dtl.remove(selectedIndex);
-				//dtl.removeElement(nameList.getSelectedValue());
-				//nameList.updateUI();
-				System.out.println("after delete");
-				//System.out.println(nameList);
-				nameList.setModel(dtl);
-				nameList.updateUI();
-				getList = false;
-			}*/
-			//initialData();
+					.executeCommand(statContactCommandVisitor); 
+			mainPanel.removeAll();
+			title2.setVisible(false);
+			initialComponent();
+			updateRightPanel(Integer.MIN_VALUE);
+			localFrame.updateAllPanel(mergeISN);
+			this.paintComponents(this.getGraphics());
 			return;
 		}
 		if(e.getSource() == seeAll){
@@ -315,8 +308,7 @@ public class PhoneMeArrangeContactPanel extends JPanel
 		AbstractButton abstractButton = (AbstractButton) e.getSource();
 		boolean selected = abstractButton.getModel().isSelected();
 		if(selected)
-		{	System.out.println(displayISN.get
-				(Integer.valueOf(e.getActionCommand())));
+		{
 			updateRightPanel(displayISN.get
 				(Integer.valueOf(e.getActionCommand())));
 		}
