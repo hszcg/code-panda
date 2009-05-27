@@ -27,6 +27,10 @@ import com.jgoodies.forms.layout.CellConstraints;
 import com.jgoodies.forms.layout.FormLayout;
 
 public class ExportContactPanel extends JPanel implements ActionListener{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 3772702803606122407L;
 	final private PhoneMeFrame localFrame;
 	private JLabel daochu;
 	private JComboBox groupBox;
