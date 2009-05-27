@@ -10,6 +10,7 @@ import java.util.Vector;
 
 import javax.swing.AbstractButton;
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.DefaultListModel;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
@@ -21,6 +22,11 @@ import javax.swing.border.SoftBevelBorder;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
+import org.codepanda.application.CommandType;
+import org.codepanda.application.CommandVisitor;
+import org.codepanda.userinterface.messagehandler.MergeContactMessageHandler;
+import org.codepanda.userinterface.messagehandler.StatContactMessageHandler;
+import org.codepanda.userinterface.xml.MyXMLMaker;
 import org.codepanda.utility.contact.ContactOperations;
 import org.codepanda.utility.data.DataPool;
 import org.jvnet.substance.colorschemepack.BelizeColorScheme;
@@ -34,13 +40,15 @@ import com.sun.java.swing.plaf.motif.MotifBorders.BevelBorder;
 public class PhoneMeArrangeContactPanel extends JPanel
 					implements ListSelectionListener, ActionListener{
 	final private PhoneMeFrame localFrame;
-	final private HashMultimap<String, Integer> localNameMap;
+	private HashMultimap<String, Integer> localNameMap;
 	private HashMap<String, Vector<Integer>> displayContent;
 	private Vector<Integer> displayISN;
 	
 	private JPanel leftPanel;
 	private Vector<String> nameSet;
 	private JList nameList;
+	private boolean getList;
+	private int selectedIndex;
 	
 	private Vector<JCheckBox> secondBox;
 	private JPanel middlePanel;
@@ -58,6 +66,12 @@ public class PhoneMeArrangeContactPanel extends JPanel
 	
 	public PhoneMeArrangeContactPanel(PhoneMeFrame frame){
 		localFrame = frame;
+		//frame.paintComponents(getGraphics());
+		//this.removeAll();
+		initialData();
+	}
+	
+	public void initialData(){
 		localNameMap = DataPool.getInstance().getAllContactNameMultimap();
 		if(!getData())
 		{
@@ -81,6 +95,8 @@ public class PhoneMeArrangeContactPanel extends JPanel
 		
 		nameList = new JList(nameSet);
 		nameList.addListSelectionListener(this);
+		getList = false;
+		selectedIndex = 0;
 		
 		leftBuilder.add(nameList, leftcc.xy(2, 4));
 		
@@ -157,13 +173,13 @@ public class PhoneMeArrangeContactPanel extends JPanel
 
 	@Override
 	public void valueChanged(ListSelectionEvent arg0) {
-		// TODO Auto-generated method stub
-		if(!arg0.getValueIsAdjusting()){
+		if(!arg0.getValueIsAdjusting() && !getList){
 			//title2.setText("有同样姓名为" + 
 				//nameList.getSelectedValue().toString() + "的所有联系人");
 		localFrame.getMyPhoneMeStatusBar().setStatus("正在读取数据，请稍候");
 		displayISN = displayContent.get
 		(nameList.getSelectedValue().toString());
+		selectedIndex = nameList.getSelectedIndex();
 		secondBox.clear();
 		mainPanel.removeAll();
 		
@@ -235,16 +251,61 @@ public class PhoneMeArrangeContactPanel extends JPanel
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		if(e.getSource() == action){
+			boolean delete = true;
 			System.out.println("action merge");
 			Vector<Integer> mergeISN = new Vector<Integer>();
 			for(int i=0;i<secondBox.size();i++){
 				if(secondBox.get(i).isSelected()){
 					mergeISN.add(displayISN.get(i));
 				}
+				else{
+					delete = false;
+				}
 			}
 			for(int i=0;i<mergeISN.size();i++){
 				System.out.println(mergeISN.get(i));
 			}
+			if(mergeISN.size() <= 1){
+				localFrame.getMyPhoneMeStatusBar().
+				setStatus("选择的联系人太少，不能进行合并");
+				return;
+			}
+			
+			StringBuffer message = new StringBuffer();
+			for(int i=0;i<mergeISN.size();i++)
+				message.append(MyXMLMaker.addTag
+						("ISN", String.valueOf(mergeISN.get(i))));
+			
+			String xml = new String();
+			xml = MyXMLMaker.addTag("MergeContact", message.toString());
+			xml = MyXMLMaker.addTag("com", xml);
+			System.out.println(xml);
+			
+			CommandVisitor statContactCommandVisitor = new CommandVisitor(
+					CommandType.MERGE_CONTACT, xml);
+			MergeContactMessageHandler mergeContactMessageHandler = 
+				new MergeContactMessageHandler();
+			mergeContactMessageHandler
+					.executeCommand(statContactCommandVisitor);
+			
+			// TODO update the panel 
+			/*if(delete){
+				getList = true;
+				DefaultListModel dtl = (DefaultListModel)nameList.getModel();
+				//nameList.setModel(dtl);
+				System.out.println("delete index");
+				//System.out.println(nameList.getSelectedIndex());
+				System.out.println(selectedIndex);
+				dtl.remove(selectedIndex);
+				//dtl.removeElement(nameList.getSelectedValue());
+				//nameList.updateUI();
+				System.out.println("after delete");
+				//System.out.println(nameList);
+				nameList.setModel(dtl);
+				nameList.updateUI();
+				getList = false;
+			}*/
+			//initialData();
 			return;
 		}
 		if(e.getSource() == seeAll){
