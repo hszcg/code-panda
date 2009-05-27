@@ -24,6 +24,7 @@ import org.codepanda.application.googlecontactsyn.GContactOper;
 import org.codepanda.userinterface.messagehandler.DeleteContactMessageHandler;
 import org.codepanda.userinterface.messagehandler.ExportContactMessageHandler;
 import org.codepanda.userinterface.messagehandler.ImportContactMessageHandler;
+import org.codepanda.userinterface.test.RelationNetShow;
 import org.codepanda.userinterface.utility.ExtensionFileFilter;
 import org.codepanda.userinterface.xml.MyXMLMaker;
 import org.codepanda.utility.contact.ContactOperations;
@@ -51,9 +52,9 @@ public class PhoneMeRibbon {
 			JRibbonBand contactManagerBand = this.getContactManagerBand();
 			JRibbonBand commonLabelManagerBand = this
 					.getCommonLabelManagerBand();
-			//userManagerBand.setTitle("User Manager");
-			//contactManagerBand.setTitle("User Manager");
-			//commonLabelManagerBand.setTitle("User Manager");
+			// userManagerBand.setTitle("User Manager");
+			// contactManagerBand.setTitle("User Manager");
+			// commonLabelManagerBand.setTitle("User Manager");
 			basicTask = new RibbonTask("基本功能", userManagerBand,
 					contactManagerBand, commonLabelManagerBand);
 			basicTask.setKeyTip("B");
@@ -61,9 +62,9 @@ public class PhoneMeRibbon {
 			JRibbonBand contactExchangeBand = this.getContactExchangeBand();
 			JRibbonBand contactSyncBand = this.getContactSyncBand();
 			JRibbonBand otherFunctionBand = this.getOtherFunctionBand();
-			//contactExchangeBand.setTitle("User Manager");
-			//contactSyncBand.setTitle("User Manager");
-			//otherFunctionBand.setTitle("User Manager");
+			// contactExchangeBand.setTitle("User Manager");
+			// contactSyncBand.setTitle("User Manager");
+			// otherFunctionBand.setTitle("User Manager");
 			advancedTask = new RibbonTask("高级功能", contactExchangeBand,
 					contactSyncBand, otherFunctionBand);
 			advancedTask.setKeyTip("A");
@@ -72,11 +73,11 @@ public class PhoneMeRibbon {
 		}
 	}
 
-//	private class ExpandActionListener implements ActionListener {
-//		public void actionPerformed(ActionEvent e) {
-//			JOptionPane.showMessageDialog(mainFrame, "Expand button clicked");
-//		}
-//	}
+	// private class ExpandActionListener implements ActionListener {
+	// public void actionPerformed(ActionEvent e) {
+	// JOptionPane.showMessageDialog(mainFrame, "Expand button clicked");
+	// }
+	// }
 
 	private JRibbonBand getUserManagerBand() throws IOException {
 		JRibbonBand userManagerBand = new JRibbonBand("用户管理",
@@ -160,7 +161,7 @@ public class PhoneMeRibbon {
 						new Dimension(32, 32)), null);
 
 		contactManagerBand.startGroup();
-		
+
 		JCommandButton newContactButton = new JCommandButton("新建联系人",
 				ImageWrapperResizableIcon.getIcon(ImageIO.read(this.getClass()
 						.getResource("/icon/plateIcon/addressbook.png")),
@@ -248,8 +249,12 @@ public class PhoneMeRibbon {
 				ArrayList<Integer> myISNList = new ArrayList<Integer>();
 				myISNList.addAll(DataPool.getInstance().getAllContactISNMap()
 						.keySet());
-				mainFrame.getMyPhoneMeMajorPanel().addNewTab("All Contacts",
-						new AllContactPanel(mainFrame, myISNList, ContactSectionType.PHONE_NUMBER).getMainPanel());
+				mainFrame.getMyPhoneMeMajorPanel()
+						.addNewTab(
+								"All Contacts",
+								new AllContactPanel(mainFrame, myISNList,
+										ContactSectionType.PHONE_NUMBER)
+										.getMainPanel());
 			}
 		});
 
@@ -299,7 +304,7 @@ public class PhoneMeRibbon {
 				ImageWrapperResizableIcon.getIcon(ImageIO.read(this.getClass()
 						.getResource("/icon/plateIcon/clipboard.png")),
 						new Dimension(32, 32)), null);
-		
+
 		commonLabelManagerBand.startGroup();
 
 		JCommandButton newCommonLabelButton = new JCommandButton("普通标签管理",
@@ -525,11 +530,10 @@ public class PhoneMeRibbon {
 				upload.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
 						try {
-							if(
-							GContactOper.createContact
-							(userNameField.getText(), 
-							String.valueOf(userPasswordField.getPassword())))
-							dialog.dispose();
+							if (GContactOper.createContact(userNameField
+									.getText(), String
+									.valueOf(userPasswordField.getPassword())))
+								dialog.dispose();
 							else
 								errorLabel.setText("登录失败");
 						} catch (ServiceException e1) {
@@ -543,11 +547,10 @@ public class PhoneMeRibbon {
 				download.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
 						try {
-							if(
-							GContactOper.getAllContacts
-							(userNameField.getText(), 
-									String.valueOf(userPasswordField.getPassword())))
-							dialog.dispose();
+							if (GContactOper.getAllContacts(userNameField
+									.getText(), String
+									.valueOf(userPasswordField.getPassword())))
+								dialog.dispose();
 							else
 								errorLabel.setText("登录失败");
 						} catch (ServiceException e1) {
@@ -559,35 +562,35 @@ public class PhoneMeRibbon {
 					}
 				});
 				JButton cancel = new JButton("取消同步操作");
-				cancel.addActionListener(new ActionListener(){
+				cancel.addActionListener(new ActionListener() {
 
 					@Override
 					public void actionPerformed(ActionEvent e) {
 						// TODO Auto-generated method stub
 						dialog.dispose();
 					}
-					
+
 				});
 				FormLayout layout = new FormLayout(
-				"10dlu, pref, 20dlu, pref, 10dlu", // columns
-				"10dlu, p, 10dlu, p, 10dlu, p, 10dlu, p, 10dlu, p, 10dlu"); // rows
-					
+						"10dlu, pref, 20dlu, pref, 10dlu", // columns
+						"10dlu, p, 10dlu, p, 10dlu, p, 10dlu, p, 10dlu, p, 10dlu"); // rows
+
 				PanelBuilder builder = new PanelBuilder(layout);
 				builder.setDefaultDialogBorder();
 				CellConstraints cc = new CellConstraints();
-				
+
 				builder.addLabel("请输入gmail帐号", cc.xy(2, 2));
 				builder.addLabel("用户名", cc.xy(2, 4));
 				builder.add(userNameField, cc.xy(4, 4));
-				
+
 				builder.addLabel("密码", cc.xy(2, 6));
 				builder.add(userPasswordField, cc.xy(4, 6));
-				
+
 				builder.add(upload, cc.xy(2, 8));
 				builder.add(download, cc.xy(4, 8));
 				builder.add(errorLabel, cc.xy(2, 10));
 				builder.add(cancel, cc.xy(4, 10));
-				//dialog.add(upload);
+				// dialog.add(upload);
 				dialog.add(builder.getPanel());
 				dialog.pack();
 				Dimension screenSize = Toolkit.getDefaultToolkit()
@@ -602,19 +605,19 @@ public class PhoneMeRibbon {
 		contactSyncBand.addCommandButton(googleContactButton,
 				RibbonElementPriority.MEDIUM);
 
-		/*JCommandButton bluetoothContactButton = new JCommandButton("与手机蓝牙同步",
-				ImageWrapperResizableIcon.getIcon(ImageIO.read(this.getClass()
-						.getResource("/icon/plateIcon/computer network.png")),
-						new Dimension(32, 32)));
-
-		bluetoothContactButton.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				System.out.println("与手机蓝牙同步");
-			}
-		});
-
-		contactSyncBand.addCommandButton(bluetoothContactButton,
-				RibbonElementPriority.MEDIUM);*/
+		/*
+		 * JCommandButton bluetoothContactButton = new JCommandButton("与手机蓝牙同步",
+		 * ImageWrapperResizableIcon.getIcon(ImageIO.read(this.getClass()
+		 * .getResource("/icon/plateIcon/computer network.png")), new
+		 * Dimension(32, 32)));
+		 * 
+		 * bluetoothContactButton.addActionListener(new ActionListener() {
+		 * public void actionPerformed(ActionEvent e) {
+		 * System.out.println("与手机蓝牙同步"); } });
+		 * 
+		 * contactSyncBand.addCommandButton(bluetoothContactButton,
+		 * RibbonElementPriority.MEDIUM);
+		 */
 
 		return contactSyncBand;
 	}
@@ -650,8 +653,8 @@ public class PhoneMeRibbon {
 		arrangeContactButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				System.out.println("联系人整理");
-				mainFrame.getMyPhoneMeMajorPanel().addNewTab
-				("联系人整理选项", new PhoneMeArrangeContactPanel(mainFrame));
+				mainFrame.getMyPhoneMeMajorPanel().addNewTab("联系人整理选项",
+						new PhoneMeArrangeContactPanel(mainFrame));
 			}
 		});
 
@@ -666,6 +669,8 @@ public class PhoneMeRibbon {
 		relationNetButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				System.out.println("人立方");
+				mainFrame.getMyPhoneMeMajorPanel().addNewTab(
+						"Relation Net Show", new RelationNetShow(mainFrame));
 			}
 		});
 

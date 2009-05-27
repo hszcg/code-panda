@@ -1,7 +1,3 @@
-/**
- * Copyright (c) 2004-2006 Regents of the University of California.
- * See "license-prefuse.txt" for licensing terms.
- */
 package org.codepanda.userinterface.test;
 
 import java.awt.Cursor;
@@ -13,6 +9,8 @@ import java.util.Iterator;
 
 import javax.swing.SwingUtilities;
 
+import org.codepanda.userinterface.ContactInfoPanel;
+import org.codepanda.userinterface.PhoneMeFrame;
 import org.codepanda.utility.contact.ContactOperations;
 import org.codepanda.utility.data.DataPool;
 import org.codepanda.utility.label.RelationLabel;
@@ -45,6 +43,12 @@ import prefuse.visual.AggregateTable;
 import prefuse.visual.VisualGraph;
 import prefuse.visual.VisualItem;
 
+/**
+ * @author hszcg
+ * 
+ *         Created by prefuse, edit by hszcg
+ * 
+ */
 public class RelationNetShow extends Display {
 
 	/**
@@ -61,9 +65,12 @@ public class RelationNetShow extends Display {
 	public static final String SRC = "SourceISN";
 	public static final String OBJ = "ObjectISN";
 
-	public RelationNetShow() {
+	// private final PhoneMeFrame parentFrame;
+
+	public RelationNetShow(final PhoneMeFrame parentFrame) {
 		// initialize display and data
 		super(new Visualization());
+		// this.parentFrame = parentFrame;
 		initDataGroups();
 
 		// set up the renderers
@@ -82,17 +89,26 @@ public class RelationNetShow extends Display {
 
 		// set up the visual operators
 		// first set up all the color actions
-		ColorAction nText = new ColorAction(NODES, VisualItem.TEXTCOLOR);
-		nText.setDefaultColor(ColorLib.gray(100));
-		nText.add("_hover", ColorLib.gray(50));
 
-		ColorAction nFill = new ColorAction(NODES, VisualItem.FILLCOLOR);
-		nFill.setDefaultColor(ColorLib.gray(255));
-		nFill.add("_hover", ColorLib.gray(200));
+		// NODE的文字部分
+		ColorAction nNodeText = new ColorAction(NODES, VisualItem.TEXTCOLOR);
+		nNodeText.setDefaultColor(ColorLib.gray(100));
+		nNodeText.add("_hover", ColorLib.gray(50));
 
-		ColorAction nEdges = new ColorAction(EDGES, VisualItem.STROKECOLOR);
-		nEdges.setDefaultColor(ColorLib.gray(100));
+		// NODE的背景部分
+		ColorAction nNodeFill = new ColorAction(NODES, VisualItem.FILLCOLOR);
+		nNodeFill.setDefaultColor(ColorLib.gray(255));
+		nNodeFill.add("_hover", ColorLib.gray(200));
 
+		// 边的线条部分
+		ColorAction nEdgesLine = new ColorAction(EDGES, VisualItem.STROKECOLOR);
+		nEdgesLine.setDefaultColor(ColorLib.gray(100));
+
+		// 边的文字部分
+		ColorAction nEdgesText = new ColorAction(EDGES, VisualItem.TEXTCOLOR);
+		nEdgesText.setDefaultColor(ColorLib.gray(50));
+
+		// 包络线的线条部分
 		ColorAction aStroke = new ColorAction(AGGR, VisualItem.STROKECOLOR);
 		aStroke.setDefaultColor(ColorLib.gray(200));
 		aStroke.add("_hover", ColorLib.rgb(255, 100, 100));
@@ -105,9 +121,10 @@ public class RelationNetShow extends Display {
 
 		// bundle the color actions
 		ActionList colors = new ActionList();
-		colors.add(nText);
-		colors.add(nFill);
-		colors.add(nEdges);
+		colors.add(nNodeText);
+		colors.add(nNodeFill);
+		colors.add(nEdgesLine);
+		colors.add(nEdgesText);
 		colors.add(aStroke);
 		colors.add(aFill);
 
@@ -123,7 +140,7 @@ public class RelationNetShow extends Display {
 		setSize(500, 500);
 		pan(250, 250);
 		setHighQuality(true);
-		addControlListener(new AggregateDragControl());
+		addControlListener(new AggregateDragControl(parentFrame));
 		addControlListener(new ZoomControl());
 		addControlListener(new PanControl());
 
@@ -144,9 +161,10 @@ public class RelationNetShow extends Display {
 		nodeSchema.addColumn(NAME, String.class);
 		nodeSchema.addColumn(ISN, int.class);
 
-		// 边信息 SourceISN ObjectISN
+		// 边信息 SourceISN ObjectISN Name
 		edgeSchema.addColumn(SRC, int.class);
 		edgeSchema.addColumn(OBJ, int.class);
+		edgeSchema.addColumn(NAME, String.class);
 
 		nodeSchema.lockSchema();
 		edgeSchema.lockSchema();
@@ -178,13 +196,16 @@ public class RelationNetShow extends Display {
 					// Edge
 					rowNumber = edgeTable.addRow();
 					edgeTable.set(rowNumber, SRC, myISNNodeMap.get(c.getISN()));
-					edgeTable.set(rowNumber, OBJ, myISNNodeMap.get(r.getRelationObjectISN()));
+					edgeTable.set(rowNumber, OBJ, myISNNodeMap.get(r
+							.getRelationObjectISN()));
+					edgeTable.setString(rowNumber, NAME, allContact.get(
+							r.getRelationObjectISN()).getContactName());
 				}
 			}
 		}
 
 		Graph g = new Graph(nodeTable, edgeTable, false, SRC, OBJ);
-		//g.putClientProperty(ISN, ISN);
+		// g.putClientProperty(ISN, ISN);
 
 		// add visual data groups
 		VisualGraph vg = m_vis.addGraph(GRAPH, g);
@@ -196,7 +217,7 @@ public class RelationNetShow extends Display {
 		at.addColumn(VisualItem.POLYGON, float[].class);
 		at.addColumn("id", int.class);
 		at.addColumn(NAME, String.class);
-
+		at.addColumn(ISN, int.class);
 
 		Iterator nodes = vg.nodes();
 		for (int i = 0; i < 1; ++i) {
@@ -308,6 +329,7 @@ class AggregateLayout extends Layout {
 class AggregateDragControl extends ControlAdapter {
 
 	private VisualItem activeItem;
+	private final PhoneMeFrame pareFrame;
 	protected Point2D down = new Point2D.Double();
 	protected Point2D temp = new Point2D.Double();
 	protected boolean dragged;
@@ -316,7 +338,8 @@ class AggregateDragControl extends ControlAdapter {
 	 * Creates a new drag control that issues repaint requests as an item is
 	 * dragged.
 	 */
-	public AggregateDragControl() {
+	public AggregateDragControl(final PhoneMeFrame pareFrame) {
+		this.pareFrame = pareFrame;
 	}
 
 	/**
@@ -356,7 +379,15 @@ class AggregateDragControl extends ControlAdapter {
 		d.getAbsoluteCoordinate(e.getPoint(), down);
 		if (item instanceof AggregateItem)
 			setFixed(item, true);
-		System.out.println(item.getString("name") + "Item Pressed");
+		System.out.println("ISN = " + item.getString("ISN") + " Item Pressed");
+		ContactOperations c = DataPool.getInstance().getAllContactISNMap().get(
+				Integer.parseInt(item.getString("ISN")));
+		// TODO if c == null
+		
+		pareFrame.getMyPhoneMeMajorPanel().addNewTab(
+				c.getContactName(),
+				new ContactInfoPanel(pareFrame, c, false,
+						ContactInfoPanel.CONTACT_INFO_PANEL));
 	}
 
 	/**
@@ -421,5 +452,4 @@ class AggregateDragControl extends ControlAdapter {
 			item.setEndY(y + dy);
 		}
 	}
-
-} // end of class AggregateDragControl
+}
