@@ -64,6 +64,8 @@ public class RelationNetShow extends Display {
 	public static final String ISN = "ISN";
 	public static final String SRC = "SourceISN";
 	public static final String OBJ = "ObjectISN";
+	
+	public static final String EDGE_TYPE = "EDGE_TYPE";
 
 	// private final PhoneMeFrame parentFrame;
 
@@ -116,7 +118,7 @@ public class RelationNetShow extends Display {
 		int[] palette = new int[] { ColorLib.rgba(255, 200, 200, 150),
 				ColorLib.rgba(200, 255, 200, 150),
 				ColorLib.rgba(200, 200, 255, 150) };
-		ColorAction aFill = new DataColorAction(AGGR, "id", Constants.NOMINAL,
+		ColorAction aFill = new DataColorAction(AGGR, EDGE_TYPE, Constants.NOMINAL,
 				VisualItem.FILLCOLOR, palette);
 
 		// bundle the color actions
@@ -215,15 +217,15 @@ public class RelationNetShow extends Display {
 
 		AggregateTable at = m_vis.addAggregates(AGGR);
 		at.addColumn(VisualItem.POLYGON, float[].class);
-		at.addColumn("id", int.class);
+		at.addColumn(EDGE_TYPE, int.class);
 		at.addColumn(NAME, String.class);
 		at.addColumn(ISN, int.class);
 
 		Iterator nodes = vg.nodes();
 		for (int i = 0; i < 1; ++i) {
 			AggregateItem aitem = (AggregateItem) at.addItem();
-			aitem.setInt("id", i);
 			for (int j = 0; j < vg.getNodeCount(); ++j) {
+				aitem.setInt(EDGE_TYPE, 2);
 				aitem.addItem((VisualItem) nodes.next());
 			}
 		}
@@ -387,6 +389,8 @@ class AggregateDragControl extends ControlAdapter {
 				item.getInt(RelationNetShow.ISN));
 		
 		// TODO if c == null
+		if ( c == null )
+			return;
 
 		pareFrame.getMyPhoneMeMajorPanel().addNewTab(
 				c.getContactName(),
