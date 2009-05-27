@@ -177,14 +177,14 @@ public class RelationNetShow extends Display {
 		HashMap<Integer, Integer> myISNNodeMap = new HashMap<Integer, Integer>();
 		for (ContactOperations c : allContact.values()) {
 			if (c.getRelationLabelList().size() > 0) {
-				// Node
+				// SRC Node
 				rowNumber = nodeTable.addRow();
 				nodeTable.set(rowNumber, NAME, c.getContactName());
 				nodeTable.set(rowNumber, ISN, c.getISN());
 
 				myISNNodeMap.put(c.getISN(), new Integer(rowNumber));
 				for (RelationLabel r : c.getRelationLabelList()) {
-					// Node
+					// OBJ Node
 					rowNumber = nodeTable.addRow();
 					nodeTable.setString(rowNumber, NAME, allContact.get(
 							r.getRelationObjectISN()).getContactName());
@@ -321,7 +321,7 @@ class AggregateLayout extends Layout {
 		pts[idx + 7] = maxY;
 	}
 
-} // end of class AggregateLayout
+}
 
 /**
  * Interactive drag control that is "aggregate-aware"
@@ -379,11 +379,15 @@ class AggregateDragControl extends ControlAdapter {
 		d.getAbsoluteCoordinate(e.getPoint(), down);
 		if (item instanceof AggregateItem)
 			setFixed(item, true);
-		System.out.println("ISN = " + item.getString("ISN") + " Item Pressed");
-		ContactOperations c = DataPool.getInstance().getAllContactISNMap().get(
-				Integer.parseInt(item.getString("ISN")));
-		// TODO if c == null
 		
+		System.out.println("ISN = " + item.getInt(RelationNetShow.ISN)
+				+ " Item Pressed");
+		
+		ContactOperations c = DataPool.getInstance().getAllContactISNMap().get(
+				item.getInt(RelationNetShow.ISN));
+		
+		// TODO if c == null
+
 		pareFrame.getMyPhoneMeMajorPanel().addNewTab(
 				c.getContactName(),
 				new ContactInfoPanel(pareFrame, c, false,

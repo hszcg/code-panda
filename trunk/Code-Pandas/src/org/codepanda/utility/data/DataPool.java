@@ -368,7 +368,7 @@ public class DataPool {
 	public void MergeContact(String srtISN, PersonalContact currentContact) {
 		currentContact = new PersonalContact();
 		// 传入一系列的ISN，对其进行解析
-		String tempStr[] = srtISN.split("-");
+		String tempStr[] = srtISN.split(",");
 		int size = tempStr.length - 1;
 		int ISNList[] = new int[size];
 		for (int i = 0; i < size; i++) {
