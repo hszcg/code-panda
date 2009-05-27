@@ -278,6 +278,16 @@ public class PhoneMeMajorPanel extends JPanel {
 				}
 			}
 		}
+		
+		if (p instanceof RelationNetShow) {
+			// RelationNetShow Single
+			for (int i = 0; i < centerPanel.getTabCount(); i++) {
+				if (centerPanel.getComponentAt(i) instanceof RelationNetShow) {
+					centerPanel.setSelectedIndex(i);
+					return false;
+				}
+			}
+		}
 
 		if (centerPanel.getTabCount() > MAX_TAB_NUMBER - 1) {
 			this.mainFrame.getMyPhoneMeStatusBar().setStatus(
@@ -310,7 +320,6 @@ public class PhoneMeMajorPanel extends JPanel {
 		// .getMaximumWindowBounds();
 		// p.setPreferredSize(new Dimension(r.width, r.height));
 		// centerPanel.addTab("Edit User", new JScrollPane(p));
-		centerPanel.addTab("Net Show", new RelationNetShow());
 	}
 
 	/**
