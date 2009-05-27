@@ -9,6 +9,7 @@ import javax.swing.*;
 
 import org.codepanda.userinterface.test.RelationNetShow;
 import org.codepanda.utility.contact.ContactOperations;
+import org.codepanda.utility.data.DataPool;
 import org.jdesktop.swingx.*;
 import org.jdesktop.swingx.decorator.*;
 import org.jdesktop.swingx.decorator.ComponentAdapter;
@@ -345,6 +346,13 @@ public class PhoneMeMajorPanel extends JPanel {
 				((SearchResultPanel) tab).updateAllResult(updateISN);
 			} else if (tab instanceof BirthdayRemindPanel) {
 				((BirthdayRemindPanel) tab).updateAllResult(updateISN);
+			} else if (tab instanceof ContactInfoPanel) {
+				if (((ContactInfoPanel) tab).getMyContact().getISN() == updateISN
+						&& DataPool.getInstance().getAllContactISNMap().get(
+								updateISN) == null) {
+					this.centerPanel.remove(tab);
+					break;
+				}
 			}
 		}
 	}
@@ -361,6 +369,14 @@ public class PhoneMeMajorPanel extends JPanel {
 				((SearchResultPanel) tab).updateAllResult(updateISNList);
 			} else if (tab instanceof BirthdayRemindPanel) {
 				((BirthdayRemindPanel) tab).updateAllResult(updateISNList);
+			} else if (tab instanceof ContactInfoPanel) {
+				for (int updateISN : updateISNList) {
+					if (((ContactInfoPanel) tab).getMyContact().getISN() == updateISN
+							&& DataPool.getInstance().getAllContactISNMap()
+									.get(updateISN) == null) {
+						this.centerPanel.remove(tab);
+					}
+				}
 			}
 		}
 	}
