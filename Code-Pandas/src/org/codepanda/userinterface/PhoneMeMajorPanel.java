@@ -43,32 +43,22 @@ public class PhoneMeMajorPanel extends JPanel {
 	}
 
 	private void configureListener() {
-		/*SubstanceLookAndFeel.registerTabCloseChangeListener(centerPanel,
-				new VetoableTabCloseListener() {
-					public void tabClosed(JTabbedPane tabbedPane,
-							Component tabComponent) {
-						System.out.println("Closed tab - specific");
-					}
-
-					public void tabClosing(JTabbedPane tabbedPane,
-							Component tabComponent) {
-						System.out.println("Closing tab - specific");
-					}
-
-					public boolean vetoTabClosing(JTabbedPane tabbedPane,
-							Component tabComponent) {
-						int userCloseAnswer = JOptionPane
-								.showConfirmDialog(
-										mainFrame,
-										"Are you sure you want to close '"
-												+ tabbedPane
-														.getTitleAt(tabbedPane
-																.indexOfComponent(tabComponent))
-												+ "' tab?", "Confirm dialog",
-										JOptionPane.YES_NO_OPTION);
-						return (userCloseAnswer == JOptionPane.NO_OPTION);
-					}
-				});*/
+		/*
+		 * SubstanceLookAndFeel.registerTabCloseChangeListener(centerPanel, new
+		 * VetoableTabCloseListener() { public void tabClosed(JTabbedPane
+		 * tabbedPane, Component tabComponent) {
+		 * System.out.println("Closed tab - specific"); }
+		 * 
+		 * public void tabClosing(JTabbedPane tabbedPane, Component
+		 * tabComponent) { System.out.println("Closing tab - specific"); }
+		 * 
+		 * public boolean vetoTabClosing(JTabbedPane tabbedPane, Component
+		 * tabComponent) { int userCloseAnswer = JOptionPane .showConfirmDialog(
+		 * mainFrame, "Are you sure you want to close '" + tabbedPane
+		 * .getTitleAt(tabbedPane .indexOfComponent(tabComponent)) + "' tab?",
+		 * "Confirm dialog", JOptionPane.YES_NO_OPTION); return (userCloseAnswer
+		 * == JOptionPane.NO_OPTION); } });
+		 */
 
 		SubstanceLookAndFeel.registerTabCloseChangeListener(centerPanel,
 				new VetoableMultipleTabCloseListener() {
@@ -88,8 +78,8 @@ public class PhoneMeMajorPanel extends JPanel {
 							Set<Component> tabComponents) {
 						int userCloseAnswer = JOptionPane.showConfirmDialog(
 								mainFrame, "确认关闭当前标签页",
-								
-										//+ tabComponents.size() + " tabs?",
+
+								// + tabComponents.size() + " tabs?",
 								"Comfirm Dialog", JOptionPane.YES_NO_OPTION);
 						return (userCloseAnswer == JOptionPane.NO_OPTION);
 					}
@@ -194,8 +184,9 @@ public class PhoneMeMajorPanel extends JPanel {
 		// contactInfoScrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
 		// contactInfoScrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
 
-		//centerPanel.addTab("Contact Info", new ContactInfoPanel(this.mainFrame,
-		//		null, false, ContactInfoPanel.CONTACT_INFO_PANEL));
+		// centerPanel.addTab("Contact Info", new
+		// ContactInfoPanel(this.mainFrame,
+		// null, false, ContactInfoPanel.CONTACT_INFO_PANEL));
 
 		centerPanel.addTab("test", new ExportContactPanel(mainFrame));
 		return centerPanel;
@@ -248,7 +239,7 @@ public class PhoneMeMajorPanel extends JPanel {
 				}
 			}
 		}
-		
+
 		if (p instanceof CommonLabelShowPanel) {
 			// CommonLabelShowPanel Single
 			for (int i = 0; i < centerPanel.getTabCount(); i++) {
@@ -258,7 +249,7 @@ public class PhoneMeMajorPanel extends JPanel {
 				}
 			}
 		}
-		
+
 		if (p instanceof BirthdayRemindPanel) {
 			// BirthdayRemindPanel Single
 			for (int i = 0; i < centerPanel.getTabCount(); i++) {
@@ -268,7 +259,7 @@ public class PhoneMeMajorPanel extends JPanel {
 				}
 			}
 		}
-		
+
 		if (p instanceof AllContactPanel) {
 			// AllContactPanel Single
 			for (int i = 0; i < centerPanel.getTabCount(); i++) {
@@ -278,7 +269,17 @@ public class PhoneMeMajorPanel extends JPanel {
 				}
 			}
 		}
-		
+
+		if (p instanceof PhoneMeArrangeContactPanel) {
+			// PhoneMeArrangeContactPanel Single
+			for (int i = 0; i < centerPanel.getTabCount(); i++) {
+				if (centerPanel.getComponentAt(i) instanceof PhoneMeArrangeContactPanel) {
+					centerPanel.setSelectedIndex(i);
+					return false;
+				}
+			}
+		}
+
 		if (p instanceof RelationNetShow) {
 			// RelationNetShow Single
 			for (int i = 0; i < centerPanel.getTabCount(); i++) {
@@ -337,12 +338,12 @@ public class PhoneMeMajorPanel extends JPanel {
 	 */
 	public void updateAllResult(int updateISN) {
 		// TODO Auto-generated method stub
-		for(Component tab :this.centerPanel.getComponents()){
-			if(tab instanceof AllContactPanel){
+		for (Component tab : this.centerPanel.getComponents()) {
+			if (tab instanceof AllContactPanel) {
 				((AllContactPanel) tab).updateAllResult(updateISN);
-			}else if(tab instanceof SearchResultPanel){
+			} else if (tab instanceof SearchResultPanel) {
 				((SearchResultPanel) tab).updateAllResult(updateISN);
-			} else if(tab instanceof BirthdayRemindPanel) {
+			} else if (tab instanceof BirthdayRemindPanel) {
 				((BirthdayRemindPanel) tab).updateAllResult(updateISN);
 			}
 		}
@@ -353,12 +354,12 @@ public class PhoneMeMajorPanel extends JPanel {
 	 */
 	public void updateAllResult(ArrayList<Integer> updateISNList) {
 		// TODO Auto-generated method stub
-		for(Component tab :this.centerPanel.getComponents()){
-			if(tab instanceof AllContactPanel){
+		for (Component tab : this.centerPanel.getComponents()) {
+			if (tab instanceof AllContactPanel) {
 				((AllContactPanel) tab).updateAllResult(updateISNList);
-			}else if(tab instanceof SearchResultPanel){
+			} else if (tab instanceof SearchResultPanel) {
 				((SearchResultPanel) tab).updateAllResult(updateISNList);
-			} else if(tab instanceof BirthdayRemindPanel) {
+			} else if (tab instanceof BirthdayRemindPanel) {
 				((BirthdayRemindPanel) tab).updateAllResult(updateISNList);
 			}
 		}

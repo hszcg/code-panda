@@ -67,7 +67,7 @@ public class MergeContactXML {
 			if(str.equals("ISN"))
 			{
 				String value=node.getTextContent();
-				result=result+"-"+value;
+				result=result+","+value;
 			}
 			if(node instanceof Element)
 			{
