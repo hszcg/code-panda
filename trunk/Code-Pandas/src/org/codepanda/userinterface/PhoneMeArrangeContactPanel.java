@@ -16,6 +16,7 @@ import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JList;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.ListSelectionModel;
@@ -45,6 +46,7 @@ public class PhoneMeArrangeContactPanel extends JPanel
 	private HashMultimap<String, Integer> localNameMap;
 	private HashMap<String, Vector<Integer>> displayContent;
 	private Vector<Integer> displayISN;
+	private boolean first = true;
 	
 	private JPanel leftPanel;
 	private JLabel title1;
@@ -72,6 +74,7 @@ public class PhoneMeArrangeContactPanel extends JPanel
 		localFrame = frame;
 		setThisLayout();
 		initialComponent();
+		first = false;
 	}
 	
 	public void setThisLayout(){
@@ -130,9 +133,21 @@ public class PhoneMeArrangeContactPanel extends JPanel
 		localNameMap = DataPool.getInstance().getAllContactNameMultimap();
 		if(!getData())
 		{
-			localFrame.getMyPhoneMeStatusBar().setStatus
-			("当前没有重名的联系人");
-			return;
+			//localFrame.getMyPhoneMeStatusBar().setStatus
+			//("当前没有重名的联系人");
+			if(first){
+				JOptionPane.showMessageDialog
+				(localFrame, "当前没有重名的联系人");
+				localFrame.getMyPhoneMeMajorPanel().closeTab(this);
+				//localFrame.getMyPhoneMeStatusBar().setStatus
+				//("当前没有重名的联系人");
+				return;
+			}
+			else{
+				localFrame.getMyPhoneMeMajorPanel().closeTab(this);
+				JOptionPane.showMessageDialog
+				(localFrame, "当前没有重名的联系人");
+			}
 		}
 		
 		nameListModel = new DefaultListModel();
@@ -178,6 +193,9 @@ public class PhoneMeArrangeContactPanel extends JPanel
 		localFrame.getMyPhoneMeStatusBar().setStatus("正在读取数据，请稍候");
 		displayISN = displayContent.get
 		(nameList.getSelectedValue().toString());
+		System.out.println("www");
+		System.out.println(nameList.getSelectedValue().toString());
+		System.out.println(displayISN.size());
 		secondBox.clear();
 		mainPanel.removeAll();
 		
@@ -203,6 +221,7 @@ public class PhoneMeArrangeContactPanel extends JPanel
 					nameList.getSelectedValue().toString() + "的联系人");
 			title2.setVisible(true);
 		}
+		updateRightPanel(Integer.MIN_VALUE);
 	}
 	
 	public void setRightComponent(){
