@@ -6,10 +6,12 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
+import java.util.Vector;
 import java.util.Map.Entry;
 
 import javax.swing.*;
 import javax.swing.event.*;
+import javax.swing.plaf.basic.BasicComboBoxEditor;
 import javax.swing.tree.*;
 
 import org.codepanda.application.CommandType;
@@ -21,7 +23,9 @@ import org.codepanda.utility.data.ContactSectionType;
 import org.codepanda.utility.data.DataPool;
 import org.codepanda.utility.group.ContactGroup;
 import org.jdesktop.swingx.*;
+import org.jdesktop.swingx.autocomplete.AutoCompleteComboBoxEditor;
 import org.jdesktop.swingx.autocomplete.AutoCompleteDecorator;
+import org.jdesktop.swingx.autocomplete.ObjectToStringConverter;
 
 public class PhoneMeTaskPane extends JXTaskPaneContainer implements
 		TreeSelectionListener, ActionListener {
@@ -30,10 +34,12 @@ public class PhoneMeTaskPane extends JXTaskPaneContainer implements
 	 * 
 	 */
 	private static final long serialVersionUID = -2688085485464738955L;
+
 	private PhoneMeFrame parentFrame;
 	private JXTaskPane searchTaskPane;
-	private JTextField searchField;
-	private ArrayList<String> autoCompleteList;
+	private JComboBox searchBox;
+	private AutoCompleteComboBoxEditor searchField;
+	private Vector<String> autoCompleteList;
 
 	private JXTaskPane contactListTaskPane;
 	private JScrollPane treeViewPane;
@@ -91,17 +97,17 @@ public class PhoneMeTaskPane extends JXTaskPaneContainer implements
 		DefaultMutableTreeNode group = null;
 		DefaultMutableTreeNode contact = null;
 
-		//System.out.println("Create Tree!");
+		// System.out.println("Create Tree!");
 
 		final HashMap<String, ContactGroup> allContactGroup = DataPool
 				.getInstance().getAllContactGroupMap();
 
-		//System.out.println("GROUP" + allContactGroup.size());
+		// System.out.println("GROUP" + allContactGroup.size());
 
 		final HashMap<Integer, ContactOperations> allContactISN = DataPool
 				.getInstance().getAllContactISNMap();
 
-		//System.out.println("ALL CONTACT" + allContactISN.size());
+		// System.out.println("ALL CONTACT" + allContactISN.size());
 
 		Iterator<Entry<String, ContactGroup>> it = allContactGroup.entrySet()
 				.iterator();
@@ -188,50 +194,64 @@ public class PhoneMeTaskPane extends JXTaskPaneContainer implements
 		// ËÑË÷
 		searchTaskPane = new JXTaskPane();
 		searchTaskPane.setTitle("°´ÐÕÃûËÑË÷    ");
-		searchField = new JTextField("");
-		autoCompleteList = new ArrayList<String>();
-		autoCompleteList.addAll(DataPool.getInstance().getAllContactNameMultimap().keySet());
-		AutoCompleteDecorator.decorate(searchField, autoCompleteList, false);
-		searchTaskPane.add(searchField);
+		autoCompleteList = new Vector<String>();
+		autoCompleteList.addAll(DataPool.getInstance()
+				.getAllContactNameMultimap().keySet());
+		searchField = new AutoCompleteComboBoxEditor(new BasicComboBoxEditor(),
+				ObjectToStringConverter.DEFAULT_IMPLEMENTATION);
 		searchField.addActionListener(this);
+
+		searchBox = new JComboBox(autoCompleteList);
+		searchBox.setEditor(searchField);
+		searchBox.setEditable(true);
+		AutoCompleteDecorator.decorate(searchBox);
+		searchBox.getEditor().setItem(new String(""));
+		searchTaskPane.add(searchBox);
+		// searchField.addActionListener(this);
 		this.add(searchTaskPane);
 	}
 
 	/**
-	 * @param updateISN
+	 *
 	 */
 	public void updateGroupList() {
 		// TODO Auto-generated method stub
 		this.remove(contactListTaskPane);
 		configureContactList();
-		this.repaint();
-		autoCompleteList = new ArrayList<String>();
-		autoCompleteList.addAll(DataPool.getInstance().getAllContactNameMultimap().keySet());
-		AutoCompleteDecorator.decorate(searchField, autoCompleteList, false);
+
+		autoCompleteList = new Vector<String>();
+		autoCompleteList.addAll(DataPool.getInstance()
+				.getAllContactNameMultimap().keySet());
+
+		searchBox.removeAllItems();
+
+		for (String str : autoCompleteList) {
+			searchBox.addItem(str);
+		}
+
+		this.paintComponents(getGraphics());
 	}
 
 	@SuppressWarnings("unchecked")
 	@Override
 	public void actionPerformed(ActionEvent arg0) {
 		// TODO Auto-generated method stub
-		if (arg0.getSource() == searchField) {
-			StringBuffer message = new StringBuffer();
-			message.append(MyXMLMaker.addTag("BlurSearch", "1"));
-			message.append(MyXMLMaker.addTag("ContactName", searchField
-					.getText()));
-			String xml = message.toString();
-			xml = MyXMLMaker.addTag("SearchContact", xml);
-			xml = MyXMLMaker.addTag("com", xml);
-			CommandVisitor searchContactCommandVisitor = new CommandVisitor(
-					CommandType.SEARCH_CONTACT, xml);
-			SearchContactMessageHandler searchContactMessageHandler = new SearchContactMessageHandler();
-			ArrayList<Integer> resultContactList = (ArrayList<Integer>) searchContactMessageHandler
-					.executeCommand(searchContactCommandVisitor);
-			parentFrame.getMyPhoneMeMajorPanel().addNewTab(
-					"Search Name Result",
-					new SearchResultPanel(parentFrame, resultContactList,
-							ContactSectionType.PHONE_NUMBER).getMainPanel());
-		}
+		StringBuffer message = new StringBuffer();
+		message.append(MyXMLMaker.addTag("BlurSearch", "1"));
+		message.append(MyXMLMaker.addTag("ContactName", searchBox.getEditor()
+				.getItem().toString()));
+		String xml = message.toString();
+		xml = MyXMLMaker.addTag("SearchContact", xml);
+		xml = MyXMLMaker.addTag("com", xml);
+		CommandVisitor searchContactCommandVisitor = new CommandVisitor(
+				CommandType.SEARCH_CONTACT, xml);
+		SearchContactMessageHandler searchContactMessageHandler = new SearchContactMessageHandler();
+		ArrayList<Integer> resultContactList = (ArrayList<Integer>) searchContactMessageHandler
+				.executeCommand(searchContactCommandVisitor);
+		parentFrame.getMyPhoneMeMajorPanel().addNewTab(
+				"Search Name Result",
+				new SearchResultPanel(parentFrame, resultContactList,
+						ContactSectionType.PHONE_NUMBER).getMainPanel());
 	}
 
 	// ContactOperations p = DataPool.getInstance().getAllContactISNMap().get(
