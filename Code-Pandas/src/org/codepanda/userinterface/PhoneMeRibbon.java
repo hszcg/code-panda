@@ -679,12 +679,12 @@ public class PhoneMeRibbon {
 		
 		JCommandButton aboutUsButton = new JCommandButton("关于我们",
 				ImageWrapperResizableIcon.getIcon(ImageIO.read(this.getClass()
-						.getResource("/icon/plateIcon/folder user.png")),
+						.getResource("/icon/Project.png")),
 						new Dimension(32, 32)));
 
 		aboutUsButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				new PhoneMeAboutUsDialog(mainFrame, "关于我们" ,true);
+				new PhoneMeAboutUsDialog(mainFrame, "About PhoneMe" ,true);
 			}
 		});
 
