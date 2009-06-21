@@ -623,7 +623,7 @@ public class PhoneMeRibbon {
 	}
 
 	JRibbonBand getOtherFunctionBand() throws IOException {
-		JRibbonBand otherFunctionBand = new JRibbonBand("其它高级功能",
+		JRibbonBand otherFunctionBand = new JRibbonBand("其它功能",
 				ImageWrapperResizableIcon.getIcon(ImageIO.read(this.getClass()
 						.getResource("/icon/plateIcon/tool.png")),
 						new Dimension(32, 32)), null);
@@ -675,6 +675,23 @@ public class PhoneMeRibbon {
 		});
 
 		otherFunctionBand.addCommandButton(relationNetButton,
+				RibbonElementPriority.MEDIUM);
+		
+		JCommandButton aboutUsButton = new JCommandButton("关于我们",
+				ImageWrapperResizableIcon.getIcon(ImageIO.read(this.getClass()
+						.getResource("/icon/plateIcon/folder user.png")),
+						new Dimension(32, 32)));
+
+		aboutUsButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				System.out.println("关于我们");
+				new PhoneMeAboutUsDialog(mainFrame, "关于我们" ,true);
+				//mainFrame.getMyPhoneMeMajorPanel().addNewTab("联系人整理选项",
+					//	new PhoneMeArrangeContactPanel(mainFrame));
+			}
+		});
+
+		otherFunctionBand.addCommandButton(aboutUsButton,
 				RibbonElementPriority.MEDIUM);
 
 		return otherFunctionBand;
