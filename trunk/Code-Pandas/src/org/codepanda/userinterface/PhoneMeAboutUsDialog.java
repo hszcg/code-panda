@@ -39,17 +39,16 @@ public class PhoneMeAboutUsDialog extends JDialog {
 		centerPanel = new JPanel();
 
 		try {
-			picShow = new JLabel();
-			ImageIcon p = new ImageIcon(ImageIO.read(this.getClass().getResource("/icon/Panda.gif")));
-			picShow.setIcon(p);
+			picShow = new JLabel(new ImageIcon(PhoneMeAboutUsDialog.class
+					.getResource("Panda.gif")));
 			centerPanel.add(picShow, BorderLayout.EAST);
-		} catch (IOException e1) {
+		} catch (NullPointerException e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
 
 		info = new JTextArea();
-		info.setText("Code Pandas!\n" + "Developers：\n" + "许丹青\tleilei\n"
+		info.setText("Code Pandas!\n\n" + "Developers：\n" + "许丹青\tleilei\n"
 				+ "李慧岷\tAN\n" + "张昕宇\tZhangxy\n" + "张晨光\thszcg\n\n"
 				+ "Build v2009.06.22\n\n" + "Project Website：\n"
 				+ "http://code.google.com/p/code-panda/ \n");
