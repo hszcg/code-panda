@@ -684,10 +684,7 @@ public class PhoneMeRibbon {
 
 		aboutUsButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				System.out.println("关于我们");
 				new PhoneMeAboutUsDialog(mainFrame, "关于我们" ,true);
-				//mainFrame.getMyPhoneMeMajorPanel().addNewTab("联系人整理选项",
-					//	new PhoneMeArrangeContactPanel(mainFrame));
 			}
 		});
 
