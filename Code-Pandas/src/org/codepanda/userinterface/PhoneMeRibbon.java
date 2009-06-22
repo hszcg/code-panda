@@ -711,7 +711,7 @@ public class PhoneMeRibbon {
 	private JRibbonBand getStyleManagerBand() throws IOException {
 		JRibbonBand styleManagerBand = new JRibbonBand("界面风格切换",
 				ImageWrapperResizableIcon.getIcon(ImageIO.read(this.getClass()
-						.getResource("/icon/Project.png")), new Dimension(32,
+						.getResource("/icon/Style.png")), new Dimension(32,
 						32)));
 
 		Map<RibbonElementPriority, Integer> transitionGalleryVisibleButtonCounts = new HashMap<RibbonElementPriority, Integer>();
@@ -789,7 +789,7 @@ public class PhoneMeRibbon {
 			JCommandToggleButton additionalButton = new JCommandToggleButton(
 					style.getName(), ImageWrapperResizableIcon.getIcon(ImageIO
 							.read(this.getClass().getResource(
-									"/icon/Project.png")), new Dimension(100,
+									"/icon/Style.png")), new Dimension(100,
 							80)));
 
 			additionalButton.addActionListener(myStyleChangeActionListener);
