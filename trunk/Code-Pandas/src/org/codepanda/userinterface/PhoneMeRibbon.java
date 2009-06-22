@@ -8,6 +8,9 @@ import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 import javax.imageio.ImageIO;
 import javax.swing.JButton;
@@ -16,11 +19,14 @@ import javax.swing.JFileChooser;
 import javax.swing.JLabel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
+import javax.swing.UIManager;
+import javax.swing.UIManager.LookAndFeelInfo;
 import javax.swing.filechooser.FileFilter;
 
 import org.codepanda.application.CommandType;
 import org.codepanda.application.CommandVisitor;
 import org.codepanda.application.googlecontactsyn.GContactOper;
+import org.codepanda.userinterface.listener.StyleChangeActionListener;
 import org.codepanda.userinterface.messagehandler.DeleteContactMessageHandler;
 import org.codepanda.userinterface.messagehandler.ExportContactMessageHandler;
 import org.codepanda.userinterface.messagehandler.ImportContactMessageHandler;
@@ -31,6 +37,8 @@ import org.codepanda.utility.contact.ContactOperations;
 import org.codepanda.utility.data.ContactSectionType;
 import org.codepanda.utility.data.DataPool;
 import org.jvnet.flamingo.common.JCommandButton;
+import org.jvnet.flamingo.common.JCommandToggleButton;
+import org.jvnet.flamingo.common.StringValuePair;
 import org.jvnet.flamingo.common.icon.ImageWrapperResizableIcon;
 import org.jvnet.flamingo.ribbon.*;
 
@@ -43,6 +51,7 @@ public class PhoneMeRibbon {
 	private PhoneMeFrame mainFrame;
 	private RibbonTask basicTask;
 	private RibbonTask advancedTask;
+	public HashMap<String, LookAndFeelInfo> allLookAndFeelMap;
 
 	public PhoneMeRibbon(PhoneMeFrame mainFrame) {
 		this.mainFrame = mainFrame;
@@ -61,12 +70,13 @@ public class PhoneMeRibbon {
 
 			JRibbonBand contactExchangeBand = this.getContactExchangeBand();
 			JRibbonBand contactSyncBand = this.getContactSyncBand();
+			JRibbonBand styleManagerBand = this.getStyleManagerBand();
 			JRibbonBand otherFunctionBand = this.getOtherFunctionBand();
 			// contactExchangeBand.setTitle("User Manager");
 			// contactSyncBand.setTitle("User Manager");
 			// otherFunctionBand.setTitle("User Manager");
 			advancedTask = new RibbonTask("高级功能", contactExchangeBand,
-					contactSyncBand, otherFunctionBand);
+					contactSyncBand, styleManagerBand, otherFunctionBand);
 			advancedTask.setKeyTip("A");
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -676,15 +686,15 @@ public class PhoneMeRibbon {
 
 		otherFunctionBand.addCommandButton(relationNetButton,
 				RibbonElementPriority.MEDIUM);
-		
+
 		JCommandButton aboutUsButton = new JCommandButton("关于我们",
 				ImageWrapperResizableIcon.getIcon(ImageIO.read(this.getClass()
-						.getResource("/icon/Project.png")),
-						new Dimension(32, 32)));
+						.getResource("/icon/Project.png")), new Dimension(32,
+						32)));
 
 		aboutUsButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				new PhoneMeAboutUsDialog(mainFrame, "About PhoneMe" ,true);
+				new PhoneMeAboutUsDialog(mainFrame, "About PhoneMe", true);
 			}
 		});
 
@@ -692,6 +702,109 @@ public class PhoneMeRibbon {
 				RibbonElementPriority.MEDIUM);
 
 		return otherFunctionBand;
+	}
+
+	/**
+	 * @return
+	 * @throws IOException
+	 */
+	private JRibbonBand getStyleManagerBand() throws IOException {
+		JRibbonBand styleManagerBand = new JRibbonBand("界面风格切换",
+				ImageWrapperResizableIcon.getIcon(ImageIO.read(this.getClass()
+						.getResource("/icon/Project.png")), new Dimension(32,
+						32)));
+
+		Map<RibbonElementPriority, Integer> transitionGalleryVisibleButtonCounts = new HashMap<RibbonElementPriority, Integer>();
+		transitionGalleryVisibleButtonCounts.put(RibbonElementPriority.LOW, 2);
+		transitionGalleryVisibleButtonCounts.put(RibbonElementPriority.MEDIUM,
+				4);
+		transitionGalleryVisibleButtonCounts.put(RibbonElementPriority.TOP, 6);
+
+		List<StringValuePair<List<JCommandToggleButton>>> transitionGalleryButtons = new ArrayList<StringValuePair<List<JCommandToggleButton>>>();
+		List<JCommandToggleButton> transitionGalleryButtonsList = new ArrayList<JCommandToggleButton>();
+
+		UIManager.installLookAndFeel("Autumn",
+				"org.jvnet.substance.skin.SubstanceAutumnLookAndFeel");
+		UIManager
+				.installLookAndFeel("BusinessBlack",
+						"org.jvnet.substance.skin.SubstanceBusinessBlackSteelLookAndFeel");
+		UIManager
+				.installLookAndFeel("BusinessBlue",
+						"org.jvnet.substance.skin.SubstanceBusinessBlueSteelLookAndFeel");
+		UIManager.installLookAndFeel("Business",
+				"org.jvnet.substance.skin.SubstanceBusinessLookAndFeel");
+		UIManager.installLookAndFeel("Challenger",
+				"org.jvnet.substance.skin.SubstanceChallengerDeepLookAndFeel");
+		UIManager.installLookAndFeel("CremeCoffee",
+				"org.jvnet.substance.skin.SubstanceCremeCoffeeLookAndFeel");
+		UIManager.installLookAndFeel("EmeraldDusk",
+				"org.jvnet.substance.skin.SubstanceEmeraldDuskLookAndFeel");
+		UIManager.installLookAndFeel("MistAqua",
+				"org.jvnet.substance.skin.SubstanceMistAquaLookAndFeel");
+		UIManager.installLookAndFeel("MistSilver",
+				"org.jvnet.substance.skin.SubstanceMistSilverLookAndFeel");
+		UIManager.installLookAndFeel("Nebula",
+				"org.jvnet.substance.skin.SubstanceNebulaLookAndFeel");
+		UIManager.installLookAndFeel("OfficeBlue",
+				"org.jvnet.substance.skin.SubstanceOfficeBlue2007LookAndFeel");
+		UIManager
+				.installLookAndFeel("OfficeSilver",
+						"org.jvnet.substance.skin.SubstanceOfficeSilver2007LookAndFeel");
+		UIManager
+				.installLookAndFeel("RavenGlass",
+						"org.jvnet.substance.skin.SubstanceRavenGraphiteGlassLookAndFeel");
+		UIManager.installLookAndFeel("Raven",
+				"org.jvnet.substance.skin.SubstanceRavenLookAndFeel");
+		UIManager.installLookAndFeel("Sahara",
+				"org.jvnet.substance.skin.SubstanceSaharaLookAndFeel");
+		UIManager
+				.installLookAndFeel("WheatField",
+						"org.jvnet.substance.skinpack.SubstanceFieldOfWheatLookAndFeel");
+		UIManager.installLookAndFeel("FindingNemo",
+				"org.jvnet.substance.skinpack.SubstanceFindingNemoLookAndFeel");
+		UIManager.installLookAndFeel("GreenMagic",
+				"org.jvnet.substance.skinpack.SubstanceGreenMagicLookAndFeel");
+		UIManager.installLookAndFeel("Mango",
+				"org.jvnet.substance.skinpack.SubstanceMangoLookAndFeel");
+		UIManager
+				.installLookAndFeel("StreetLight",
+						"org.jvnet.substance.skinpack.SubstanceStreetlightsLookAndFeel");
+
+		StyleChangeActionListener myStyleChangeActionListener = new StyleChangeActionListener(
+				this);
+
+		LookAndFeelInfo[] allStyles = UIManager.getInstalledLookAndFeels();
+		allLookAndFeelMap = new HashMap<String, LookAndFeelInfo>(
+				allStyles.length);
+
+		int index = 0;
+		while (!allStyles[index].getName().equals("Autumn")) {
+			index++;
+		}
+
+		while (index < allStyles.length) {
+			LookAndFeelInfo style = allStyles[index];
+			allLookAndFeelMap.put(style.getName(), style);
+
+			JCommandToggleButton additionalButton = new JCommandToggleButton(
+					style.getName(), ImageWrapperResizableIcon.getIcon(ImageIO
+							.read(this.getClass().getResource(
+									"/icon/Project.png")), new Dimension(100,
+							80)));
+
+			additionalButton.addActionListener(myStyleChangeActionListener);
+			transitionGalleryButtonsList.add(additionalButton);
+			index++;
+		}
+
+		transitionGalleryButtons
+				.add(new StringValuePair<List<JCommandToggleButton>>(null,
+						transitionGalleryButtonsList));
+		styleManagerBand.addRibbonGallery("Styles", transitionGalleryButtons,
+				transitionGalleryVisibleButtonCounts, 6, 3,
+				RibbonElementPriority.TOP);
+
+		return styleManagerBand;
 	}
 
 	public RibbonTask getBasicTask() {

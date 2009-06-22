@@ -7,9 +7,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
-import java.io.IOException;
 
-import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JDialog;
@@ -50,7 +48,7 @@ public class PhoneMeAboutUsDialog extends JDialog {
 		info = new JTextArea();
 		info.setText("Code Pandas!\n\n" + "Developers：\n" + "许丹青\tleilei\n"
 				+ "李慧岷\tAN\n" + "张昕宇\tZhangxy\n" + "张晨光\thszcg\n\n"
-				+ "Build v2009.06.22\n\n" + "Project Website：\n"
+				+ "Build v2009.06.23\n\n" + "Project Website：\n"
 				+ "http://code.google.com/p/code-panda/ \n");
 		info.setEditable(false);
 		centerPanel.add(info, BorderLayout.CENTER);
