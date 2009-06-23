@@ -8,6 +8,8 @@ import java.awt.Font;
 import java.awt.Point;
 import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
+import java.awt.event.FocusEvent;
+import java.awt.event.FocusListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 
@@ -30,11 +32,18 @@ public class PhoneMeField extends JTextField {
 	private static final long serialVersionUID = -7905237871318907598L;
 	public static final int ADD_STATE = 0;
 	public static final int EDIT_STATE = 1;
+	
+	public static final int phone_field = 10;
+	public static final int email_field = 11;
+	public static final int other_field = 12;
+	
+	StringBuffer phoneFormat = new StringBuffer("0123456789+-#()p");
+	
 	int state = ADD_STATE;
 
 	private static final Color TIP_COLOR = new Color(255, 255, 225);
 	private int limit = Integer.MAX_VALUE;
-	private boolean numberOnly = false;
+	private int filedFormat = other_field;
 	private CoolToolTip numberTip;
 	private CoolToolTip limitTip;
 	private ImageIcon tipIcon;
@@ -51,9 +60,9 @@ public class PhoneMeField extends JTextField {
 		initEventListeners();
 	}
 
-	public PhoneMeField(int size, boolean numberonly) {
+	public PhoneMeField(int size, int filedFormat) {
 		super(size);
-		this.numberOnly = numberonly;
+		this.filedFormat = filedFormat;
 		initComponents();
 		initEventListeners();
 	}
@@ -96,9 +105,32 @@ public class PhoneMeField extends JTextField {
 				} else {
 					limitTip.setVisible(false);
 				}
-				if (numberOnly) {
-					char input = e.getKeyChar();
-					if (!Character.isDigit(input)) {
+				
+				char input = e.getKeyChar();
+				boolean ignoreInput = input == (char) KeyEvent.VK_ESCAPE
+                || input == (char) KeyEvent.VK_BACK_SPACE
+                || input == (char) KeyEvent.VK_ENTER
+                || input == (char) KeyEvent.VK_DELETE;
+				if (ignoreInput) {
+					limitTip.setVisible(false);
+					numberTip.setVisible(false);
+					return;
+				}
+				if (filedFormat == phone_field) {
+					numberTip.setText("电话号码格式错误");
+					if (phoneFormat.indexOf(String.valueOf(input)) == -1) {
+						numberTip.setVisible(true);
+						deleteInputChar(e);
+					} else {
+						numberTip.setVisible(false);
+					}
+				}
+				
+				if (filedFormat == email_field) {
+					numberTip.setText("电子邮箱格式错误");
+					if (!Character.isLetterOrDigit(input) &&
+							! (input == '@') &&
+							! (input == '.')) {
 						numberTip.setVisible(true);
 						deleteInputChar(e);
 					} else {
@@ -110,6 +142,22 @@ public class PhoneMeField extends JTextField {
 			private void deleteInputChar(KeyEvent source) {
 				source.setKeyChar((char) KeyEvent.VK_CLEAR);
 			}
+		});
+		
+		addFocusListener(new FocusListener()
+		{
+		@Override
+		public void focusGained(FocusEvent arg0) {
+			// TODO Auto-generated method stub
+			
+		}
+		@Override
+		public void focusLost(FocusEvent arg0) {
+			// TODO Auto-generated method stub
+			limitTip.setVisible(false);
+			numberTip.setVisible(false);
+		}
+
 		});
 	}
 
