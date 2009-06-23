@@ -14,7 +14,6 @@ import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 
 import javax.swing.Icon;
-import javax.swing.ImageIcon;
 import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -32,13 +31,16 @@ public class PhoneMeField extends JTextField {
 	private static final long serialVersionUID = -7905237871318907598L;
 	public static final int ADD_STATE = 0;
 	public static final int EDIT_STATE = 1;
-	
+
 	public static final int phone_field = 10;
 	public static final int email_field = 11;
 	public static final int other_field = 12;
-	
-	StringBuffer phoneFormat = new StringBuffer("0123456789+-#()p");
-	
+
+	private static final String phoneFormat = new String("0123456789+-#()p");
+	private static final String emailFormat = new String("0123456789"
+			+ "ABCDEFGHIJKLMNOPQRSTUVWXYZ" + "abcdefghijklmnopqrstuvwxyz"
+			+ "@.");
+
 	int state = ADD_STATE;
 
 	private static final Color TIP_COLOR = new Color(255, 255, 225);
@@ -46,7 +48,6 @@ public class PhoneMeField extends JTextField {
 	private int filedFormat = other_field;
 	private CoolToolTip numberTip;
 	private CoolToolTip limitTip;
-	private ImageIcon tipIcon;
 
 	public PhoneMeField() {
 		super();
@@ -80,17 +81,11 @@ public class PhoneMeField extends JTextField {
 	}
 
 	private void initComponents() {
-		// tipIcon = new ImageIcon(MyJTextField.class.getResource("tip.gif"));
-		// System.out.println(super.getLocation().getX());
-		// System.out.println(super.getLocation().getY());a
-		// System.out.println("aaa");
 		numberTip = new CoolToolTip(this, TIP_COLOR, getColumns(), 10);
 		numberTip.setText("只能输入数字！");
-		// numberTip.setIcon(tipIcon);
 		numberTip.setIconTextGap(10);
 
 		limitTip = new CoolToolTip(this, TIP_COLOR, getColumns(), 10);
-		// limitTip.setIcon(tipIcon);
 		limitTip.setIconTextGap(10);
 	}
 
@@ -105,19 +100,19 @@ public class PhoneMeField extends JTextField {
 				} else {
 					limitTip.setVisible(false);
 				}
-				
+
 				char input = e.getKeyChar();
 				boolean ignoreInput = input == (char) KeyEvent.VK_ESCAPE
-                || input == (char) KeyEvent.VK_BACK_SPACE
-                || input == (char) KeyEvent.VK_ENTER
-                || input == (char) KeyEvent.VK_DELETE;
+						|| input == (char) KeyEvent.VK_BACK_SPACE
+						|| input == (char) KeyEvent.VK_ENTER
+						|| input == (char) KeyEvent.VK_DELETE;
 				if (ignoreInput) {
 					limitTip.setVisible(false);
 					numberTip.setVisible(false);
 					return;
 				}
 				if (filedFormat == phone_field) {
-					numberTip.setText("电话号码格式错误");
+					numberTip.setText("电话号码输入格式错误");
 					if (phoneFormat.indexOf(String.valueOf(input)) == -1) {
 						numberTip.setVisible(true);
 						deleteInputChar(e);
@@ -125,12 +120,10 @@ public class PhoneMeField extends JTextField {
 						numberTip.setVisible(false);
 					}
 				}
-				
+
 				if (filedFormat == email_field) {
-					numberTip.setText("电子邮箱格式错误");
-					if (!Character.isLetterOrDigit(input) &&
-							! (input == '@') &&
-							! (input == '.')) {
+					numberTip.setText("电子邮箱输入格式错误");
+					if (emailFormat.indexOf(String.valueOf(input)) == -1) {
 						numberTip.setVisible(true);
 						deleteInputChar(e);
 					} else {
@@ -143,25 +136,29 @@ public class PhoneMeField extends JTextField {
 				source.setKeyChar((char) KeyEvent.VK_CLEAR);
 			}
 		});
-		
-		addFocusListener(new FocusListener()
-		{
-		@Override
-		public void focusGained(FocusEvent arg0) {
-			// TODO Auto-generated method stub
-			
-		}
-		@Override
-		public void focusLost(FocusEvent arg0) {
-			// TODO Auto-generated method stub
-			limitTip.setVisible(false);
-			numberTip.setVisible(false);
-		}
+
+		addFocusListener(new FocusListener() {
+			@Override
+			public void focusGained(FocusEvent arg0) {
+				// TODO Auto-generated method stub
+
+			}
+
+			@Override
+			public void focusLost(FocusEvent arg0) {
+				// TODO Auto-generated method stub
+				limitTip.setVisible(false);
+				numberTip.setVisible(false);
+			}
 
 		});
 	}
 
 	private class CoolToolTip extends JPanel {
+		/**
+		 * 
+		 */
+		private static final long serialVersionUID = -4396176394935975629L;
 		private JLabel label = new JLabel();
 		private boolean haveShowPlace;
 
@@ -197,12 +194,12 @@ public class PhoneMeField extends JTextField {
 		}
 
 		private void determineAndSetLocation() {
-			
+
 			Point location = attachedComponent.getLocationOnScreen();
-			
+
 			int x = location.x;
 			int y = location.y;
-			
+
 			System.out.println(x);
 			System.out.println(y);
 			setBounds(x, y - getPreferredSize().height,
