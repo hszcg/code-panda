@@ -252,7 +252,7 @@ public class ContactInfoPanel extends JXPanel {
 
 		editPhoneNumberButton = new JButton("±à¼­");
 		deletePhoneNumberButton = new JButton("É¾³ý");
-		phoneNumberField = new PhoneMeField(20);
+		phoneNumberField = new PhoneMeField(20, PhoneMeField.phone_field);
 		phoneNumberField.addActionListener(new FieldActionListener(
 				parentFrame, phoneNumberBox, phoneNumberField));
 
@@ -371,7 +371,7 @@ public class ContactInfoPanel extends JXPanel {
 		editEmailAddressButton = new JButton("±à¼­");
 		deleteEmailAddressButton = new JButton("É¾³ý");
 
-		emailField = new PhoneMeField(20, true);
+		emailField = new PhoneMeField(20, PhoneMeField.email_field);
 		emailField.addActionListener(new FieldActionListener(parentFrame, 
 				emailAddressBox,emailField, FieldActionListener.EMAIL_FIELD));
 
