@@ -371,7 +371,7 @@ public class ContactInfoPanel extends JXPanel {
 		editEmailAddressButton = new JButton("±à¼­");
 		deleteEmailAddressButton = new JButton("É¾³ý");
 
-		emailField = new PhoneMeField(20);
+		emailField = new PhoneMeField(20, true);
 		emailField.addActionListener(new FieldActionListener(parentFrame, 
 				emailAddressBox,emailField, FieldActionListener.EMAIL_FIELD));
 
